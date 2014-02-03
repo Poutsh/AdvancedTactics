@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace sprite
+namespace Advanced_Tactics
 {
     class Unit
     {
         private string nom;
         private string rang;
         private float niveau;
+        private int pos_x;
+        private int pos_y;
 
 
-        private static void unite(string nom, float niveau, string rang)
+        public static void unite(string nom, float niveau, string rang)
         {
             float p = 1;
             float f = 1;
@@ -55,8 +57,6 @@ namespace sprite
             }
             
         }
-    
-
 
     }
 }

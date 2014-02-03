@@ -7,10 +7,6 @@ namespace Advanced_Tactics
 {
     class Rang
     {
-
-        public void caca
-        {
-            return null;
-        }
+        public static void Rang(string 
     }
 }

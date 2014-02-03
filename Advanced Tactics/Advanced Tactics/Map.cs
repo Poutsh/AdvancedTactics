@@ -9,8 +9,8 @@ namespace Advanced_Tactics
     {
         static int[][] Map_map()
         {
-            int H = 50;
-            int W = 50;
+            int H = 100;
+            int W = 100;
             int[][] Map_map = new int[H][];
             for (int i = 0; i < H; i++)
             {
