@@ -5,7 +5,12 @@ using System.Text;
 
 namespace Advanced_Tactics
 {
-    class Unit
-    {   
+    class Rang
+    {
+
+        public void caca
+        {
+            return null;
+        }
     }
 }
