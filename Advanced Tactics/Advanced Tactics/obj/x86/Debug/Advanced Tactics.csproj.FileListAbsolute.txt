@@ -4,3 +4,9 @@ C:\Users\epita\documents\visual studio 2010\Projects\Advanced Tactics\Advanced T
 C:\Users\epita\documents\visual studio 2010\Projects\Advanced Tactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.pdb
 C:\Users\epita\documents\visual studio 2010\Projects\Advanced Tactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.exe
 C:\Users\epita\documents\visual studio 2010\Projects\Advanced Tactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.pdb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.exe
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.pdb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.csprojResolveAssemblyReference.cache
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.exe
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.pdb
