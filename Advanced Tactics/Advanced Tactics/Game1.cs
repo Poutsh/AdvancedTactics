@@ -33,7 +33,7 @@ namespace Advanced_Tactics
             this.Window.Title = "Advanced Tactics";
             this.graphics.ApplyChanges();
             
-            
+         //asdjasjdjasdj   
         }
 
         protected override void Initialize()
