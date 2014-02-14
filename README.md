@@ -17,7 +17,7 @@ Classes du projet
 
 -Magasin: Affichage du magasin pour les rois
 
--Manu_InGame: Menu en bas de l'ecran avec beaucoup d'informations qui se renouvele sans cesse
+-Menu_InGame: Menu en bas de l'ecran avec beaucoup d'informations qui se renouvele sans cesse
 
 -Menu_Choix: Choix des actions qund on clique sur une unite
 
