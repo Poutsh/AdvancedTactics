@@ -10,3 +10,4 @@ C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactic
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.exe
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.pdb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursor.xnb

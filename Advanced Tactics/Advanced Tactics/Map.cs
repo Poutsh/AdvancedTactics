@@ -7,17 +7,9 @@ namespace Advanced_Tactics
 {
     class Map
     {
-        static int[][] Map_map()
-        {
-            int H = 100;
-            int W = 100;
-            int[][] Map_map = new int[H][];
-            for (int i = 0; i < H; i++)
-            {
-                Map_map[i] = new int[W];
-            }
+        public static int Map_height = 200;
+        public static int Map_width  = 200;
 
-            return Map_map;
-       }
+        Case[,] Mapi = new Case[Map_height, Map_width];
     }
 }

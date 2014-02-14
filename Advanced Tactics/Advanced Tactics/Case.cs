@@ -14,7 +14,7 @@ namespace Advanced_Tactics
         private bool overline;
         private bool mvt_is_possible;
 
-        public static void Case(int pos_x, int pos_y, int obstacle)
+        public static void Casei(int pos_x, int pos_y, int obstacle)
         {
             //level of obstable (-1 - none)(0 - all) (1 - not normal infant) (2 - only motorized unit) (3 - air)
             
