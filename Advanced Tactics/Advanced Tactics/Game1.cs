@@ -19,7 +19,7 @@ namespace Advanced_Tactics
 
         Texture2D cursor_custom;
         Vector2 spritePosition = Vector2.Zero;
-        
+
 
         public Game1()
         {
@@ -62,18 +62,19 @@ namespace Advanced_Tactics
             spritePosition.X = Mouse.GetState().X;
             spritePosition.Y = Mouse.GetState().Y;
             
+            
+
+            
             base.Update(gameTime);
         }
 
      
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);   
-       
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }
