@@ -14,9 +14,17 @@ namespace Advanced_Tactics
         private bool overline;
         private bool mvt_is_possible;
 
+<<<<<<< HEAD
         public static void Casei(int pos_x, int pos_y, int obstacle)
+=======
+        //probleme constructeur
+        public case_constr(int x, int y, int obs)
+>>>>>>> 55
         {
-            //level of obstable (-1 - none)(0 - all) (1 - not normal infant) (2 - only motorized unit) (3 - air)
+            pos_x = x;
+            pos_y = y;
+            obstacle = obs;
+            //level of obstable (-1 - none)(0 - terre) (1- montagne) (2 - eau)
             
         }
     }
