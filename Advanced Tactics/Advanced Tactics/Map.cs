@@ -7,12 +7,6 @@ namespace Advanced_Tactics
 {
     class Map
     {
-<<<<<<< HEAD
-        public static int Map_height = 200;
-        public static int Map_width  = 200;
-
-        Case[,] Mapi = new Case[Map_height, Map_width];
-=======
         private int H;
         private int W;
         private int[,] numero;
@@ -49,6 +43,6 @@ namespace Advanced_Tactics
 
         
 
->>>>>>> 55
+
     }
 }

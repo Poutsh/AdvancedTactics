@@ -14,12 +14,10 @@ namespace Advanced_Tactics
         private bool overline;
         private bool mvt_is_possible;
 
-<<<<<<< HEAD
-        public static void Casei(int pos_x, int pos_y, int obstacle)
-=======
+
         //probleme constructeur
-        public case_constr(int x, int y, int obs)
->>>>>>> 55
+        public void case_constr(int x, int y, int obs)
+
         {
             pos_x = x;
             pos_y = y;
