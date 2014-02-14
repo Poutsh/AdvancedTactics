@@ -11,8 +11,6 @@ using Microsoft.Xna.Framework.Media;
 
 
 namespace Advanced_Tactics
-
-    // caca prout
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
@@ -33,7 +31,7 @@ namespace Advanced_Tactics
             this.Window.Title = "Advanced Tactics";
             this.graphics.ApplyChanges();
             
-         //asdjasjdjasdj   
+         
         }
 
         protected override void Initialize()
