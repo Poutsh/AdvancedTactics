@@ -61,10 +61,7 @@ namespace Advanced_Tactics
 
             spritePosition.X = Mouse.GetState().X;
             spritePosition.Y = Mouse.GetState().Y;
-            
-            
 
-            
             base.Update(gameTime);
         }
 
