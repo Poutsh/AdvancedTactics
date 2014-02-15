@@ -5,17 +5,20 @@ using System.Text;
 
 namespace Advanced_Tactics
 {
-    class Map
+    public class Map
     {
         private int H;
         private int W;
         private int[,] numero;
-        private Case[,] carte;
+        public Case[,] carte;
 
         public static Case[,] map_creator(Case[,] carte, int H, int W, int[,] numero)
         {
             carte = new Case[H, W];
+<<<<<<< HEAD
 
+=======
+>>>>>>> rang commencement
             for (int i = 0; i < H; i++)
             {
                 for (int j = 0; i < W; j++)
