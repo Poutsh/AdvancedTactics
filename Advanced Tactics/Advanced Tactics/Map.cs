@@ -22,16 +22,16 @@ namespace Advanced_Tactics
                 {
                     switch (numero[H,W])
                     {
-                        case 0 :
+                        case 1 :
                             carte[H, W] = new Case(H, W, 1);
                             break;
-                        case 1 :
+                        case 2 :
                             carte[H, W] = new Case(H, W, 2);
                             break;
-                        case 2 :
+                        case 3 :
                             carte[H, W] = new Case(H, W, 3);
                             break;
-                        case -1 :
+                        case 0 :
                             carte[H, W] = new Case(H, W, 0);
                             break;
                     }
