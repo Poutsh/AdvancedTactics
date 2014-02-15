@@ -15,9 +15,8 @@ namespace Advanced_Tactics
         private bool mvt_is_possible;
 
 
-        //probleme constructeur
-        public void case_constr(int x, int y, int obs)
-
+        
+        public Case(int x, int y, int obs)
         {
             pos_x = x;
             pos_y = y;

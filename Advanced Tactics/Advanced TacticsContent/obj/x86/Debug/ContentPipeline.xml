@@ -7,8 +7,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursor.xnb</Output>
-      <Time>2014-02-14T23:44:51.7741069+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursor.xnb</Output>
+      <Time>2014-02-15T00:12:55.6480442+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Ressources\45156.png</Source>
+      <Name>Ressources\45156</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\45156.xnb</Output>
+      <Time>2014-02-15T00:12:55.6480442+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -16,39 +25,39 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2013-12-15T23:08:32.8306741+01:00</Value>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-08-03T17:33:58.6222029+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
