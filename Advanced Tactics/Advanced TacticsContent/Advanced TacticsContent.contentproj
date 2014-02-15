@@ -46,15 +46,15 @@
     <Folder Include="Ressources\Units\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ressources\cursor.jpg">
-      <Name>cursor</Name>
+    <Compile Include="Ressources\45156.png">
+      <Name>45156</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ressources\45156.png">
-      <Name>45156</Name>
+    <Compile Include="Ressources\cursortransp.png">
+      <Name>cursortransp</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

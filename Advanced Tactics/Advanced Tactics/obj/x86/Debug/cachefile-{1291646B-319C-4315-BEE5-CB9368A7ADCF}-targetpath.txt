@@ -1,2 +1,2 @@
-Content\Ressources\cursor.xnb
 Content\Ressources\45156.xnb
+Content\Ressources\cursortransp.xnb

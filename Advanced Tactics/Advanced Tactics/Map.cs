@@ -15,7 +15,7 @@ namespace Advanced_Tactics
         public static Case[,] map_creator(Case[,] carte, int H, int W, int[,] numero)
         {
             carte = new Case[H, W];
-            // cree le tableau de case. Probleme avec constructeur a regler
+
             for (int i = 0; i < H; i++)
             {
                 for (int j = 0; i < W; j++)

@@ -45,7 +45,7 @@ namespace Advanced_Tactics
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            cursor_custom = Content.Load<Texture2D>("Ressources//cursor");
+            cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
 
 
         }
