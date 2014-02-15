@@ -53,7 +53,7 @@ namespace Advanced_Tactics
             switch (rg)
             {
                 case Rang.pion:
-                    // déterminer en fonction de Case.over, Case.Case
+                   
                     break;
                 case Rang.fou:
                     prix = prix * 2;
