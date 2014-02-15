@@ -43,26 +43,7 @@ namespace Advanced_Tactics
             pos_x = x;
             pos_y = y;
 
-            if (obs == 0)
-            {
-                // movement impossible
-            }
-
-            else if (obs == 1)
-            {
-                // depends of the unit
-            }
-
-            else if (obs == 2)
-            {
-                // depends of the unit
-            }
-
-            else if (obs == 3)
-            {
-                // depends of the unit
-            }
-
+            
             // level of obstable (0 - none) (1 - terre) (2 - montagne) (3 - eau)
         }
 
