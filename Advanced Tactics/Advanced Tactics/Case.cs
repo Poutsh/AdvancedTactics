@@ -26,8 +26,8 @@ namespace Advanced_Tactics
             get { return obstacle; }
             set { obstacle = value; }
         }
-        private bool overline;
-        private bool mvt_is_possible;
+        protected bool overline;
+        protected bool mvt_is_possible;
         public bool mvt
         {
             get { return mvt_is_possible; }
@@ -38,16 +38,40 @@ namespace Advanced_Tactics
         
         public Case(int x, int y, int obs)
         {
+            bool mvt_is_possible;
+
             pos_x = x;
             pos_y = y;
-            obstacle = obs;
-            //level of obstable (-1 - none)(0 - terre) (1- montagne) (2 - eau)
+
+            if (obs == 0)
+            {
+                // movement impossible
+            }
+
+            else if (obs == 1)
+            {
+                // depends of the unit
+            }
+
+            else if (obs == 2)
+            {
+                // depends of the unit
+            }
+
+            else if (obs == 3)
+            {
+                // depends of the unit
+            }
+
+            // level of obstable (0 - none) (1 - terre) (2 - montagne) (3 - eau)
         }
 
-        public void over(bool mvt_is_possible)
+        public bool over(bool mvt_is_possible)
         {
             if (mvt_is_possible)
                 overline = true;
+
+            return mvt_is_possible;
         }
     }
 }

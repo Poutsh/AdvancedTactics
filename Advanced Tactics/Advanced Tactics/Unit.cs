@@ -53,7 +53,7 @@ namespace Advanced_Tactics
             switch (rg)
             {
                 case Rang.pion:
-
+                    // déterminer en fonction de Case.over, Case.Case
                     break;
                 case Rang.fou:
                     prix = prix * 2;
@@ -76,6 +76,8 @@ namespace Advanced_Tactics
             {
                 case Rang.pion:
                     // utiliser mvt_is_possible et obstacle de case et carte de map pour utiliser sur case du tableau
+
+                   
                     break;
                 case Rang.fou:
                     break;
