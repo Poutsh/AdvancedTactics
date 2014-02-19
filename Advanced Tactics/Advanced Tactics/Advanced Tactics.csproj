@@ -109,11 +109,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Case.cs" />
+    <Compile Include="Joueur.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="Pièces\Piece.cs" />
+    <Compile Include="Pièces\Pion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Ressources.cs" />
+    <Compile Include="Sprites.cs" />
     <Compile Include="Unit.cs" />
   </ItemGroup>
   <ItemGroup>

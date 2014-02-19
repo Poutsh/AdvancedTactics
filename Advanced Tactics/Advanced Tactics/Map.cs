@@ -1,17 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.Generic;using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Advanced_Tactics
 {
     public class Map
     {
-        private int H;
-        private int W;
-        private int[,] numero;
-        public Case[,] carte;
+        int CaseHeight, CaseWidth;
 
+        Rectangle TailleCarte;
+
+        // Skin de la map
+        Texture2D background;
+        Texture2D casePoss;
+
+        // Police menus
+        SpriteFont font;
+
+        // Selon cas, changer couleur
+        Color colorCase;
+        bool PieceSelected, check, checkmate;
+
+        Case caseSelected = null;
+        Case[,] Carte;
+
+
+        /*
+        
         public static Case[,] map_creator(Case[,] carte, int H, int W, int[,] numero)
         {
             carte = new Case[H, W];
@@ -39,11 +55,16 @@ namespace Advanced_Tactics
                 }
             }
             return carte;
+         
+
+        }
+        
+        */
+
+        public Map_20x20()
+        {
 
         }
 
-        
-
-
-    }
+        }
 }

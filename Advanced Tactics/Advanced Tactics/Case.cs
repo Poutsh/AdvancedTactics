@@ -1,60 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Advanced_Tactics
 {
+    /// <summary>
+    /// Classe Case
+    /// </summary>
     public class Case
     {
+        Piece unePiece = null;
+        Point position;
 
-        //ssss
-        private int pos_x;
-        public int x_case
+        /// <summary>
+        /// Position x,y de la case
+        /// </summary>
+        public Point Position
         {
-            get { return pos_x; }
-            set { pos_x = value; }
-        }
-        private int pos_y;
-        public int y_case
-        {
-            get { return pos_y; }
-            set { pos_y = value; }
-        }
-        private Unit present_unit;
-        private int obstacle;
-        public int obs
-        {
-            get { return obstacle; }
-            set { obstacle = value; }
-        }
-        protected bool overline;
-        protected bool mvt_is_possible;
-        public bool mvt
-        {
-            get { return mvt_is_possible; }
-            set { mvt_is_possible = value; }
+            get { return position; }
+            set { position = value; }
         }
 
-
-        
-        public Case(int x, int y, int obs)
+        /// <summary>
+        /// Piéce contenue sur la case
+        /// </summary>
+        public Piece UnePiece
         {
-            bool mvt_is_possible;
-
-            pos_x = x;
-            pos_y = y;
-
-            
-            // level of obstable (0 - none) (1 - terre) (2 - montagne) (3 - eau)
+            get { return unePiece; }
+            set { unePiece = value; }
         }
 
-        public bool over(bool mvt_is_possible)
+        public Case()
         {
-            if (mvt_is_possible)
-                overline = true;
+        }
 
-            return mvt_is_possible;
+        public Case(Case uneCase)
+        {
+            this.UnePiece = uneCase.UnePiece;
+            this.Position = uneCase.Position;
         }
     }
 }
