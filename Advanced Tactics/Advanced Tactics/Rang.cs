@@ -7,5 +7,9 @@ namespace Advanced_Tactics
 {
     class Rang
     {
+<<<<<<< HEAD
+=======
+      // public static void Rang(string ca
+>>>>>>> 55
     }
 }

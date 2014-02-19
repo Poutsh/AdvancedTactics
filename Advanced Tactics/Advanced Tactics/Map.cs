@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Advanced_Tactics
 {
-    class Map
+    public class Map
     {
         private int H;
         private int W;
         private int[,] numero;
-        private Case[,] carte;
+        public Case[,] carte;
 
         public static Case[,] map_creator(Case[,] carte, int H, int W, int[,] numero)
         {
@@ -22,17 +22,17 @@ namespace Advanced_Tactics
                 {
                     switch (numero[H,W])
                     {
-                        case 0 :
-                            carte[H, W] = new Case(H, W, 0);
-                            break;
                         case 1 :
                             carte[H, W] = new Case(H, W, 1);
                             break;
                         case 2 :
                             carte[H, W] = new Case(H, W, 2);
                             break;
-                        case -1 :
-                            carte[H, W] = new Case(H, W, -1);
+                        case 3 :
+                            carte[H, W] = new Case(H, W, 3);
+                            break;
+                        case 0 :
+                            carte[H, W] = new Case(H, W, 0);
                             break;
                     }
 

@@ -6,57 +6,92 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Advanced_Tactics
 {
-    class Unit
+    public class Unit
     {
-        private string nom;
-        private string rang;
+        public enum Type { troupe, commando, tank }
+        public enum Rang { pion, fou, cavalier, tour, dame, roi }
         private float niveau;
         private int pos_x;
+        public int x_unit
+        {
+            get { return pos_x; }
+            set { pos_x = value; }
+        }
         private int pos_y;
+        public int y_unit
+        {
+            get { return pos_y; }
+            set { pos_y = value; }
+        }
+        private bool valid_deplac;
+        
 
 
-        public static void unite(string nom, float niveau, string rang)
+        public static void unite(Type type, float niveau, Rang rg)
         {
             float prix = 1;
             float force = 1;
             float pv = 1;
-            switch (nom)
+            switch (type)
             {
-                case "troupe" :
+                case Type.troupe :
                     prix = 100 + 100 * (float)Math.Pow(1.5f, niveau);
                     force = 10 + 10 * (float)Math.Pow(1.2f, niveau);
                     pv = 50 + 50 * (float)Math.Pow(1.2f, niveau);
                     break;
-                case "commando" :
+                case Type.commando :
                     prix = 500 + 500 * (float)Math.Pow(1.5f, niveau);
                     force = 30 + 30 * (float)Math.Pow(1.2f, niveau);
                     pv = 100 + 100 * (float)Math.Pow(1.2f, niveau);
                     break;
-                case "tank":
+                case Type.tank:
                     prix = 1200 + 1200 * (float)Math.Pow(1.5f, niveau);
                     force = 90 + 90 * (float)Math.Pow(1.2f, niveau);
                     pv = 300 + 300 * (float)Math.Pow(1.2f, niveau);
                     break;
             }
-            switch (rang)
+            switch (rg)
             {
-                case "pion":
+                case Rang.pion:
+                   
                     break;
-                case "cavalier":
+                case Rang.fou:
+                    prix = prix * 2;
+                    break;
+                case Rang.cavalier:
                     prix = prix * 1.5f;
                     break;
-                case "fou":
+                case Rang.tour:
                     prix = prix * 2;
                     break;
-                case "tour":
-                    prix = prix * 2;
-                    break;
-                case "dame":
+                case Rang.dame:
                     prix = prix * 4;
                     break;
             }
-            
         }
+
+        public void deplacement(int pos_x, int pos_y, Rang rg, Type type)
+        {
+            switch (rg)
+            {
+                case Rang.pion:
+                    // utiliser mvt_is_possible et obstacle de case et carte de map pour utiliser sur case du tableau
+
+                   
+                    break;
+                case Rang.fou:
+                    break;
+                case Rang.cavalier:
+                    break;
+                case Rang.tour:
+                    break;
+                case Rang.dame:
+                    break;
+                case Rang.roi:
+                    break;
+            }
+        }
+
 
     }
 }
