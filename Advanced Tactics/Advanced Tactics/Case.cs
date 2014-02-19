@@ -7,6 +7,8 @@ namespace Advanced_Tactics
 {
     public class Case
     {
+
+        //ssss
         private int pos_x;
         public int x_case
         {
