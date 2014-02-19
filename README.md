@@ -13,8 +13,6 @@ Classes du projet
 
 -Curseur: Le curseur qui selectionne toutes les actions du jeu
 
--Rang: Les differents rangs des unites (fou, cavalier...)
-
 -Magasin: Affichage du magasin pour les rois
 
 -Menu_InGame: Menu en bas de l'ecran avec beaucoup d'informations qui se renouvele sans cesse
