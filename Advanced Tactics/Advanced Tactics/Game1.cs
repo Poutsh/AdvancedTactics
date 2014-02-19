@@ -20,6 +20,10 @@ namespace Advanced_Tactics
         Texture2D cursor_custom;
         Vector2 spritePosition = Vector2.Zero;
 
+        public void Tst()
+        {
+            return null;
+        }
 
         public Game1()
         {
@@ -30,8 +34,6 @@ namespace Advanced_Tactics
             graphics.PreferredBackBufferHeight = 540;
             this.Window.Title = "Advanced Tactics";
             this.graphics.ApplyChanges();
-
-
         }
 
         protected override void Initialize()
