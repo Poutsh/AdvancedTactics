@@ -16,14 +16,15 @@ namespace Advanced_Tactics
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static GraphicsDevice gd;
 
         Texture2D cursor_custom;
         Vector2 spritePosition = Vector2.Zero;
 
-        public void Tst()
-        {
-            return null;
-        }
+        Song click;
+
+        MouseState mouseStatePrevious, mouseStateCurrent;
+        Menu menu;
 
         public Game1()
         {
@@ -34,6 +35,7 @@ namespace Advanced_Tactics
             graphics.PreferredBackBufferHeight = 540;
             this.Window.Title = "Advanced Tactics";
             this.graphics.ApplyChanges();
+            graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -49,7 +51,9 @@ namespace Advanced_Tactics
 
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
 
-
+            gd = this.GraphicsDevice;
+            menu = new Menu(Content.Load <Texture2D>("MenuJouer"), Content.Load<Texture2D>("MenuOptions"), Content.Load<Texture2D>("MenuQuitter"));
+            click = Content.Load<Song>("click1");
         }
 
         protected override void UnloadContent()
@@ -58,11 +62,22 @@ namespace Advanced_Tactics
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            if (menu.IsExit)  //quitte le jeu à partir du menu    //sinon appuyer sur échap
+            {
+                base.Exit();
+            }
 
             spritePosition.X = Mouse.GetState().X;
             spritePosition.Y = Mouse.GetState().Y;
+
+            menu.Update(gameTime);
+
+            mouseStateCurrent = Mouse.GetState();
+            if (mouseStateCurrent.LeftButton == ButtonState.Pressed)  //son à chaque clic gauche
+            {
+                MediaPlayer.Play(click);
+            }
+            mouseStatePrevious = mouseStateCurrent;
 
             base.Update(gameTime);
         }
@@ -74,6 +89,15 @@ namespace Advanced_Tactics
             spriteBatch.Begin();
             spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
             spriteBatch.End();
+
+            if (!menu.InGame && menu.MenuPrincipal)
+            {
+                menu.Draw(spriteBatch);
+            }
+            if (menu.InGame == true && menu.MenuPrincipal == false)
+            {
+                //lancement du jeu
+            }
             base.Draw(gameTime);
         }
     }

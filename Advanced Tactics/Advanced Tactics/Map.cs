@@ -61,10 +61,10 @@ namespace Advanced_Tactics
         
         */
 
-        public Map_20x20()
+       /* public Map_20x20()
         {
 
-        }
+        }*/
 
         }
 }

@@ -111,6 +111,7 @@
     <Compile Include="Case.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Pièces\Piece.cs" />
     <Compile Include="Pièces\Pion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
