@@ -1,44 +1,70 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
 
 namespace Advanced_Tactics
 {
     /// <summary>
-    /// Classe Case
-    /// </summary>
+    /// Case d'une position sur l'échiquier </summary>
+    /// <remarks>
+    /// Une position comprend les 400 cases de l'échiquier
+    /// Cette case peut être soit libre, soit occupée par une pièce (héritage en Piece)</remarks>
     public class Case
     {
-        Piece unePiece = null;
-        Point position;
+        /// <summary>
+        /// La couleur de la pièce (appatient au joueur blanc ou au joueur noir) </summary>
+        protected Joueur player = Joueur.Player1;
 
         /// <summary>
-        /// Position x,y de la case
-        /// </summary>
-        public Point Position
+        /// Code de la pièce : Caractère blanc par défaut (lecture seule) </summary>
+        virtual public char lettre
         {
-            get { return position; }
-            set { position = value; }
+            get
+            {
+                return ' ';
+            }
         }
 
         /// <summary>
-        /// Piéce contenue sur la case
-        /// </summary>
-        public Piece UnePiece
+        /// Couleur de la pièce (lecture seule) </summary>
+        public Joueur joueur
         {
-            get { return unePiece; }
-            set { unePiece = value; }
+            get
+            {
+                return player;
+            }
         }
 
-        public Case()
+        /// <summary>
+        /// Par défaut, la case est innocppée (lecture seule) </summary>
+        virtual public Boolean occupé
         {
+            get
+            {
+                return false;
+            }
         }
 
-        public Case(Case uneCase)
+        /// Calculer les coups possibles en démarrant de cette case. </summary>
+        
+        virtual public void coups(Position position, ArrayList coupsPossibles, int posColonne, int posLigne)
         {
-            this.UnePiece = uneCase.UnePiece;
-            this.Position = uneCase.Position;
+            // aucun coup ne peut démarrer d'une case vide
         }
+
+
+        /// Obtenir un clône de la case pour les positions de jeu suivantes</summary>
+        
+        virtual public Case positionSuivanteCase(Boolean deplacement = false)
+        {
+            // clone pour position suivante
+            Case posSuivanteCase = new Case();
+            return posSuivanteCase;
+        }
+
+
+
     }
 }

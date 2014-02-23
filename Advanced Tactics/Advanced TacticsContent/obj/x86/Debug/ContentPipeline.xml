@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
-      <Time>2014-02-15T14:37:00.6153996+01:00</Time>
+      <Output>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
+      <Time>2014-02-15T05:08:43.2218953+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\sprites.png</Source>
@@ -16,45 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
-      <Time>2014-02-15T14:37:00.6174005+01:00</Time>
-    </Item>
-    <Item>
-      <Source>MenuJouer.png</Source>
-      <Name>MenuJouer</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuJouer.xnb</Output>
-      <Time>2014-02-22T14:19:32.6958068+01:00</Time>
-    </Item>
-    <Item>
-      <Source>MenuOptions.png</Source>
-      <Name>MenuOptions</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuOptions.xnb</Output>
-      <Time>2014-02-22T14:19:32.7114326+01:00</Time>
-    </Item>
-    <Item>
-      <Source>MenuQuitter.png</Source>
-      <Name>MenuQuitter</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuQuitter.xnb</Output>
-      <Time>2014-02-22T14:19:32.7114326+01:00</Time>
-    </Item>
-    <Item>
-      <Source>click1.wav</Source>
-      <Name>click1</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.xnb</Output>
-      <Extra>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.wma</Extra>
-      <Time>2014-02-22T14:31:16.9760225+01:00</Time>
+      <Output>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
+      <Time>2014-02-15T03:54:44.6663975+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -62,10 +25,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -94,7 +57,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-01-27T17:46:37.6062631+01:00</Value>
+        <Value>2013-12-15T23:08:32.8306741+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

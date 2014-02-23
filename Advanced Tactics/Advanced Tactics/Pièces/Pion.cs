@@ -1,86 +1,292 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
 
 namespace Advanced_Tactics
 {
+    
+    /// Le Pion se déplace d'une case en avant, ou une case en diagonale pour les prises.
+    /// Il peut également effectuer les coups suivants: Prise en passant, Promotion.
+    
     public class Pion : Piece
     {
-       private bool firstMove;
+        private Boolean coupDouble = false;
 
-        public bool FirstMove
+        // Joueur de même couleur qui peut manipuler la pièce
+
+        public Pion(Joueur proprietaire)
+            : base(proprietaire)
         {
-            get { return firstMove; }
-            set { firstMove = value; }
+
         }
 
-        public Pion(Player couleur) :
-            base(couleur, "Pion")
-        {
-            firstMove = true;
-        }
+        
+        // Le pion a fait un déplacement double au coup précédent 
 
-        public override bool IsValidMouvement(ref Case[,] plateau, Point destination, Point currentPosition)
+        public Boolean vientDeFaireCoupDouble
         {
-            if (this.Couleur == Player.Player2)
+            get
             {
-                if (plateau[destination.Y, destination.X].UnePiece == null)
-                {
-                    if (firstMove)
-                    {
-                        if (destination.Y == currentPosition.Y + 2 && destination.X == currentPosition.X)
-                        {
-                            return true;
-                        }
+                return coupDouble;
+            }
+            set
+            {
+                coupDouble = value;
+            }
+        }
 
-                        if (destination.Y == currentPosition.Y + 1 && destination.X == currentPosition.X)
+
+        // Nom codé de la pièce
+        override public char lettre
+        {
+            get
+            {
+                return 'P';
+            }
+        }
+
+
+        override public void coups(Position position, ArrayList coupsPossibles, int posColonne, int posLigne)
+        {
+            // les coups d'un pion sont orientés différement selon qu'il est blanc ou noir
+
+            if (this.player == Joueur.Player1)
+            {
+
+                if (posLigne < 7)
+                {
+                    if (position.Case[posColonne, posLigne + 1].occupé == false)
+                    {
+                        if (posLigne == 6)
                         {
-                            return true;
+                            // promotion
+                            coupsPossibles.Add(new Promotion(position, posColonne, posLigne, posColonne + 0, posLigne + 1));
+                        }
+                        else
+                        {
+                            // déplacement simple
+                            coupsPossibles.Add(new Deplacement(position, posColonne, posLigne, posColonne + 0, posLigne + 1));
                         }
                     }
-                    else
+                    if (posColonne < 7)
                     {
-                        if (destination.Y == currentPosition.Y + 1 && destination.X == currentPosition.X)
-                            return true;
+                        if (position.Case[posColonne + 1, posLigne + 1].occupé == true)
+                        {
+                            if (position.Case[posColonne + 1, posLigne + 1].joueur != this.joueur)
+                            {
+                                if (posLigne == 6)
+                                {
+                                    // promotion
+                                    coupsPossibles.Add(new Promotion(position, posColonne, posLigne, posColonne + 1, posLigne + 1));
+                                }
+                                else
+                                {
+                                    // prise à droite
+                                    coupsPossibles.Add(new Prise(position, posColonne, posLigne, posColonne + 1, posLigne + 1));
+                                }
+                            }
+                        }
+                    }
+                    if (posColonne > 0)
+                    {
+                        if (position.Case[posColonne - 1, posLigne + 1].occupé == true)
+                        {
+                            if (position.Case[posColonne - 1, posLigne + 1].joueur != this.joueur)
+                            {
+                                if (posLigne == 6)
+                                {
+                                    // promotion
+                                    coupsPossibles.Add(new Promotion(position, posColonne, posLigne, posColonne - 1, posLigne + 1));
+                                }
+                                else
+                                {
+                                    // prise à gauche
+                                    coupsPossibles.Add(new Prise(position, posColonne, posLigne, posColonne - 1, posLigne + 1));
+                                }
+                            }
+                        }
+                    }
+
+                }
+                // déplacement double
+                if (posLigne == 1)
+                {
+                    if (position.Case[posColonne, 2].occupé == false)
+                    {
+                        if (position.Case[posColonne, 3].occupé == false)
+                        {
+                            coupsPossibles.Add(new DeplacementDouble(position, posColonne, posLigne, posColonne, posLigne + 2));
+                        }
                     }
                 }
-                else if (plateau[destination.Y, destination.X].UnePiece.Couleur == Player.Player1)
+
+
+                if (posLigne == 4)
                 {
-                    if (destination.Y == currentPosition.Y + 1 && (destination.X == currentPosition.X - 1 || destination.X == currentPosition.X + 1))
-                        return true;
+                    if (posColonne < 7)
+                    {
+                        if (position.Case[posColonne + 1, 4].occupé == true)
+                        {
+                            if (position.Case[posColonne + 1, 4].joueur != this.joueur)
+                            {
+                                if (position.Case[posColonne + 1, 4].lettre == 'P')
+                                {
+                                    Pion p = (Pion)position.Case[posColonne + 1, 4];
+                                    if (p.vientDeFaireCoupDouble == true)
+                                    {
+                                        // prise en passant à gauche
+                                        coupsPossibles.Add(new PriseEnPassant(position, posColonne, posLigne, posColonne + 1, posLigne + 1));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (posColonne > 0)
+                    {
+                        if (position.Case[posColonne - 1, 4].occupé == true)
+                        {
+                            if (position.Case[posColonne - 1, 4].joueur != this.joueur)
+                            {
+                                if (position.Case[posColonne - 1, 4].lettre == 'P')
+                                {
+                                    Pion p = (Pion)position.Case[posColonne - 1, 4];
+                                    if (p.vientDeFaireCoupDouble == true)
+                                    {
+                                        // prise en passant à gauche
+                                        coupsPossibles.Add(new PriseEnPassant(position, posColonne, posLigne, posColonne - 1, posLigne + 1));
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            else if (this.Couleur == Player.Player1)
+            else
             {
-                if (plateau[destination.Y, destination.X].UnePiece == null)
+                if (posLigne > 0)
                 {
-                    if (firstMove)
+                    if (position.Case[posColonne, posLigne - 1].occupé == false)
                     {
-                        if (destination.Y == currentPosition.Y - 2 && destination.X == currentPosition.X)
+                        if (posLigne == 1)
                         {
-                            return true;
+                            // promotion
+                            coupsPossibles.Add(new Promotion(position, posColonne, posLigne, posColonne + 0, posLigne - 1));
                         }
+                        else
+                        {
+                            // déplacement simple
+                            coupsPossibles.Add(new Deplacement(position, posColonne, posLigne, posColonne + 0, posLigne - 1));
+                        }
+                    }
+                    if (posColonne < 7)
+                    {
+                        if (position.Case[posColonne + 1, posLigne - 1].occupé == true)
+                        {
+                            if (position.Case[posColonne + 1, posLigne - 1].joueur != this.joueur)
+                            {
+                                if (posLigne == 1)
+                                {
+                                    // promotion
+                                    coupsPossibles.Add(new Promotion(position, posColonne, posLigne, posColonne + 1, posLigne - 1));
+                                }
+                                else
+                                {
+                                    // prise à droite
+                                    coupsPossibles.Add(new Prise(position, posColonne, posLigne, posColonne + 1, posLigne - 1));
+                                }
+                            }
+                        }
+                    }
+                    if (posColonne > 0)
+                    {
+                        if (position.Case[posColonne - 1, posLigne - 1].occupé == true)
+                        {
+                            if (position.Case[posColonne - 1, posLigne - 1].joueur != this.joueur)
+                            {
+                                if (posLigne == 1)
+                                {
+                                    // promotion
+                                    coupsPossibles.Add(new Promotion(position, posColonne, posLigne, posColonne - 1, posLigne - 1));
+                                }
+                                else
+                                {
+                                    // prise à gauche
+                                    coupsPossibles.Add(new Prise(position, posColonne, posLigne, posColonne - 1, posLigne - 1));
+                                }
+                            }
+                        }
+                    }
 
-                        if (destination.Y == currentPosition.Y - 1 && destination.X == currentPosition.X)
+                }
+                // déplacement double
+                if (posLigne == 6)
+                {
+                    if (position.Case[posColonne, 4].occupé == false)
+                    {
+                        if (position.Case[posColonne, 5].occupé == false)
                         {
-                            return true;
+                            coupsPossibles.Add(new DeplacementDouble(position, posColonne, posLigne, posColonne + 0, posLigne - 2));
                         }
                     }
-                    else
+                }
+                if (posLigne == 3)
+                {
+                    if (posColonne < 7)
                     {
-                        if (destination.Y == currentPosition.Y - 1 && destination.X == currentPosition.X)
-                            return true;
+                        if (position.Case[posColonne + 1, 3].occupé == true)
+                        {
+                            if (position.Case[posColonne + 1, 3].joueur != this.joueur)
+                            {
+                                if (position.Case[posColonne + 1, 3].lettre == 'P')
+                                {
+                                    Pion p = (Pion)position.Case[posColonne + 1, 3];
+                                    if (p.vientDeFaireCoupDouble == true)
+                                    {
+                                        // prise en passant à gauche
+                                        coupsPossibles.Add(new PriseEnPassant(position, posColonne, posLigne, posColonne + 1, posLigne - 1));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (posColonne > 0)
+                    {
+                        if (position.Case[posColonne - 1, 3].occupé == true)
+                        {
+                            if (position.Case[posColonne - 1, 3].joueur != this.joueur)
+                            {
+                                if (position.Case[posColonne - 1, 3].lettre == 'P')
+                                {
+                                    Pion p = (Pion)position.Case[posColonne - 1, 3];
+                                    if (p.vientDeFaireCoupDouble == true)
+                                    {
+                                        // prise en passant à gauche
+                                        coupsPossibles.Add(new PriseEnPassant(position, posColonne, posLigne, posColonne - 1, posLigne - 1));
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                else if (plateau[destination.Y, destination.X].UnePiece.Couleur == Player.Player2)
-                {
-                    if (destination.Y == currentPosition.Y - 1 && (destination.X == currentPosition.X + 1 || destination.X == currentPosition.X - 1))
-                        return true;
-                }
+
+
             }
 
-            return false;
         }
+
+        // Clône du pion pour une position suivante
+       
+        override public Case positionSuivanteCase(Boolean deplacement = false)
+        {
+            // clone pour position suivante
+            Pion posSuivanteCase = new Pion(this.player);
+
+            return posSuivanteCase;
+
+        }
+
+
     }
 }
