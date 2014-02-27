@@ -4,3 +4,4 @@ C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tacti
 C:\Users\Arnaud\Documents\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\Advanced TacticsContent.contentprojResolveAssemblyReference.cache
 C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\Advanced TacticsContent.contentprojResolveAssemblyReference.cache
 C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\Advanced TacticsContent.contentprojResolveAssemblyReference.cache
+C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\Advanced TacticsContent.contentprojResolveAssemblyReference.cache

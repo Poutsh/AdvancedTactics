@@ -1,2 +1,8 @@
 Content\Ressources\cursortransp.xnb
 Content\Ressources\sprites.xnb
+Content\MenuJouer.xnb
+Content\MenuOptions.xnb
+Content\MenuQuitter.xnb
+Content\Russian Red Army Choir.xnb
+Content\Russian Red Army Choir.wma
+Content\click1.xnb

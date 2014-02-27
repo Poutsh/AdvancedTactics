@@ -21,7 +21,8 @@ namespace Advanced_Tactics
         Texture2D cursor_custom;
         Vector2 spritePosition = Vector2.Zero;
 
-        Song click;
+        SoundEffect click;
+        Song musicMenu;
 
         MouseState mouseStatePrevious, mouseStateCurrent;
         Menu menu;
@@ -70,7 +71,9 @@ namespace Advanced_Tactics
 
             gd = this.GraphicsDevice;
             menu = new Menu(Content.Load<Texture2D>("MenuJouer"), Content.Load<Texture2D>("MenuOptions"), Content.Load<Texture2D>("MenuQuitter"));
-            click = Content.Load<Song>("click1");
+            click = Content.Load<SoundEffect>("click1");
+            musicMenu = Content.Load<Song>("Russian Red Army Choir");
+            MediaPlayer.Play(musicMenu);
         }
 
 
@@ -102,9 +105,14 @@ namespace Advanced_Tactics
 
             if (mouseStateCurrent.LeftButton == ButtonState.Pressed)  //son � chaque clic gauche
             {
-                MediaPlayer.Play(click);
+               click.Play();
             }
             mouseStatePrevious = mouseStateCurrent;
+
+            if (menu.InGame && !menu.MenuPrincipal)
+            {
+                MediaPlayer.Stop();
+            }
 
 
             base.Update(gameTime);
