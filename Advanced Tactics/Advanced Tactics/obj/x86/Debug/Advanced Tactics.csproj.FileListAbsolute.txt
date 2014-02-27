@@ -32,3 +32,11 @@ C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactic
 C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb
 C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.exe
 C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.pdb
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.csprojResolveAssemblyReference.cache
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.exe
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.pdb
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.exe
+C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.pdb

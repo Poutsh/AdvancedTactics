@@ -110,8 +110,9 @@
   <ItemGroup>
     <Compile Include="Case.cs" />
     <Compile Include="Joueur.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="Map_Test.cs" />
+    <Compile Include="Map %28essai raté%29.cs" />
+    <Compile Include="Map Almost Working.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Move\Coup.cs" />
     <Compile Include="Move\Deplacement.cs" />
     <Compile Include="Move\DeplacementDouble.cs" />

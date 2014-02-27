@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
-      <Time>2014-02-15T05:08:43.2218953+01:00</Time>
+      <Output>C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
+      <Time>2014-02-27T23:44:22.5643379+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\sprites.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
-      <Time>2014-02-15T03:54:44.6663975+01:00</Time>
+      <Output>C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
+      <Time>2014-02-27T23:44:22.5673393+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -25,10 +25,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Arnaud\Documents\AdvancedTacticsNonBug\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\TiJack\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -56,8 +56,8 @@
         <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2013-12-15T23:08:32.8306741+01:00</Value>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-02-27T22:36:43.6544904+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

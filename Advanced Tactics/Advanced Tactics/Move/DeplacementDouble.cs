@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Advanced_Tactics
+{
     /// <summary>
     /// Coup Déplacement Double </summary>
     /// <remarks>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -16,9 +16,16 @@ namespace Advanced_Tactics
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static GraphicsDevice gd;
 
         Texture2D cursor_custom;
         Vector2 spritePosition = Vector2.Zero;
+
+        Song click;
+
+        MouseState mouseStatePrevious, mouseStateCurrent;
+        Menu menu;
+
 
         bool checkExitKey(KeyboardState keyboardState, GamePadState gamePadState)
         {
@@ -60,7 +67,12 @@ namespace Advanced_Tactics
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
+
+            gd = this.GraphicsDevice;
+            menu = new Menu(Content.Load<Texture2D>("MenuJouer"), Content.Load<Texture2D>("MenuOptions"), Content.Load<Texture2D>("MenuQuitter"));
+            click = Content.Load<Song>("click1");
         }
+
 
         protected override void UnloadContent()
         {
@@ -69,8 +81,10 @@ namespace Advanced_Tactics
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            if (menu.IsExit)  //quitte le jeu � partir du menu    //sinon appuyer sur �chap
+            {
+                base.Exit();
+            }
 
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
             KeyboardState keyboardState = Keyboard.GetState();
@@ -83,6 +97,16 @@ namespace Advanced_Tactics
             spritePosition.X = Mouse.GetState().X;
             spritePosition.Y = Mouse.GetState().Y;
 
+            menu.Update(gameTime);
+            mouseStateCurrent = Mouse.GetState();
+
+            if (mouseStateCurrent.LeftButton == ButtonState.Pressed)  //son � chaque clic gauche
+            {
+                MediaPlayer.Play(click);
+            }
+            mouseStatePrevious = mouseStateCurrent;
+
+
             base.Update(gameTime);
         }
 
@@ -94,6 +118,15 @@ namespace Advanced_Tactics
             spriteBatch.Begin();
             spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
             spriteBatch.End();
+
+            if (!menu.InGame && menu.MenuPrincipal)
+            {
+                menu.Draw(spriteBatch);
+            }
+            if (menu.InGame == true && menu.MenuPrincipal == false)
+            {
+                //lancement du jeu
+            }
 
             base.Draw(gameTime);
         }
