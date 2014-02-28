@@ -51,7 +51,7 @@ namespace Advanced_Tactics
             // Gestion de la fenetre
             graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            this.graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
 
             this.Window.Title = "Advanced Tactics";
             this.graphics.ApplyChanges();
