@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
-      <Time>2014-03-08T14:23:59.9920059+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
+      <Time>2014-02-23T22:02:43.5828861+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\sprites.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
-      <Time>2014-03-08T14:24:00.0270297+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
+      <Time>2014-02-23T22:02:43.5938934+01:00</Time>
     </Item>
     <Item>
       <Source>MenuJouer.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuJouer.xnb</Output>
-      <Time>2014-03-08T14:23:59.9709923+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuJouer.xnb</Output>
+      <Time>2014-02-27T23:44:14.4578032+01:00</Time>
     </Item>
     <Item>
       <Source>MenuOptions.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuOptions.xnb</Output>
-      <Time>2014-03-08T14:23:59.9739956+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuOptions.xnb</Output>
+      <Time>2014-02-27T23:49:19.1371063+01:00</Time>
     </Item>
     <Item>
       <Source>MenuQuitter.png</Source>
@@ -43,27 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuQuitter.xnb</Output>
-      <Time>2014-03-08T14:23:59.9840027+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Russian Red Army Choir.mp3</Source>
-      <Name>Russian Red Army Choir</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.xnb</Output>
-      <Extra>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.wma</Extra>
-      <Time>2014-03-08T14:24:01.2362008+01:00</Time>
-    </Item>
-    <Item>
-      <Source>click1.wav</Source>
-      <Name>click1</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.xnb</Output>
-      <Time>2014-03-08T14:24:01.2382025+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuQuitter.xnb</Output>
+      <Time>2014-02-27T23:49:49.9919887+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\Map\map1.png</Source>
@@ -71,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Map\map1.xnb</Output>
-      <Time>2014-03-09T12:58:57.8448255+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Map\map1.xnb</Output>
+      <Time>2014-03-09T15:01:24.5075948+01:00</Time>
     </Item>
     <Item>
       <Source>TitreJouer.png</Source>
@@ -80,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb</Output>
-      <Time>2014-03-09T17:20:00.3550777+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb</Output>
+      <Time>2014-03-09T19:34:17.5286987+01:00</Time>
     </Item>
     <Item>
       <Source>TitreOptions.png</Source>
@@ -89,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb</Output>
-      <Time>2014-03-09T17:20:01.1919792+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb</Output>
+      <Time>2014-03-09T19:34:17.5687239+01:00</Time>
     </Item>
     <Item>
       <Source>Titrequitter.png</Source>
@@ -98,8 +79,27 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb</Output>
-      <Time>2014-03-09T17:20:03.5277372+01:00</Time>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb</Output>
+      <Time>2014-03-09T19:34:17.6097519+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Russian Red Army Choir.mp3</Source>
+      <Name>Russian Red Army Choir</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.xnb</Output>
+      <Extra>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.wma</Extra>
+      <Time>2014-02-28T00:21:30.3403461+01:00</Time>
+    </Item>
+    <Item>
+      <Source>click1.wav</Source>
+      <Name>click1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.xnb</Output>
+      <Time>2014-02-23T22:02:43.5968954+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -107,10 +107,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -138,8 +138,8 @@
         <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-02-20T13:41:21.6882832+01:00</Value>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-01-27T17:46:37.6062631+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

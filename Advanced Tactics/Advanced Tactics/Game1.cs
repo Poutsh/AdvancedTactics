@@ -104,7 +104,7 @@ namespace Advanced_Tactics
             menu.Update(gameTime);
             mouseStateCurrent = Mouse.GetState();
 
-            if (mouseStateCurrent.LeftButton == ButtonState.Pressed)  //son � chaque clic gauche
+            if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)  //son � chaque clic gauche
             {
                click.Play();
             }
