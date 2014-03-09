@@ -19,6 +19,7 @@ namespace Advanced_Tactics
         public static GraphicsDevice gd;
 
         Texture2D cursor_custom;
+        Texture2D map1;
         Vector2 spritePosition = Vector2.Zero;
 
         SoundEffect click;
@@ -68,7 +69,7 @@ namespace Advanced_Tactics
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
-
+            map1 = Content.Load<Texture2D>("Ressources//Map//map1");
             gd = this.GraphicsDevice;
             menu = new Menu(Content.Load<Texture2D>("MenuJouer"), Content.Load<Texture2D>("MenuOptions"), Content.Load<Texture2D>("MenuQuitter"));
             click = Content.Load<SoundEffect>("click1");
@@ -123,17 +124,19 @@ namespace Advanced_Tactics
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
-            spriteBatch.End();
-
             if (!menu.InGame && menu.MenuPrincipal)
             {
                 menu.Draw(spriteBatch);
+                spriteBatch.Begin();
+                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                spriteBatch.End();
             }
             if (menu.InGame == true && menu.MenuPrincipal == false)
             {
-                //lancement du jeu
+                spriteBatch.Begin();
+                spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height)/2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
+                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                spriteBatch.End();
             }
 
             base.Draw(gameTime);
