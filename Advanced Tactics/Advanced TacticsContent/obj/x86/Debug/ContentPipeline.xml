@@ -74,6 +74,33 @@
       <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Map\map1.xnb</Output>
       <Time>2014-03-09T12:58:57.8448255+01:00</Time>
     </Item>
+    <Item>
+      <Source>TitreJouer.png</Source>
+      <Name>TitreJouer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb</Output>
+      <Time>2014-03-09T17:20:00.3550777+01:00</Time>
+    </Item>
+    <Item>
+      <Source>TitreOptions.png</Source>
+      <Name>TitreOptions</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb</Output>
+      <Time>2014-03-09T17:20:01.1919792+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Titrequitter.png</Source>
+      <Name>Titrequitter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb</Output>
+      <Time>2014-03-09T17:20:03.5277372+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

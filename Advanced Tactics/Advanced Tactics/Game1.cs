@@ -71,7 +71,7 @@ namespace Advanced_Tactics
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
             map1 = Content.Load<Texture2D>("Ressources//Map//map1");
             gd = this.GraphicsDevice;
-            menu = new Menu(Content.Load<Texture2D>("MenuJouer"), Content.Load<Texture2D>("MenuOptions"), Content.Load<Texture2D>("MenuQuitter"));
+            menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"));
             click = Content.Load<SoundEffect>("click1");
             musicMenu = Content.Load<Song>("Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
