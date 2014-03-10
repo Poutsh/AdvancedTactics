@@ -16,7 +16,7 @@ Content\OptionsScreen.xnb
 Content\OptionsRéso.xnb
 Content\OptionsRetour.xnb
 Content\OptionsVolB.xnb
+Content\viseur.xnb
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb
-Content\viseur.xnb
