@@ -25,8 +25,17 @@ namespace Advanced_Tactics
         SoundEffect click;
         Song musicMenu;
 
+
         MouseState mouseStatePrevious, mouseStateCurrent;
         Menu menu;
+
+
+        Vector2 viseur = Vector2.Zero;
+        Texture2D viseurtex;
+        TimeSpan time;
+        KeyboardState oldKeyboardState, currentKeyboardState;
+
+
 
 
         bool checkExitKey(KeyboardState keyboardState, GamePadState gamePadState)
@@ -53,15 +62,18 @@ namespace Advanced_Tactics
             graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             graphics.IsFullScreen = true;
+            
 
             this.Window.Title = "Advanced Tactics";
             this.graphics.ApplyChanges();
-
 
         }
 
         protected override void Initialize()
         {
+            //int viseurx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
+            currentKeyboardState = new KeyboardState();
+            //viseur = new Vector2(viseurx, 0);
             base.Initialize();
         }
 
@@ -69,34 +81,53 @@ namespace Advanced_Tactics
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
+            //viseur = Content.Load<Texture2D>("viseur");
             map1 = Content.Load<Texture2D>("Ressources//Map//map1");
             gd = this.GraphicsDevice;
             menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"));
             click = Content.Load<SoundEffect>("click1");
             musicMenu = Content.Load<Song>("Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
+
+            viseurtex = this.Content.Load<Texture2D>("viseur");
+            
         }
 
 
         protected override void UnloadContent()
         {
+            
             base.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (menu.IsExit)  //quitte le jeu � partir du menu    //sinon appuyer sur �chap
-            {
                 base.Exit();
-            }
 
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
-            KeyboardState keyboardState = Keyboard.GetState();
-            if (checkExitKey(keyboardState, gamePadState))
+            
+            currentKeyboardState = Keyboard.GetState();
+
+            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(0.10f))
             {
-                base.Update(gameTime);
-                return;
+                time = gameTime.TotalGameTime;
+                int upscale = Game1.gd.Viewport.Height / 20;
+                if (currentKeyboardState.IsKeyDown(Keys.Right))
+                    viseur.X = viseur.X + upscale;
+                if (currentKeyboardState.IsKeyDown(Keys.Left))
+                    viseur.X = viseur.X - upscale;
+                if (currentKeyboardState.IsKeyDown(Keys.Up))
+                    viseur.Y = viseur.Y - upscale;
+                if (currentKeyboardState.IsKeyDown(Keys.Down))
+                    viseur.Y = viseur.Y + upscale;
             }
+
+            
+            
+
+            oldKeyboardState = currentKeyboardState;
+
 
             spritePosition.X = Mouse.GetState().X;
             spritePosition.Y = Mouse.GetState().Y;
@@ -104,25 +135,38 @@ namespace Advanced_Tactics
             menu.Update(gameTime);
             mouseStateCurrent = Mouse.GetState();
 
+
+
+
+
+
             if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)  //son � chaque clic gauche
-            {
-               click.Play();
-            }
+                click.Play();
+
             mouseStatePrevious = mouseStateCurrent;
 
             if (menu.InGame && !menu.MenuPrincipal)
-            {
                 MediaPlayer.Stop();
+
+            if (checkExitKey(currentKeyboardState, gamePadState))
+            {
+                base.Update(gameTime);
+                return;
             }
 
-
             base.Update(gameTime);
+
         }
 
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            KeyboardState keyboardState = Keyboard.GetState();
+            
+            Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
+
 
             if (!menu.InGame && menu.MenuPrincipal)
             {
@@ -131,11 +175,15 @@ namespace Advanced_Tactics
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
                 spriteBatch.End();
             }
+
             if (menu.InGame == true && menu.MenuPrincipal == false)
             {
+                int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
+                float scale = (float)Game1.gd.Viewport.Height / 640f;
+                
                 spriteBatch.Begin();
-                spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height)/2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
-                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
+                spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);  
                 spriteBatch.End();
             }
 
