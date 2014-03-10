@@ -22,6 +22,9 @@ namespace Advanced_Tactics
         Texture2D map1;
         Vector2 spritePosition = Vector2.Zero;
 
+        Texture2D tank;
+        Vector2 tankPosition = new Vector2(320, 320);
+        
         SoundEffect click;
         Song musicMenu;
 
@@ -83,8 +86,9 @@ namespace Advanced_Tactics
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
             //viseur = Content.Load<Texture2D>("viseur");
             map1 = Content.Load<Texture2D>("Ressources//Map//map1");
+            tank = Content.Load<Texture2D>("minitanktrans");
             gd = this.GraphicsDevice;
-            menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"));
+            menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"), Content.Load<Texture2D>("OptionsRéso"), Content.Load<Texture2D>("OptionsScreen"), Content.Load<Texture2D>("OptionsVolM"), Content.Load<Texture2D>("OptionsVolB"), Content.Load<Texture2D>("OptionsRetour"));
             click = Content.Load<SoundEffect>("click1");
             musicMenu = Content.Load<Song>("Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
@@ -163,27 +167,49 @@ namespace Advanced_Tactics
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+<<<<<<< HEAD
             KeyboardState keyboardState = Keyboard.GetState();
             
             Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
 
 
             if (!menu.InGame && menu.MenuPrincipal)
+=======
+            if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
+>>>>>>> 698491c3fc902bbaba80d58905ae0e3e055ab241
             {
                 menu.Draw(spriteBatch);
                 spriteBatch.Begin();
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
                 spriteBatch.End();
             }
+<<<<<<< HEAD
 
             if (menu.InGame == true && menu.MenuPrincipal == false)
+=======
+            if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
+            {
+                menu.Draw(spriteBatch);
+                spriteBatch.Begin();
+                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                spriteBatch.End();
+            }
+            if (menu.InGame && !menu.MenuPrincipal && !menu.Options)
+>>>>>>> 698491c3fc902bbaba80d58905ae0e3e055ab241
             {
                 int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
                 float scale = (float)Game1.gd.Viewport.Height / 640f;
                 
                 spriteBatch.Begin();
+<<<<<<< HEAD
                 spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
                 spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);  
+=======
+                spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height)/2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
+                spriteBatch.Draw(tank, tankPosition, Color.White);
+                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                
+>>>>>>> 698491c3fc902bbaba80d58905ae0e3e055ab241
                 spriteBatch.End();
             }
 

@@ -1,3 +1,4 @@
+Content\bleu.xnb
 Content\Ressources\cursortransp.xnb
 Content\Ressources\sprites.xnb
 Content\MenuJouer.xnb
@@ -7,6 +8,14 @@ Content\Ressources\Map\map1.xnb
 Content\TitreJouer.xnb
 Content\TitreOptions.xnb
 Content\Titrequitter.xnb
+Content\Ressources\Units\tank.xnb
+Content\rouge.xnb
+Content\minitanktrans.xnb
+Content\OptionsVolM.xnb
+Content\OptionsScreen.xnb
+Content\OptionsRéso.xnb
+Content\OptionsRetour.xnb
+Content\OptionsVolB.xnb
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb
