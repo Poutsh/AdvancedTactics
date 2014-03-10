@@ -176,7 +176,7 @@ namespace Advanced_Tactics
             KeyboardState keyboardState = Keyboard.GetState();
             int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
             float scale = (float)Game1.gd.Viewport.Height / 640f;
-            
+
             //Position init des sprites
             Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
             Vector2 mappos = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
