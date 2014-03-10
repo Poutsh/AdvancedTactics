@@ -98,7 +98,7 @@ namespace Advanced_Tactics
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             gd = this.GraphicsDevice;
-            menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"), Content.Load<Texture2D>("OptionsRéso"), Content.Load<Texture2D>("OptionsScreen"), Content.Load<Texture2D>("OptionsVolM"), Content.Load<Texture2D>("OptionsVolB"), Content.Load<Texture2D>("OptionsRetour"));
+            menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"), Content.Load<Texture2D>("OptionsReso"), Content.Load<Texture2D>("OptionsScreen"), Content.Load<Texture2D>("OptionsVolM"), Content.Load<Texture2D>("OptionsVolB"), Content.Load<Texture2D>("OptionsRetour"), Content.Load<Texture2D>("OptionsReso2"), Content.Load<Texture2D>("OptionsReso3"), Content.Load<Texture2D>("OptionsScreen2"), Content.Load<Texture2D>("OptionsVolumeB2"), Content.Load<Texture2D>("OptionsVolumeB3"), Content.Load<Texture2D>("OptionsVolumeM2"), Content.Load<Texture2D>("OptionsVolumeM3"));
             click = Content.Load<SoundEffect>("click1");
             musicMenu = Content.Load<Song>("Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);

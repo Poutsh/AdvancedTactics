@@ -18,12 +18,22 @@ namespace Advanced_Tactics
         Texture2D menuOptions;
         Texture2D menuQuitter;
         Texture2D optionsRéso;
+        Texture2D optionsReso2;
+        Texture2D optionsReso3;
         Texture2D optionsScreen;
+        Texture2D optionsScreen2;
         Texture2D optionsVolM;
+        Texture2D optionsVolumeM2;
+        Texture2D optionsVolumeM3;
         Texture2D optionsVolB;
+        Texture2D optionsVolumeB2;
+        Texture2D optionsVolumeB3;
         Texture2D optionsRetour;
+
         int position = 1;
         int position2 = 0;
+        int position3 = 1;
+        int position4 = 1;
         TimeSpan time;
 
         bool inGame = false;
@@ -55,8 +65,9 @@ namespace Advanced_Tactics
             set { isExit = value; }
         }
 
-        public Menu(Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8)
+        public Menu(Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
         {
+
             menuJouer = img1;
             menuOptions = img2;
             menuQuitter = img3;
@@ -65,6 +76,13 @@ namespace Advanced_Tactics
             optionsVolM = img6;
             optionsVolB = img7;
             optionsRetour = img8;
+            optionsReso2 = img9;
+            optionsReso3 = img10;
+            optionsScreen2 = img11;
+            optionsVolumeB2 = img12;
+            optionsVolumeB3 = img13;
+            optionsVolumeM2 = img14;
+            optionsVolumeM3 = img15;
 
         }
 
@@ -92,19 +110,60 @@ namespace Advanced_Tactics
                 sb.Begin();
                 if (position2 == 1)
                 {
-                    sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    if (position3 == 1)
+                    {
+                        sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+                    if (position3 == 2)
+                    {
+                        sb.Draw(optionsReso2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+                    if (position3 == 3)
+                    {
+                        sb.Draw(optionsReso3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
                 }
                 if (position2 == 2)
                 {
-                    sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    if (position4 == 1)
+                    {
+                        sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+                    if (position4 == 2)
+                    {
+                        sb.Draw(optionsScreen2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
                 }
                 if (position2 == 3)
                 {
-                    sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    if (position3 == 1)
+                    {
+                        sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+                    if (position3 == 2)
+                    {
+                        sb.Draw(optionsVolumeM2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+                    if (position3 == 3)
+                    {
+                        sb.Draw(optionsVolumeM3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
                 }
                 if (position2 == 4)
                 {
-                    sb.Draw(optionsVolB, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    if (position3 == 1)
+                    {
+                        sb.Draw(optionsVolB, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+                    if (position3 == 2)
+                    {
+                        sb.Draw(optionsVolumeB2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+                    if (position3 == 3)
+                    {
+                        sb.Draw(optionsVolumeB3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                    }
+
                 }
                 if (position2 == 5)
                 {
@@ -163,15 +222,19 @@ namespace Advanced_Tactics
                 }
                 if (options)
                 {
-                   
+
                     if (Keyboard.GetState().IsKeyDown(Keys.Up))
                     {
                         position2 = position2 - 1;
+                        position3 = 1;
+                        position4 = 1;
                         Console.WriteLine(position2);
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.Down))
                     {
                         position2 = position2 + 1;
+                        position3 = 1;
+                        position4 = 1;
                         Console.WriteLine(position2);
                     }
                     if (position2 < 1)
@@ -187,7 +250,44 @@ namespace Advanced_Tactics
                         options = false;
                         menuPrincipal = true;
                     }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    {
+                        position3 = position3 + 1;
+                        Console.WriteLine(position3);
+                    }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    {
+                        position3 = position3 - 1;
+                        Console.WriteLine(position3);
+                    }
+                    if (position3 < 1)
+                    {
+                        position3 = 3;
+                    }
+                    if (position3 > 3)
+                    {
+                        position3 = 1;
+                    }
 
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    {
+                        position4 = position4 + 1;
+                        Console.WriteLine(position4);
+                    }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    {
+                        position4 = position4 - 1;
+                        Console.WriteLine(position4);
+                    }
+                    if (position4 < 1)
+                    {
+                        position4 = 2;
+                    }
+                    if (position4 > 2)
+                    {
+                        position4 = 1;
+                    }
 
 
                 }

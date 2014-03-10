@@ -13,10 +13,17 @@ Content\rouge.xnb
 Content\minitanktrans.xnb
 Content\OptionsVolM.xnb
 Content\OptionsScreen.xnb
-Content\OptionsRéso.xnb
 Content\OptionsRetour.xnb
 Content\OptionsVolB.xnb
 Content\viseur.xnb
+Content\OptionsScreen2.xnb
+Content\OptionsVolumeB2.xnb
+Content\OptionsVolumeB3.xnb
+Content\OptionsVolumeM2.xnb
+Content\OptionsVolumeM3.xnb
+Content\OptionsReso.xnb
+Content\OptionsReso2.xnb
+Content\OptionsReso3.xnb
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb

@@ -157,13 +157,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OptionsRéso.png">
-      <Name>OptionsRéso</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="OptionsRetour.png">
       <Name>OptionsRetour</Name>
       <Importer>TextureImporter</Importer>
@@ -180,18 +173,6 @@
   <ItemGroup>
     <Compile Include="viseur.png">
       <Name>viseur</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="OptionsRéso2.png">
-      <Name>OptionsRéso2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="OptionsRéso3.png">
-      <Name>OptionsRéso3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -223,6 +204,27 @@
     </Compile>
     <Compile Include="OptionsVolumeM3.png">
       <Name>OptionsVolumeM3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OptionsReso.png">
+      <Name>OptionsReso</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OptionsReso2.png">
+      <Name>OptionsReso2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OptionsReso3.png">
+      <Name>OptionsReso3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
