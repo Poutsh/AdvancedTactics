@@ -22,6 +22,9 @@ namespace Advanced_Tactics
         Texture2D map1;
         Vector2 spritePosition = Vector2.Zero;
 
+        Texture2D tank;
+        Vector2 tankPosition = new Vector2(500, 500);
+        
         SoundEffect click;
         Song musicMenu;
 
@@ -70,6 +73,7 @@ namespace Advanced_Tactics
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
             map1 = Content.Load<Texture2D>("Ressources//Map//map1");
+            tank = Content.Load<Texture2D>("Ressources//Units//tank");
             gd = this.GraphicsDevice;
             menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"));
             click = Content.Load<SoundEffect>("click1");
@@ -136,6 +140,7 @@ namespace Advanced_Tactics
                 spriteBatch.Begin();
                 spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height)/2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                spriteBatch.Draw(tank, tankPosition, Color.White);
                 spriteBatch.End();
             }
 

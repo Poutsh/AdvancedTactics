@@ -41,9 +41,7 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Ressources\Units\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Ressources\cursortransp.png">
       <Name>cursortransp</Name>
@@ -113,6 +111,13 @@
     </Compile>
     <Compile Include="Titrequitter.png">
       <Name>Titrequitter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ressources\Units\tank.jpg">
+      <Name>tank</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

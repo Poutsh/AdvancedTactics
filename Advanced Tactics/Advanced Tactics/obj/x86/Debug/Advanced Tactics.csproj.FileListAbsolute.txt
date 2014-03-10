@@ -10,14 +10,12 @@ C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactic
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.exe
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.pdb
-C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursor.xnb
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.exe
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Advanced Tactics.pdb
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.csprojResolveAssemblyReference.cache
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.exe
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.pdb
-C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\45156.xnb
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb
 C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb
 C:\Users\Arnaud\Documents\AdvancedTactics\Advanced Tactics\Advanced Tactics\obj\x86\Debug\Advanced Tactics.csprojResolveAssemblyReference.cache
@@ -68,3 +66,16 @@ C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tac
 C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb
 C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb
 C:\Users\méghane\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuJouer.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuOptions.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuQuitter.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Map\map1.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.wma
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Units\tank.xnb

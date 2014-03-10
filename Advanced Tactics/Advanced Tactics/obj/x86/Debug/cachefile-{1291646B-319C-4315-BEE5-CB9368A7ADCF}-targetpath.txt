@@ -10,3 +10,4 @@ Content\Titrequitter.xnb
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb
+Content\Ressources\Units\tank.xnb
