@@ -134,7 +134,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Sprites.cs" />
-    <Compile Include="Unit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
