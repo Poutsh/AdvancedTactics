@@ -70,50 +70,44 @@ namespace Advanced_Tactics
 
         public void Draw(SpriteBatch sb)
         {
-            if (MenuPrincipal)
-            {
-                sb.Begin();
+            sb.Begin();
 
 
-                if (position == 1)
-                {
-                    sb.Draw(menuJouer, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                if (position == 2)
-                {
-                    sb.Draw(menuOptions, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                if (position == 3)
-                {
-                    sb.Draw(menuQuitter, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                sb.End();
-            }
-            if (Options)
+            if (position == 1)
             {
-                sb.Begin();
-                if (position2 == 1)
-                {
-                    sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                if (position2 == 2)
-                {
-                    sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                if (position2 == 3)
-                {
-                    sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                if (position2 == 4)
-                {
-                    sb.Draw(optionsVolB, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                if (position2 == 5)
-                {
-                    sb.Draw(optionsRetour, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
-                }
-                sb.End();
+                sb.Draw(menuJouer, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
             }
+            if (position == 2)
+            {
+                sb.Draw(menuOptions, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position == 3)
+            {
+                sb.Draw(menuQuitter, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 1)
+            {
+                sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 2)
+            {
+                sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 3)
+            {
+                sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 4)
+            {
+                sb.Draw(optionsVolB, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 5)
+            {
+                sb.Draw(optionsRetour, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+
+
+            sb.End();
 
         }
 
@@ -159,12 +153,12 @@ namespace Advanced_Tactics
                     if (position == 2 && Keyboard.GetState().IsKeyDown(Keys.Enter))
                     {
                         menuPrincipal = false;
-                        position2 = 1;
                         options = true;
                     }
                 }
                 if (options)
                 {
+                    position2 = 1;
                     if (Keyboard.GetState().IsKeyDown(Keys.Up))
                     {
                         position2 = position2 - 1;

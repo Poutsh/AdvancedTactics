@@ -54,6 +54,9 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Unit.cs">
+      <Name>Unit</Name>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ressources\sprites.png">
