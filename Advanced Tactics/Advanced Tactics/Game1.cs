@@ -22,8 +22,9 @@ namespace Advanced_Tactics
         Texture2D map1;
         Vector2 spritePosition = Vector2.Zero;
 
-        Texture2D tank;
+        //Texture2D tank;
         Vector2 tankPosition;
+        private Sprite tank;
         
         SoundEffect click;
         Song musicMenu;
@@ -36,6 +37,8 @@ namespace Advanced_Tactics
         Texture2D viseurtex;
         TimeSpan time;
         KeyboardState oldKeyboardState, currentKeyboardState;
+
+        
 
         bool checkExitKey(KeyboardState keyboardState, GamePadState gamePadState)
         {
@@ -70,9 +73,9 @@ namespace Advanced_Tactics
 
         protected override void Initialize()
         {
-            //int viseurx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
             currentKeyboardState = new KeyboardState();
-            
+            tank = new Sprite();
+            tank.Initialize();
             base.Initialize();
         }
 
@@ -82,7 +85,6 @@ namespace Advanced_Tactics
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
             //viseur = Content.Load<Texture2D>("viseur");
             map1 = Content.Load<Texture2D>("Ressources//Map//map1");
-            tank = Content.Load<Texture2D>("minitanktrans");
             gd = this.GraphicsDevice;
             menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"), Content.Load<Texture2D>("OptionsRéso"), Content.Load<Texture2D>("OptionsScreen"), Content.Load<Texture2D>("OptionsVolM"), Content.Load<Texture2D>("OptionsVolB"), Content.Load<Texture2D>("OptionsRetour"));
             click = Content.Load<SoundEffect>("click1");
@@ -90,7 +92,7 @@ namespace Advanced_Tactics
             MediaPlayer.Play(musicMenu);
 
             viseurtex = this.Content.Load<Texture2D>("viseur");
-            
+            tank.LoadContent(Content, "minitanktrans");
         }
 
 
@@ -122,8 +124,6 @@ namespace Advanced_Tactics
                 if (currentKeyboardState.IsKeyDown(Keys.Down))
                     viseur.Y = viseur.Y + upscale;
             }
-
-            
             
 
             oldKeyboardState = currentKeyboardState;
@@ -141,13 +141,12 @@ namespace Advanced_Tactics
 
             if (menu.InGame && !menu.MenuPrincipal)
                 MediaPlayer.Stop();
-
+            tank.Update(gameTime);
             if (checkExitKey(currentKeyboardState, gamePadState))
             {
                 base.Update(gameTime);
                 return;
             }
-
             base.Update(gameTime);
         }
 
@@ -157,12 +156,12 @@ namespace Advanced_Tactics
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             KeyboardState keyboardState = Keyboard.GetState();
-            
-            Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
-            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0f);
-            int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
-            float scale = (float)Game1.gd.Viewport.Height / 640f;
 
+            float scale = (float)Game1.gd.Viewport.Height / 640f;
+            Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
+            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 32 * scale * 10);
+            int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
+            
             if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
             {
                 menu.Draw(spriteBatch);
@@ -186,8 +185,7 @@ namespace Advanced_Tactics
                 spriteBatch.Begin();
                 spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
                 spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
-                spriteBatch.Draw(tank, tankPosition, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
-                //spriteBatch.Draw(tank, tankPosition, Color.White);
+                tank.Draw(spriteBatch, gameTime, tankPosition);
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
                 spriteBatch.End();
             }
