@@ -19,12 +19,18 @@ namespace Advanced_Tactics
         public static GraphicsDevice gd;
 
         Texture2D cursor_custom;
-        Texture2D map1;
         Vector2 spritePosition = Vector2.Zero;
+
+        //Map
+        Vector2 mappos;
+        private Sprites map;
 
         //Texture2D tank;
         Vector2 tankPosition;
         private Sprites tank;
+
+        //Cursor
+        private Sprites cursor;
         
         SoundEffect click;
         Song musicMenu;
@@ -74,17 +80,23 @@ namespace Advanced_Tactics
         protected override void Initialize()
         {
             currentKeyboardState = new KeyboardState();
+
             tank = new Sprites();
             tank.Initialize();
+
+            map = new Sprites();
+            map.Initialize();
+
+            cursor = new Sprites();
+            cursor.Initialize();
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
-            //viseur = Content.Load<Texture2D>("viseur");
-            map1 = Content.Load<Texture2D>("Ressources//Map//map1");
+            
             gd = this.GraphicsDevice;
             menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"), Content.Load<Texture2D>("OptionsRéso"), Content.Load<Texture2D>("OptionsScreen"), Content.Load<Texture2D>("OptionsVolM"), Content.Load<Texture2D>("OptionsVolB"), Content.Load<Texture2D>("OptionsRetour"));
             click = Content.Load<SoundEffect>("click1");
@@ -93,6 +105,8 @@ namespace Advanced_Tactics
 
             viseurtex = this.Content.Load<Texture2D>("viseur");
             tank.LoadContent(Content, "minitanktrans");
+            cursor.LoadContent(Content, "Ressources//cursortransp");
+            map.LoadContent(Content, "Ressources//Map//map1");
         }
 
 
@@ -141,7 +155,11 @@ namespace Advanced_Tactics
 
             if (menu.InGame && !menu.MenuPrincipal)
                 MediaPlayer.Stop();
+
             tank.Update(gameTime);
+            map.Update(gameTime);
+            cursor.Update(gameTime);
+
             if (checkExitKey(currentKeyboardState, gamePadState))
             {
                 base.Update(gameTime);
@@ -156,17 +174,21 @@ namespace Advanced_Tactics
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             KeyboardState keyboardState = Keyboard.GetState();
-
-            float scale = (float)Game1.gd.Viewport.Height / 640f;
-            Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
-            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 32 * scale * 10);
             int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
+            float scale = (float)Game1.gd.Viewport.Height / 640f;
+            
+            //Position init des sprites
+            Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
+            Vector2 mappos = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
+            Vector2 cursorpos = new Vector2((int)spritePosition.X, (int)spritePosition.Y);
+            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 32 * scale * 10);
+            
             
             if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
             {
                 menu.Draw(spriteBatch);
                 spriteBatch.Begin();
-                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                cursor.Draw(spriteBatch, gameTime, cursorpos, 1);
                 spriteBatch.End();
             }
 
@@ -174,7 +196,7 @@ namespace Advanced_Tactics
             {
                 menu.Draw(spriteBatch);
                 spriteBatch.Begin();
-                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                cursor.Draw(spriteBatch, gameTime, cursorpos, 1);
                 spriteBatch.End();
             }
 
@@ -183,10 +205,10 @@ namespace Advanced_Tactics
                 
                 
                 spriteBatch.Begin();
-                spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
+                map.Draw(spriteBatch, gameTime, mappos, scale);
                 spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
-                tank.Draw(spriteBatch, gameTime, tankPosition);
-                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                tank.Draw(spriteBatch, gameTime, tankPosition, scale);
+                cursor.Draw(spriteBatch, gameTime, cursorpos, 1);
                 spriteBatch.End();
             }
 
