@@ -167,26 +167,21 @@ namespace Advanced_Tactics
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-<<<<<<< HEAD
             KeyboardState keyboardState = Keyboard.GetState();
             
             Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
 
 
             if (!menu.InGame && menu.MenuPrincipal)
-=======
             if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
->>>>>>> 698491c3fc902bbaba80d58905ae0e3e055ab241
             {
                 menu.Draw(spriteBatch);
                 spriteBatch.Begin();
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
                 spriteBatch.End();
             }
-<<<<<<< HEAD
 
             if (menu.InGame == true && menu.MenuPrincipal == false)
-=======
             if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
             {
                 menu.Draw(spriteBatch);
@@ -195,21 +190,16 @@ namespace Advanced_Tactics
                 spriteBatch.End();
             }
             if (menu.InGame && !menu.MenuPrincipal && !menu.Options)
->>>>>>> 698491c3fc902bbaba80d58905ae0e3e055ab241
             {
                 int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
                 float scale = (float)Game1.gd.Viewport.Height / 640f;
                 
                 spriteBatch.Begin();
-<<<<<<< HEAD
                 spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
                 spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);  
-=======
                 spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height)/2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
                 spriteBatch.Draw(tank, tankPosition, Color.White);
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
-                
->>>>>>> 698491c3fc902bbaba80d58905ae0e3e055ab241
                 spriteBatch.End();
             }
 
