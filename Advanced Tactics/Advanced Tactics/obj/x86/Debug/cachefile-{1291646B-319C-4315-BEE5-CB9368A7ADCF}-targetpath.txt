@@ -19,3 +19,4 @@ Content\OptionsVolB.xnb
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb
+Content\viseur.xnb

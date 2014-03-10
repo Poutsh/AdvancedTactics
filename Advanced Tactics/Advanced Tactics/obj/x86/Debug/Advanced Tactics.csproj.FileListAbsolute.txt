@@ -88,3 +88,4 @@ C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactic
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRéso.xnb
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRetour.xnb
 C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolB.xnb
+C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\viseur.xnb
