@@ -23,7 +23,7 @@ namespace Advanced_Tactics
         Vector2 spritePosition = Vector2.Zero;
 
         Texture2D tank;
-        Vector2 tankPosition = new Vector2(320, 320);
+        Vector2 tankPosition;
         
         SoundEffect click;
         Song musicMenu;
@@ -32,14 +32,10 @@ namespace Advanced_Tactics
         MouseState mouseStatePrevious, mouseStateCurrent;
         Menu menu;
 
-
         Vector2 viseur = Vector2.Zero;
         Texture2D viseurtex;
         TimeSpan time;
         KeyboardState oldKeyboardState, currentKeyboardState;
-
-
-
 
         bool checkExitKey(KeyboardState keyboardState, GamePadState gamePadState)
         {
@@ -76,7 +72,7 @@ namespace Advanced_Tactics
         {
             //int viseurx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
             currentKeyboardState = new KeyboardState();
-            //viseur = new Vector2(viseurx, 0);
+            
             base.Initialize();
         }
 
@@ -132,17 +128,11 @@ namespace Advanced_Tactics
 
             oldKeyboardState = currentKeyboardState;
 
-
             spritePosition.X = Mouse.GetState().X;
             spritePosition.Y = Mouse.GetState().Y;
 
             menu.Update(gameTime);
             mouseStateCurrent = Mouse.GetState();
-
-
-
-
-
 
             if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)  //son � chaque clic gauche
                 click.Play();
@@ -159,7 +149,6 @@ namespace Advanced_Tactics
             }
 
             base.Update(gameTime);
-
         }
 
 
@@ -170,7 +159,9 @@ namespace Advanced_Tactics
             KeyboardState keyboardState = Keyboard.GetState();
             
             Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
-
+            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0f);
+            int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
+            float scale = (float)Game1.gd.Viewport.Height / 640f;
 
             if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
             {
@@ -190,13 +181,13 @@ namespace Advanced_Tactics
 
             if (menu.InGame && !menu.MenuPrincipal && !menu.Options)
             {
-                int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
-                float scale = (float)Game1.gd.Viewport.Height / 640f;
+                
                 
                 spriteBatch.Begin();
                 spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
-                spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);  
-                spriteBatch.Draw(tank, tankPosition, Color.White);
+                spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
+                spriteBatch.Draw(tank, tankPosition, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
+                //spriteBatch.Draw(tank, tankPosition, Color.White);
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
                 spriteBatch.End();
             }
