@@ -73,9 +73,9 @@ namespace Advanced_Tactics
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cursor_custom = Content.Load<Texture2D>("Ressources//cursortransp");
             map1 = Content.Load<Texture2D>("Ressources//Map//map1");
-            tank = Content.Load<Texture2D>("Ressources//Units//tank");
+            tank = Content.Load<Texture2D>("minitanktrans");
             gd = this.GraphicsDevice;
-            menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"));
+            menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"), Content.Load<Texture2D>("OptionsRéso"), Content.Load<Texture2D>("OptionsScreen"), Content.Load<Texture2D>("OptionsVolM"), Content.Load<Texture2D>("OptionsVolB"), Content.Load<Texture2D>("OptionsRetour"));
             click = Content.Load<SoundEffect>("click1");
             musicMenu = Content.Load<Song>("Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
@@ -128,19 +128,27 @@ namespace Advanced_Tactics
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            if (!menu.InGame && menu.MenuPrincipal)
+            if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
             {
                 menu.Draw(spriteBatch);
                 spriteBatch.Begin();
                 spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
                 spriteBatch.End();
             }
-            if (menu.InGame == true && menu.MenuPrincipal == false)
+            if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
+            {
+                menu.Draw(spriteBatch);
+                spriteBatch.Begin();
+                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                spriteBatch.End();
+            }
+            if (menu.InGame && !menu.MenuPrincipal && !menu.Options)
             {
                 spriteBatch.Begin();
                 spriteBatch.Draw(map1, new Rectangle((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height)/2, 0, Game1.gd.Viewport.Height, Game1.gd.Viewport.Height), Color.White);
-                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
                 spriteBatch.Draw(tank, tankPosition, Color.White);
+                spriteBatch.Draw(cursor_custom, new Rectangle((int)spritePosition.X, (int)spritePosition.Y, 24, 24), Color.White);
+                
                 spriteBatch.End();
             }
 

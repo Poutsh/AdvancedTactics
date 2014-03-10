@@ -17,7 +17,13 @@ namespace Advanced_Tactics
         Texture2D menuJouer;
         Texture2D menuOptions;
         Texture2D menuQuitter;
+        Texture2D optionsRéso;
+        Texture2D optionsScreen;
+        Texture2D optionsVolM;
+        Texture2D optionsVolB;
+        Texture2D optionsRetour;
         int position = 1;
+        int position2 = 0;
         TimeSpan time;
 
         bool inGame = false;
@@ -35,6 +41,13 @@ namespace Advanced_Tactics
             set { menuPrincipal = value; }
         }
 
+        bool options = false;
+        public bool Options
+        {
+            get { return options; }
+            set { options = value; }
+        }
+
         bool isExit = false;
         public bool IsExit
         {
@@ -42,17 +55,24 @@ namespace Advanced_Tactics
             set { isExit = value; }
         }
 
-        public Menu(Texture2D img1, Texture2D img2, Texture2D img3)
+        public Menu(Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8)
         {
             menuJouer = img1;
             menuOptions = img2;
             menuQuitter = img3;
+            optionsRéso = img4;
+            optionsScreen = img5;
+            optionsVolM = img6;
+            optionsVolB = img7;
+            optionsRetour = img8;
 
         }
 
         public void Draw(SpriteBatch sb)
         {
             sb.Begin();
+
+
             if (position == 1)
             {
                 sb.Draw(menuJouer, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
@@ -65,6 +85,27 @@ namespace Advanced_Tactics
             {
                 sb.Draw(menuQuitter, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
             }
+            if (position2 == 1)
+            {
+                sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 2)
+            {
+                sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 3)
+            {
+                sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 4)
+            {
+                sb.Draw(optionsVolB, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+            if (position2 == 5)
+            {
+                sb.Draw(optionsRetour, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+            }
+
 
             sb.End();
 
@@ -75,47 +116,79 @@ namespace Advanced_Tactics
             if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(0.10f))
             {
                 time = gameTime.TotalGameTime;
-                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                if (menuPrincipal)
                 {
-                    position = position - 1;
-                    Console.WriteLine(position);
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                {
-                    position = position + 1;
-                    Console.WriteLine(position);
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    isExit = true;
-                }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    {
+                        position = position - 1;
+                        Console.WriteLine(position);
+                    }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    {
+                        position = position + 1;
+                        Console.WriteLine(position);
+                    }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    {
+                        isExit = true;
+                    }
 
-                if (position < 1)
-                {
-                    position = 3;
+                    if (position < 1)
+                    {
+                        position = 3;
+                    }
+                    if (position > 3)
+                    {
+                        position = 1;
+                    }
+                    if (position == 3 && Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        isExit = true;
+                    }
+                    if (position == 1 && Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        menuPrincipal = false;
+                        inGame = true;
+                    }
+                    if (position == 2 && Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        menuPrincipal = false;
+                        options = true;
+                    }
                 }
-                if (position > 3)
+                if (options)
                 {
-                    position = 1;
-                }
-                if (position == 3 && Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
-                    isExit = true;
-                }
-                if (position == 1 && Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
-                    menuPrincipal = false;
-                    inGame = true;
-                }
-                if (position == 2 && Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
-                    //menu options
-                }
+                    position2 = 1;
+                    if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    {
+                        position2 = position2 - 1;
+                        Console.WriteLine(position2);
+                    }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    {
+                        position2 = position2 + 1;
+                        Console.WriteLine(position2);
+                    }
+                    if (position2 < 1)
+                    {
+                        position2 = 5;
+                    }
+                    if (position2 > 5)
+                    {
+                        position2 = 1;
+                    }
+                    if (position2 == 5 && Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        options = false;
+                        menuPrincipal = true;
+                    }
 
+
+
+                }
 
             }
 
         }
-
     }
 }
