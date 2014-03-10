@@ -23,7 +23,7 @@ namespace Advanced_Tactics
         Vector2 spritePosition = Vector2.Zero;
 
         Texture2D tank;
-        Vector2 tankPosition = new Vector2(500, 500);
+        Vector2 tankPosition = new Vector2(320, 320);
         
         SoundEffect click;
         Song musicMenu;

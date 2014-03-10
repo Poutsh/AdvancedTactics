@@ -7,7 +7,7 @@ Content\Ressources\Map\map1.xnb
 Content\TitreJouer.xnb
 Content\TitreOptions.xnb
 Content\Titrequitter.xnb
+Content\Ressources\Units\tank.xnb
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb
-Content\Ressources\Units\tank.xnb
