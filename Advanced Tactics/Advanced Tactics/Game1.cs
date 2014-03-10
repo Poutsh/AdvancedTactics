@@ -24,7 +24,7 @@ namespace Advanced_Tactics
 
         //Texture2D tank;
         Vector2 tankPosition;
-        private Sprite tank;
+        private Sprites tank;
         
         SoundEffect click;
         Song musicMenu;
@@ -74,7 +74,7 @@ namespace Advanced_Tactics
         protected override void Initialize()
         {
             currentKeyboardState = new KeyboardState();
-            tank = new Sprite();
+            tank = new Sprites();
             tank.Initialize();
             base.Initialize();
         }
