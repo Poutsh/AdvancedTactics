@@ -17,7 +17,7 @@ namespace Advanced_Tactics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static GraphicsDevice gd;
-
+        GameTime gameTime;
         Texture2D cursor_custom;
         Vector2 spritePosition = Vector2.Zero;
 
@@ -31,10 +31,14 @@ namespace Advanced_Tactics
 
         //Cursor
         private Sprites cursor;
-        
+
+        //Mouvement possible
+        private Sprites possible;
+        private Sprites paspossible;
+        MouvementPossible mvtposs;
+
         SoundEffect click;
         Song musicMenu;
-
 
         MouseState mouseStatePrevious, mouseStateCurrent;
         Menu menu;
@@ -44,7 +48,7 @@ namespace Advanced_Tactics
         TimeSpan time;
         KeyboardState oldKeyboardState, currentKeyboardState;
 
-        
+
 
         bool checkExitKey(KeyboardState keyboardState, GamePadState gamePadState)
         {
@@ -70,7 +74,7 @@ namespace Advanced_Tactics
             graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             graphics.IsFullScreen = true;
-            
+
 
             this.Window.Title = "Advanced Tactics";
             this.graphics.ApplyChanges();
@@ -90,13 +94,21 @@ namespace Advanced_Tactics
             cursor = new Sprites();
             cursor.Initialize();
 
+            possible = new Sprites();
+            possible.Initialize();
+            paspossible = new Sprites();
+            paspossible.Initialize();
+
+            mvtposs = new MouvementPossible();
+            
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
             gd = this.GraphicsDevice;
             menu = new Menu(Content.Load<Texture2D>("TitreJouer"), Content.Load<Texture2D>("TitreOptions"), Content.Load<Texture2D>("Titrequitter"), Content.Load<Texture2D>("OptionsReso"), Content.Load<Texture2D>("OptionsScreen"), Content.Load<Texture2D>("OptionsVolM"), Content.Load<Texture2D>("OptionsVolB"), Content.Load<Texture2D>("OptionsRetour"), Content.Load<Texture2D>("OptionsReso2"), Content.Load<Texture2D>("OptionsReso3"), Content.Load<Texture2D>("OptionsScreen2"), Content.Load<Texture2D>("OptionsVolumeB2"), Content.Load<Texture2D>("OptionsVolumeB3"), Content.Load<Texture2D>("OptionsVolumeM2"), Content.Load<Texture2D>("OptionsVolumeM3"));
             click = Content.Load<SoundEffect>("click1");
@@ -107,12 +119,14 @@ namespace Advanced_Tactics
             tank.LoadContent(Content, "minitanktrans");
             cursor.LoadContent(Content, "Ressources//cursortransp");
             map.LoadContent(Content, "Ressources//Map//map1");
+            possible.LoadContent(Content, "bleu");
+            paspossible.LoadContent(Content, "rouge");
         }
 
 
         protected override void UnloadContent()
         {
-            
+
             base.UnloadContent();
         }
 
@@ -122,7 +136,7 @@ namespace Advanced_Tactics
                 base.Exit();
 
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
-            
+
             currentKeyboardState = Keyboard.GetState();
 
             if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(0.10f))
@@ -138,8 +152,8 @@ namespace Advanced_Tactics
                 if (currentKeyboardState.IsKeyDown(Keys.Down))
                     viseur.Y = viseur.Y + upscale;
             }
-            
 
+           
             oldKeyboardState = currentKeyboardState;
 
             spritePosition.X = Mouse.GetState().X;
@@ -181,8 +195,7 @@ namespace Advanced_Tactics
             Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 0);
             Vector2 mappos = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 0);
             Vector2 cursorpos = new Vector2((float)spritePosition.X, (float)spritePosition.Y);
-            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 32f * scale * 10f);
-            
+            tankPosition = new Vector2(32f * scale * 10f, 32f * scale * 12f);
             
             if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
             {
@@ -208,7 +221,14 @@ namespace Advanced_Tactics
                 tank.Draw(spriteBatch, gameTime, tankPosition, scale);
                 cursor.Draw(spriteBatch, gameTime, cursorpos, 1);
                 spriteBatch.End();
+
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+                mvtposs.Draw(spriteBatch, MouvementPossible.towerunit.cavalier, tankPosition, gameTime, possible);
+                spriteBatch.End();
             }
+
+
+
 
             base.Draw(gameTime);
         }
