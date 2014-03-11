@@ -128,7 +128,7 @@ namespace Advanced_Tactics
             if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(0.10f))
             {
                 time = gameTime.TotalGameTime;
-                int upscale = Game1.gd.Viewport.Height / 20;
+                float upscale = (float)Game1.gd.Viewport.Height / 20f;
                 if (currentKeyboardState.IsKeyDown(Keys.Right))
                     viseur.X = viseur.X + upscale;
                 if (currentKeyboardState.IsKeyDown(Keys.Left))
@@ -174,14 +174,14 @@ namespace Advanced_Tactics
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             KeyboardState keyboardState = Keyboard.GetState();
-            int mapx = (Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2;
+            float mapx = (float)(Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f;
             float scale = (float)Game1.gd.Viewport.Height / 640f;
 
             //Position init des sprites
-            Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
-            Vector2 mappos = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 0);
-            Vector2 cursorpos = new Vector2((int)spritePosition.X, (int)spritePosition.Y);
-            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2, 32 * scale * 10);
+            Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 0);
+            Vector2 mappos = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 0);
+            Vector2 cursorpos = new Vector2((float)spritePosition.X, (float)spritePosition.Y);
+            tankPosition = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 32f * scale * 10f);
             
             
             if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
