@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\bleu.xnb</Output>
-      <Time>2014-03-10T22:37:54.541883+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\bleu.xnb</Output>
+      <Time>2014-03-10T22:26:42.7497344+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\cursortransp.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
-      <Time>2014-03-10T22:37:54.3337442+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
+      <Time>2014-03-10T22:26:42.5847249+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\sprites.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
-      <Time>2014-03-10T22:37:54.3357464+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
+      <Time>2014-03-10T22:26:42.585725+01:00</Time>
     </Item>
     <Item>
       <Source>MenuJouer.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuJouer.xnb</Output>
-      <Time>2014-03-10T22:37:54.2246732+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuJouer.xnb</Output>
+      <Time>2014-03-10T22:26:42.5137209+01:00</Time>
     </Item>
     <Item>
       <Source>MenuOptions.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuOptions.xnb</Output>
-      <Time>2014-03-10T22:37:54.2256731+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuOptions.xnb</Output>
+      <Time>2014-03-10T22:26:42.5147209+01:00</Time>
     </Item>
     <Item>
       <Source>MenuQuitter.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuQuitter.xnb</Output>
-      <Time>2014-03-10T22:37:54.2266737+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuQuitter.xnb</Output>
+      <Time>2014-03-10T22:26:42.5147209+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\Map\map1.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Map\map1.xnb</Output>
-      <Time>2014-03-10T22:37:54.3297412+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Map\map1.xnb</Output>
+      <Time>2014-03-10T22:26:42.5787246+01:00</Time>
     </Item>
     <Item>
       <Source>TitreJouer.png</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb</Output>
-      <Time>2014-03-10T22:37:54.4928499+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb</Output>
+      <Time>2014-03-10T22:26:42.7177326+01:00</Time>
     </Item>
     <Item>
       <Source>TitreOptions.png</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb</Output>
-      <Time>2014-03-10T22:37:54.5228703+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb</Output>
+      <Time>2014-03-10T22:26:42.7367336+01:00</Time>
     </Item>
     <Item>
       <Source>Titrequitter.png</Source>
@@ -88,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb</Output>
-      <Time>2014-03-10T22:37:54.5408823+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb</Output>
+      <Time>2014-03-10T22:26:42.7487343+01:00</Time>
     </Item>
     <Item>
       <Source>Ressources\Units\tank.jpg</Source>
@@ -97,8 +97,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Units\tank.xnb</Output>
-      <Time>2014-03-10T22:37:54.3317442+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Units\tank.xnb</Output>
+      <Time>2014-03-10T22:26:42.5817248+01:00</Time>
     </Item>
     <Item>
       <Source>rouge.png</Source>
@@ -106,8 +106,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\rouge.xnb</Output>
-      <Time>2014-03-10T22:37:54.5488877+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\rouge.xnb</Output>
+      <Time>2014-03-10T22:26:42.760735+01:00</Time>
     </Item>
     <Item>
       <Source>minitanktrans.png</Source>
@@ -115,8 +115,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\minitanktrans.xnb</Output>
-      <Time>2014-03-10T22:37:54.542885+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\minitanktrans.xnb</Output>
+      <Time>2014-03-10T22:26:42.7517345+01:00</Time>
     </Item>
     <Item>
       <Source>OptionsVolM.png</Source>
@@ -124,8 +124,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolM.xnb</Output>
-      <Time>2014-03-10T22:37:54.3257415+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolM.xnb</Output>
+      <Time>2014-03-10T22:26:42.5767245+01:00</Time>
     </Item>
     <Item>
       <Source>OptionsScreen.png</Source>
@@ -133,8 +133,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsScreen.xnb</Output>
-      <Time>2014-03-10T22:37:54.2877136+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsScreen.xnb</Output>
+      <Time>2014-03-10T22:26:42.550723+01:00</Time>
     </Item>
     <Item>
       <Source>OptionsRéso.png</Source>
@@ -142,8 +142,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRéso.xnb</Output>
-      <Time>2014-03-10T22:37:54.2677006+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRéso.xnb</Output>
+      <Time>2014-03-10T22:26:42.5387223+01:00</Time>
     </Item>
     <Item>
       <Source>OptionsRetour.png</Source>
@@ -151,8 +151,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRetour.xnb</Output>
-      <Time>2014-03-10T22:37:54.2436859+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRetour.xnb</Output>
+      <Time>2014-03-10T22:26:42.5267216+01:00</Time>
     </Item>
     <Item>
       <Source>OptionsVolB.png</Source>
@@ -160,8 +160,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolB.xnb</Output>
-      <Time>2014-03-10T22:37:54.3067262+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolB.xnb</Output>
+      <Time>2014-03-10T22:26:42.5637237+01:00</Time>
     </Item>
     <Item>
       <Source>viseur.png</Source>
@@ -169,8 +169,71 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\viseur.xnb</Output>
-      <Time>2014-03-10T22:37:54.5498879+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\viseur.xnb</Output>
+      <Time>2014-03-10T22:26:42.7617351+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsRéso2.png</Source>
+      <Name>OptionsRéso2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRéso2.xnb</Output>
+      <Time>2014-03-10T23:54:21.8005349+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsRéso3.png</Source>
+      <Name>OptionsRéso3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRéso3.xnb</Output>
+      <Time>2014-03-10T23:54:21.8235362+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsScreen2.png</Source>
+      <Name>OptionsScreen2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsScreen2.xnb</Output>
+      <Time>2014-03-10T23:54:21.8455375+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsVolumeB2.png</Source>
+      <Name>OptionsVolumeB2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeB2.xnb</Output>
+      <Time>2014-03-10T23:54:21.8685388+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsVolumeB3.png</Source>
+      <Name>OptionsVolumeB3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeB3.xnb</Output>
+      <Time>2014-03-10T23:54:21.89054+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsVolumeM2.png</Source>
+      <Name>OptionsVolumeM2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeM2.xnb</Output>
+      <Time>2014-03-10T23:54:21.9135413+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsVolumeM3.png</Source>
+      <Name>OptionsVolumeM3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeM3.xnb</Output>
+      <Time>2014-03-10T23:54:21.9355426+01:00</Time>
     </Item>
     <Item>
       <Source>Russian Red Army Choir.mp3</Source>
@@ -178,9 +241,9 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.xnb</Output>
-      <Extra>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.wma</Extra>
-      <Time>2014-03-10T22:37:54.4578291+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.xnb</Output>
+      <Extra>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.wma</Extra>
+      <Time>2014-03-10T22:26:42.6617293+01:00</Time>
     </Item>
     <Item>
       <Source>click1.wav</Source>
@@ -188,8 +251,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.xnb</Output>
-      <Time>2014-03-10T22:37:54.542885+01:00</Time>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.xnb</Output>
+      <Time>2014-03-10T22:26:42.7507344+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -197,39 +260,39 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Arnaud\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced TacticsContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-02-20T13:41:21.6882832+01:00</Value>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-08-03T17:33:58.6222029+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

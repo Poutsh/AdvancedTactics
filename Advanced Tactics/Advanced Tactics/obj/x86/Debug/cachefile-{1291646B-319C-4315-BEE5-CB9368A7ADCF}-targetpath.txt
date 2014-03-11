@@ -17,6 +17,13 @@ Content\OptionsRéso.xnb
 Content\OptionsRetour.xnb
 Content\OptionsVolB.xnb
 Content\viseur.xnb
+Content\OptionsRéso2.xnb
+Content\OptionsRéso3.xnb
+Content\OptionsScreen2.xnb
+Content\OptionsVolumeB2.xnb
+Content\OptionsVolumeB3.xnb
+Content\OptionsVolumeM2.xnb
+Content\OptionsVolumeM3.xnb
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb

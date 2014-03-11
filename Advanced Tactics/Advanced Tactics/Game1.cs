@@ -202,8 +202,6 @@ namespace Advanced_Tactics
 
             if (menu.InGame && !menu.MenuPrincipal && !menu.Options)
             {
-                
-                
                 spriteBatch.Begin();
                 map.Draw(spriteBatch, gameTime, mappos, scale);
                 spriteBatch.Draw(viseurtex, viseur + posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
