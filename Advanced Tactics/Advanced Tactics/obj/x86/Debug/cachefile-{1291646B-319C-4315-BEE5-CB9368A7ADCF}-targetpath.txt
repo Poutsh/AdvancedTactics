@@ -16,22 +16,14 @@ Content\OptionsScreen.xnb
 Content\OptionsRetour.xnb
 Content\OptionsVolB.xnb
 Content\viseur.xnb
-<<<<<<< HEAD
-Content\OptionsRéso2.xnb
-Content\OptionsRéso3.xnb
-=======
->>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
 Content\OptionsScreen2.xnb
 Content\OptionsVolumeB2.xnb
 Content\OptionsVolumeB3.xnb
 Content\OptionsVolumeM2.xnb
 Content\OptionsVolumeM3.xnb
-<<<<<<< HEAD
-=======
 Content\OptionsReso.xnb
 Content\OptionsReso2.xnb
 Content\OptionsReso3.xnb
->>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
 Content\Russian Red Army Choir.xnb
 Content\Russian Red Army Choir.wma
 Content\click1.xnb
