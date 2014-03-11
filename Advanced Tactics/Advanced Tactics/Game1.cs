@@ -195,6 +195,8 @@ namespace Advanced_Tactics
             Vector2 posinit = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 0);
             Vector2 mappos = new Vector2((Game1.gd.Viewport.Width - Game1.gd.Viewport.Height) / 2f, 0);
             Vector2 cursorpos = new Vector2((float)spritePosition.X, (float)spritePosition.Y);
+
+            //ici le tank est dans la case [10,12]
             tankPosition = new Vector2(32f * scale * 10f, 32f * scale * 12f);
             
             if (!menu.InGame && menu.MenuPrincipal && !menu.Options)
