@@ -34,6 +34,8 @@ namespace Advanced_Tactics
         int position2 = 0;
         int position3 = 1;
         int position4 = 1;
+
+
         TimeSpan time;
 
         bool inGame = false;
@@ -237,6 +239,37 @@ namespace Advanced_Tactics
                         position4 = 1;
                         Console.WriteLine(position2);
                     }
+                    if (position2 == 3 && position3 == 1)
+                    {
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter) && MediaPlayer.Volume <= 0.9f)
+                        {
+                            if (MediaPlayer.State == MediaState.Paused)
+                            {
+                                MediaPlayer.Resume(); ;
+                            }
+                        }
+                    }
+                    if (position2 == 3 && position3 == 2)
+                    {
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter) && MediaPlayer.Volume >= 0.1f)
+                        {
+                            if (MediaPlayer.State == MediaState.Paused)
+                            {
+                                MediaPlayer.Resume(); ;
+                            }
+                        }
+                    }
+                    if (position2 == 3 && position3 == 3)
+                    {
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            if (MediaPlayer.State == MediaState.Playing)
+                            {
+                                MediaPlayer.Pause();
+                            }
+                        }
+                    }
+
                     if (position2 < 1)
                     {
                         position2 = 5;
