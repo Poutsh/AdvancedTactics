@@ -8,7 +8,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\bleu.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.7497344+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0771262+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>Ressources\cursortransp.png</Source>
@@ -17,7 +21,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\cursortransp.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5847249+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:00.9561193+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>Ressources\sprites.png</Source>
@@ -26,7 +34,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\sprites.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.585725+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:00.9571193+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>MenuJouer.png</Source>
@@ -35,7 +47,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuJouer.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5137209+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:00.9531191+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>MenuOptions.png</Source>
@@ -44,7 +60,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuOptions.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5147209+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:00.9541192+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>MenuQuitter.png</Source>
@@ -53,7 +73,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\MenuQuitter.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5147209+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:00.9541192+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>Ressources\Map\map1.png</Source>
@@ -62,7 +86,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Map\map1.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5787246+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:00.9551192+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>TitreJouer.png</Source>
@@ -71,7 +99,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreJouer.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.7177326+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0471245+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>TitreOptions.png</Source>
@@ -80,7 +112,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\TitreOptions.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.7367336+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0651255+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>Titrequitter.png</Source>
@@ -89,7 +125,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Titrequitter.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.7487343+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0761261+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>Ressources\Units\tank.jpg</Source>
@@ -98,7 +138,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Ressources\Units\tank.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5817248+01:00</Time>
+=======
+      <Time>2014-03-10T13:47:06.2831077+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>rouge.png</Source>
@@ -107,7 +151,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\rouge.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.760735+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0791263+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>minitanktrans.png</Source>
@@ -116,7 +164,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\minitanktrans.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.7517345+01:00</Time>
+=======
+      <Time>2014-03-10T13:59:57.9032418+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsVolM.png</Source>
@@ -125,7 +177,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolM.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5767245+01:00</Time>
+=======
+      <Time>2014-03-10T15:50:29.5935528+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsScreen.png</Source>
@@ -134,6 +190,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsScreen.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.550723+01:00</Time>
     </Item>
     <Item>
@@ -144,6 +201,9 @@
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRéso.xnb</Output>
       <Time>2014-03-10T22:26:42.5387223+01:00</Time>
+=======
+      <Time>2014-03-10T15:50:29.5545506+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsRetour.png</Source>
@@ -152,7 +212,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRetour.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5267216+01:00</Time>
+=======
+      <Time>2014-03-10T15:50:29.5145483+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsVolB.png</Source>
@@ -161,7 +225,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolB.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.5637237+01:00</Time>
+=======
+      <Time>2014-03-10T15:50:29.5745517+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>viseur.png</Source>
@@ -170,6 +238,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\viseur.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.7617351+01:00</Time>
     </Item>
     <Item>
@@ -189,6 +258,9 @@
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsRéso3.xnb</Output>
       <Time>2014-03-10T23:54:21.8235362+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0791263+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsScreen2.png</Source>
@@ -197,7 +269,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsScreen2.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T23:54:21.8455375+01:00</Time>
+=======
+      <Time>2014-03-10T23:47:57.8319065+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsVolumeB2.png</Source>
@@ -206,7 +282,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeB2.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T23:54:21.8685388+01:00</Time>
+=======
+      <Time>2014-03-10T23:47:57.8519077+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsVolumeB3.png</Source>
@@ -215,7 +295,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeB3.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T23:54:21.89054+01:00</Time>
+=======
+      <Time>2014-03-10T23:47:57.8729089+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsVolumeM2.png</Source>
@@ -224,7 +308,11 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeM2.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T23:54:21.9135413+01:00</Time>
+=======
+      <Time>2014-03-10T23:47:57.89291+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>OptionsVolumeM3.png</Source>
@@ -233,7 +321,38 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsVolumeM3.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T23:54:21.9355426+01:00</Time>
+=======
+      <Time>2014-03-10T23:47:57.9129112+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsReso.png</Source>
+      <Name>OptionsReso</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsReso.xnb</Output>
+      <Time>2014-03-10T15:50:29.5345494+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsReso2.png</Source>
+      <Name>OptionsReso2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsReso2.xnb</Output>
+      <Time>2014-03-10T23:47:57.7929043+01:00</Time>
+    </Item>
+    <Item>
+      <Source>OptionsReso3.png</Source>
+      <Name>OptionsReso3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\OptionsReso3.xnb</Output>
+      <Time>2014-03-10T23:47:57.8119054+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>Russian Red Army Choir.mp3</Source>
@@ -243,7 +362,11 @@
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.xnb</Output>
       <Extra>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\Russian Red Army Choir.wma</Extra>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.6617293+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0291235+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <Item>
       <Source>click1.wav</Source>
@@ -252,7 +375,11 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\epita\Documents\GitHub\AdvancedTactics\Advanced Tactics\Advanced Tactics\bin\x86\Debug\Content\click1.xnb</Output>
+<<<<<<< HEAD
       <Time>2014-03-10T22:26:42.7507344+01:00</Time>
+=======
+      <Time>2014-03-10T11:39:01.0771262+01:00</Time>
+>>>>>>> 18b9ca741be2d23553dd395be27b130763366fdd
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
