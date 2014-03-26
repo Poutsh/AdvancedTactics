@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{E43B860A-89C7-4D5D-8505-064CE4DEBAE1}</ProjectGuid>
+    <ProjectGuid>{777177A5-9E56-45EB-AB1C-BC34161B3688}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Advanced_Tactics</RootNamespace>
+    <RootNamespace>Advanced_Tactics_Propre</RootNamespace>
     <AssemblyName>Advanced Tactics</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
-    <XnaCrossPlatformGroupID>87db31b0-0bcc-4121-8306-6c98db3d604e</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>a843c8fc-14dc-4f13-bd93-d250f4930b92</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
@@ -93,7 +93,6 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -108,41 +107,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimatedSprite.cs" />
-    <Compile Include="Case.cs" />
-    <Compile Include="Joueur.cs" />
-    <Compile Include="Magasin.cs" />
-    <Compile Include="Map %28essai raté%29.cs" />
-    <Compile Include="Map Almost Working.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Debug.cs" />
+    <Compile Include="TileEngine.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="MouvementPossible.cs" />
-    <Compile Include="MovePiece.cs" />
-    <Compile Include="Move\Coup.cs" />
-    <Compile Include="Move\Deplacement.cs" />
-    <Compile Include="Move\DeplacementDouble.cs" />
-    <Compile Include="Move\GrandRoque.cs" />
-    <Compile Include="Move\PetitRoque.cs" />
-    <Compile Include="Move\Prise.cs" />
-    <Compile Include="Move\PriseEnPassant.cs" />
-    <Compile Include="Move\Promotion.cs" />
-    <Compile Include="Pièces\Cavalier.cs" />
-    <Compile Include="Pièces\Dame.cs" />
-    <Compile Include="Pièces\Fou.cs" />
-    <Compile Include="Pièces\Piece.cs" />
-    <Compile Include="Pièces\Pion.cs" />
-    <Compile Include="Pièces\Roi.cs" />
-    <Compile Include="Pièces\Tour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Ressources.cs" />
-    <Compile Include="Sprites.cs" />
+    <Compile Include="Resources.cs" />
+    <Compile Include="Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <Content Include="Map\map1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AdvancedLibrary\AdvancedLibrary.csproj">
+      <Project>{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}</Project>
+      <Name>AdvancedLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Advanced TacticsContent\Advanced TacticsContent.contentproj">
       <Name>Advanced_TacticsContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

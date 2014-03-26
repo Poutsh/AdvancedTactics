@@ -1,3 +1,8 @@
+Content\Case\bleu.xnb
+Content\Case\rouge.xnb
+Content\Curseur\cursortransp.xnb
+Content\Curseur\viseur.xnb
+Content\Map\map1.xnb
 Content\Menu\OptionsReso.xnb
 Content\Menu\OptionsReso2.xnb
 Content\Menu\OptionsReso3.xnb
@@ -13,14 +18,15 @@ Content\Menu\OptionsVolumeM3.xnb
 Content\Menu\TitreJouer.xnb
 Content\Menu\TitreOptions.xnb
 Content\Menu\TitreQuitter.xnb
-Content\Case\bleu.xnb
-Content\Case\rouge.xnb
-Content\Curseur\cursortransp.xnb
-Content\Curseur\viseur.xnb
-Content\Map\map1.xnb
-Content\Unitees\minitanktrans.xnb
 Content\Unitees\tank.xnb
 Content\Unitees\tanksheet.xnb
 Content\Son\click1.xnb
 Content\Son\Russian Red Army Choir.xnb
+Content\Unitees\minitank.xnb
+Content\Map\typeTile.xnb
+Content\Map\0 eau.xnb
+Content\Map\2 montagne.xnb
+Content\Map\1 terre.xnb
+Content\font.xnb
 Content\Son\Russian Red Army Choir.wma
+Map\map1.txt
