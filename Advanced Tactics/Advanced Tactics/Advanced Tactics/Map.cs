@@ -79,20 +79,22 @@ namespace Advanced_Tactics_Propre
             nbunit = nb_unit_to_create;
         }
 
-        public void Position()
+        public List<Vector2> Position()
         {
             Random random = new Random();
             float x, y;
             List_of_position = new List<Vector2>();
 
-            
-            for (int i = 0; i < List_of_position.Count(); i++)
+
+            for (int i = 0; i < nbunit; i++)
             {
-                x = 12 + i;
-                y = 15 + i;
+                x = var.Scale + i;
+                y = var.Scale + i;
 
                 List_of_position.Add(new Vector2(x, y));
             }
+
+            return List_of_position;
         }
     }
 }

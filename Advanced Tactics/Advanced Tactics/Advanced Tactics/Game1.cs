@@ -109,6 +109,7 @@ namespace Advanced_Tactics_Propre
             // Map
             map = new Map(var);
             tileMap = new TileEngine("map1", Content, var, map);
+            random = new RandomSprite(var, 20);
             //random = new RandomSprite(var, 20);
             this.font = Content.Load<SpriteFont>("font");
 
@@ -190,10 +191,10 @@ namespace Advanced_Tactics_Propre
                 test.Draw(spriteBatch, gameTime, new Vector2(var.PosXInit, 0), var.Scale);
                 test.Draw(spriteBatch, gameTime, new Vector2(var.PosXInit, 100), var.Scale);
 
-                /*for (int i = 0; i < random.List_of_position.Count(); i++)
+                for (int i = 2; i < 10; i++)
                 {
-                    //test2.Draw(spriteBatch, gameTime, new Vector2((random.List_of_position[i].X), random.List_of_position[i].Y), 1);
-                }*/
+                    test2.Draw(spriteBatch, gameTime, random.Position()[i]+new Vector2(var.PosXInit,0), var.Scale);
+                }
 
                 spriteBatch.End();
             }
