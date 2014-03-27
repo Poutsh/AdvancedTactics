@@ -67,9 +67,9 @@ namespace Advanced_Tactics_Propre
             Content.RootDirectory = "Content";
 
             // Gestion de la fenetre
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.IsFullScreen = true;
             this.Window.Title = "Advanced Tactics";
 
             // Gestion souris

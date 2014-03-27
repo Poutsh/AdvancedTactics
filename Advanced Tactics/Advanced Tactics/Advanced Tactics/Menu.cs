@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.IO;
+using AdvancedLibrary;
 
 namespace Advanced_Tactics_Propre
 {
@@ -20,6 +25,11 @@ namespace Advanced_Tactics_Propre
         Texture2D optionsVolM, optionsVolumeM2, optionsVolumeM3;
         Texture2D optionsVolB, optionsVolumeB2, optionsVolumeB3;
         Texture2D optionsRetour;
+
+
+        GraphicsDeviceManager graphique;
+
+
 
         int position = 1;
         int position2 = 0;
@@ -94,15 +104,50 @@ namespace Advanced_Tactics_Propre
                 sb.Begin();
                 if (position2 == 1)
                 {
-                    if (position3 == 1) { sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
-                    if (position3 == 2) { sb.Draw(optionsReso2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
-                    if (position3 == 3) { sb.Draw(optionsReso3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                    if (position3 == 1) //******** 800*600
+                    { 
+                        sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                            graphique.PreferredBackBufferWidth = 800;
+                            graphique.PreferredBackBufferHeight = 600;
+                    }
+                    if (position3 == 2) //******** 1280*720
+                    {
+                        sb.Draw(optionsReso2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                            graphique.PreferredBackBufferWidth = 1280;
+                            graphique.PreferredBackBufferHeight = 720;
+                    }
+                    if (position3 == 3) //******** 1920*1080
+                    { 
+                        sb.Draw(optionsReso3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                            graphique.PreferredBackBufferWidth = 1920;
+                            graphique.PreferredBackBufferHeight = 1080;
+                    }
                 }
 
                 if (position2 == 2)
                 {
-                    if (position4 == 1) { sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
-                    if (position4 == 2) { sb.Draw(optionsScreen2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                    if (position4 == 1) 
+                    { 
+                        sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            graphique.IsFullScreen = true;
+                        }
+                    }
+                    if (position4 == 2)
+                    {
+                        sb.Draw(optionsScreen2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            graphique.IsFullScreen = false;
+                        }
+                    }
                 }
 
                 if (position2 == 3)
@@ -238,6 +283,12 @@ namespace Advanced_Tactics_Propre
                     }
                     if (position4 < 1) { position4 = 2; }
                     if (position4 > 2) { position4 = 1; }
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    {
+                        menuPrincipal = true;
+                        options = false;
+                    }
                 }
 
             }
