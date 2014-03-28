@@ -26,11 +26,12 @@ namespace Advanced_Tactics_Propre
         Texture2D optionsVolB, optionsVolumeB2, optionsVolumeB3;
         Texture2D optionsRetour;
 
+        
+        GraphicsDeviceManager graphique; // Pour Résolution/Fullscreen
 
-        GraphicsDeviceManager graphique;
-
-
-
+        float musicVolume = 1.0f;        // Pour Volume Master
+        Cue cue;                         // Pour Son off/on
+        
         int position = 1;
         int position2 = 0;
         int position3 = 1;
@@ -152,9 +153,34 @@ namespace Advanced_Tactics_Propre
 
                 if (position2 == 3)
                 {
-                    if (position3 == 1) { sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
-                    if (position3 == 2) { sb.Draw(optionsVolumeM2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
-                    if (position3 == 3) { sb.Draw(optionsVolumeM3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                    if (position3 == 1) 
+                    {
+                        sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); 
+
+                            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                                musicVolume = MathHelper.Clamp(musicVolume + 0.01f, 0.0f, 2.0f);             
+                    }
+                    if (position3 == 2) 
+                    { 
+                        sb.Draw(optionsVolumeM2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                            musicVolume = MathHelper.Clamp(musicVolume - 0.01f, 0.0f, 2.0f);   
+                    }
+                    if (position3 == 3) 
+                    { 
+                        sb.Draw(optionsVolumeM3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                            if (cue.IsPaused)
+                            {
+                                cue.Resume();
+                            }
+                            else if (cue.IsPlaying)
+                            {
+                                cue.Pause();
+                            }
+                    }
                 }
 
                 if (position2 == 4)
