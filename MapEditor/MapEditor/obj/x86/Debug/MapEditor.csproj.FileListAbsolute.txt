@@ -1,7 +1,0 @@
-C:\Users\Arnaud\AppData\Local\Temporary Projects\MapEditor\bin\Debug\MapEditor.exe
-C:\Users\Arnaud\AppData\Local\Temporary Projects\MapEditor\bin\Debug\MapEditor.pdb
-C:\Users\Arnaud\AppData\Local\Temporary Projects\MapEditor\obj\x86\Debug\MapEditor.Form1.resources
-C:\Users\Arnaud\AppData\Local\Temporary Projects\MapEditor\obj\x86\Debug\MapEditor.Properties.Resources.resources
-C:\Users\Arnaud\AppData\Local\Temporary Projects\MapEditor\obj\x86\Debug\MapEditor.csproj.GenerateResource.Cache
-C:\Users\Arnaud\AppData\Local\Temporary Projects\MapEditor\obj\x86\Debug\MapEditor.exe
-C:\Users\Arnaud\AppData\Local\Temporary Projects\MapEditor\obj\x86\Debug\MapEditor.pdb
