@@ -10,52 +10,11 @@ using Microsoft.Xna.Framework;
 
 namespace Advanced_Tactics
 {
-    /// <summary>
-    /// isEmpty = case vide ou pas
-    /// cellTerrain = type de terrain(eau, terre, montagne)/// 
-    /// </summary>
-    public class Cell
-    {
-        private Variable var;
-        private bool empty;
-        private int type;
-        private string unitepresente;
-        private int x, y;
-        private Vector2 pos;
-
-        private List<String> listunit = new List<string> { "tank", "pion" };
-        
-
-        public bool isEmpty;
-        public int cellType;
-        public string Unitepresente;
-        public Vector2 positionPixel
-        {
-            get { return pos; }
-        }
-
-        public Cell(Variable variable, bool occupe, int terrain, string unit, int x, int y)
-        {
-            var = variable;
-            isEmpty = occupe;
-            cellType = terrain;
-
-            if (listunit.Contains(unit))
-                Unitepresente = unit;
-            else
-                Unitepresente = "toto";
-
-            pos = new Vector2(x * var.Scale * var.TileSize + var.PosXInit, y * var.Scale * var.TileSize);
-        }
-    }
-
     public class Map
     {
         public Cell[,] map;
-        Random random = new Random();
         Variable var;
-        private int nb = 0;
-
+        //Unit unit = new Unit(0, 0);
         public Map(Variable variable)
         {
             var = variable;
@@ -65,12 +24,8 @@ namespace Advanced_Tactics
             {
                 for (int y = 0; y < var.HeightMap; y++)
                 {
-                    //Debug
-                    string[] items = { "tank", "pion", "avion", "joueur" };
-                    bool state = (random.Next(0, 4) >= 2);
-                    int ter = random.Next(0, 4);
-
-                    map[x, y] = new Cell(var, state, ter, items[random.Next(items.Length)], x, y);
+                    //map[x, y] = new Cell(map, unit, x, y, var);
+                    map[x, y] = new Cell(map, x, y, false);
                 }
             }
         }

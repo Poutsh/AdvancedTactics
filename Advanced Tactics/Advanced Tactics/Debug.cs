@@ -19,16 +19,18 @@ namespace Advanced_Tactics
         SpriteFont font;
         MouseState mouseStatePrevious, mouseStateCurrent;
         Variable var;
+        
         ContentManager ctt;
         Map cartemap;
         RandomSprite rand;
+        private int h, w;
 
-        public Debug(ContentManager content, Variable variable, Map map, RandomSprite randd)
+        public Debug(ContentManager content, Variable variable, Map map, int BufferHeight, int BufferWitdh)
         {
             var = variable;
             cartemap = map;
             ctt = content;
-            rand = randd;
+            h = BufferHeight; w = BufferWitdh;
         }
 
         public virtual void LoadContent()
@@ -43,10 +45,10 @@ namespace Advanced_Tactics
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            string y = "Y : " + Convert.ToString(var.HeightMap);
+            string y = "HeightMap : " + Convert.ToString(var.HeightMap);
             spriteBatch.DrawString(this.font, y, new Vector2(20, 400), Color.Black);
 
-            string x = "X : " + Convert.ToString(var.WidthMap);
+            string x = "WidthMap : " + Convert.ToString(var.WidthMap);
             spriteBatch.DrawString(this.font, x, new Vector2(20, 415), Color.Black);
 
             string scale = "Scale : " + Convert.ToString(var.Scale);
@@ -61,11 +63,13 @@ namespace Advanced_Tactics
             string mousepos = string.Format("Mouse ({0}, {1})", Mouse.GetState().X, Mouse.GetState().Y);
             spriteBatch.DrawString(this.font, mousepos, new Vector2(20, 475), Color.Black);
 
-            //cartemap.map[10, 10].positionPixel = new Vector2(10 * var.Scale + var.PosXInit, 10 * var.Scale);
-            string test = Convert.ToString(cartemap.map[10, 10].positionPixel);
+
+            string test = string.Format("est rempli  {0}", cartemap.map[0, 0].Occupe);
             spriteBatch.DrawString(this.font, test, new Vector2(20, 500), Color.Black);
 
-
+            //posXinit = (width - tilesize * scale * _WidthMap) / 2f;
+            string tests = string.Format("{0}", h);
+            spriteBatch.DrawString(this.font, tests, new Vector2(20, 850), Color.Black);
         }
     }
 }

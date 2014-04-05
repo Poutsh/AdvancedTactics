@@ -19,17 +19,18 @@ namespace Advanced_Tactics
         ////////////////////////////////////
         //// DEBUT DECLARATION VARIABLES ///
         ////////////////////////////////////
-
+        public static ContentManager Ctt;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static GraphicsDevice gd;
         GameTime gameTime;
         TimeSpan time;
-        Variable var;
+        public static Variable var;
 
         // Clavier, Souris
         KeyboardState oldKeyboardState, currentKeyboardState, keystateunite;
         MouseState mouseStatePrevious, mouseStateCurrent;
+        Viseur viseur;
 
         // Menu
         Menu menu;
@@ -40,12 +41,15 @@ namespace Advanced_Tactics
         TileEngine tileMap;
         SpriteFont font;
         Map map;
-        RandomSprite random;
+        //RandomSprite random;
         Sprite test2;
 
+        // Unit
+        Unit tank, pvt;
+
         //Resolution
-        public int BufferHeight;
-        public int BufferWidth;
+        public int BufferHeight { get { return graphics.PreferredBackBufferHeight; } set { graphics.PreferredBackBufferHeight = value; } }
+        public int BufferWidth { get { return graphics.PreferredBackBufferWidth; } set { graphics.PreferredBackBufferWidth = value; } }
 
         // Sprites
         Sprite test;
@@ -53,31 +57,20 @@ namespace Advanced_Tactics
         Debug debug;
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Evenement sortie du jeu
-        bool checkExitKey(KeyboardState keyboardState, GamePadState gamePadState)
-        {
-            if (keyboardState.IsKeyDown(Keys.Escape) || gamePadState.Buttons.Back == ButtonState.Pressed)
-            {
-                Exit();
-                return true;
-            }
-            return false;
-        }
-        void Game1_Exiting(object sender, EventArgs e) { }
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            Ctt = Content;
             // Gestion de la fenetre
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferWidth = 1680;
+            graphics.PreferredBackBufferHeight = 1050;
             graphics.IsFullScreen = false;
             this.Window.Title = "Advanced Tactics";
 
             // Gestion souris
             IsMouseVisible = true;
+            
 
             this.graphics.ApplyChanges();
         }
@@ -90,7 +83,6 @@ namespace Advanced_Tactics
             test = new Sprite(); test.Initialize();
             test2 = new Sprite(); test2.Initialize();
 
-
             base.Initialize();
         }
 
@@ -99,41 +91,49 @@ namespace Advanced_Tactics
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gd = this.GraphicsDevice;
-            var = new Variable("map1", Game1.gd.Viewport.Height, Game1.gd.Viewport.Width);
+            var = new Variable("map1", BufferHeight, BufferWidth);
 
             // Menu
-            menu = new Menu(1900, 1080, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
+            menu = new Menu(1680, 1050, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
             click = Content.Load<SoundEffect>("Son/click1");
             musicMenu = Content.Load<Song>("Son/Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
 
+            // Clavier, Souris
+            //viseur = new Viseur(map, var);
+            
             // Map
-            map  = new Map(var);
-            tileMap = new TileEngine("map1", Content, var, map);
+            map = new Map(var);
+            tileMap = new TileEngine(var.fileMap, Content, var, map);
             this.font = Content.Load<SpriteFont>("font");
-            random = new RandomSprite(var, 500);
+            //random = new RandomSprite(var, 500);
+
+            // Unit
+            pvt = new Unit("pvt", "dame", map.map, 1, 5);
+            tank = new Unit("tank", "dame", map.map, 2, 5);
+            
+            //pvt = new Unit("pvt", "pion", 1, 0, Content);
+            //map.map[10, 12] = new Cell(map.map, tank, 10, 12, var, Content);
 
             // Sprites
             test.LoadContent(Content, "Case/rouge");
-            test2.LoadContent(Content, "Unitees/minitank");
+            test2.LoadContent(Content, "Unit/Tank");
+
+            viseur = new Viseur(map.map);
 
             /* DEBUG */
-            debug = new Debug(Content, var, map, random); debug.LoadContent();
+            debug = new Debug(Content, var, map, BufferHeight, BufferWidth); debug.LoadContent();
         }
 
 
         protected override void UnloadContent()
         {
-            //base.UnloadContent();
+            base.UnloadContent();
         }
 
 
         protected override void Update(GameTime gameTime)
         {
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             // Init entrees utilisateur
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
             mouseStateCurrent = Mouse.GetState();
@@ -148,7 +148,7 @@ namespace Advanced_Tactics
             }
             else
                 menu.Update(gameTime);
-            
+
             if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)  //son � chaque clic gauche
                 click.Play();
             mouseStatePrevious = mouseStateCurrent;
@@ -164,17 +164,18 @@ namespace Advanced_Tactics
                 this.graphics.ApplyChanges();
             }
 
-
+            viseur.Update(gameTime);
+            
             // Reset entrees utilisateur
-
             oldKeyboardState = currentKeyboardState;
 
-            if (checkExitKey(currentKeyboardState, gamePadState))
+            // Evenement sortie du jeu
+            if (currentKeyboardState.IsKeyDown(Keys.Escape))
             {
+                Exit();
                 base.Update(gameTime);
                 return;
             }
-
 
             base.Update(gameTime);
         }
@@ -203,14 +204,19 @@ namespace Advanced_Tactics
                 spriteBatch.Begin();
                 tileMap.Draw(spriteBatch);
                 debug.Draw(spriteBatch);
-                
-                for (int i = 0; i < random.List_of_positionx.Count(); i++)
+
+
+                /*for (int i = 0; i < random.List_of_positionx.Count(); i++)
                 {
-                    test.Draw(spriteBatch, gameTime, map.map[random.List_of_positionx[i],random.List_of_positiony[i]].positionPixel, var.Scale);
-                }
+                    //test.Draw(spriteBatch, gameTime, map.map[random.List_of_positionx[i],random.List_of_positiony[i]].positionPixel, var.Scale);
+                }*/
 
-                //test.Draw(spriteBatch, gameTime, map.map[10, 1].positionPixel, var.Scale);
+                tank.Draw(spriteBatch, gameTime);
+                pvt.Draw(spriteBatch, gameTime);
+                spriteBatch.End();
 
+                spriteBatch.Begin();
+                viseur.mvtViseur(spriteBatch, gameTime);
                 spriteBatch.End();
             }
 

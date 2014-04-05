@@ -107,8 +107,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cell.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Debug.cs" />
+    <Compile Include="Dame.cs" />
+    <Compile Include="spriteUnit.cs" />
+    <Compile Include="Tank.cs" />
     <Compile Include="TileEngine.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +121,7 @@
     <Compile Include="Resources.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Unit.cs" />
+    <Compile Include="Viseur.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -124,6 +129,7 @@
     <Content Include="Map\map1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Map\map2.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AdvancedLibrary\AdvancedLibrary.csproj">

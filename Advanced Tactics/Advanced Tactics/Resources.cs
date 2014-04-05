@@ -22,7 +22,7 @@ namespace Advanced_Tactics
 
         public static Texture2D map;
 
-        public static Texture2D tank, tanksheet;
+        public static Texture2D aa, com, doc, hq, ing, plane, pvt, tank, tanksheet, truck;
 
         public static SoundEffect sonsouris;
         public static Song musiquemenu;
@@ -58,9 +58,17 @@ namespace Advanced_Tactics
             //Map
             map = content.Load<Texture2D>("Map/map1");
 
-            //Unitees
-            tank = content.Load<Texture2D>("Unitees/minitanktrans");
-            tanksheet = content.Load<Texture2D>("Unitees/tanksheet");
+            //Unit
+            aa = content.Load<Texture2D>("Unit/AA");
+            hq = content.Load<Texture2D>("Unit/HQ");
+            plane = content.Load<Texture2D>("Unit/Plane");
+            truck = content.Load<Texture2D>("Unit/Truck");
+            tank = content.Load<Texture2D>("Unit/Tank");
+            doc = content.Load<Texture2D>("Unit/Doc");
+            ing = content.Load<Texture2D>("Unit/Ing");
+            pvt = content.Load<Texture2D>("Unit/Pvt");
+            com = content.Load<Texture2D>("Unit/Com");
+            tanksheet = content.Load<Texture2D>("Unit/tanksheet");
 
             //Musique, Son
             musiquemenu = content.Load<Song>("Son/Russian Red Army Choir");

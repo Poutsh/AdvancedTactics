@@ -6,11 +6,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using AdvancedLibrary;
 
 namespace Advanced_Tactics
 {
     public class Sprite
     {
+        private Variable var = Game1.var;
         public Texture2D Texture
         {
             get { return _texture; }
@@ -60,9 +62,9 @@ namespace Advanced_Tactics
         {
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, float scale)
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit)
         {
-            spriteBatch.Draw(_texture, posinit, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, posinit, null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
         }
     }
 }

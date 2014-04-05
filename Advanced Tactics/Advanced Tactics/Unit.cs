@@ -4,56 +4,57 @@ using System.Linq;
 using System.Text;
 using AdvancedLibrary;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Advanced_Tactics
 {
     public class Unit
     {
-        /* -- ID -- */
-        private string _classe;
-        private string _rang;
+        private Variable var = Game1.var;
+        private Cell[,] _map;
+
+        private int _x, _y;
+        private Sprite spriteunit;
+        private string _rang, _classe;
+        private Viseur viseur;
+        private spriteUnit spp;
+        private Tank tank;
+
         private int _lvl;
-        private string _up;
-        private Sprite _spriteunit;
-        //
-        public string Classe { get { return _classe; } }
-        public string Rang { get { return _rang; } }
-        public string Upgrade { get { return _up; } }
-        public int Lvl { get { return _lvl; } }
-        public Sprite SpriteUnit { get { return _spriteunit; } }
-
-
-        /*  -- Stats -- */
-        private int _pv_max;
-        private int _pv_cur;
+        private int _pvmax;
         private int _force;
         private int _pa;
-        //
-        public int maxPV { get { return _pv_max; } }
-        public int curPV { get { return _pv_cur; } }
-        public int Force { get { return _force; } }
-        public int PA { get { return _pa; } }
 
-        /* -- Actions -- */
-        private List<int> _terrainpossible = new List<int> { 0, 1, 2, 3 };
+        public int X { get { return _x; } set { _x = value; } }
+        public int Y { get { return _y; } set { _y = value; } }
 
-        enum classeUnit { Roi, Dame, Tour, Fou, Cavalier, Pion }
-        enum rangUnit { HQ, Truck, Ing, Doc, AA, Plane, Tank, Com, Pvt }
+        /* classe { Roi, Dame, Tour, Fou, Cavalier, Pion }
+           rang { HQ, Truck, Ing, Doc, AA, Plane, Tank, Com, Pvt }*/
 
-        public Unit(string classe, string rang, int lvl, string upgrade, int pv_max, int pv_cur, int force, int pa)
+        public Unit() { }
+
+        public Unit(string rang, string classe, Cell[,] map, int x, int y)
         {
-            _classe = classe;
-            _rang = rang;
-            _lvl = lvl;
-            _up = upgrade;
-            _pv_max = pv_max;
-            _pv_cur = pv_cur;
-            _pa = pa;
+            spriteunit = new Sprite(); spriteunit.Initialize();
+            tank = new Tank(spriteunit);
+
+            _rang = rang; _classe = classe;
+            _x = x; _y = y;
+            _map = map;
+
+            if (rang != "viseur")
+                map[x, y].Occupe = true;
+
+            spp = new spriteUnit(_rang, spriteunit);
         }
 
-        void Sprite()
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
+            if (_rang == "tank")
+                tank._sprite.Draw(spriteBatch, gameTime, _map[_x, _y].positionPixel);
+            else
+                spriteunit.Draw(spriteBatch, gameTime, _map[_x, _y].positionPixel);
         }
     }
 }
