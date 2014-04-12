@@ -17,7 +17,8 @@
     <XnaCrossPlatformGroupID>a843c8fc-14dc-4f13-bd93-d250f4930b92</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <Thumbnail>
+    </Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -107,11 +108,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cell.cs" />
-    <Compile Include="Map.cs" />
+    <Compile Include="NewFolder1\Cell.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Dame.cs" />
-    <Compile Include="spriteUnit.cs" />
+    <Compile Include="NewFolder1\spriteUnit.cs" />
+    <Compile Include="Pause.cs" />
     <Compile Include="Tank.cs" />
     <Compile Include="TileEngine.cs" />
     <Compile Include="Menu.cs" />
@@ -120,24 +121,28 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Sprite.cs" />
-    <Compile Include="Unit.cs" />
-    <Compile Include="Viseur.cs" />
+    <Compile Include="NewFolder1\Unit.cs" />
+    <Compile Include="NewFolder1\Viseur.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png" />
-    <Content Include="Map\map1.txt">
+    <None Include="Map\map2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Map\map2.txt" />
+    </None>
+    <None Include="Map\map1.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AdvancedLibrary\AdvancedLibrary.csproj">
-      <Project>{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}</Project>
+      <Project>{28fddecc-c7d6-44e7-89e6-8dc321a187c3}</Project>
       <Name>AdvancedLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MapGen\MapGen\MapGen.csproj">
+      <Project>{a2b8292b-56cb-4092-b056-f79eba0c82f4}</Project>
+      <Name>MapGen</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Advanced TacticsContent\Advanced TacticsContent.contentproj">
-      <Name>Advanced_TacticsContent</Name>
+      <Project>{8981B0C8-281A-4571-BF9F-E58A1BF79D19}</Project>
+      <Name>Advanced TacticsContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
@@ -167,6 +172,9 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

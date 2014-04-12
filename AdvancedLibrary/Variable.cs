@@ -15,6 +15,7 @@ namespace AdvancedLibrary
         private float posXinit;
         private int[,] altitudeterrain;
         private string p;
+        private float _widthWindow, _heightWindow;
 
         public int WidthMap { get { return _WidthMap; } }
         public int HeightMap { get { return _HeightMap; } }
@@ -23,10 +24,15 @@ namespace AdvancedLibrary
         public float PosXInit { get { return posXinit; } }
         public int[,] altitudeTerrain { get { return altitudeterrain; } }
         public string fileMap { get { return p; } }
+        public float widthWindow { get { return _widthWindow; } set { _widthWindow = value; } }
+        public float heightWindow { get { return _heightWindow; } set { _heightWindow = value; } }
+        public bool GR { get; set; }
 
         public Variable(string path, float height, float width)
         {
             p = path;
+            _heightWindow = height;
+            _widthWindow = width;
             StreamReader sReader = new StreamReader("Map /" + path + ".txt");
             _HeightMap = File.ReadLines("Map /" + path + ".txt").Count();
             _WidthMap = sReader.ReadLine().Split(',').Count();
@@ -37,7 +43,8 @@ namespace AdvancedLibrary
             
             if (_HeightMap < _WidthMap)
             {
-                scale = (3 * width) / (5 * tilesize * _WidthMap);
+                //ale = (3 * width) / (5 * tilesize * _WidthMap);
+                scale = height / (tilesize * _HeightMap);
                 posXinit = width / 5;
             }
             else

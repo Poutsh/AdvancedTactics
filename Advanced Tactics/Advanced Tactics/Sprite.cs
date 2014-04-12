@@ -12,34 +12,27 @@ namespace Advanced_Tactics
 {
     public class Sprite
     {
+        #region VARIABLES
+
         private Variable var = Game1.var;
-        public Texture2D Texture
-        {
-            get { return _texture; }
-            set { _texture = value; }
-        }
+
+        public Texture2D Texture { get { return _texture; } set { _texture = value; } }
         private Texture2D _texture;
 
-        public Vector2 Position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
+        public Vector2 Position { get { return _position; } set { _position = value; } }
         private Vector2 _position;
 
-        public Vector2 Direction
-        {
-            get { return _direction; }
-            set { _direction = Vector2.Normalize(value); }
-        }
+        public Vector2 Direction { get { return _direction; } set { _direction = Vector2.Normalize(value); } }
         private Vector2 _direction;
 
-        public float Speed
-        {
-            get { return _speed; }
-            set { _speed = value; }
-        }
+        public float Speed { get { return _speed; } set { _speed = value; } }
         private float _speed;
+
+        #endregion
+
+        // // // // // // // // 
+
+        #region INITIALISATION + LOAD + UPDATE
 
         public virtual void Initialize()
         {
@@ -62,9 +55,23 @@ namespace Advanced_Tactics
         {
         }
 
+        #endregion
+
+        // // // // // // // // 
+
+        #region DRAW(S)
+
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit)
         {
             spriteBatch.Draw(_texture, posinit, null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
         }
+
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool condition)
+        {
+            if (condition)
+                spriteBatch.Draw(_texture, posinit, null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
+        }
+
+        #endregion
     }
 }

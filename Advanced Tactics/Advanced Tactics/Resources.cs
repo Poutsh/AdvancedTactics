@@ -11,6 +11,8 @@ namespace Advanced_Tactics
 {
     class Resources
     {
+        #region VARIABLES
+
         public static Texture2D OptionReso, OptionReso2, OptionReso3,
                                 OptionScreen, OptionScreen2,
                                 OptionVolB, OptionVolM, OptionsVolumeB2, OptionsVolumeB3, OptionsVolumeM2, OptionsVolumeM3,
@@ -26,7 +28,12 @@ namespace Advanced_Tactics
 
         public static SoundEffect sonsouris;
         public static Song musiquemenu;
-        
+
+        #endregion
+
+        // // // // // // // // 
+
+        #region LOAD
 
         public static void LoadContent(ContentManager content)
         {
@@ -56,7 +63,7 @@ namespace Advanced_Tactics
             caseinterdite = content.Load<Texture2D>("Case/rouge");
 
             //Map
-            map = content.Load<Texture2D>("Map/map1");
+            //p = content.Load<Texture2D>("Map/map1");
 
             //Unit
             aa = content.Load<Texture2D>("Unit/AA");
@@ -75,5 +82,7 @@ namespace Advanced_Tactics
             sonsouris = content.Load<SoundEffect>("Son/click1");
 
         }
+
+        #endregion
     }
 }

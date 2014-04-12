@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advanced Tactics", "Advanced Tactics\Advanced Tactics\Advanced Tactics.csproj", "{777177A5-9E56-45EB-AB1C-BC34161B3688}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advanced TacticsContent", "Advanced Tactics\Advanced TacticsContent\Advanced TacticsContent.contentproj", "{8981B0C8-281A-4571-BF9F-E58A1BF79D19}"

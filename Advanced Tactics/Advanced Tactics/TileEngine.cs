@@ -12,6 +12,8 @@ namespace Advanced_Tactics
 {
     public class TileEngine
     {
+        #region VARIABLES
+
         List<Texture2D> tiles;
         List<Sprite> tile;
         Sprite eau = new Sprite();
@@ -24,6 +26,11 @@ namespace Advanced_Tactics
         Variable var;
         Map map;
 
+        #endregion
+
+        // // // // // // // // 
+
+        #region CONSTRUCTEUR
 
         public TileEngine(string name, ContentManager content, Variable variable, Map carte)
         {
@@ -32,6 +39,12 @@ namespace Advanced_Tactics
             LoadTileTextures(content);
             LoadMapData(name);
         }
+
+        #endregion
+
+        // // // // // // // // 
+
+        #region DRAW
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -95,5 +108,7 @@ namespace Advanced_Tactics
             }
             sReader.Close();
         }
+
+        #endregion
     }
 }
