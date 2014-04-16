@@ -1,0 +1,17 @@
+AdvancedTactics
+===============
+
+Projet SUP de BLCL Prod
+
+
+DEPLACEMENT DES UNITEES
+  SELECTION de l'unite a deplacer avec la touche Q
+  POSITION d'arrivee du deplacement touche W
+  
+  
+SI VOUS VOULEZ ACCEDER AU MENU
+  GAME1 --> UPDATE --> changez "if (!menu.currentGame) // IN GAME" -----> "if (menu.currentGame) // IN GAME"
+        --> DRAW   --> changez "if (!menu.currentGame) // IN GAME" -----> "if (menu.currentGame) // IN GAME"
+        
+        
+Pour toutes autre questions veuillez prendre rendez-vous avec mes secretaires (ou sur facebook, c'est vous qui voyez)
