@@ -42,6 +42,8 @@ namespace Advanced_Tactics
 
         TimeSpan time;
 
+        public bool nothing { get; set; }
+
         bool inGame = false;
         public bool currentGame { get { return inGame; } set { inGame = value; } }
 
@@ -62,6 +64,8 @@ namespace Advanced_Tactics
         // // // // // // // // 
 
         #region CONSTRUCTEUR
+
+        public Menu() { }
 
         public Menu(bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
         {
@@ -116,7 +120,7 @@ namespace Advanced_Tactics
                     {
                         sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
 
-                        if (Keyboard.GetState().IsKeyDown(Keys.Enter) && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(0.10f))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter) && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(0.15f))
                         {
                             time = gameTime.TotalGameTime;
                             var.widthWindow = 800;
@@ -244,7 +248,7 @@ namespace Advanced_Tactics
                 if (position < 1) { position = 3; }
                 if (position > 3) { position = 1; }
                 if (position == 3 && Keyboard.GetState().IsKeyDown(Keys.Enter) || Keyboard.GetState().IsKeyDown(Keys.Escape)) { isExit = true; }
-                if (position == 1 && Keyboard.GetState().IsKeyDown(Keys.Enter)) { menuPrincipal = false; inGame = true; }
+                if (position == 1 && Keyboard.GetState().IsKeyDown(Keys.Enter)) { this.nothing = false;  menuPrincipal = false; inGame = true; }
                 if (position == 2 && Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     menuPrincipal = false;

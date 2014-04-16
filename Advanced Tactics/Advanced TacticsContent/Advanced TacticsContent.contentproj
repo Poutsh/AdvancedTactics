@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Curseur\cursortransp.png">
-      <Name>cursortransp</Name>
+    <Compile Include="Curseur\pointer.png">
+      <Name>pointer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -244,6 +244,13 @@
     </Compile>
     <Compile Include="Unit\Truck.png">
       <Name>Truck</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Curseur\viseurS.png">
+      <Name>viseurS</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

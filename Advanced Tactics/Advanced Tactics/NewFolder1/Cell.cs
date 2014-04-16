@@ -31,13 +31,13 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEUR
 
-        public Map()
+        public Map(List<Unit> ListOfUnit)
         {
             map = new Cell[var.WidthMap, var.HeightMap];
 
             for (int x = 0; x < var.WidthMap; x++)
                 for (int y = 0; y < var.HeightMap; y++)
-                    map[x, y] = new Cell(x, y);
+                    map[x, y] = new Cell(x, y, ListOfUnit);
         }
 
         #endregion
@@ -51,18 +51,15 @@ namespace Advanced_Tactics
         ContentManager ctt = Game1.Ctt;
 
         private int x, y;
-        //private bool occupe;
-        //private int altitude;
         private Vector2 pos;
         private Unit unit;
-
         private Cell[,] cell;
 
-        //public Map CellMap { get { return _map; } set { _map = value; } }
         public Unit unitOfCell { get; set; }
         public bool Occupe { get; set; }
         public int XofCell { get { return x; } }
         public int YofCell { get { return y; } }
+        public Vector2 VectorOfCell { get { return new Vector2(x, y); } }
 
         public Vector2 positionPixel
         {
@@ -75,31 +72,15 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEURS
 
-        /*public Cell(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            if (_map[_x, _y].unit != null && _map[_x, _y].unit._rang != "viseur")
-            if (_unit != null && _unit.Rang != "viseur")
-                _occupe = true;
-            if (_unit == null)
-                _occupe = false;
-        }*/
-
         // Constructeur d'initialisation de la map
 
-        public Cell(int x, int y)
+        public Cell(int x, int y, List<Unit> ListOfUnit)
         {
             this.x = x;
             this.y = y;
             pos = new Vector2(this.x * var.Scale * var.TileSize + var.PosXInit, this.y * var.Scale * var.TileSize);
-
-            //Occupe = (unitOfCell != null); 
         }
 
         #endregion
-
-        public void Occupation()
-        {
-            //Occupe = (unitOfCell != null); 
-        }
     }
 }

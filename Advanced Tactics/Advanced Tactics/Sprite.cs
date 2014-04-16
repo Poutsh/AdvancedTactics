@@ -66,9 +66,9 @@ namespace Advanced_Tactics
             spriteBatch.Draw(_texture, posinit, null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool condition)
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool blink)
         {
-            if (condition)
+            if (blink)
                 spriteBatch.Draw(_texture, posinit, null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
         }
 
