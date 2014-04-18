@@ -13,7 +13,8 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        private Variable var = Game1.var;
+        private Constante var = Game1.cst;
+        ContentManager Ctt = Game1.Ctt;
         private Cell[,] map;
         public Sprite spriteOfUnit;
         private sprite2Unit sprite2unit;
@@ -26,6 +27,7 @@ namespace Advanced_Tactics
 
         public string Classe { get; set; }
         public string Rang { get; set; }
+
         #endregion
 
         // // // // // // // // 
@@ -41,18 +43,15 @@ namespace Advanced_Tactics
             spriteOfUnit = new Sprite();
             spriteOfUnit.Initialize();
 
-
-
             this.Rang = rang;
             this.Classe = classe;
             this.XofUnit = x;
             this.YofUnit = y;
             map = cellArray;
 
-            sprite2unit = new sprite2Unit(this.Rang, spriteOfUnit);
-
+            sprite2unit = new sprite2Unit(Ctt, this.Rang, spriteOfUnit);
+            
             UnitofUnit = this;
-
 
             if (rang != null && classe != null)
                 ListOfUnit.Add(UnitofUnit);
@@ -85,7 +84,7 @@ namespace Advanced_Tactics
             this.YofUnit = y;
             map = cellArray;
 
-            sprite2unit = new sprite2Unit(this.Rang, spriteOfUnit);
+            sprite2unit = new sprite2Unit(Ctt, this.Rang, spriteOfUnit);
 
             UnitofUnit = this;
 

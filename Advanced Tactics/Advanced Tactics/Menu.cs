@@ -18,7 +18,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        Variable var = Game1.var;
+        Constante var = Game1.cst;
         // Main menu
         Texture2D menuJouer, menuOptions, menuQuitter;
 

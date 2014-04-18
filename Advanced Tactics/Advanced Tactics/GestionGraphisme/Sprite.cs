@@ -14,7 +14,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        private Variable var = Game1.var;
+        private Constante var = Game1.cst;
 
         public Texture2D Texture { get { return _texture; } set { _texture = value; } }
         private Texture2D _texture;

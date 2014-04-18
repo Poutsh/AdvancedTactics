@@ -6,7 +6,7 @@ using System.IO;
 
 namespace AdvancedLibrary
 {
-    public class Variable
+    public class Constante
     {
         private int _WidthMap;
         private int _HeightMap;
@@ -28,13 +28,13 @@ namespace AdvancedLibrary
         public float heightWindow { get { return _heightWindow; } set { _heightWindow = value; } }
         public bool GR { get; set; }
 
-        public Variable(string path, float height, float width)
+        public Constante(string path, float height, float width)
         {
-            p = path;
+            p = "MapEngine /" + path + ".txt";
             _heightWindow = height;
             _widthWindow = width;
-            StreamReader sReader = new StreamReader("Map /" + path + ".txt");
-            _HeightMap = File.ReadLines("Map /" + path + ".txt").Count();
+            StreamReader sReader = new StreamReader("MapEngine /" + path + ".txt");
+            _HeightMap = File.ReadLines("MapEngine /" + path + ".txt").Count();
             _WidthMap = sReader.ReadLine().Split(',').Count();
 
             altitudeterrain = new int[_WidthMap, _HeightMap];

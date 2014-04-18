@@ -16,7 +16,7 @@ namespace Advanced_Tactics
         KeyboardState oldKeyboardState, currentKeyboardState;
         MouseState mouseStatePrevious, mouseStateCurrent;
         GraphicsDeviceManager graphics;
-        Variable var;
+        Constante var;
         SoundEffect click;
         Viseur viseur;
 

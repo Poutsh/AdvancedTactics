@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Advanced_Tactics
 {
-    public class Tank : Unit
+    public class Tank : Game
     {
         public string rang = "tank";
         public int lvl = 100;
@@ -22,7 +23,7 @@ namespace Advanced_Tactics
             :base()
         {
             _sprite = sprite;
-            _sprite.LoadContent(Game1.Ctt, "Unit/HQ");
+            _sprite.LoadContent(Content, "Unit/Tank");
         }
     }
 }

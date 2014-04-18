@@ -22,7 +22,7 @@ namespace Advanced_Tactics
 
         public static GraphicsDevice gd;
         public static ContentManager Ctt;
-        public static Variable var;
+        public static Constante cst;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -43,7 +43,6 @@ namespace Advanced_Tactics
         TileEngine tileMap;
         SpriteFont font;
         Map map;
-        Sprite test2;
 
         // Unit
         Unit unit, tank, pvt, doc;
@@ -52,9 +51,6 @@ namespace Advanced_Tactics
         //Resolution
         public int BufferHeight { get { return graphics.PreferredBackBufferHeight; } set { graphics.PreferredBackBufferHeight = value; } }
         public int BufferWidth { get { return graphics.PreferredBackBufferWidth; } set { graphics.PreferredBackBufferWidth = value; } }
-
-        // Sprites
-        Sprite test;
 
         Debug debug;
 
@@ -91,9 +87,6 @@ namespace Advanced_Tactics
         {
             currentKeyboardState = new KeyboardState();
 
-            test = new Sprite(); test.Initialize();
-            test2 = new Sprite(); test2.Initialize();
-
             ListToDraw = new List<Unit>();
 
             base.Initialize();
@@ -103,9 +96,7 @@ namespace Advanced_Tactics
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gd = this.GraphicsDevice;
-            var = new Variable("map2", BufferHeight, BufferWidth);
-
-
+            cst = new Constante("map2", BufferHeight, BufferWidth);
 
             // Menu
             menu = new Menu(false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
@@ -114,32 +105,20 @@ namespace Advanced_Tactics
             MediaPlayer.Play(musicMenu);
 
             // Map
-            map = new Map(ListToDraw);
+            map = new Map();
 
             // Clavier, Souris
             viseur = new Viseur(map.Carte);
             sppointer = new Sprite(); sppointer.Initialize();
             sppointer.LoadContent(Content, "Curseur/pointer");
 
-            tileMap = new TileEngine(var.fileMap, Content, var, map);
-            this.font = Content.Load<SpriteFont>("font");
+            tileMap = new TileEngine(cst.fileMap, Content, cst, map);
 
             // Unit
-
             pvt = new Unit("pvt", "dame", map.Carte, 1, 1, ListToDraw);
             tank = new Unit("hq", "roi", map.Carte, 5, 1, ListToDraw);
             unit = new Unit("plane", "fou", map.Carte, 1, 5, ListToDraw);
             doc = new Unit("doc", "tour", map.Carte, 5, 5, ListToDraw);
-
-
-            // Sprites
-            test.LoadContent(Content, "Case/rouge");
-            test2.LoadContent(Content, "Unit/Tank");
-
-
-
-            /* DEBUG */
-
         }
 
         protected override void UnloadContent()
@@ -159,12 +138,11 @@ namespace Advanced_Tactics
             mouseStateCurrent = Mouse.GetState();
             currentKeyboardState = Keyboard.GetState();
             sppointer.Update(gameTime);
-            
+
             if (!menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
-                
                 viseur.Update(gameTime, ListToDraw);
 
                 if (currentKeyboardState.IsKeyDown(Keys.Escape))
@@ -176,7 +154,6 @@ namespace Advanced_Tactics
             }
             else // VIDE INTERSIDERAL
             {
-                
                 menu.Update(gameTime);
 
                 if (menu.IsExit) base.Exit();
@@ -186,8 +163,8 @@ namespace Advanced_Tactics
                 // MENU OPTIONS
                 if (!menu.MenuPrincipal && menu.Options)
                 {
-                    graphics.PreferredBackBufferWidth = (int)var.widthWindow;
-                    graphics.PreferredBackBufferHeight = (int)var.heightWindow;
+                    graphics.PreferredBackBufferWidth = (int)cst.widthWindow;
+                    graphics.PreferredBackBufferHeight = (int)cst.heightWindow;
                     graphics.IsFullScreen = menu.Fullscreen;
                     this.graphics.ApplyChanges();
                 }
@@ -209,32 +186,23 @@ namespace Advanced_Tactics
 
         protected override void Draw(GameTime gameTime)
         {
-
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            debug = new Debug(Content, var, map, BufferHeight, BufferWidth, viseur, ListToDraw); debug.LoadContent();
-            
+            debug = new Debug(Content, cst, map, BufferHeight, BufferWidth, viseur, ListToDraw); debug.LoadContent();
+
             if (!menu.currentGame) // IN GAME
             {
-                
                 spriteBatch.Begin();    // Begin NORMAL
 
                 tileMap.Draw(spriteBatch);
-                /*pvt.DrawUnit(spriteBatch, gameTime);
-                tank.DrawUnit(spriteBatch, gameTime);
-                unit.DrawUnit(spriteBatch, gameTime);
-                doc.DrawUnit(spriteBatch, gameTime);*/
 
-                foreach (Unit Unit in ListToDraw)
-                {
-                    Unit.DrawUnit(spriteBatch, gameTime);
-                }
+                for (int i = 0; i < ListToDraw.Count(); i++)    ListToDraw[i].DrawUnit(spriteBatch, gameTime);
 
                 spriteBatch.End();      // End
+
                 /// /// /// ///
+                
                 spriteBatch.Begin();    // Begin VISEUR
-
                 viseur.Draw(spriteBatch, gameTime);
-
                 spriteBatch.End();      // End
 
             }

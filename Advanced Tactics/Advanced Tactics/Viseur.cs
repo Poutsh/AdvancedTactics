@@ -10,23 +10,21 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Advanced_Tactics
 {
-    public class Viseur : Game
+    public class Viseur
     {
         #region VARIABLES
 
-        private Variable var = Game1.var;
-
-        private ContentManager ctt = Game1.Ctt;
-        KeyboardState oldKeyboardState, currentKeyboardState;
-        GameTime gameTime;
+        private Constante var = Game1.cst;
+        public ContentManager ctt = Game1.Ctt;
+        public KeyboardState oldKeyboardState, currentKeyboardState;
         TimeSpan time;
 
-        private Sprite spviseur, sblinkviseur;
-        private Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal;
-        private Cell[,] map;
-        private Unit viseur;
+        public Sprite spviseur, sblinkviseur;
+        public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal;
+        public Cell[,] map;
+        public Unit viseur;
         public bool blinkviseur;
-        private Vector2 coord;
+        public Vector2 coord;
 
         public Unit UnitInCell { get; set; }
         public bool ViseurOverUnit { get { return map[viseurX, viseurY].Occupe; } }
@@ -35,16 +33,13 @@ namespace Advanced_Tactics
         public int viseurY { get { return (int)coord.Y; } }
         public Vector2 coordViseur { get { return coord; } set { coord = value; } }
 
-        public bool departureSelected { get; set; }
-        public Vector2 departurePosition { get; set; }
-        bool inMoving = false;
-        public bool destinationSelected { get; set; }
-        public Vector2 destinationPosition { get; set; }
+
+        public bool depSelec { get; set; }
+        public Vector2 depPos { get; set; }
+        public bool destSelec { get; set; }
+        public Vector2 destPos { get; set; }
 
         public Sprite spriteViseur { get { return spviseur; } }
-
-
-
         #endregion
 
         // // // // // // // // 
@@ -56,7 +51,6 @@ namespace Advanced_Tactics
         public Viseur(Cell[,] map)
         {
             this.map = map;
-            //this.gameTime = gameTime;
 
             viseur = new Unit();
             Init();
@@ -81,8 +75,6 @@ namespace Advanced_Tactics
             Viseurbleu = new Sprite(); Viseurbleu.Initialize();
             Viseurrouge = new Sprite(); Viseurrouge.Initialize();
             Viseurnormal = new Sprite(); Viseurnormal.Initialize();
-
-            //blinkviseur = false;
         }
 
         void Load()
@@ -94,8 +86,6 @@ namespace Advanced_Tactics
             Viseurbleu.LoadContent(ctt, "Curseur/viseurB");
             Viseurrouge.LoadContent(ctt, "Curseur/viseurR");
             Viseurnormal.LoadContent(ctt, "Curseur/viseur");
-            //Viseurbleu = ctt.Load<Texture2D>("Curseur/viseurB");
-            //Viseurrouge = ctt.Load<Texture2D>("Curseur/viseurR");
         }
 
         #endregion
@@ -111,56 +101,50 @@ namespace Advanced_Tactics
 
         void Reset()
         {
-            departureSelected = false; departurePosition = Vector2.Zero;
-            destinationSelected = false; departurePosition = Vector2.Zero;
-
-            //if (ViseurOverUnit && map[viseurX, viseurY].Occupe) map[viseurX, viseurY].unitOfCell = UnitInCell;
+            depSelec = false; depPos = Vector2.Zero;
+            destSelec = false; depPos = Vector2.Zero;
         }
 
-        void doMoveUnit(Unit oldUnit, Cell newUnit, List<Unit> ListOfUnit)
+        void doMoveUnit(Unit unit, Cell newUnit, List<Unit> ListOfUnit)
         {
-            Unit temp;
-            temp = new Unit(oldUnit.Rang, oldUnit.Classe, map, newUnit.XofCell, newUnit.YofCell, ListOfUnit, oldUnit, true);
+            unit = new Unit(unit.Rang, unit.Classe, map, newUnit.XofCell, newUnit.YofCell, ListOfUnit, unit, true);
             Reset();
         }
 
-        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, bool inMoving)
+        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
 
-            if (map[viseurX, viseurY].unitOfCell == null && departureSelected && coordViseur != departurePosition && currentKeyboardState.IsKeyDown(Keys.W))
+            if (map[viseurX, viseurY].unitOfCell == null && depSelec && coordViseur != depPos && currentKeyboardState.IsKeyDown(Keys.W))
             {
-                destinationSelected = true;
-                destinationPosition = new Vector2(coordViseur.X, coordViseur.Y);
-                doMoveUnit(map[(int)departurePosition.X, (int)departurePosition.Y].unitOfCell, map[(int)destinationPosition.X, (int)destinationPosition.Y], ListOfUnit);
-                inMoving = false;
+                destSelec = true;
+                destPos = new Vector2(coordViseur.X, coordViseur.Y);
+                doMoveUnit(map[(int)depPos.X, (int)depPos.Y].unitOfCell, map[(int)destPos.X, (int)destPos.Y], ListOfUnit);
             }
-            else if (ViseurOverUnit && departureSelected == false && currentKeyboardState.IsKeyDown(Keys.Q)/* && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(0.10f)*/)
+            else if (ViseurOverUnit && depSelec == false && currentKeyboardState.IsKeyDown(Keys.Q))
             {
-                //time = gameTime.TotalGameTime;
-                departureSelected = true;
-                inMoving = true;
-                departurePosition = new Vector2(coordViseur.X, coordViseur.Y);
+                depSelec = true;
+                depPos = new Vector2(coordViseur.X, coordViseur.Y);
             }
         }
 
         void ViseurColor()
         {
-            if (!map[viseurX, viseurY].Occupe && !departureSelected && !destinationSelected)
+            if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
-            else if (map[viseurX, viseurY].Occupe && departureSelected && !destinationSelected)
+            else if (map[viseurX, viseurY].Occupe && depSelec && !destSelec)
                 spviseur = Viseurrouge;
-            else if (departureSelected || (map[viseurX, viseurY].Occupe && !departureSelected))
+            else if (depSelec || (map[viseurX, viseurY].Occupe && !depSelec))
                 spviseur = Viseurbleu;
         }
 
         void BlinkSprite(GameTime gameTime, bool blinkviseur, SpriteBatch spriteBatch)
         {
-            if (departureSelected && !destinationSelected)
+            if (depSelec && !destSelec)
             {
-                if (map[viseurX, viseurY].VectorOfCell == departurePosition)
+                if (map[viseurX, viseurY].VectorOfCell == depPos)
                     sblinkviseur.Position = map[viseurX, viseurY].positionPixel;
-                blinkviseur = departureSelected;
+                blinkviseur = depSelec;
             }
 
             sblinkviseur.Draw(spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
@@ -172,11 +156,12 @@ namespace Advanced_Tactics
 
         #region UPDATE
 
-        public void Update(GameTime gameTime, List<Unit> ListOfUnit)
+        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit)
         {
             currentKeyboardState = Keyboard.GetState();
             float tempo;
-            getMovingPath(ListOfUnit, gameTime, inMoving);
+
+            getMovingPath(ListOfUnit, gameTime);
             ViseurColor();
 
             #region Gestion des mouvements du viseurs
@@ -226,7 +211,6 @@ namespace Advanced_Tactics
         {
             BlinkSprite(gameTime, blinkviseur, spriteBatch);
             spviseur.Draw(spriteBatch, gameTime, map[viseurX, viseurY].positionPixel);
-            
         }
 
         #endregion

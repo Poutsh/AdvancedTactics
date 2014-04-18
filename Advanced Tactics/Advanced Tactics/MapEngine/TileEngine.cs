@@ -23,7 +23,7 @@ namespace Advanced_Tactics
         GameTime gameTime;
         SpriteFont font;
         int width, height;
-        Variable var;
+        Constante cst;
         Map map;
 
         #endregion
@@ -32,9 +32,9 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEUR
 
-        public TileEngine(string name, ContentManager content, Variable variable, Map carte)
+        public TileEngine(string name, ContentManager content, Constante variable, Map carte)
         {
-            var = variable;
+            cst = variable;
             map = carte;
             LoadTileTextures(content);
             LoadMapData(name);
@@ -48,16 +48,11 @@ namespace Advanced_Tactics
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //float scale = cst.Scale;
-            //float tileSize = Cst.TileSize;
-            
-            
-            
             for (int y = 0; y < tileMap.GetLength(0); y++)
             {
                 for (int x = 0; x < tileMap.GetLength(1); x++)
                 {
-                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(var.PosXInit+(x * var.TileSize * var.Scale), y * var.Scale * var.TileSize), null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
+                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(cst.PosXInit+(x * cst.TileSize * cst.Scale), y * cst.Scale * cst.TileSize), null, Color.White, 0, Vector2.Zero, cst.Scale, SpriteEffects.None, 1);
                 }
             }
         }
@@ -74,27 +69,23 @@ namespace Advanced_Tactics
 
         void LoadMapData(string name)
         {
-            string path = "Map/" + name + ".txt";
-
             // Width and height of our tile array
             width = 0;
-            height = File.ReadLines(path).Count();
+            height = File.ReadLines(cst.fileMap).Count();
             
             tileMap = new int[height, width];
-            StreamReader sReader = new StreamReader(path);
+            StreamReader sReader = new StreamReader(cst.fileMap);
             string line = sReader.ReadLine();
             string[] tileNo = line.Split(',');
 
             width = tileNo.Count();
-
-            
 
             // Creating a new instance of the tile map
             tileMap = new int[height, width];
             sReader.Close();
 
             // Re-initialising sReader
-            sReader = new StreamReader(path);
+            sReader = new StreamReader(cst.fileMap);
             
             for (int y = 0; y < height; y++)
             {
@@ -102,9 +93,7 @@ namespace Advanced_Tactics
                 tileNo = line.Split(',');
 
                 for (int x = 0; x < width; x++)
-                {
                     tileMap[y, x] = Convert.ToInt32(tileNo[x]);
-                }
             }
             sReader.Close();
         }

@@ -74,8 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DoubleArrayExtensionMethods.cs" />
+    <Compile Include="GeneratorEngine.cs" />
     <Compile Include="MapGen.cs" />
     <Compile Include="MapGenerator.cs" />
+    <Compile Include="mapggen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

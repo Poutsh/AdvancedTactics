@@ -1,5 +1,6 @@
 Content\Case\bleu.xnb
 Content\Case\rouge.xnb
+Content\Curseur\pointer.xnb
 Content\Curseur\viseur.xnb
 Content\Map\map1.xnb
 Content\Menu\OptionsReso.xnb
@@ -33,13 +34,12 @@ Content\Unit\Pvt.xnb
 Content\Unit\Tank.xnb
 Content\Unit\tanksheet.xnb
 Content\Unit\Truck.xnb
+Content\Curseur\viseurS.xnb
 Content\Son\click1.xnb
 Content\Son\Russian Red Army Choir.xnb
 Content\font.xnb
-Content\Curseur\pointer.xnb
-Content\Curseur\viseurS.xnb
 Content\Son\Russian Red Army Choir.wma
-Map\map2.txt
+MapEngine\map2.txt
 Content\BigFont.xnb
 Content\DefaultFont.xnb
 Content\font.xnb
