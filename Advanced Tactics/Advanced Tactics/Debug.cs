@@ -145,9 +145,10 @@ namespace Advanced_Tactics
             {
                 for (int i = 0; i < _viseur.UnitTemp.Mvt.Count(); i++)
                 {
+                    
                     spriteBatch.DrawString(this.font,
-                     string.Format("Altitude dispo de lunite {0}", _viseur.UnitTemp.Mvt[i]),
-                     new Vector2(20, 298 + i * 20), Color.Brown);
+                     string.Join(",", _viseur.UnitTemp.Mvt.ToArray()),
+                     new Vector2(20, 298 ), Color.Brown);
                 }
             }
         }

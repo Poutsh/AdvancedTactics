@@ -128,7 +128,7 @@ namespace Advanced_Tactics
             if (new List<string>(1) { "plane" }.Contains(Rang))
             {
                 Mvt = new List<int>(3);
-                Mvt.Add(1); Mvt.Add(2); Mvt.Add(0);
+                Mvt.Add(0); Mvt.Add(1); Mvt.Add(2);
             }
 
             if (Mvt.Contains(var.altitudeTerrain[XofUnit, YofUnit]))

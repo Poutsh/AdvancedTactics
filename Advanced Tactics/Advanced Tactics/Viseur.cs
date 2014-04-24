@@ -140,7 +140,7 @@ namespace Advanced_Tactics
 
         void ViseurColor()
         {
-            if (var.altitudeTerrain[viseurX, viseurY] != 1 && depSelec)
+            if (UnitTemp != null && !UnitTemp.Mvt.Contains(var.altitudeTerrain[viseurX, viseurY]) && depSelec)
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
