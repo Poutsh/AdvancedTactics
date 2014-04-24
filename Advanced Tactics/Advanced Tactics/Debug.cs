@@ -32,8 +32,9 @@ namespace Advanced_Tactics
 
         private int h, w;
         List<string> deg = new List<string>();
-
-        public Debug(ContentManager content, Constante variable, Map map, int BufferHeight, int BufferWitdh, Viseur viseur, List<Unit> ListOfUnit)
+        List<int> MvtPossible;
+        
+        public Debug(ContentManager content, Constante variable, Map map, int BufferHeight, int BufferWitdh, Viseur viseur, List<Unit> ListOfUnit, List<int> MvtPossible)
         {
             cst = variable;
             cartemap = map;
@@ -42,16 +43,16 @@ namespace Advanced_Tactics
             h = BufferHeight; w = BufferWitdh;
             _ListOfUnit = ListOfUnit;
 
-            _r = new Sprite(); _r.Initialize();
-            _b = new Sprite(); _b.Initialize();
+            _r = new Sprite();
+            _b = new Sprite();
+            this.MvtPossible = MvtPossible;
         }
 
         public virtual void LoadContent()
         {
             font = ctt.Load<SpriteFont>("font");
-
-            _r.LoadContent(ctt, "Case/rouge");
-            _b.LoadContent(ctt, "Case/bleu");
+            _r.LC(ctt, "Case/rouge");
+            _b.LC(ctt, "Case/bleu");
         }
 
         public virtual void Update(GameTime gameTime)
@@ -82,7 +83,6 @@ namespace Advanced_Tactics
                 string.Format("bool point B   {0}", _viseur.destSelec),
                 new Vector2(10, 139), Color.Black);
 
-
             spriteBatch.DrawString(this.font,
                 "HeightMap : " + Convert.ToString(cst.HeightMap),
                 new Vector2(10, 400), Color.Black);
@@ -111,13 +111,8 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font,
                     string.Format("List {0}", _ListOfUnit.Count()),
                     new Vector2(10, 510), Color.Black);
-            for (int i = 0; i < _ListOfUnit.Count(); i++)
-            {
-                spriteBatch.DrawString(this.font,
-                    string.Format("List {0}, {1}", _ListOfUnit[i].Rang, _ListOfUnit[i].Classe),
-                    new Vector2(10, 522 + i * 15), Color.Black);
-            }
 
+            
             ///////////
             //Viseur
 
@@ -144,6 +139,16 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font,
                  string.Format("OverUnit public  {0}", _viseur.ViseurOverUnit),
                  new Vector2(20, 258), Color.Yellow);
+            spriteBatch.DrawString(this.font,
+                 string.Format("Altitude {0}", cst.altitudeTerrain[_viseur.viseurX, _viseur.viseurY]),
+                 new Vector2(20, 278), Color.Yellow);
+
+            for (int i = 0; i < MvtPossible.Count(); i++)
+            {
+                spriteBatch.DrawString(this.font,
+                 string.Format("Altitude {0}", MvtPossible[i]),
+                 new Vector2(20, 298+i*20), Color.Yellow);
+            }
         }
     }
 }

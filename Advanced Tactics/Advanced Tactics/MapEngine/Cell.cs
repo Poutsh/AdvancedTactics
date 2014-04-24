@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
 using AdvancedLibrary;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,11 +15,8 @@ namespace Advanced_Tactics
 
         Constante var = Game1.cst;
         private Cell[,] map;
-        private int x, y;
 
         public Cell[,] Carte { get { return map; } }
-        public int XofCarte { get { return x; } }
-        public int YofCarte { get { return y; } }
 
         #endregion
 
@@ -39,6 +36,7 @@ namespace Advanced_Tactics
         #endregion
     }
 
+
     public class Cell
     {
         #region VARIABLES
@@ -48,16 +46,12 @@ namespace Advanced_Tactics
 
         private int x, y;
         private Vector2 pos;
-        private Unit unit;
-        private Cell[,] cell;
 
         public Unit unitOfCell { get; set; }
         public bool Occupe { get; set; }
         public int XofCell { get { return x; } }
         public int YofCell { get { return y; } }
         public Vector2 VectorOfCell { get { return new Vector2(x, y); } }
-
-        
 
         public Vector2 positionPixel
         {
@@ -71,6 +65,7 @@ namespace Advanced_Tactics
         #region CONSTRUCTEURS
 
         // Constructeur d'initialisation de la map
+        public Cell() { }
 
         public Cell(int x, int y)
         {

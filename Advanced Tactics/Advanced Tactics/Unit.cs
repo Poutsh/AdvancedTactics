@@ -17,16 +17,16 @@ namespace Advanced_Tactics
         ContentManager Ctt = Game1.Ctt;
         private Cell[,] map;
         public Sprite spriteOfUnit;
-        private sprite2Unit sprite2unit;
+        string path;
 
         public Viseur Viseur { get; set; }
 
-        public Unit UnitofUnit { get; set; }
         public int XofUnit { get; set; }
         public int YofUnit { get; set; }
 
         public string Classe { get; set; }
         public string Rang { get; set; }
+        public List<int> MvtPossibleOfUnit { get; set; }
 
         #endregion
 
@@ -34,32 +34,35 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEURS
 
-        public Unit() { UnitofUnit = null; }
+        Action<string, string, ContentManager, Sprite> Sprite2Unit = (p, r, c, s) => s.LC(c, p + r);
+
+        public Unit() { XofUnit = 0; YofUnit = 0; }
 
         //rang = hq, pvt, tank...
         //clasee = dame, roi , fou...
         public Unit(string rang, string classe, Cell[,] cellArray, int x, int y, List<Unit> ListOfUnit)
         {
-            spriteOfUnit = new Sprite();
-            spriteOfUnit.Initialize();
+            if (cellArray[x, y].unitOfCell == null)
+            {
+                spriteOfUnit = new Sprite();
 
-            this.Rang = rang;
-            this.Classe = classe;
-            this.XofUnit = x;
-            this.YofUnit = y;
-            map = cellArray;
+                this.Rang = rang;
+                this.Classe = classe;
+                this.XofUnit = x;
+                this.YofUnit = y;
+                map = cellArray;
 
-            sprite2unit = new sprite2Unit(Ctt, this.Rang, spriteOfUnit);
-            
-            UnitofUnit = this;
+                if (rang == "viseur") path = "Curseur/"; else path = "Unit/";
+                Sprite2Unit(path, rang, Ctt, spriteOfUnit);
 
-            if (rang != null && classe != null)
-                ListOfUnit.Add(UnitofUnit);
+                MvtPossibleOfUnit = new List<int>();
+                if (rang != null && classe != null)
+                    ListOfUnit.Add(this);
 
-            map[XofUnit, YofUnit].unitOfCell = UnitofUnit;
+                map[XofUnit, YofUnit].unitOfCell = this;
 
-            map[this.XofUnit, this.YofUnit].Occupe = ListOfUnit.Contains(this);
-
+                map[this.XofUnit, this.YofUnit].Occupe = ListOfUnit.Contains(this);
+            }
         }
 
         /// <summary>
@@ -73,28 +76,27 @@ namespace Advanced_Tactics
         /// <param name="ListOfUnit"></param>
         /// <param name="oldunit">ancienne unite</param>
         /// <param name="destruction">TRUE</param>
-        public Unit(string rang, string classe, Cell[,] cellArray, int x, int y, List<Unit> ListOfUnit, Unit oldunit, bool destruction = true)
+        public Unit(Unit oldunit, Cell[,] cellArray, Cell newCell, List<Unit> ListOfUnit)   // Constructeur de DESTRUCTION ahahahahahahahahahahahah
         {
             spriteOfUnit = new Sprite();
-            spriteOfUnit.Initialize();
 
-            this.Rang = rang;
-            this.Classe = classe;
-            this.XofUnit = x;
-            this.YofUnit = y;
+            this.Rang = oldunit.Rang;
+            this.Classe = oldunit.Classe;
+            this.XofUnit = newCell.XofCell;
+            this.YofUnit = newCell.YofCell;
             map = cellArray;
 
-            sprite2unit = new sprite2Unit(Ctt, this.Rang, spriteOfUnit);
+            if (this.Rang == "viseur") path = "Curseur/"; else path = "Unit/";
+            Sprite2Unit(path, this.Rang, Ctt, spriteOfUnit);
 
-            UnitofUnit = this;
+            ListOfUnit.Add(this);
 
-            ListOfUnit.Add(UnitofUnit);
-
-            map[XofUnit, YofUnit].unitOfCell = UnitofUnit;
+            map[oldunit.XofUnit, oldunit.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
+            map[newCell.XofCell, newCell.YofCell].unitOfCell = this; // On mets a jour la valeur de la nouvelle case
 
             map[this.XofUnit, this.YofUnit].Occupe = ListOfUnit.Contains(this);
 
-            for (int i = 0; i < ListOfUnit.Count(); i++)
+            for (int i = 0; i < ListOfUnit.Count(); i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
                 if (ListOfUnit[i] == oldunit)
                 {
                     ListOfUnit.RemoveAt(i);
@@ -110,10 +112,6 @@ namespace Advanced_Tactics
 
         public void DrawUnit(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            /*for (int ddd = 0; ddd < ListUnit.Count(); ddd++)
-            {
-                ListUnit[ddd].spriteOfUnit.Draw(spriteBatch, gameTime, map[XofUnit, YofUnit].positionPixel);
-            }*/
             spriteOfUnit.Draw(spriteBatch, gameTime, map[XofUnit, YofUnit].positionPixel);
         }
         #endregion

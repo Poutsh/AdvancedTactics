@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Design;
 
 namespace Advanced_Tactics
 {
@@ -21,6 +22,8 @@ namespace Advanced_Tactics
 
         public Sprite spviseur, sblinkviseur;
         public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal;
+        public List<Sprite> ListSprite;
+
         public Cell[,] map;
         public Unit viseur;
         public bool blinkviseur;
@@ -46,6 +49,7 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEURS
 
+
         public Viseur() { }
 
         public Viseur(Cell[,] map)
@@ -54,7 +58,7 @@ namespace Advanced_Tactics
 
             viseur = new Unit();
             Init();
-            Load();
+
         }
 
         #endregion
@@ -65,27 +69,13 @@ namespace Advanced_Tactics
 
         void Init()
         {
-            viseur.XofUnit = 0;
-            viseur.YofUnit = 0;
-
-            spviseur = new Sprite(); spviseur.Initialize();
-            sblinkviseur = new Sprite(); sblinkviseur.Initialize();
-            spCaserouge = new Sprite(); spCaserouge.Initialize();
-            spCasebleu = new Sprite(); spCasebleu.Initialize();
-            Viseurbleu = new Sprite(); Viseurbleu.Initialize();
-            Viseurrouge = new Sprite(); Viseurrouge.Initialize();
-            Viseurnormal = new Sprite(); Viseurnormal.Initialize();
-        }
-
-        void Load()
-        {
-            spviseur.LoadContent(ctt, "Curseur/viseur");
-            sblinkviseur.LoadContent(ctt, "Curseur/viseurS");
-            spCaserouge.LoadContent(ctt, "Case/rouge");
-            spCasebleu.LoadContent(ctt, "Case/bleu");
-            Viseurbleu.LoadContent(ctt, "Curseur/viseurB");
-            Viseurrouge.LoadContent(ctt, "Curseur/viseurR");
-            Viseurnormal.LoadContent(ctt, "Curseur/viseur");
+            spviseur = new Sprite(); spviseur.LC(ctt, "Curseur/viseur");
+            sblinkviseur = new Sprite(); sblinkviseur.LC(ctt, "Curseur/viseurS");
+            Viseurbleu = new Sprite(); Viseurbleu.LC(ctt, "Curseur/viseurB");
+            Viseurrouge = new Sprite(); Viseurrouge.LC(ctt, "Curseur/viseurR");
+            Viseurnormal = new Sprite(); Viseurnormal.LC(ctt, "Curseur/viseur");
+            spCaserouge = new Sprite(); spCaserouge.LC(ctt, "Case/rouge");
+            spCasebleu = new Sprite(); spCasebleu.LC(ctt, "Case/bleu");
         }
 
         #endregion
@@ -105,17 +95,17 @@ namespace Advanced_Tactics
             destSelec = false; depPos = Vector2.Zero;
         }
 
-        void doMoveUnit(Unit unit, Cell newUnit, List<Unit> ListOfUnit)
+        void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
         {
-            unit = new Unit(unit.Rang, unit.Classe, map, newUnit.XofCell, newUnit.YofCell, ListOfUnit, unit, true);
+            unit = new Unit(unit, map, newCell, ListOfUnit);
             Reset();
         }
 
-        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime)
+        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, List<int> MvtPossibleOfUnit)
         {
             currentKeyboardState = Keyboard.GetState();
 
-            if (map[viseurX, viseurY].unitOfCell == null && depSelec && coordViseur != depPos && currentKeyboardState.IsKeyDown(Keys.W))
+            if (MvtPossibleOfUnit.Contains(var.altitudeTerrain[viseurX, viseurY]) && map[viseurX, viseurY].unitOfCell == null && depSelec && coordViseur != depPos && currentKeyboardState.IsKeyDown(Keys.W))
             {
                 destSelec = true;
                 destPos = new Vector2(coordViseur.X, coordViseur.Y);
@@ -130,7 +120,9 @@ namespace Advanced_Tactics
 
         void ViseurColor()
         {
-            if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
+            if (var.altitudeTerrain[viseurX, viseurY] != 1 && depSelec)
+                spviseur = Viseurrouge;
+            else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
             else if (map[viseurX, viseurY].Occupe && depSelec && !destSelec)
                 spviseur = Viseurrouge;
@@ -156,12 +148,12 @@ namespace Advanced_Tactics
 
         #region UPDATE
 
-        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit)
+        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, List<int> MvtPossibleOfUnit)
         {
             currentKeyboardState = Keyboard.GetState();
             float tempo;
 
-            getMovingPath(ListOfUnit, gameTime);
+            getMovingPath(ListOfUnit, gameTime, MvtPossibleOfUnit);
             ViseurColor();
 
             #region Gestion des mouvements du viseurs

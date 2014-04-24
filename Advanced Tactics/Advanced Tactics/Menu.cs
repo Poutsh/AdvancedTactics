@@ -34,7 +34,7 @@ namespace Advanced_Tactics
 
         float musicVolume = 1.0f;        // Pour Volume Master
         Cue cue;                         // Pour Son off/on
-
+        
         int position = 1;
         int position2 = 0;
         int position3 = 1;
@@ -69,7 +69,6 @@ namespace Advanced_Tactics
 
         public Menu(bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
         {
-
             menuJouer = img1;
             menuOptions = img2;
             menuQuitter = img3;

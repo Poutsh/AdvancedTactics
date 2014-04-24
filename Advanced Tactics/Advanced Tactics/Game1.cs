@@ -41,12 +41,13 @@ namespace Advanced_Tactics
 
         // Map
         TileEngine tileMap;
-        SpriteFont font;
         Map map;
 
         // Unit
-        Unit unit, tank, pvt, doc;
+        Unit unit;
         List<Unit> ListToDraw;
+        List<int> MvtPossible;
+
 
         //Resolution
         public int BufferHeight { get { return graphics.PreferredBackBufferHeight; } set { graphics.PreferredBackBufferHeight = value; } }
@@ -70,6 +71,9 @@ namespace Advanced_Tactics
             graphics.PreferredBackBufferHeight = 900;
             graphics.IsFullScreen = false;
             this.Window.Title = "Advanced Tactics";
+
+            this.IsFixedTimeStep = true;
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 5);
 
             // Gestion souris
             IsMouseVisible = false;
@@ -106,19 +110,23 @@ namespace Advanced_Tactics
 
             // Map
             map = new Map();
+            tileMap = new TileEngine(cst.fileMap, Content, cst, map);
 
             // Clavier, Souris
             viseur = new Viseur(map.Carte);
-            sppointer = new Sprite(); sppointer.Initialize();
-            sppointer.LoadContent(Content, "Curseur/pointer");
-
-            tileMap = new TileEngine(cst.fileMap, Content, cst, map);
+            sppointer = new Sprite(); sppointer.LC(Content, "Curseur/pointer");
 
             // Unit
-            pvt = new Unit("pvt", "dame", map.Carte, 1, 1, ListToDraw);
-            tank = new Unit("hq", "roi", map.Carte, 5, 1, ListToDraw);
             unit = new Unit("plane", "fou", map.Carte, 1, 5, ListToDraw);
-            doc = new Unit("doc", "tour", map.Carte, 5, 5, ListToDraw);
+            MvtPossible = unit.MvtPossibleOfUnit; MvtPossible.Add(1);
+            string[] arrayrang = new string[] { "aa", "com", "doc", "hq", "ing", "plane", "pvt", "tank", "truck" };
+            string[] arrayclasse = new string[] { "roi", "dame", "tour", "fou", "cavalier", "pion" };
+
+            Func<string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (r, c, m, x, y, l, u) => new Unit(r, c, m.Carte, x, y, l);
+            Random rrd = new Random();
+
+            for (int i = 0; i < rrd.Next(20, 50); i++)
+                Rdunit(arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, cst.WidthMap), rrd.Next(0, cst.HeightMap), ListToDraw, unit);
         }
 
         protected override void UnloadContent()
@@ -139,11 +147,13 @@ namespace Advanced_Tactics
             currentKeyboardState = Keyboard.GetState();
             sppointer.Update(gameTime);
 
+
+
             if (!menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
-                viseur.Update(gameTime, ListToDraw);
+                viseur.Update(gameTime, ListToDraw, MvtPossible);
 
                 if (currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
@@ -156,7 +166,7 @@ namespace Advanced_Tactics
             {
                 menu.Update(gameTime);
 
-                if (menu.IsExit) base.Exit();
+                if (menu.IsExit) base.EndRun(); base.Exit(); base.Update(gameTime); return;
 
                 if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released) click.Play();
 
@@ -187,7 +197,7 @@ namespace Advanced_Tactics
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            debug = new Debug(Content, cst, map, BufferHeight, BufferWidth, viseur, ListToDraw); debug.LoadContent();
+            debug = new Debug(Content, cst, map, BufferHeight, BufferWidth, viseur, ListToDraw, MvtPossible); debug.LoadContent();
 
             if (!menu.currentGame) // IN GAME
             {
@@ -195,12 +205,12 @@ namespace Advanced_Tactics
 
                 tileMap.Draw(spriteBatch);
 
-                for (int i = 0; i < ListToDraw.Count(); i++)    ListToDraw[i].DrawUnit(spriteBatch, gameTime);
+                for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
 
                 spriteBatch.End();      // End
 
                 /// /// /// ///
-                
+
                 spriteBatch.Begin();    // Begin VISEUR
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();      // End

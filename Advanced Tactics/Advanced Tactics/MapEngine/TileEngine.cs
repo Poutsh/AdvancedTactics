@@ -20,7 +20,6 @@ namespace Advanced_Tactics
         Sprite terre = new Sprite();
         Sprite montagne = new Sprite();
         int[,] tileMap;
-        GameTime gameTime;
         SpriteFont font;
         int width, height;
         Constante cst;
@@ -52,7 +51,7 @@ namespace Advanced_Tactics
             {
                 for (int x = 0; x < tileMap.GetLength(1); x++)
                 {
-                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(cst.PosXInit+(x * cst.TileSize * cst.Scale), y * cst.Scale * cst.TileSize), null, Color.White, 0, Vector2.Zero, cst.Scale, SpriteEffects.None, 1);
+                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(cst.PosXInit+(x * cst.TileSize * cst.Scale), 1+y * cst.Scale * cst.TileSize), null, Color.White, 0, Vector2.Zero, cst.Scale, SpriteEffects.None, 1);
                 }
             }
         }
@@ -93,7 +92,10 @@ namespace Advanced_Tactics
                 tileNo = line.Split(',');
 
                 for (int x = 0; x < width; x++)
+                {
                     tileMap[y, x] = Convert.ToInt32(tileNo[x]);
+                    cst.altitudeTerrain[x,y] = Convert.ToInt32(tileNo[x]);
+                }
             }
             sReader.Close();
         }

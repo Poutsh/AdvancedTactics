@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedLibrary", "Advanced
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGen", "MapGen\MapGen\MapGen.csproj", "{DD559125-B37B-4E9C-BA3D-ABEAAA963690}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "MapGenContent", "MapGen\MapGenContent\MapGenContent.contentproj", "{48A76F8C-6329-4984-98FA-CCD829A36523}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGenContent", "MapGen\MapGenContent\MapGenContent.contentproj", "{48A76F8C-6329-4984-98FA-CCD829A36523}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
