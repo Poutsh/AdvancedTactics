@@ -32,9 +32,8 @@ namespace Advanced_Tactics
 
         private int h, w;
         List<string> deg = new List<string>();
-        List<int> MvtPossible;
         
-        public Debug(ContentManager content, Constante variable, Map map, int BufferHeight, int BufferWitdh, Viseur viseur, List<Unit> ListOfUnit, List<int> MvtPossible)
+        public Debug(ContentManager content, Constante variable, Map map, int BufferHeight, int BufferWitdh, Viseur viseur, List<Unit> ListOfUnit)
         {
             cst = variable;
             cartemap = map;
@@ -45,7 +44,6 @@ namespace Advanced_Tactics
 
             _r = new Sprite();
             _b = new Sprite();
-            this.MvtPossible = MvtPossible;
         }
 
         public virtual void LoadContent()
@@ -140,14 +138,17 @@ namespace Advanced_Tactics
                  string.Format("OverUnit public  {0}", _viseur.ViseurOverUnit),
                  new Vector2(20, 258), Color.Yellow);
             spriteBatch.DrawString(this.font,
-                 string.Format("Altitude {0}", cst.altitudeTerrain[_viseur.viseurX, _viseur.viseurY]),
+                 string.Format("Altitude sous le viseur {0}", cst.altitudeTerrain[_viseur.viseurX, _viseur.viseurY]),
                  new Vector2(20, 278), Color.Yellow);
 
-            for (int i = 0; i < MvtPossible.Count(); i++)
+            if (_viseur.UnitTemp != null)
             {
-                spriteBatch.DrawString(this.font,
-                 string.Format("Altitude {0}", MvtPossible[i]),
-                 new Vector2(20, 298+i*20), Color.Yellow);
+                for (int i = 0; i < _viseur.UnitTemp.Mvt.Count(); i++)
+                {
+                    spriteBatch.DrawString(this.font,
+                     string.Format("Altitude dispo de lunite {0}", _viseur.UnitTemp.Mvt[i]),
+                     new Vector2(20, 298 + i * 20), Color.Brown);
+                }
             }
         }
     }

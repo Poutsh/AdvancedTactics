@@ -44,9 +44,8 @@ namespace Advanced_Tactics
         Map map;
 
         // Unit
-        Unit unit;
+        Unit unit, ppp;
         List<Unit> ListToDraw;
-        List<int> MvtPossible;
 
 
         //Resolution
@@ -73,7 +72,7 @@ namespace Advanced_Tactics
             this.Window.Title = "Advanced Tactics";
 
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 5);
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1);
 
             // Gestion souris
             IsMouseVisible = false;
@@ -118,14 +117,19 @@ namespace Advanced_Tactics
 
             // Unit
             unit = new Unit("plane", "fou", map.Carte, 1, 5, ListToDraw);
-            MvtPossible = unit.MvtPossibleOfUnit; MvtPossible.Add(1);
+            
             string[] arrayrang = new string[] { "aa", "com", "doc", "hq", "ing", "plane", "pvt", "tank", "truck" };
             string[] arrayclasse = new string[] { "roi", "dame", "tour", "fou", "cavalier", "pion" };
 
+
+            // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
+            // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
+            // Cette fonction cree tous simplements plusieurs unitees
             Func<string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (r, c, m, x, y, l, u) => new Unit(r, c, m.Carte, x, y, l);
             Random rrd = new Random();
 
-            for (int i = 0; i < rrd.Next(20, 50); i++)
+            // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
+            for (int i = 0; i < rrd.Next(100, 200); i++)
                 Rdunit(arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, cst.WidthMap), rrd.Next(0, cst.HeightMap), ListToDraw, unit);
         }
 
@@ -153,7 +157,7 @@ namespace Advanced_Tactics
             {
                 MediaPlayer.Stop();
 
-                viseur.Update(gameTime, ListToDraw, MvtPossible);
+                viseur.Update(gameTime, ListToDraw);
 
                 if (currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
@@ -197,7 +201,7 @@ namespace Advanced_Tactics
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            debug = new Debug(Content, cst, map, BufferHeight, BufferWidth, viseur, ListToDraw, MvtPossible); debug.LoadContent();
+            debug = new Debug(Content, cst, map, BufferHeight, BufferWidth, viseur, ListToDraw); debug.LoadContent();
 
             if (!menu.currentGame) // IN GAME
             {

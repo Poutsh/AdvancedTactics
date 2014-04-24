@@ -36,11 +36,12 @@ namespace Advanced_Tactics
         public int viseurY { get { return (int)coord.Y; } }
         public Vector2 coordViseur { get { return coord; } set { coord = value; } }
 
-
+        public Unit UnitTemp { get; set; }
         public bool depSelec { get; set; }
-        public Vector2 depPos { get; set; }
+        public Vector depPos { get; set; }
         public bool destSelec { get; set; }
-        public Vector2 destPos { get; set; }
+        public Vector destPos { get; set; }
+        List<Vector> CtrlZ;
 
         public Sprite spriteViseur { get { return spviseur; } }
         #endregion
@@ -91,30 +92,49 @@ namespace Advanced_Tactics
 
         void Reset()
         {
-            depSelec = false; depPos = Vector2.Zero;
-            destSelec = false; depPos = Vector2.Zero;
+            depSelec = false; depPos = Vector.Zero;
+            destSelec = false; depPos = Vector.Zero;
+            UnitTemp = new Unit();
         }
 
         void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
         {
             unit = new Unit(unit, map, newCell, ListOfUnit);
+            CtrlZ = new List<Vector>(2);
+            CtrlZ.Add(destPos); CtrlZ.Add(depPos);
             Reset();
         }
 
-        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, List<int> MvtPossibleOfUnit)
+        //Func<string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (r, c, m, x, y, l, u) => new Unit(r, c, m.Carte, x, y, l);
+
+        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
 
-            if (MvtPossibleOfUnit.Contains(var.altitudeTerrain[viseurX, viseurY]) && map[viseurX, viseurY].unitOfCell == null && depSelec && coordViseur != depPos && currentKeyboardState.IsKeyDown(Keys.W))
+            if (currentKeyboardState.IsKeyDown(Keys.LeftControl) && currentKeyboardState.IsKeyDown(Keys.Z) && CtrlZ[1] != Vector.Zero)
             {
-                destSelec = true;
-                destPos = new Vector2(coordViseur.X, coordViseur.Y);
-                doMoveUnit(map[(int)depPos.X, (int)depPos.Y].unitOfCell, map[(int)destPos.X, (int)destPos.Y], ListOfUnit);
+                doMoveUnit(map[CtrlZ[1].X, CtrlZ[1].Y].unitOfCell, map[CtrlZ[2].X, CtrlZ[2].Y], ListOfUnit);
             }
-            else if (ViseurOverUnit && depSelec == false && currentKeyboardState.IsKeyDown(Keys.Q))
+
+            if (depSelec && !destSelec && currentKeyboardState.IsKeyDown(Keys.R))
+            {
+                Reset();
+            }
+            else if (map[viseurX, viseurY].unitOfCell == null && depSelec && coordViseur != depPos && currentKeyboardState.IsKeyDown(Keys.W))
+            {
+                if (UnitTemp.Mvt.Contains(var.altitudeTerrain[viseurX, viseurY]))
+                {
+                    destSelec = true;
+                    destPos = new Vector(coordViseur.X, coordViseur.Y);
+                    doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
+                }
+            }
+            else if (ViseurOverUnit && !depSelec && currentKeyboardState.IsKeyDown(Keys.Q))
             {
                 depSelec = true;
-                depPos = new Vector2(coordViseur.X, coordViseur.Y);
+                //depPos = new Vector(coordViseur.X, coordViseur.Y);
+                depPos = new Vector(coordViseur.X, coordViseur.Y);
+                UnitTemp = map[viseurX, viseurY].unitOfCell;
             }
         }
 
@@ -148,12 +168,12 @@ namespace Advanced_Tactics
 
         #region UPDATE
 
-        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, List<int> MvtPossibleOfUnit)
+        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit)
         {
             currentKeyboardState = Keyboard.GetState();
             float tempo;
 
-            getMovingPath(ListOfUnit, gameTime, MvtPossibleOfUnit);
+            getMovingPath(ListOfUnit, gameTime);
             ViseurColor();
 
             #region Gestion des mouvements du viseurs
