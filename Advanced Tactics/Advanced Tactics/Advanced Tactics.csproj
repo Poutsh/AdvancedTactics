@@ -96,6 +96,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -128,19 +129,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
-    <Content Include="Map\map1.txt" />
-    <Content Include="Map\map2.txt" />
+    <Content Include="Map\map1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map\map2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="ClassDiagram1.cd" />
-    <None Include="MapEngine\map2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MapEngine\map1.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AdvancedLibrary\AdvancedLibrary.csproj">
-      <Project>{28fddecc-c7d6-44e7-89e6-8dc321a187c3}</Project>
-      <Name>AdvancedLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\MapGen\MapGen\MapGen.csproj">
       <Project>{a2b8292b-56cb-4092-b056-f79eba0c82f4}</Project>
       <Name>MapGen</Name>

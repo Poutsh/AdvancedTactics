@@ -30,16 +30,17 @@ Content\Unit\Tank.xnb
 Content\Unit\tanksheet.xnb
 Content\Unit\Truck.xnb
 Content\Curseur\viseurS.xnb
-Content\Son\click1.xnb
-Content\Son\Russian Red Army Choir.xnb
-Content\font.xnb
 Content\Map\0 eau.xnb
 Content\Map\1 terre.xnb
 Content\Map\2 montagne.xnb
 Content\Map\typeTile.xnb
+Content\Son\click1.xnb
+Content\Son\Russian Red Army Choir.xnb
+Content\font.xnb
 Content\Son\Russian Red Army Choir.wma
-MapEngine\map2.txt
 Content\BigFont.xnb
 Content\DefaultFont.xnb
 Content\font.xnb
 Content\white.xnb
+Map\map1.txt
+Map\map2.txt
