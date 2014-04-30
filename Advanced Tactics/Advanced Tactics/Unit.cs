@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdvancedLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,8 +12,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        private Constante var = Game1.cst;
-        ContentManager Ctt = Game1.Ctt;
+        Data data;
         private Cell[,] map;
         public Sprite spriteOfUnit;
         string path;
@@ -55,8 +53,9 @@ namespace Advanced_Tactics
         /// <param name="X">Position X de la nouvelle unite</param>
         /// <param name="Y">Position Y de la nouvelle unite</param>
         /// <param name="ListOfUnit">List qui contient toute les unitee a DRAW</param>
-        public Unit(string Rang, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit)
+        public Unit(Data data, string Rang, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit)
         {
+            this.data = data;
             if (Map[X, Y].unitOfCell == null)
             {
                 spriteOfUnit = new Sprite();
@@ -83,10 +82,10 @@ namespace Advanced_Tactics
                     Mvt.Add(1); Mvt.Add(2); Mvt.Add(0);
                 }
 
-                if (Mvt.Contains(var.altitudeTerrain[X, Y]))
+                if (Mvt.Contains(data.altitudeTerrain[X, Y]))
                 {
                     if (Rang == "viseur") path = "Curseur/"; else path = "Unit/";
-                    Sprite2Unit(path, Rang, Ctt, spriteOfUnit);
+                    Sprite2Unit(path, Rang, data.Content, spriteOfUnit);
 
                     if (Rang != null && Classe != null)
                         ListOfUnit.Add(this);
@@ -105,8 +104,9 @@ namespace Advanced_Tactics
         /// <param name="Map">Map sur laquelle est pose l'unite</param>
         /// <param name="newCell">Case ou l'on veut deplacer l'unite</param>
         /// <param name="ListOfUnit">List qui contient toute les unitee a DRAW</param>
-        public Unit(Unit UnitToMove, Cell[,] Map, Cell newCell, List<Unit> ListOfUnit)   // Constructeur de DESTRUCTION ahahahahahahahahahahahah
+        public Unit(Data data, Unit UnitToMove, Cell[,] Map, Cell newCell, List<Unit> ListOfUnit)   // Constructeur de DESTRUCTION ahahahahahahahahahahahah
         {
+            this.data = data;
             spriteOfUnit = new Sprite();
 
             this.Rang = UnitToMove.Rang;
@@ -131,10 +131,10 @@ namespace Advanced_Tactics
                 Mvt.Add(0); Mvt.Add(1); Mvt.Add(2);
             }
 
-            if (Mvt.Contains(var.altitudeTerrain[XofUnit, YofUnit]))
+            if (Mvt.Contains(data.altitudeTerrain[XofUnit, YofUnit]))
             {
                 if (this.Rang == "viseur") path = "Curseur/"; else path = "Unit/";
-                Sprite2Unit(path, this.Rang, Ctt, spriteOfUnit);
+                Sprite2Unit(path, this.Rang, data.Content, spriteOfUnit);
 
                 ListOfUnit.Add(this);
 
@@ -160,7 +160,7 @@ namespace Advanced_Tactics
 
         public void DrawUnit(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteOfUnit.Draw(spriteBatch, gameTime, map[XofUnit, YofUnit].positionPixel);
+            spriteOfUnit.Draw(data, spriteBatch, gameTime, map[XofUnit, YofUnit].positionPixel);
         }
         #endregion
     }

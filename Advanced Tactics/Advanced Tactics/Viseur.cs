@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdvancedLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,9 +14,8 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        private Constante var = Game1.cst;
-        public ContentManager ctt = Game1.Ctt;
-        public KeyboardState oldKeyboardState, currentKeyboardState;
+        Data data;
+        public KeyboardState oldKey, curKey;
         TimeSpan time;
 
         public Sprite spviseur, sblinkviseur;
@@ -53,10 +51,10 @@ namespace Advanced_Tactics
 
         public Viseur() { }
 
-        public Viseur(Cell[,] map)
+        public Viseur(Data data, Cell[,] map)
         {
+            this.data = data;
             this.map = map;
-
             viseur = new Unit();
             Init();
 
@@ -70,13 +68,13 @@ namespace Advanced_Tactics
 
         void Init()
         {
-            spviseur = new Sprite(); spviseur.LC(ctt, "Curseur/viseur");
-            sblinkviseur = new Sprite(); sblinkviseur.LC(ctt, "Curseur/viseurS");
-            Viseurbleu = new Sprite(); Viseurbleu.LC(ctt, "Curseur/viseurB");
-            Viseurrouge = new Sprite(); Viseurrouge.LC(ctt, "Curseur/viseurR");
-            Viseurnormal = new Sprite(); Viseurnormal.LC(ctt, "Curseur/viseur");
-            spCaserouge = new Sprite(); spCaserouge.LC(ctt, "Case/rouge");
-            spCasebleu = new Sprite(); spCasebleu.LC(ctt, "Case/bleu");
+            spviseur = new Sprite(); spviseur.LC(data.Content, "Curseur/viseur");
+            sblinkviseur = new Sprite(); sblinkviseur.LC(data.Content, "Curseur/viseurS");
+            Viseurbleu = new Sprite(); Viseurbleu.LC(data.Content, "Curseur/viseurB");
+            Viseurrouge = new Sprite(); Viseurrouge.LC(data.Content, "Curseur/viseurR");
+            Viseurnormal = new Sprite(); Viseurnormal.LC(data.Content, "Curseur/viseur");
+            spCaserouge = new Sprite(); spCaserouge.LC(data.Content, "Case/rouge");
+            spCasebleu = new Sprite(); spCasebleu.LC(data.Content, "Case/bleu");
         }
 
         #endregion
@@ -93,46 +91,41 @@ namespace Advanced_Tactics
         void Reset()
         {
             depSelec = false; depPos = Vector.Zero;
-            destSelec = false; depPos = Vector.Zero;
+            destSelec = false; destPos = Vector.Zero;
             UnitTemp = new Unit();
         }
 
         void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
         {
-            unit = new Unit(unit, map, newCell, ListOfUnit);
             CtrlZ = new List<Vector>(2);
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
+            unit = new Unit(data, unit, map, newCell, ListOfUnit);
             Reset();
         }
 
-        //Func<string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (r, c, m, x, y, l, u) => new Unit(r, c, m.Carte, x, y, l);
-
         void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime)
         {
-            currentKeyboardState = Keyboard.GetState();
+            curKey = Keyboard.GetState();
 
-            if (currentKeyboardState.IsKeyDown(Keys.LeftControl) && currentKeyboardState.IsKeyDown(Keys.Z) && CtrlZ[1] != Vector.Zero)
+            if ((curKey.IsKeyDown(Keys.LeftControl) || curKey.IsKeyDown(Keys.RightControl)) && curKey.IsKeyDown(Keys.Z) && CtrlZ[1] != Vector.Zero)
             {
-                doMoveUnit(map[CtrlZ[1].X, CtrlZ[1].Y].unitOfCell, map[CtrlZ[2].X, CtrlZ[2].Y], ListOfUnit);
+                doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
             }
 
-            if (depSelec && !destSelec && currentKeyboardState.IsKeyDown(Keys.R))
+            if (depSelec && !destSelec && curKey.IsKeyDown(Keys.R)) { Reset(); }
+
+            if (map[viseurX, viseurY].unitOfCell == null && depSelec && coordViseur != depPos && curKey.IsKeyDown(Keys.W))
             {
-                Reset();
-            }
-            else if (map[viseurX, viseurY].unitOfCell == null && depSelec && coordViseur != depPos && currentKeyboardState.IsKeyDown(Keys.W))
-            {
-                if (UnitTemp.Mvt.Contains(var.altitudeTerrain[viseurX, viseurY]))
+                if (UnitTemp.Mvt.Contains(data.altitudeTerrain[viseurX, viseurY]))
                 {
                     destSelec = true;
                     destPos = new Vector(coordViseur.X, coordViseur.Y);
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (ViseurOverUnit && !depSelec && currentKeyboardState.IsKeyDown(Keys.Q))
+            else if (ViseurOverUnit && !depSelec && curKey.IsKeyDown(Keys.Q))
             {
                 depSelec = true;
-                //depPos = new Vector(coordViseur.X, coordViseur.Y);
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
             }
@@ -140,7 +133,7 @@ namespace Advanced_Tactics
 
         void ViseurColor()
         {
-            if (UnitTemp != null && !UnitTemp.Mvt.Contains(var.altitudeTerrain[viseurX, viseurY]) && depSelec)
+            if (UnitTemp != null && !UnitTemp.Mvt.Contains(data.altitudeTerrain[viseurX, viseurY]) && depSelec)
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
@@ -159,7 +152,7 @@ namespace Advanced_Tactics
                 blinkviseur = depSelec;
             }
 
-            sblinkviseur.Draw(spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
+            sblinkviseur.Draw(data, spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
         }
 
         #endregion
@@ -170,7 +163,7 @@ namespace Advanced_Tactics
 
         public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit)
         {
-            currentKeyboardState = Keyboard.GetState();
+            curKey = Keyboard.GetState();
             float tempo;
 
             getMovingPath(ListOfUnit, gameTime);
@@ -178,39 +171,39 @@ namespace Advanced_Tactics
 
             #region Gestion des mouvements du viseurs
 
-            if (currentKeyboardState.IsKeyDown(Keys.LeftShift)) tempo = 0.08f; else tempo = 0.15f;
+            if (curKey.IsKeyDown(Keys.LeftShift)) tempo = 0.08f; else tempo = 0.15f;
 
-            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || currentKeyboardState != oldKeyboardState)
+            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || curKey != oldKey)
             {
                 time = gameTime.TotalGameTime;
 
-                if (coordViseur.X == 0 && currentKeyboardState.IsKeyDown(Keys.Left))
-                    coord.X = var.WidthMap - 1;
+                if (coordViseur.X == 0 && curKey.IsKeyDown(Keys.Left))
+                    coord.X = data.WidthMap - 1;
                 else
-                    if (currentKeyboardState.IsKeyDown(Keys.Left))
+                    if (curKey.IsKeyDown(Keys.Left))
                         --coord.X;
 
-                if (coordViseur.X == var.WidthMap - 1 && currentKeyboardState.IsKeyDown(Keys.Right))
+                if (coordViseur.X == data.WidthMap - 1 && curKey.IsKeyDown(Keys.Right))
                     coord.X = 0;
                 else
-                    if (currentKeyboardState.IsKeyDown(Keys.Right))
+                    if (curKey.IsKeyDown(Keys.Right))
                         ++coord.X;
 
-                if (coordViseur.Y == 0 && currentKeyboardState.IsKeyDown(Keys.Up))
-                    coord.Y = var.HeightMap - 1;
+                if (coordViseur.Y == 0 && curKey.IsKeyDown(Keys.Up))
+                    coord.Y = data.HeightMap - 1;
                 else
-                    if (currentKeyboardState.IsKeyDown(Keys.Up))
+                    if (curKey.IsKeyDown(Keys.Up))
                         --coord.Y;
 
-                if (coordViseur.Y == var.HeightMap - 1 && currentKeyboardState.IsKeyDown(Keys.Down))
+                if (coordViseur.Y == data.HeightMap - 1 && curKey.IsKeyDown(Keys.Down))
                     coord.Y = 0;
                 else
-                    if (currentKeyboardState.IsKeyDown(Keys.Down))
+                    if (curKey.IsKeyDown(Keys.Down))
                         ++coord.Y;
             }
             #endregion
 
-            oldKeyboardState = currentKeyboardState;
+            oldKey = curKey;
         }
 
         #endregion
@@ -222,7 +215,7 @@ namespace Advanced_Tactics
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             BlinkSprite(gameTime, blinkviseur, spriteBatch);
-            spviseur.Draw(spriteBatch, gameTime, map[viseurX, viseurY].positionPixel);
+            spviseur.Draw(data, spriteBatch, gameTime, map[viseurX, viseurY].positionPixel);
         }
 
         #endregion

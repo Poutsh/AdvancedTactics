@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using System.IO;
-using AdvancedLibrary;
 
 namespace Advanced_Tactics
 {
@@ -14,15 +13,14 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
+        Data data;
         List<Texture2D> tiles;
-        List<Sprite> tile;
         Sprite eau = new Sprite();
         Sprite terre = new Sprite();
         Sprite montagne = new Sprite();
         int[,] tileMap;
         SpriteFont font;
         int width, height;
-        Constante cst;
         Map map;
 
         #endregion
@@ -31,11 +29,11 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEUR
 
-        public TileEngine(string name, ContentManager content, Constante variable, Map carte)
+        public TileEngine(string name, Data data, Map carte)
         {
-            cst = variable;
+            this.data = data;
             map = carte;
-            LoadTileTextures(content);
+            LoadTileTextures(data.Content);
             LoadMapData(name);
         }
 
@@ -51,7 +49,7 @@ namespace Advanced_Tactics
             {
                 for (int x = 0; x < tileMap.GetLength(1); x++)
                 {
-                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(cst.PosXInit+(x * cst.TileSize * cst.Scale), 1+y * cst.Scale * cst.TileSize), null, Color.White, 0, Vector2.Zero, cst.Scale, SpriteEffects.None, 1);
+                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(data.PosXInit+(x * data.TileSize * data.Scale), 1+y * data.Scale * data.TileSize), null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
                 }
             }
         }
@@ -70,10 +68,10 @@ namespace Advanced_Tactics
         {
             // Width and height of our tile array
             width = 0;
-            height = File.ReadLines(cst.fileMap).Count();
+            height = File.ReadLines(data.fileMap).Count();
             
             tileMap = new int[height, width];
-            StreamReader sReader = new StreamReader(cst.fileMap);
+            StreamReader sReader = new StreamReader(data.fileMap);
             string line = sReader.ReadLine();
             string[] tileNo = line.Split(',');
 
@@ -84,7 +82,7 @@ namespace Advanced_Tactics
             sReader.Close();
 
             // Re-initialising sReader
-            sReader = new StreamReader(cst.fileMap);
+            sReader = new StreamReader(data.fileMap);
             
             for (int y = 0; y < height; y++)
             {
@@ -94,7 +92,7 @@ namespace Advanced_Tactics
                 for (int x = 0; x < width; x++)
                 {
                     tileMap[y, x] = Convert.ToInt32(tileNo[x]);
-                    cst.altitudeTerrain[x,y] = Convert.ToInt32(tileNo[x]);
+                    data.altitudeTerrain[x,y] = Convert.ToInt32(tileNo[x]);
                 }
             }
             sReader.Close();

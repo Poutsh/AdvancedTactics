@@ -6,15 +6,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using AdvancedLibrary;
 
 namespace Advanced_Tactics
 {
     public class Sprite
     {
         #region VARIABLES
-
-        private Constante var = Game1.cst;
 
         public Texture2D Texture { get { return texture; } set { texture = value; } }
         private Texture2D texture;
@@ -61,15 +58,15 @@ namespace Advanced_Tactics
 
         #region DRAW(S)
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit)
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit)
         {
-            spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool blink)
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool blink)
         {
             if (blink)
-                spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, var.Scale, SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
 
         #endregion

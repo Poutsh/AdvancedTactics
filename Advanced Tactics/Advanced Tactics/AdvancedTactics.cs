@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
-using AdvancedLibrary;
+using Microsoft.Xna.Framework.Storage;
 //using MapGen;
 
 
@@ -20,12 +20,11 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        public static GraphicsDevice gd;
-        public static ContentManager Ctt;
-        public static Constante cst;
-        GraphicsDeviceManager graphics;
+        GraphicsDevice gd;
+        ContentManager Ctt;
+        Data data;
+        GraphicsDeviceManager graphics { get; set; }
         SpriteBatch spriteBatch;
-
 
         // Clavier, Souris, Camera
         KeyboardState oldKeyboardState, currentKeyboardState;
@@ -44,9 +43,8 @@ namespace Advanced_Tactics
         Map map;
 
         // Unit
-        Unit unit, ppp;
+        Unit unit;
         List<Unit> ListToDraw;
-
 
         //Resolution
         public int BufferHeight { get { return graphics.PreferredBackBufferHeight; } set { graphics.PreferredBackBufferHeight = value; } }
@@ -65,17 +63,18 @@ namespace Advanced_Tactics
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Ctt = Content;
-            // Gestion de la fenetre
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
+
+            
+
+            
             graphics.IsFullScreen = false;
             this.Window.Title = "Advanced Tactics";
 
-            this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1);
-
             // Gestion souris
             IsMouseVisible = false;
+
+            this.IsFixedTimeStep = true;
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1);
 
             this.graphics.ApplyChanges();
         }
@@ -88,36 +87,41 @@ namespace Advanced_Tactics
 
         protected override void Initialize()
         {
-            currentKeyboardState = new KeyboardState();
+            gd = this.GraphicsDevice;
+            
+            // Gestion de la fenetre
+            BufferWidth = 1600;
+            BufferHeight = 900;
+
+            data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
 
             ListToDraw = new List<Unit>();
 
+            this.graphics.ApplyChanges();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gd = this.GraphicsDevice;
-            cst = new Constante("map2", BufferHeight, BufferWidth);
 
             // Menu
-            menu = new Menu(false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
+            menu = new Menu(data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
             click = Content.Load<SoundEffect>("Son/click1");
             musicMenu = Content.Load<Song>("Son/Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
 
             // Map
-            map = new Map();
-            tileMap = new TileEngine(cst.fileMap, Content, cst, map);
+            map = new Map(data);
+            tileMap = new TileEngine(data.fileMap, data, map);
 
             // Clavier, Souris
-            viseur = new Viseur(map.Carte);
-            sppointer = new Sprite(); sppointer.LC(Content, "Curseur/pointer");
+            viseur = new Viseur(data, map.Carte);
+            sppointer = new Sprite(); sppointer.LC(data.Content, "Curseur/pointer");
 
             // Unit
-            unit = new Unit("plane", "fou", map.Carte, 1, 5, ListToDraw);
-            
+            unit = new Unit(data, "plane", "fou", map.Carte, 1, 5, ListToDraw);
+
             string[] arrayrang = new string[] { "aa", "com", "doc", "hq", "ing", "plane", "pvt", "tank", "truck" };
             string[] arrayclasse = new string[] { "roi", "dame", "tour", "fou", "cavalier", "pion" };
 
@@ -125,12 +129,12 @@ namespace Advanced_Tactics
             // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
             // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
             // Cette fonction cree tous simplements plusieurs unitees
-            Func<string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (r, c, m, x, y, l, u) => new Unit(r, c, m.Carte, x, y, l);
+            Func<Data, string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (d, r, c, m, x, y, l, u) => new Unit(d, r, c, m.Carte, x, y, l);
             Random rrd = new Random();
 
             // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
             for (int i = 0; i < rrd.Next(100, 200); i++)
-                Rdunit(arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, cst.WidthMap), rrd.Next(0, cst.HeightMap), ListToDraw, unit);
+                Rdunit(data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw, unit);
         }
 
         protected override void UnloadContent()
@@ -153,7 +157,7 @@ namespace Advanced_Tactics
 
 
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
@@ -170,18 +174,18 @@ namespace Advanced_Tactics
             {
                 menu.Update(gameTime);
 
-                if (menu.IsExit) base.EndRun(); base.Exit(); base.Update(gameTime); return;
+                if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
 
                 if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released) click.Play();
 
-                // MENU OPTIONS
-                if (!menu.MenuPrincipal && menu.Options)
-                {
-                    graphics.PreferredBackBufferWidth = (int)cst.widthWindow;
-                    graphics.PreferredBackBufferHeight = (int)cst.heightWindow;
-                    graphics.IsFullScreen = menu.Fullscreen;
-                    this.graphics.ApplyChanges();
-                }
+                //// MENU OPTIONS
+                //if (!menu.MenuPrincipal && menu.Options)
+                //{
+                //    graphics.PreferredBackBufferWidth = (int)data.widthWindow;
+                //    graphics.PreferredBackBufferHeight = (int)data.heightWindow;
+                //    graphics.IsFullScreen = menu.Fullscreen;
+                //    this.graphics.ApplyChanges();
+                //}
 
                 mouseStatePrevious = mouseStateCurrent;
             }
@@ -201,9 +205,9 @@ namespace Advanced_Tactics
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            debug = new Debug(Content, cst, map, BufferHeight, BufferWidth, viseur, ListToDraw); debug.LoadContent();
+            debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 spriteBatch.Begin();    // Begin NORMAL
 
@@ -228,7 +232,7 @@ namespace Advanced_Tactics
             //Begin DEBUG
             spriteBatch.Begin();
             debug.Draw(spriteBatch);
-            sppointer.Draw(spriteBatch, gameTime, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            sppointer.Draw(data, spriteBatch, gameTime, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
             spriteBatch.End();
             //End
 

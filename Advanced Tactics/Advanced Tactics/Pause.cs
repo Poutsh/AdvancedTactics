@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdvancedLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,7 +9,7 @@ namespace Advanced_Tactics
 {
     /*public class Pause
     {
-        Variable var;
+        Variable data;
         KeyboardState oldKeyboardState, currentKeyboardState;
         private bool paused = false;
         private bool pauseKeyDown = false;

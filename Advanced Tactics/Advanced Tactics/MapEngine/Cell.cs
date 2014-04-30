@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdvancedLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,10 +12,11 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        Constante var = Game1.cst;
+        Data data;
         private Cell[,] map;
 
         public Cell[,] Carte { get { return map; } }
+        
 
         #endregion
 
@@ -24,13 +24,15 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEUR
 
-        public Map()
+        public Map(Data data)
         {
-            map = new Cell[var.WidthMap, var.HeightMap];
+            this.data = data;
+            map = new Cell[data.WidthMap, data.HeightMap];
 
-            for (int x = 0; x < var.WidthMap; x++)
-                for (int y = 0; y < var.HeightMap; y++)
-                    map[x, y] = new Cell(x, y);
+            for (int x = 0; x < data.WidthMap; x++)
+                for (int y = 0; y < data.HeightMap; y++)
+                    map[x, y] = new Cell(data, x, y);
+            
         }
 
         #endregion
@@ -41,9 +43,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        private Constante cst = Game1.cst;
-        ContentManager ctt = Game1.Ctt;
-
+        Data data;
         private int x, y;
         private Vector2 pos;
 
@@ -55,7 +55,7 @@ namespace Advanced_Tactics
 
         public Vector2 positionPixel
         {
-            get { if (x <= cst.WidthMap && y <= cst.HeightMap && x >= 0 && y >= 0) return pos; else return new Vector2(cst.PosXInit, 0); }
+            get { if (x <= data.WidthMap && y <= data.HeightMap && x >= 0 && y >= 0) return pos; else return new Vector2(data.PosXInit, 0); }
         }
 
         #endregion
@@ -67,11 +67,12 @@ namespace Advanced_Tactics
         // Constructeur d'initialisation de la map
         public Cell() { }
 
-        public Cell(int x, int y)
+        public Cell(Data data, int x, int y)
         {
+            this.data = data;
             this.x = x;
             this.y = y;
-            pos = new Vector2(this.x * cst.Scale * cst.TileSize + cst.PosXInit, this.y * cst.Scale * cst.TileSize);
+            pos = new Vector2(this.x * data.Scale * data.TileSize + data.PosXInit, this.y * data.Scale * data.TileSize);
         }
 
         #endregion

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using System.IO;
 using Microsoft.Xna.Framework.Input;
-using AdvancedLibrary;
+using System.Xml;
 
 namespace Advanced_Tactics
 {
@@ -18,28 +18,26 @@ namespace Advanced_Tactics
     {
         SpriteFont font;
         MouseState mouseStateCurrent;
-        KeyboardState currentKeyboardState;
-        Constante cst;
-        Sprite _r, _b;
+        Data data;
 
+        Sprite _r, _b;
         ContentManager ctt;
         List<Unit> _ListOfUnit;
         Map cartemap;
-        //RandomSprite rand;
         private Viseur _viseur;
 
         Menu _menu = new Menu();
 
         private int h, w;
         List<string> deg = new List<string>();
-        
-        public Debug(ContentManager content, Constante variable, Map map, int BufferHeight, int BufferWitdh, Viseur viseur, List<Unit> ListOfUnit)
+
+        public Debug(Data data, Map map, Viseur viseur, List<Unit> ListOfUnit)
         {
-            cst = variable;
+            this.data = data;
+            
             cartemap = map;
-            ctt = content;
+            ctt = data.Content;
             _viseur = viseur;
-            h = BufferHeight; w = BufferWitdh;
             _ListOfUnit = ListOfUnit;
 
             _r = new Sprite();
@@ -60,7 +58,6 @@ namespace Advanced_Tactics
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
             spriteBatch.DrawString(this.font,
                 string.Format("Menu  {0}, {1}, {2}, {3}", _menu.currentGame, _menu.MenuPrincipal, _menu.nothing, _menu.Options),
                 new Vector2(10, 80), Color.Blue);
@@ -82,23 +79,23 @@ namespace Advanced_Tactics
                 new Vector2(10, 139), Color.Black);
 
             spriteBatch.DrawString(this.font,
-                "HeightMap : " + Convert.ToString(cst.HeightMap),
+                "HeightMap : " + Convert.ToString(data.HeightMap),
                 new Vector2(10, 400), Color.Black);
 
             spriteBatch.DrawString(this.font,
-                "WidthMap : " + Convert.ToString(cst.WidthMap),
+                "WidthMap : " + Convert.ToString(data.WidthMap),
                 new Vector2(10, 415), Color.Black);
 
             spriteBatch.DrawString(this.font,
-                "Scale : " + Convert.ToString(cst.Scale),
+                "Scale : " + Convert.ToString(data.Scale),
                 new Vector2(10, 430), Color.Black);
 
             spriteBatch.DrawString(this.font,
-                "Tile size : " + Convert.ToString(cst.TileSize),
+                "Tile size : " + Convert.ToString(data.TileSize),
                 new Vector2(10, 445), Color.Black);
 
             spriteBatch.DrawString(this.font,
-                "Pos init : " + Convert.ToString(cst.PosXInit),
+                "Pos init : " + Convert.ToString(data.PosXInit),
                 new Vector2(10, 460), Color.Black);
 
             spriteBatch.DrawString(this.font,
@@ -110,7 +107,7 @@ namespace Advanced_Tactics
                     string.Format("List {0}", _ListOfUnit.Count()),
                     new Vector2(10, 510), Color.Black);
 
-            
+
             ///////////
             //Viseur
 
@@ -133,22 +130,21 @@ namespace Advanced_Tactics
                     new Vector2(20, 195), Color.Indigo);
             }
 
-
             spriteBatch.DrawString(this.font,
                  string.Format("OverUnit public  {0}", _viseur.ViseurOverUnit),
                  new Vector2(20, 258), Color.Yellow);
             spriteBatch.DrawString(this.font,
-                 string.Format("Altitude sous le viseur {0}", cst.altitudeTerrain[_viseur.viseurX, _viseur.viseurY]),
+                 string.Format("Altitude sous le viseur {0}", data.altitudeTerrain[_viseur.viseurX, _viseur.viseurY]),
                  new Vector2(20, 278), Color.Yellow);
 
             if (_viseur.UnitTemp != null)
             {
                 for (int i = 0; i < _viseur.UnitTemp.Mvt.Count(); i++)
                 {
-                    
+
                     spriteBatch.DrawString(this.font,
                      string.Join(",", _viseur.UnitTemp.Mvt.ToArray()),
-                     new Vector2(20, 298 ), Color.Brown);
+                     new Vector2(20, 298), Color.Brown);
                 }
             }
         }

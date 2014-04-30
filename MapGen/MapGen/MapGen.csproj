@@ -88,10 +88,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AdvancedLibrary\AdvancedLibrary.csproj">
-      <Project>{28fddecc-c7d6-44e7-89e6-8dc321a187c3}</Project>
-      <Name>AdvancedLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MapGenContent\MapGenContent.contentproj">
       <Name>MapGenContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>

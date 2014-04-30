@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advanced Tactics", "Advance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advanced TacticsContent", "Advanced Tactics\Advanced TacticsContent\Advanced TacticsContent.contentproj", "{8981B0C8-281A-4571-BF9F-E58A1BF79D19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedLibrary", "AdvancedLibrary\AdvancedLibrary.csproj", "{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGen", "MapGen\MapGen\MapGen.csproj", "{DD559125-B37B-4E9C-BA3D-ABEAAA963690}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGenContent", "MapGen\MapGenContent\MapGenContent.contentproj", "{48A76F8C-6329-4984-98FA-CCD829A36523}"
@@ -42,16 +40,6 @@ Global
 		{8981B0C8-281A-4571-BF9F-E58A1BF79D19}.Release|Any CPU.ActiveCfg = Release|x86
 		{8981B0C8-281A-4571-BF9F-E58A1BF79D19}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{8981B0C8-281A-4571-BF9F-E58A1BF79D19}.Release|x86.ActiveCfg = Release|x86
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{28FDDECC-C7D6-44E7-89E6-8DC321A187C3}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD559125-B37B-4E9C-BA3D-ABEAAA963690}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{DD559125-B37B-4E9C-BA3D-ABEAAA963690}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{DD559125-B37B-4E9C-BA3D-ABEAAA963690}.Debug|Mixed Platforms.Build.0 = Debug|x86
