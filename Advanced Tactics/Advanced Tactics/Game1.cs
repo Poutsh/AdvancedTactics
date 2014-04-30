@@ -125,7 +125,7 @@ namespace Advanced_Tactics
             string[] arrayrang = new string[] { "aa", "com", "doc", "hq", "ing", "plane", "pvt", "tank", "truck" };
             string[] arrayclasse = new string[] { "roi", "dame", "tour", "fou", "cavalier", "pion" };
 
-
+            
             // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
             // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
             // Cette fonction cree tous simplements plusieurs unitees
