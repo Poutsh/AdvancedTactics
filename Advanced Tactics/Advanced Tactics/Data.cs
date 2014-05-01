@@ -51,16 +51,12 @@ namespace Advanced_Tactics
             
             if (_HeightMap < _WidthMap)
             {
-                //scale = (.6f * _widthWindow) / (tilesize * _WidthMap);
                 scale = _heightWindow / (tilesize * _HeightMap);
                 posXinit = _widthWindow / 5;
             }
             else
             {
-                //scale = _heightWindow / (tilesize * _HeightMap);
-                float ss = tilesize * _WidthMap * scale; // == (3/5)widthWindow
-                scale = ((3 / 5) * widthWindow) / (tilesize * _WidthMap);
-                /// 
+                scale = _heightWindow / (tilesize * _HeightMap);
                 posXinit = (_widthWindow - tilesize * scale * _WidthMap) / 2f;
             }
         }

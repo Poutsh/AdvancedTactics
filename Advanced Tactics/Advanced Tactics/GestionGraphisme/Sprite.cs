@@ -62,6 +62,10 @@ namespace Advanced_Tactics
         {
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, float Scale)
+        {
+            spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
+        }
 
         public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool blink)
         {

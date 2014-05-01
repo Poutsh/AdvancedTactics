@@ -96,7 +96,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -112,13 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data.cs" />
-    <Compile Include="FctOfUnits.cs" />
     <Compile Include="MapEngine\Cell.cs" />
     <Compile Include="Debug.cs" />
-    <Compile Include="Pause.cs" />
     <Compile Include="MapEngine\TileEngine.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -129,13 +125,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
-    <Content Include="Map\map1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Map\map2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="ClassDiagram1.cd" />
+    <None Include="MapEngine\map2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MapEngine\map1.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MapGen\MapGen\MapGen.csproj">

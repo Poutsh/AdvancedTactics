@@ -30,7 +30,7 @@ namespace Advanced_Tactics
         KeyboardState oldKeyboardState, currentKeyboardState;
         MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
-        Sprite sppointer;
+        Sprite sppointer, flou;
 
         // Menu
         Menu menu;
@@ -64,9 +64,9 @@ namespace Advanced_Tactics
             Content.RootDirectory = "Content";
             Ctt = Content;
 
-            
 
-            
+
+
             graphics.IsFullScreen = false;
             this.Window.Title = "Advanced Tactics";
 
@@ -88,12 +88,12 @@ namespace Advanced_Tactics
         protected override void Initialize()
         {
             gd = this.GraphicsDevice;
-            
+
             // Gestion de la fenetre
             BufferWidth = 1600;
             BufferHeight = 900;
 
-            data = new Data("map2",BufferWidth,BufferHeight, Content, gd);
+            data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
 
             ListToDraw = new List<Unit>();
 
@@ -114,6 +114,7 @@ namespace Advanced_Tactics
             // Map
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
+            flou = new Sprite(); flou.LC(data.Content, "Menu/flou");
 
             // Clavier, Souris
             viseur = new Viseur(data, map.Carte);
@@ -125,7 +126,7 @@ namespace Advanced_Tactics
             string[] arrayrang = new string[] { "aa", "com", "doc", "hq", "ing", "plane", "pvt", "tank", "truck" };
             string[] arrayclasse = new string[] { "roi", "dame", "tour", "fou", "cavalier", "pion" };
 
-            
+
             // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
             // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
             // Cette fonction cree tous simplements plusieurs unitees
@@ -157,7 +158,7 @@ namespace Advanced_Tactics
 
 
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
@@ -207,11 +208,16 @@ namespace Advanced_Tactics
             GraphicsDevice.Clear(Color.CornflowerBlue);
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 spriteBatch.Begin();    // Begin NORMAL
 
                 tileMap.Draw(spriteBatch);
+
+                if (currentKeyboardState.IsKeyDown(Keys.P))
+                { 
+                    flou.Draw(data, spriteBatch, gameTime, new Vector2(0, 0), 1);
+                }
 
                 for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
 
