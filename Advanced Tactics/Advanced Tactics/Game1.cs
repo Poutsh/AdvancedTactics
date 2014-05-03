@@ -198,7 +198,7 @@ namespace Advanced_Tactics
             Random rrd = new Random();
 
             // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
-            for (int i = 0; i < rrd.Next(200, 300); i++)
+            for (int i = 0; i < rrd.Next(1, 100); i++)
                 Rdunit(data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw, unit);
         }
 
@@ -220,9 +220,8 @@ namespace Advanced_Tactics
             currentKeyboardState = Keyboard.GetState();
             sppointer.Update(gameTime);
 
-
-
-            if (menu.currentGame) // IN GAME
+            
+            if (!menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
@@ -272,7 +271,7 @@ namespace Advanced_Tactics
             GraphicsDevice.Clear(Color.CornflowerBlue);
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
 
-            if (menu.currentGame) // IN GAME
+            if (!menu.currentGame) // IN GAME
             {
                 spriteBatch.Begin();    // Begin NORMAL
 

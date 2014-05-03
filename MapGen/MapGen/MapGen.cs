@@ -31,7 +31,7 @@ namespace MapGenerator
         float _oceanHeight = 10;                        //default ocean height (tiles with lower values are blue)
         private Color[] _heightColors = new Color[64];  //the different colors used to indicate height of tiles
         private Vector2 _tileSize = new Vector2(32);    //the size of the texture used (32x32 pixels)
-        private Point _mapSize = new Point(50, 40);     //the size of the map (50 columns by 50 rows)
+        private Point _mapSize = new Point(35, 30);     //the size of the map (50 columns by 50 rows)
         Color textColor = Color.White;                  //the color to use for text
         const int HUDheight = 100;                      //the height of the black band at the bottom of the screen
         int _roundsOfSmoothing = 0;                     //stores how many times the map has been smoothed over

@@ -30,6 +30,7 @@ namespace Advanced_Tactics
         List<int> Mvt2 = new List<int>(2) { 1, 2 };
         List<int> Mvt3 = new List<int>(3) { 0, 1, 2 };
         List<int> Mvt4 = new List<int>(0) { };
+        public int Strength { get; set; }
 
         #endregion
 
@@ -70,16 +71,19 @@ namespace Advanced_Tactics
                 {
                     Mvt = new List<int>(2);
                     Mvt.Add(1); Mvt.Add(2);
+                    this.Strength = 3;
                 }
                 if (new List<string>(6) { "aa", "com", "doc", "ing", "pvt", "hq" }.Contains(Rang))
                 {
                     Mvt = new List<int>(1);
                     Mvt.Add(1);
+                    this.Strength = 2;
                 }
                 if (new List<string>(1) { "plane" }.Contains(Rang))
                 {
                     Mvt = new List<int>(3);
                     Mvt.Add(1); Mvt.Add(2); Mvt.Add(0);
+                    this.Strength = 4;
                 }
 
                 if (Mvt.Contains(data.altitudeTerrain[X, Y]))
@@ -113,6 +117,7 @@ namespace Advanced_Tactics
             this.Classe = UnitToMove.Classe;
             this.XofUnit = newCell.XofCell;
             this.YofUnit = newCell.YofCell;
+            this.Strength = UnitToMove.Strength;
             map = Map;
 
             if (new List<string>(2) { "tank", "truck" }.Contains(Rang))
@@ -143,13 +148,45 @@ namespace Advanced_Tactics
 
                 map[this.XofUnit, this.YofUnit].Occupe = ListOfUnit.Contains(this);
 
-                for (int i = 0; i < ListOfUnit.Count(); i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
+                for (int i = 0; i < ListOfUnit.Count(); i++)    // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
+                {
                     if (ListOfUnit[i] == UnitToMove)
                     {
                         ListOfUnit.RemoveAt(i);
                         map[UnitToMove.XofUnit, UnitToMove.YofUnit].Occupe = false;
                     }
+                }
             }
+        }
+
+        /// <summary>
+        /// Destruction Unite
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="UnitToDestruct"></param>
+        /// <param name="ListOfUnit"></param>
+        public Unit(Data data, Unit UnitToDestruct, List<Unit> ListOfUnit)
+        {
+            this.data = data;
+            spriteOfUnit = new Sprite();
+
+            this.Rang = UnitToDestruct.Rang;
+            this.Classe = UnitToDestruct.Classe;
+            this.XofUnit = UnitToDestruct.XofUnit;
+            this.YofUnit = UnitToDestruct.YofUnit;
+
+
+            //map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].unitOfCell = null;
+            for (int i = 0; i < ListOfUnit.Count(); i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
+                if (ListOfUnit[i] == UnitToDestruct)
+                {
+                    ListOfUnit.RemoveAt(i);
+                    
+                    //map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].Occupe = false;
+                }
+
+            
+            //UnitToDestruct = null;
         }
 
         #endregion

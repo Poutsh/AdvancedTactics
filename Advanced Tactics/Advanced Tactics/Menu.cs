@@ -175,7 +175,7 @@ namespace Advanced_Tactics
                         sb.Draw(optionsVolM, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
 
                         if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
-                            musicVolume = MathHelper.Clamp(musicVolume + 0.01f, 0.0f, 2.0f);
+                            musicVolume = MathHelper.Clamp(musicVolume + 0.01f, 0.0f, 2.0f);    
                     }
                     if (position3 == 2)
                     {

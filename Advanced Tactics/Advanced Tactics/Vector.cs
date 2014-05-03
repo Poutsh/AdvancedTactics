@@ -107,6 +107,65 @@ namespace Advanced_Tactics
         public static void Add(ref Vector2 value1, ref Vector value2, out Vector result) { result = new Vector(value1.X + value2.X, value1.Y + value2.Y); }
         public static void Add(ref Vector value1, ref Vector2 value2, out Vector result) { result = new Vector(value1.X + value2.X, value1.Y + value2.Y); }
 
+        public static int Distance(Vector value1, Vector value2)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            return (int)Math.Sqrt((double)num3);
+        }
+        public static int Distance(Vector value1, Vector2 value2)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            return (int)Math.Sqrt((double)num3);
+        }
+        public static int Distance(Vector2 value1, Vector value2)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            return (int)Math.Sqrt((double)num3);
+        }
+        public static int Distance(Vector2 value1, Vector2 value2)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            return (int)Math.Sqrt((double)num3);
+        }
+
+
+        public static void Distance(ref Vector value1, ref Vector value2, out int result)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            result = (int)Math.Sqrt((double)num3);
+        }
+        public static void Distance(ref Vector2 value1, ref Vector value2, out int result)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            result = (int)Math.Sqrt((double)num3);
+        }
+        public static void Distance(ref Vector value1, ref Vector2 value2, out int result)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            result = (int)Math.Sqrt((double)num3);
+        }
+        public static void Distance(ref Vector2 value1, ref Vector2 value2, out int result)
+        {
+            float num2 = value1.X - value2.X;
+            float num = value1.Y - value2.Y;
+            float num3 = (num2 * num2) + (num * num);
+            result = (int)Math.Sqrt((double)num3);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is Vector)

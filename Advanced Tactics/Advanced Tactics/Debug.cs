@@ -122,6 +122,9 @@ namespace Advanced_Tactics
                 spriteBatch.DrawString(this.font,
                     string.Format("Unit : {0}, {1}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe, cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang),
                     new Vector2(20, 195), Color.Indigo);
+                spriteBatch.DrawString(this.font,
+                    string.Format("Unit : {0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Strength),
+                    new Vector2(20, 215), Color.Indigo);
             }
             else
             {
