@@ -14,7 +14,7 @@ namespace MapGenerator
             {
                 System.Windows.Forms.Control control = System.Windows.Forms.Form.FromHandle(game.Window.Handle);
                 System.Windows.Forms.Form form = control.FindForm();
-                form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                //form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 game.Run();
             }
         }

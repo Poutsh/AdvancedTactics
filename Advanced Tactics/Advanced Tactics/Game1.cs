@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
 using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.Net;
 //using MapGen;
 
 
@@ -25,6 +26,20 @@ namespace Advanced_Tactics
         Data data;
         GraphicsDeviceManager graphics { get; set; }
         SpriteBatch spriteBatch;
+
+        // Network
+        Color color;
+        Color clearColor;
+        GameState gameState;
+        const short screenWidth = 800;
+        const short screenHeight = 600;
+        Viewport defaultViewport;
+        Viewport leftViewport;
+        Viewport rightViewport;
+        Viewport toprightViewport;
+        Viewport topleftViewport;
+        Viewport bottomrightViewport;
+        Viewport bottomleftViewport;
 
         // Clavier, Souris, Camera
         KeyboardState oldKeyboardState, currentKeyboardState;
@@ -46,6 +61,21 @@ namespace Advanced_Tactics
         Unit unit;
         List<Unit> ListToDraw;
 
+        //Networking members
+        NetworkSession session;
+        AvailableNetworkSessionCollection availableSessions;
+        int sessionIndex;
+        AvailableNetworkSession availableSession;
+        PacketWriter packetWriter;
+        PacketReader packetReader;
+        bool isServer;
+
+        enum GameState { Menu, FindGame, PlayGame }
+        enum SessionProperty { GameMode, SkillLevel, ScoreToWin }
+        enum GameMode { Practice, Timed, CaptureTheFlag }
+        enum SkillLevel { Beginner, Intermediate, Advanced }
+        enum PacketType { Enter, Leave, Data }
+
         //Resolution
         public int BufferHeight { get { return graphics.PreferredBackBufferHeight; } set { graphics.PreferredBackBufferHeight = value; } }
         public int BufferWidth { get { return graphics.PreferredBackBufferWidth; } set { graphics.PreferredBackBufferWidth = value; } }
@@ -63,10 +93,6 @@ namespace Advanced_Tactics
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Ctt = Content;
-
-
-
-
             graphics.IsFullScreen = false;
             this.Window.Title = "Advanced Tactics";
 
@@ -92,10 +118,15 @@ namespace Advanced_Tactics
             // Gestion de la fenetre
             BufferWidth = 1600;
             BufferHeight = 900;
-
             data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
-
             ListToDraw = new List<Unit>();
+
+            color = Color.White;
+            clearColor = Color.CornflowerBlue;
+            gameState = GameState.Menu;
+            sessionIndex = 0;
+            packetReader = new PacketReader();
+            packetWriter = new PacketWriter();
 
             this.graphics.ApplyChanges();
             base.Initialize();
@@ -104,6 +135,39 @@ namespace Advanced_Tactics
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            defaultViewport = GraphicsDevice.Viewport;
+
+            #region Viewports
+            leftViewport = defaultViewport;
+            rightViewport = defaultViewport;
+            toprightViewport = defaultViewport;
+            topleftViewport = defaultViewport;
+            bottomleftViewport = defaultViewport;
+            bottomrightViewport = defaultViewport;
+
+            leftViewport.Width = leftViewport.Width / 2;
+
+            rightViewport.Width = rightViewport.Width / 2;
+            rightViewport.X = leftViewport.Width + 1;
+
+
+            topleftViewport.Width = topleftViewport.Width / 2;
+            topleftViewport.Height = topleftViewport.Height / 2;
+
+            toprightViewport.Width = toprightViewport.Width / 2;
+            toprightViewport.Height = toprightViewport.Height / 2;
+            toprightViewport.X = leftViewport.Width + 1;
+
+            bottomleftViewport.Width = bottomleftViewport.Width / 2;
+            bottomleftViewport.Height = bottomleftViewport.Height / 2;
+            bottomleftViewport.Y = topleftViewport.Height + 1;
+
+            bottomrightViewport.Width = bottomrightViewport.Width / 2;
+            bottomrightViewport.Height = bottomrightViewport.Height / 2;
+            bottomrightViewport.X = bottomleftViewport.Width + 1;
+            bottomrightViewport.Y = toprightViewport.Height + 1;
+            #endregion
 
             // Menu
             menu = new Menu(data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));

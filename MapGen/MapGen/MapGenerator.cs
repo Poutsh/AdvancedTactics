@@ -20,7 +20,7 @@ namespace MapGenerator
         /// <param name="percentageFillAtStart">How many per cent of the map is initially filled with tiles of differing heights (random 0-255)</param>
         /// <param name="roundsOfSmoothing">How many times to smooth the map</param>
         /// <returns>A new map consisting of heightvalues for the individual tiles</returns>
-        public static byte[,] CreateMap(int width, int height, int roundsOfSmoothing = 8, float percentageFillAtStart = .1f)
+        public static byte[,] CreateMap(int width, int height, int roundsOfSmoothing = 8, float percentageFillAtStart = 1000f)
         {
             //create the new map
             byte[,] map = new byte[width, height];

@@ -36,7 +36,6 @@ namespace MapGenerator
         const int HUDheight = 100;                      //the height of the black band at the bottom of the screen
         int _roundsOfSmoothing = 0;                     //stores how many times the map has been smoothed over
 
-        //helpermethod to get the current size of the window
         public Vector2 WindowSize
         {
             get { return new Vector2(GraphicsDevice.Viewport.Bounds.Width, GraphicsDevice.Viewport.Bounds.Height); }
@@ -60,20 +59,16 @@ namespace MapGenerator
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //load texture and fonts
             _defaultFont = Content.Load<SpriteFont>("DefaultFont");
             _bigFont = Content.Load<SpriteFont>("BigFont");
             _white = Content.Load<Texture2D>("white");
 
-            //generate some colors from dark green to light green
-            //for use as height indicators
             for (int i = 0; i < _heightColors.Length; i++)
             {
                 int red = 0;                //no red
-                int green = 3 * i + 32;     //green based on the height
+                int green = 200;     //green based on the height
                 int blue = 32;              //a little bit of blue
                 _heightColors[i] = new Color(red, green, blue);
             }
@@ -96,8 +91,6 @@ namespace MapGenerator
 
         private void RespondToInput(GameTime gameTime)
         {
-            //****  KEYBOARD  **************************
-            //react to keyboard input
             if (WasJustPressed(Keys.Escape)) { this.Exit(); }                       // Allows the game to exit
             if (WasJustPressed(Keys.F11)) { graphics.ToggleFullScreen(); }          //toggles fullscreen
             if (WasJustPressed(Keys.Space) || WasJustClicked(MouseButtons.Right))   //smooth the map
@@ -109,18 +102,11 @@ namespace MapGenerator
             {
                 bool saveWithHeight = _currentKeyboard.IsKeyDown(Keys.LeftShift) || _currentKeyboard.IsKeyDown(Keys.RightShift);
                 string newSavePath = GetSavePath();
-                //save the map
-                MapGenerator.SaveMapWithHeight(_map, newSavePath, (byte)_oceanHeight);
-                /*if (saveWithHeight) { MapGenerator.SaveMapWithHeight(_map, newSavePath, (byte)_oceanHeight); }
-                else { MapGenerator.SaveMap(_map, newSavePath, (byte)_oceanHeight); }*/
                 
-                //open the saved file in default app
-                System.Diagnostics.Process.Start(newSavePath);
+                MapGenerator.SaveMapWithHeight(_map, newSavePath, (byte)_oceanHeight);
             }
 
 
-            //****  MOUSE  ***************************
-            //check for mousescroll - to change sealevel
             float scrollChange = _currentMouse.ScrollWheelValue - _oldMouse.ScrollWheelValue;
             if (scrollChange != 0)
             {
@@ -128,51 +114,31 @@ namespace MapGenerator
                 _oceanHeight = MathHelper.Clamp(_oceanHeight, 0, 255);
             }
 
-            //check for dragging of the map
-            //if the button is down in this Update and the previous
             if (_currentMouse.LeftButton == ButtonState.Pressed && _oldMouse.LeftButton == ButtonState.Pressed)
             {
-                //get how far the mouse has moved
                 Vector2 mouseMovement = new Vector2(_currentMouse.X, _currentMouse.Y) - new Vector2(_oldMouse.X, _oldMouse.Y);
 
-                //move the map by that much
                 _mapScrollOffset += mouseMovement;
                 float maxLeft = WindowSize.X - _mapSize.X * _tileSize.X;
                 float maxUp = WindowSize.Y - _mapSize.Y * _tileSize.Y;
-                //if map is bigger than the current window,
-                //it is possible to scroll further to the left and top than the border
-                //so we calculate how much we should be allowed to scroll beyond the window's left/top
                 maxLeft = Math.Min(maxLeft, 0);
                 maxUp = Math.Min(maxUp, 0);
 
-                //ensure the scrolling doesn't go too far
                 _mapScrollOffset.X = MathHelper.Clamp(_mapScrollOffset.X, maxLeft, 0);
                 _mapScrollOffset.Y = MathHelper.Clamp(_mapScrollOffset.Y, maxUp, 0);
 
             }
         }
 
-        //finds an unused map number and returns the full path
         private string GetSavePath()
         {
-            //get the running program's folder
             string folderOfMapEditor = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            int mapNumber = 0;      //initialize the map number
-            string newMapPath;      //a variable for storing the full mappath
-
-            do
-            {
-                mapNumber++;        //increment the map number
-                newMapPath = Path.Combine(folderOfMapEditor, string.Format("Map_[{0:000}x{1:000}]_{2:000}].txt", _mapSize.X, _mapSize.Y, mapNumber));
-                
-            } while (File.Exists(newMapPath));      //continue while a map with that name already exists
-
-            return newMapPath;     //return the valid name of a non-existing map
+            string newMapPath = (new DirectoryInfo(folderOfMapEditor).Parent.Parent.Parent.Parent.Parent.FullName) + "\\Advanced Tactics\\Advanced Tactics\\Map\\map2.txt";
+            return newMapPath;
         }
 
 
-        //get current states and save mouse position
         private void UpdateStates()
         {
             _currentKeyboard = Keyboard.GetState();
@@ -180,7 +146,6 @@ namespace MapGenerator
             _mousePosition = new Vector2(_currentMouse.X, _currentMouse.Y);
         }
 
-        //save the states for comparison in next Update()
         private void SaveStates()
         {
             _oldKeyboard = _currentKeyboard;
@@ -204,46 +169,32 @@ namespace MapGenerator
             Color tileColor;    //what color to draw
 
 
-            //We only want to draw the necessary tiles:
-            //find out how many tiles we need to show in the map display area
-            //and add an extra for when half of one is scrolled in at the right
             int visibleColumns = (int)(WindowSize.X / _white.Width)+1;
             int visibleRows = (int)(WindowSize.Y / _white.Height) +1;
 
-            //ensure we don't show more columns than there are (for very small maps)
             visibleColumns = (int)MathHelper.Clamp(visibleColumns, 0, _mapSize.X);
             visibleRows= (int)MathHelper.Clamp(visibleRows, 0, _mapSize.Y);
 
-            //find out which row is the topmost one we want to show
-            //by dividing the current y-offset by the size of the tiles
             int topVisibleRow = (int)(-_mapScrollOffset.Y / _white.Height);
 
-            //find out which column is the leftmost one we want to show
-            //by dividing the current x-offset by the size of the tiles
             int leftVisibleColumn = (int)(-_mapScrollOffset.X / _white.Width);
 
-            //** FIND FIRST AND LAST ROW/COLUMN TO SHOW ON SCREEN
-            //add the number of visible rows to find the bottom row we need to show
             int bottomVisibleRow = topVisibleRow + visibleRows;
-            //add the number of visible columns to find the rightmost column we need to show
             int rightVisibleColumn = leftVisibleColumn + visibleColumns;
 
-            //ensure we don't show too many rows/columns
-            //because of the extra tile on the left added in the visibleColumns/Rows calculation
             rightVisibleColumn = (int)MathHelper.Clamp(rightVisibleColumn, 0, _mapSize.X - 1);
             bottomVisibleRow = (int)MathHelper.Clamp(bottomVisibleRow, 0, _mapSize.Y - 1);
 
-            //Draw all visible tiles...
             for (int x = leftVisibleColumn ; x <= rightVisibleColumn; x++)
             {
                 for (int y = topVisibleRow; y <= bottomVisibleRow; y++)
                 {
-                    //look up the color based on the tile's height
-                    tileColor = _heightColors[_map[x, y] / 4];
+                    tileColor = new Color();
+                    if (_map[x, y] >= 20) { tileColor = Color.Brown; }
+                    if (_map[x, y] > 0 && _map[x, y] < 20) { tileColor = Color.Green; }
+                    if (_map[x, y] == 0) { tileColor = Color.Blue; }
 
-                    //if the ocean covers this tile, paint it blue
                     if (_map[x, y] < _oceanHeight) { tileColor = Color.Blue; }
-                    //find the position based on x, y, tilesize and where the map is scrolled right now
                     position = new Vector2(x * _tileSize.X, y * _tileSize.Y) + _mapScrollOffset;
 
                     spriteBatch.Draw(_white, position, tileColor);      //draw the tile
@@ -258,7 +209,7 @@ namespace MapGenerator
 
             //draw info
             Vector2 textPos = new Vector2(10, WindowSize.Y - HUDheight + 5);
-            DrawShadowString(_bigFont, "MapGen", textPos, Color.White);
+            DrawShadowString(_bigFont, "Simple map creator in XNA", textPos, Color.White);
             textPos += Vector2.UnitY * 35;
             DrawShadowString(_defaultFont, string.Format("Map width: {0}, height: {0}", _mapSize.X, _mapSize.Y), textPos, Color.White);
             textPos += Vector2.UnitY * 20;
