@@ -26,7 +26,7 @@ namespace Advanced_Tactics
 
         public string Classe { get; set; }
         public string Rang { get; set; }
-        public List<int> Mvt { get; set; }
+        public List<int> TerrainPossible { get; set; }
 
         List<int> Mvt1 = new List<int>(1) { 1 };
         List<int> Mvt2 = new List<int>(2) { 1, 2 };
@@ -43,7 +43,7 @@ namespace Advanced_Tactics
         private const int FramesPerSec = 2;
         public int PV { get; set; }
         public int Strength { get; set; }
-
+        public List<Vector> MvtPossible { get; set; }
 
 
         #endregion
@@ -54,7 +54,7 @@ namespace Advanced_Tactics
 
         Action<string, string, ContentManager, Sprite> Sprite2Unit = (p, r, c, s) => s.LC(c, p + r);
 
-        public Unit() { XofUnit = 0; YofUnit = 0; Mvt = new List<int>(0); }
+        public Unit() { XofUnit = 0; YofUnit = 0; TerrainPossible = new List<int>(0); }
 
         //rang = hq, pvt, tank...
         //clasee = dame, roi , fou...
@@ -80,7 +80,8 @@ namespace Advanced_Tactics
                 this.XofUnit = X;
                 this.YofUnit = Y;
                 map = Map;
-
+                this.MvtPossible = null;
+                this.MvtPossible = MvtPoss(Classe, new Vector(this.XofUnit, this.YofUnit), this.MvtPossible, map, data);
                 switch (Rang)
                 {
                     case "AA":
@@ -120,24 +121,25 @@ namespace Advanced_Tactics
                         this.Strength = 1;
                         break;
                 }
+                
 
                 if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
                 {
-                    Mvt = new List<int>(2);
-                    Mvt.Add(1); Mvt.Add(2);
+                    TerrainPossible = new List<int>(2);
+                    TerrainPossible.Add(1); TerrainPossible.Add(2);
                 }
                 if (new List<string>(6) { "AA", "Commando", "Doc", "Engineer", "Pvt" }.Contains(Rang))
                 {
-                    Mvt = new List<int>(1);
-                    Mvt.Add(1);
+                    TerrainPossible = new List<int>(1);
+                    TerrainPossible.Add(1);
                 }
                 if (new List<string>(1) { "Plane", "HQ" }.Contains(Rang))
                 {
-                    Mvt = new List<int>(3);
-                    Mvt.Add(0); Mvt.Add(1); Mvt.Add(2);
+                    TerrainPossible = new List<int>(3);
+                    TerrainPossible.Add(0); TerrainPossible.Add(1); TerrainPossible.Add(2);
                 }
 
-                if (Mvt.Contains(data.altitudeTerrain[X, Y]))
+                if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
                 {
                     if (Rang == "viseur") path = "Curseur/"; else path = "Unit/";
                     Sprite2Unit(path, Rang, data.Content, spriteOfUnit);
@@ -170,26 +172,28 @@ namespace Advanced_Tactics
             this.YofUnit = newCell.YofCell;
             this.Strength = UnitToMove.Strength;
             this.PV = UnitToMove.PV;
+            this.MvtPossible = null;
+            this.MvtPossible = MvtPoss(Classe, new Vector(newCell.XofCell, newCell.YofCell), this.MvtPossible, map, data);
             
             map = Map;
 
             if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
             {
-                Mvt = new List<int>(2);
-                Mvt.Add(1); Mvt.Add(2);
+                TerrainPossible = new List<int>(2);
+                TerrainPossible.Add(1); TerrainPossible.Add(2);
             }
             if (new List<string>(6) { "AA", "Commando", "Doc", "Engineer", "Pvt" }.Contains(Rang))
             {
-                Mvt = new List<int>(1);
-                Mvt.Add(1);
+                TerrainPossible = new List<int>(1);
+                TerrainPossible.Add(1);
             }
             if (new List<string>(1) { "Plane", "HQ" }.Contains(Rang))
             {
-                Mvt = new List<int>(3);
-                Mvt.Add(0); Mvt.Add(1); Mvt.Add(2);
+                TerrainPossible = new List<int>(3);
+                TerrainPossible.Add(0); TerrainPossible.Add(1); TerrainPossible.Add(2);
             }
 
-            if (Mvt.Contains(data.altitudeTerrain[XofUnit, YofUnit]))
+            if (TerrainPossible.Contains(data.altitudeTerrain[XofUnit, YofUnit]))
             {
                 if (this.Rang == "viseur") path = "Curseur/"; else path = "Unit/";
                 Sprite2Unit(path, this.Rang, data.Content, spriteOfUnit);
@@ -243,6 +247,93 @@ namespace Advanced_Tactics
         #endregion
 
         // // // // // // // // 
+
+        #region FUNCTIONS
+        public List<Vector> MvtPoss(string classe, Vector position, List<Vector> MvtPossible, Cell[,] map, Data data)
+        {
+            MvtPossible = new List<Vector>() { };
+            switch (classe)
+            {
+                case "King":
+                    MvtPossible.Add(new Vector(position.X + 1, position.Y));
+                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
+                    MvtPossible.Add(new Vector(position.X, position.Y + 1));
+                    MvtPossible.Add(new Vector(position.X, position.Y - 1));
+                    break;
+                case "Queen":
+                    for (float x = 0; x < data.WidthMap; ++x)
+                    {
+                        for (float y = 0; y < data.HeightMap; ++y)
+                        {
+                            if ((position.Y - position.X) == (y - x))
+                                for (int i = 0; i < 5; i++)
+                                    MvtPossible.Add(new Vector(x, y));
+
+                            if ((position.X + position.Y) == (x + y))
+                                for (int i = 0; i < 5; i++)
+                                    MvtPossible.Add(new Vector(x, y));
+                        }
+                    }
+                    for (float x = 0; x < data.WidthMap; ++x)
+                        for (float y = 0; y < data.HeightMap; ++y)
+                        {
+                            MvtPossible.Add(new Vector(x, position.Y));
+                            MvtPossible.Add(new Vector(position.X, y));
+                        }
+                    break;
+                case "Rock":
+                    for (float x = 0; x < data.WidthMap; ++x)
+                        for (float y = 0; y < data.HeightMap; ++y)
+                        {
+                            MvtPossible.Add(new Vector(x, position.Y));
+                            MvtPossible.Add(new Vector(position.X, y));
+                        }
+                    break;
+                case "Bishop":
+                    for (float x = 0; x < data.WidthMap; ++x)
+                    {
+                        for (float y = 0; y < data.HeightMap; ++y)
+                        {
+                            if ((position.Y - position.X) == (y - x))
+                                for (int i = 0; i < 5; i++)
+                                    MvtPossible.Add(new Vector(x, y));
+
+                            if ((position.X + position.Y) == (x + y))
+                                for (int i = 0; i < 5; i++)
+                                    MvtPossible.Add(new Vector(x, y));
+                        }
+                    }
+                    break;
+                case "Knight":
+                    for (float x = 0; x < data.WidthMap; ++x)
+                        for (float y = 0; y < data.HeightMap; ++y)
+                        {
+                            if ((position.X - 1 == x && y == position.Y - 2 * 1) || (position.X + 1 == x && y == position.Y - 2 * 1) || (position.X - 2 * 1 == x && y == position.Y - 1) || (position.X + 2 * 1 == x && y == position.Y - 1) || (position.X - 2 * 1 == x && y == position.Y + 1) || (position.X + 2 * 1 == x && y == position.Y + 1) || (position.X - 1 == x && y == position.Y + 2 * 1) || (position.X + 1 == x && y == position.Y + 2 * 1))
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    MvtPossible.Add(new Vector(x, y));
+                                    MvtPossible.Add(new Vector(position.X, position.Y));
+                                }
+                        }
+                    break;
+                case "Pawn":
+                    for (float x = 0; x < data.WidthMap; ++x)
+                        for (float y = 0; y < data.HeightMap; ++y)
+                        {
+                            if ((position.X - 1 == x && y == position.Y - 2 * 1) || (position.X + 1 == x && y == position.Y - 2 * 1) || (position.X - 2 * 1 == x && y == position.Y - 1) || (position.X + 2 * 1 == x && y == position.Y - 1) || (position.X - 2 * 1 == x && y == position.Y + 1) || (position.X + 2 * 1 == x && y == position.Y + 1) || (position.X - 1 == x && y == position.Y + 2 * 1) || (position.X + 1 == x && y == position.Y + 2 * 1))
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    MvtPossible.Add(new Vector(x, y));
+                                    MvtPossible.Add(new Vector(position.X, position.Y));
+                                }
+                        }
+                    break;
+            }
+            return MvtPossible;
+        }
+        #endregion
+
+        // // // // // // // //
 
         #region DRAW
 

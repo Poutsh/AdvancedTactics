@@ -191,7 +191,7 @@ namespace Advanced_Tactics
             {
                 MediaPlayer.Stop();
 
-                viseur.Update(gameTime, ListToDraw);
+                viseur.Update(gameTime, ListToDraw, spriteBatch);
 
                 if (currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
@@ -261,8 +261,8 @@ namespace Advanced_Tactics
                 /// /// /// ///
 
                 spriteBatch.Begin();    // Begin VISEUR
-                //debug.Draw(spriteBatch);
-                Informations.Draw(spriteBatch,gameTime);
+                debug.Draw(spriteBatch);
+                //Informations.Draw(spriteBatch,gameTime);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();      // End
 

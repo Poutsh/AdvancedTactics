@@ -99,11 +99,15 @@ namespace Advanced_Tactics
         {
             CtrlZ = new List<Vector>(2);
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
-            unit = new Unit(data, unit, map, newCell, ListOfUnit);
+            if (unit.MvtPossible.Contains(new Vector(newCell.XofCell, newCell.YofCell)))
+            {
+                unit = new Unit(data, unit, map, newCell, ListOfUnit);
+            }
+            
             Reset();
         }
 
-        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime)
+        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, SpriteBatch spriteBatch)
         {
             curKey = Keyboard.GetState();
 
@@ -122,7 +126,7 @@ namespace Advanced_Tactics
 
             if (depSelec && coordViseur != depPos && curKey.IsKeyDown(Keys.W) && oldKey != curKey)
             {
-                if (map[viseurX, viseurY].Occupe == false && UnitTemp.Mvt.Contains(data.altitudeTerrain[viseurX, viseurY]))
+                if (map[viseurX, viseurY].Occupe == false && UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]))
                 {
                     destSelec = true;
                     destPos = new Vector(coordViseur.X, coordViseur.Y);
@@ -134,12 +138,13 @@ namespace Advanced_Tactics
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
+                
             }
         }
 
         void ViseurColor()
         {
-            if (UnitTemp != null && !UnitTemp.Mvt.Contains(data.altitudeTerrain[viseurX, viseurY]) && depSelec)
+            if (UnitTemp != null && !UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]) && depSelec)
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
@@ -167,12 +172,12 @@ namespace Advanced_Tactics
 
         #region UPDATE
 
-        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit)
+        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
             curKey = Keyboard.GetState();
             float tempo;
 
-            getMovingPath(ListOfUnit, gameTime);
+            getMovingPath(ListOfUnit, gameTime, spriteBatch);
             ViseurColor();
 
             #region Gestion des mouvements du viseurs
@@ -222,6 +227,15 @@ namespace Advanced_Tactics
         {
             BlinkSprite(gameTime, blinkviseur, spriteBatch);
             spviseur.Draw(data, spriteBatch, gameTime, map[viseurX, viseurY].positionPixel);
+
+            if (UnitTemp != null)
+            {
+                for (int i = 0; i < UnitTemp.MvtPossible.Count(); i++)
+                {
+                    spCasebleu.Draw(data, spriteBatch, gameTime, new Vector2(UnitTemp.MvtPossible[i].X, UnitTemp.MvtPossible[i].Y));
+                }
+            }
+            
         }
 
         #endregion

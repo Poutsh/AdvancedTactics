@@ -125,6 +125,13 @@ namespace Advanced_Tactics
                 spriteBatch.DrawString(this.font,
                     string.Format("Unit : {0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Strength),
                     new Vector2(20, 215), Color.Indigo);
+                for (int i = 0; i < cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.MvtPossible.Count; i++)
+                {
+                    spriteBatch.DrawString(this.font,
+                    string.Format("Unit : {0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.MvtPossible[i]),
+                    new Vector2(20, 240+i*10), Color.Indigo);
+                }
+                
             }
             else
             {
@@ -133,20 +140,20 @@ namespace Advanced_Tactics
                     new Vector2(20, 195), Color.Indigo);
             }
 
-            spriteBatch.DrawString(this.font,
-                 string.Format("OverUnit public  {0}", _viseur.ViseurOverUnit),
-                 new Vector2(20, 258), Color.Yellow);
-            spriteBatch.DrawString(this.font,
-                 string.Format("Altitude sous le viseur {0}", data.altitudeTerrain[_viseur.viseurX, _viseur.viseurY]),
-                 new Vector2(20, 278), Color.Yellow);
+            //spriteBatch.DrawString(this.font,
+            //     string.Format("OverUnit public  {0}", _viseur.ViseurOverUnit),
+            //     new Vector2(20, 258), Color.Yellow);
+            //spriteBatch.DrawString(this.font,
+            //     string.Format("Altitude sous le viseur {0}", data.altitudeTerrain[_viseur.viseurX, _viseur.viseurY]),
+            //     new Vector2(20, 278), Color.Yellow);
 
             if (_viseur.UnitTemp != null)
             {
-                for (int i = 0; i < _viseur.UnitTemp.Mvt.Count(); i++)
+                for (int i = 0; i < _viseur.UnitTemp.TerrainPossible.Count(); i++)
                 {
 
                     spriteBatch.DrawString(this.font,
-                     string.Join(",", _viseur.UnitTemp.Mvt.ToArray()),
+                     string.Join(",", _viseur.UnitTemp.TerrainPossible.ToArray()),
                      new Vector2(20, 298), Color.Brown);
                 }
             }
