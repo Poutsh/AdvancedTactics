@@ -20,10 +20,8 @@ Content\Menu\TitreQuitter.xnb
 Content\Curseur\viseurB.xnb
 Content\Curseur\viseurR.xnb
 Content\Unit\AA.xnb
-Content\Unit\Com.xnb
 Content\Unit\Doc.xnb
 Content\Unit\HQ.xnb
-Content\Unit\Ing.xnb
 Content\Unit\Plane.xnb
 Content\Unit\Pvt.xnb
 Content\Unit\Tank.xnb
@@ -38,6 +36,13 @@ Content\Son\click1.xnb
 Content\Son\Russian Red Army Choir.xnb
 Content\font.xnb
 Content\Menu\flou.xnb
+Content\Unit\Commando.xnb
+Content\Unit\Engineer.xnb
+Content\Menu\Informations.xnb
+Content\Menu\Magasin.xnb
+Content\Menu\Metal.xnb
+Content\info.xnb
+Content\info2.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 MapEngine\map2.txt
