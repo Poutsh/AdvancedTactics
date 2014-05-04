@@ -85,7 +85,7 @@ namespace Advanced_Tactics
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Ctt = Content;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             this.Window.Title = "Advanced Tactics";
 
             // Gestion souris
@@ -108,8 +108,8 @@ namespace Advanced_Tactics
             gd = this.GraphicsDevice;
 
             // Gestion de la fenetre
-            BufferWidth = 1600;
-            BufferHeight = 900;
+            BufferWidth = 1920;
+            BufferHeight = 1200;
             data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
             ListToDraw = new List<Unit>();
 
@@ -151,7 +151,7 @@ namespace Advanced_Tactics
             unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
 
             string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
-            string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
+            string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Pawn" };
             
 
             // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
@@ -187,7 +187,7 @@ namespace Advanced_Tactics
 
 
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
@@ -243,7 +243,7 @@ namespace Advanced_Tactics
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
             Informations = new Informations(data, map, viseur, ListToDraw); Informations.LoadContent();
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 spriteBatch.Begin();    // Begin NORMAL
 
