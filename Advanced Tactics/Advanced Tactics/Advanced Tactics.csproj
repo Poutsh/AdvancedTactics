@@ -110,7 +110,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatedTexture.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Informations.cs" />
     <Compile Include="MapEngine\Cell.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="MapEngine\TileEngine.cs" />

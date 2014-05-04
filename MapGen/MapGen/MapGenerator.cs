@@ -93,7 +93,6 @@ namespace MapGenerator
             destinationMap[x, y] = (byte)MathHelper.Clamp((sourceMap[x, y] + difference * .2f + randomPct), 0, 255);
         }
 
-
         /// <summary>
         /// Saves the map to a file
         /// </summary>
@@ -137,7 +136,6 @@ namespace MapGenerator
                 throw new Exception("Error writing to file '" + path + "'. Error is: " + ex.ToString());
             }
         }
-
 
         /// <summary>
         /// Saves the map to a file
@@ -184,8 +182,6 @@ namespace MapGenerator
                 throw new Exception("Error writing to file '" + path + "'. Error is: " + ex.ToString());
             }
         }
-
-
 
         public static byte[,] LoadMapWithHeight(string path)
         {

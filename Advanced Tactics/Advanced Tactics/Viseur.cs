@@ -108,9 +108,7 @@ namespace Advanced_Tactics
             curKey = Keyboard.GetState();
 
             if ((curKey.IsKeyDown(Keys.LeftControl) || curKey.IsKeyDown(Keys.RightControl)) && curKey.IsKeyDown(Keys.Z) && CtrlZ[1] != Vector.Zero)
-            {
                 doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
-            }
 
             if (depSelec && !destSelec && curKey.IsKeyDown(Keys.R)) { Reset(); }
 
@@ -128,9 +126,7 @@ namespace Advanced_Tactics
             {
                 map[viseurX, viseurY].unitOfCell.Strength = map[viseurX, viseurY].unitOfCell.Strength - 1;
                 if (map[viseurX, viseurY].unitOfCell.Strength <= 0)
-                {
                     map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, ListOfUnit);
-                }
             }
 
             if (depSelec && coordViseur != depPos && curKey.IsKeyDown(Keys.W) && oldKey != curKey)
@@ -141,9 +137,6 @@ namespace Advanced_Tactics
                     destPos = new Vector(coordViseur.X, coordViseur.Y);
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
-                
-
-
             }
             else if (ViseurOverUnit && !depSelec && curKey.IsKeyDown(Keys.Q) && oldKey != curKey)
             {

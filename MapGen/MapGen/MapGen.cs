@@ -88,13 +88,12 @@ namespace MapGenerator
             SaveStates();               //save keyboard and mouse for comparison in next Update
         }
 
-
         private void RespondToInput(GameTime gameTime)
         {
             if (WasJustPressed(Keys.Escape)) { this.Exit(); }                       // Allows the game to exit
             if (WasJustPressed(Keys.F11)) { graphics.ToggleFullScreen(); }          //toggles fullscreen
             if (WasJustPressed(Keys.Space) || WasJustClicked(MouseButtons.Right))   //smooth the map
-            { _map = MapGenerator.SmoothMap(_map); _roundsOfSmoothing++; }
+            { _map = MapGenerator.SmoothMap(_map); _roundsOfSmoothing = _roundsOfSmoothing+100; }
             if (WasJustPressed(Keys.Enter)) { CreateNewMap(); }                     //generate new map
 
             //CTRL + S saves the map
@@ -107,7 +106,7 @@ namespace MapGenerator
             }
 
 
-            float scrollChange = _currentMouse.ScrollWheelValue - _oldMouse.ScrollWheelValue;
+            float scrollChange = (_currentMouse.ScrollWheelValue) - _oldMouse.ScrollWheelValue;
             if (scrollChange != 0)
             {
                 _oceanHeight += Math.Sign(scrollChange);
@@ -137,7 +136,6 @@ namespace MapGenerator
             string newMapPath = (new DirectoryInfo(folderOfMapEditor).Parent.Parent.Parent.Parent.Parent.FullName) + "\\Advanced Tactics\\Advanced Tactics\\Map\\map2.txt";
             return newMapPath;
         }
-
 
         private void UpdateStates()
         {
@@ -200,34 +198,34 @@ namespace MapGenerator
                     spriteBatch.Draw(_white, position, tileColor);      //draw the tile
 
                     //draw the height info on top of the tile
-                    DrawShadowString(_defaultFont, _map[x, y].ToString(), position, textColor);
+                    //DrawShadowString(_defaultFont, _map[x, y].ToString(), position, textColor);
                 }
             }
 
             //draw the Heads Up Display at the bottom
-            spriteBatch.Draw(_white, new Rectangle(0, (int)(WindowSize.Y - HUDheight), (int)WindowSize.X, (int)HUDheight), Color.Black * .9f);
+            //spriteBatch.Draw(_white, new Rectangle(0, (int)(WindowSize.Y - HUDheight), (int)WindowSize.X, (int)HUDheight), Color.Black * .9f);
 
-            //draw info
-            Vector2 textPos = new Vector2(10, WindowSize.Y - HUDheight + 5);
-            DrawShadowString(_bigFont, "Simple map creator in XNA", textPos, Color.White);
-            textPos += Vector2.UnitY * 35;
-            DrawShadowString(_defaultFont, string.Format("Map width: {0}, height: {0}", _mapSize.X, _mapSize.Y), textPos, Color.White);
-            textPos += Vector2.UnitY * 20;
-            DrawShadowString(_defaultFont, "Ocean height: " + _oceanHeight, textPos, Color.White);
-            textPos += Vector2.UnitY * 20;
-            DrawShadowString(_defaultFont, "Times smoothed: " + _roundsOfSmoothing, textPos, Color.White);
+            ////draw info
+            //Vector2 textPos = new Vector2(10, WindowSize.Y - HUDheight + 5);
+            //DrawShadowString(_bigFont, "Simple map creator in XNA", textPos, Color.White);
+            //textPos += Vector2.UnitY * 35;
+            //DrawShadowString(_defaultFont, string.Format("Map width: {0}, height: {0}", _mapSize.X, _mapSize.Y), textPos, Color.White);
+            //textPos += Vector2.UnitY * 20;
+            //DrawShadowString(_defaultFont, "Ocean height: " + _oceanHeight, textPos, Color.White);
+            //textPos += Vector2.UnitY * 20;
+            //DrawShadowString(_defaultFont, "Times smoothed: " + _roundsOfSmoothing, textPos, Color.White);
 
-            //draw instructions
-            textPos = new Vector2(WindowSize.X / 2 -20, WindowSize.Y - HUDheight);
-            DrawShadowString(_defaultFont, "[ENTER] for new map", textPos, Color.LightBlue);
-            textPos += Vector2.UnitY * 20;
-            DrawShadowString(_defaultFont, "[Right mousebutton or SPACE] to smooth", textPos, Color.LightBlue);
-            textPos += Vector2.UnitY * 20;
-            DrawShadowString(_defaultFont, "[Mousescroll] to change ocean level", textPos, Color.LightBlue);
-            textPos += Vector2.UnitY * 20;
-            DrawShadowString(_defaultFont, "[CTRL+S] saves map (+ SHIFT for save with height)", textPos, Color.LightBlue);
-            textPos += Vector2.UnitY * 20;
-            DrawShadowString(_defaultFont, "Drag map with left mousebutton", textPos, Color.LightBlue);
+            ////draw instructions
+            //textPos = new Vector2(WindowSize.X / 2 -20, WindowSize.Y - HUDheight);
+            //DrawShadowString(_defaultFont, "[ENTER] for new map", textPos, Color.LightBlue);
+            //textPos += Vector2.UnitY * 20;
+            //DrawShadowString(_defaultFont, "[Right mousebutton or SPACE] to smooth", textPos, Color.LightBlue);
+            //textPos += Vector2.UnitY * 20;
+            //DrawShadowString(_defaultFont, "[Mousescroll] to change ocean level", textPos, Color.LightBlue);
+            //textPos += Vector2.UnitY * 20;
+            //DrawShadowString(_defaultFont, "[CTRL+S] saves map (+ SHIFT for save with height)", textPos, Color.LightBlue);
+            //textPos += Vector2.UnitY * 20;
+            //DrawShadowString(_defaultFont, "Drag map with left mousebutton", textPos, Color.LightBlue);
 
             spriteBatch.End();
 

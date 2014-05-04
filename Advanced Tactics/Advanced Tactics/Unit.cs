@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Advanced_Tactics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,7 @@ namespace Advanced_Tactics
         private Cell[,] map;
         public Sprite spriteOfUnit;
         string path;
+        SpriteBatch spriteBatch;
 
         public Viseur Viseur { get; set; }
 
@@ -30,7 +32,19 @@ namespace Advanced_Tactics
         List<int> Mvt2 = new List<int>(2) { 1, 2 };
         List<int> Mvt3 = new List<int>(3) { 0, 1, 2 };
         List<int> Mvt4 = new List<int>(0) { };
+
+        private AnimatedTexture SpriteTexture;
+        private const float Rotation = 0;
+        private const float Scale = 2.0f;
+        private const float Depth = 0.5f;
+        private Viewport viewport;
+        private Vector2 shipPos;
+        private const int Frames = 4;
+        private const int FramesPerSec = 2;
+        public int PV { get; set; }
         public int Strength { get; set; }
+
+
 
         #endregion
 
@@ -67,23 +81,60 @@ namespace Advanced_Tactics
                 this.YofUnit = Y;
                 map = Map;
 
-                if (new List<string>(2) { "tank", "truck" }.Contains(Rang))
+                switch (Rang)
+                {
+                    case "AA":
+                        this.PV = 30;
+                        this.Strength = 3;
+                        break;
+                    case "Commando":
+                        this.PV = 25;
+                        this.Strength = 3;
+                        break;
+                    case "Doc":
+                        this.PV = 15;
+                        this.Strength = 1;
+                        break;
+                    case "Engineer":
+                        this.PV = 15;
+                        this.Strength = 1;
+                        break;
+                    case "Pvt":
+                        this.PV = 15;
+                        this.Strength = 2;
+                        break;
+                    case "Plane":
+                        this.PV = 50;
+                        this.Strength = 5;
+                        break;
+                    case "HQ":
+                        this.PV = 1000;
+                        this.Strength = 10;
+                        break;
+                    case "Tank":
+                        this.PV = 40;
+                        this.Strength = 4;
+                        break;
+                    case "Truck":
+                        this.PV = 30;
+                        this.Strength = 1;
+                        break;
+                }
+
+                if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
                 {
                     Mvt = new List<int>(2);
                     Mvt.Add(1); Mvt.Add(2);
-                    this.Strength = 3;
                 }
-                if (new List<string>(6) { "aa", "com", "doc", "ing", "pvt", "hq" }.Contains(Rang))
+                if (new List<string>(6) { "AA", "Commando", "Doc", "Engineer", "Pvt" }.Contains(Rang))
                 {
                     Mvt = new List<int>(1);
                     Mvt.Add(1);
-                    this.Strength = 2;
                 }
-                if (new List<string>(1) { "plane" }.Contains(Rang))
+                if (new List<string>(1) { "Plane", "HQ" }.Contains(Rang))
                 {
                     Mvt = new List<int>(3);
-                    Mvt.Add(1); Mvt.Add(2); Mvt.Add(0);
-                    this.Strength = 4;
+                    Mvt.Add(0); Mvt.Add(1); Mvt.Add(2);
                 }
 
                 if (Mvt.Contains(data.altitudeTerrain[X, Y]))
@@ -120,17 +171,17 @@ namespace Advanced_Tactics
             this.Strength = UnitToMove.Strength;
             map = Map;
 
-            if (new List<string>(2) { "tank", "truck" }.Contains(Rang))
+            if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
             {
                 Mvt = new List<int>(2);
                 Mvt.Add(1); Mvt.Add(2);
             }
-            if (new List<string>(6) { "aa", "com", "doc", "ing", "pvt", "hq" }.Contains(Rang))
+            if (new List<string>(6) { "AA", "Commando", "Doc", "Engineer", "Pvt" }.Contains(Rang))
             {
                 Mvt = new List<int>(1);
                 Mvt.Add(1);
             }
-            if (new List<string>(1) { "plane" }.Contains(Rang))
+            if (new List<string>(1) { "Plane", "HQ" }.Contains(Rang))
             {
                 Mvt = new List<int>(3);
                 Mvt.Add(0); Mvt.Add(1); Mvt.Add(2);
@@ -181,12 +232,9 @@ namespace Advanced_Tactics
                 if (ListOfUnit[i] == UnitToDestruct)
                 {
                     ListOfUnit.RemoveAt(i);
-                    
+
                     //map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].Occupe = false;
                 }
-
-            
-            //UnitToDestruct = null;
         }
 
         #endregion

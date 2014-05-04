@@ -45,7 +45,7 @@ namespace Advanced_Tactics
         KeyboardState oldKeyboardState, currentKeyboardState;
         MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
-        Sprite sppointer, flou;
+        Sprite sppointer, flou, fondmetal, info, magasin;
 
         // Menu
         Menu menu;
@@ -81,6 +81,7 @@ namespace Advanced_Tactics
         public int BufferWidth { get { return graphics.PreferredBackBufferWidth; } set { graphics.PreferredBackBufferWidth = value; } }
 
         Debug debug;
+        Informations Informations;
 
         #endregion
 
@@ -138,37 +139,6 @@ namespace Advanced_Tactics
 
             defaultViewport = GraphicsDevice.Viewport;
 
-            #region Viewports
-            leftViewport = defaultViewport;
-            rightViewport = defaultViewport;
-            toprightViewport = defaultViewport;
-            topleftViewport = defaultViewport;
-            bottomleftViewport = defaultViewport;
-            bottomrightViewport = defaultViewport;
-
-            leftViewport.Width = leftViewport.Width / 2;
-
-            rightViewport.Width = rightViewport.Width / 2;
-            rightViewport.X = leftViewport.Width + 1;
-
-
-            topleftViewport.Width = topleftViewport.Width / 2;
-            topleftViewport.Height = topleftViewport.Height / 2;
-
-            toprightViewport.Width = toprightViewport.Width / 2;
-            toprightViewport.Height = toprightViewport.Height / 2;
-            toprightViewport.X = leftViewport.Width + 1;
-
-            bottomleftViewport.Width = bottomleftViewport.Width / 2;
-            bottomleftViewport.Height = bottomleftViewport.Height / 2;
-            bottomleftViewport.Y = topleftViewport.Height + 1;
-
-            bottomrightViewport.Width = bottomrightViewport.Width / 2;
-            bottomrightViewport.Height = bottomrightViewport.Height / 2;
-            bottomrightViewport.X = bottomleftViewport.Width + 1;
-            bottomrightViewport.Y = toprightViewport.Height + 1;
-            #endregion
-
             // Menu
             menu = new Menu(data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
             click = Content.Load<SoundEffect>("Son/click1");
@@ -179,26 +149,32 @@ namespace Advanced_Tactics
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
             flou = new Sprite(); flou.LC(data.Content, "Menu/flou");
+            fondmetal = new Sprite(); fondmetal.LC(data.Content, "Menu/Metal");
+            info = new Sprite(); info.LC(data.Content, "Menu/Informations");
+            magasin = new Sprite(); magasin.LC(data.Content, "Menu/Magasin");
+            
 
             // Clavier, Souris
             viseur = new Viseur(data, map.Carte);
             sppointer = new Sprite(); sppointer.LC(data.Content, "Curseur/pointer");
 
             // Unit
-            unit = new Unit(data, "plane", "fou", map.Carte, 1, 5, ListToDraw);
+            unit = new Unit(data, "Plane", "Fou", map.Carte, 1, 5, ListToDraw);
 
-            string[] arrayrang = new string[] { "aa", "com", "doc", "hq", "ing", "plane", "pvt", "tank", "truck" };
-            string[] arrayclasse = new string[] { "roi", "dame", "tour", "fou", "cavalier", "pion" };
-
+            string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
+            string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
+            
 
             // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
             // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
             // Cette fonction cree tous simplements plusieurs unitees
             Func<Data, string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (d, r, c, m, x, y, l, u) => new Unit(d, r, c, m.Carte, x, y, l);
             Random rrd = new Random();
-
+            //1 23 33 1
+            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
+            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
             // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
-            for (int i = 0; i < rrd.Next(1, 100); i++)
+            for (int i = 0; i < rrd.Next(200, 300); i++)
                 Rdunit(data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw, unit);
         }
 
@@ -220,7 +196,8 @@ namespace Advanced_Tactics
             currentKeyboardState = Keyboard.GetState();
             sppointer.Update(gameTime);
 
-            
+
+
             if (!menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
@@ -269,7 +246,13 @@ namespace Advanced_Tactics
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+            fondmetal.Draw(data, spriteBatch, gameTime, new Vector2(0, 0));
+            info.Draw(data, spriteBatch, gameTime, new Vector2(55, 0));
+            magasin.Draw(data, spriteBatch, gameTime, new Vector2(55, 500));
+            spriteBatch.End();
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
+            Informations = new Informations(data, map, viseur, ListToDraw); Informations.LoadContent();
 
             if (!menu.currentGame) // IN GAME
             {
@@ -289,6 +272,8 @@ namespace Advanced_Tactics
                 /// /// /// ///
 
                 spriteBatch.Begin();    // Begin VISEUR
+                //debug.Draw(spriteBatch);
+                Informations.Draw(spriteBatch,gameTime);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();      // End
 
@@ -300,8 +285,9 @@ namespace Advanced_Tactics
 
             //Begin DEBUG
             spriteBatch.Begin();
-            debug.Draw(spriteBatch);
+            //debug.Draw(spriteBatch);
             sppointer.Draw(data, spriteBatch, gameTime, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            
             spriteBatch.End();
             //End
 
