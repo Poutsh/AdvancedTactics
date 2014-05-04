@@ -1,0 +1,37 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {2}Avancement du projet}{2}
+\contentsline {subsection}{\numberline {2.1}sahel\_r \leavevmode {\color {red}"The Architect"}}{2}
+\contentsline {subsubsection}{\numberline {2.1.1}Particules}{2}
+\contentsline {subsubsection}{\numberline {2.1.2}Environnement}{4}
+\contentsline {subsubsection}{\numberline {2.1.3}Obstacles}{6}
+\contentsline {subsubsection}{\numberline {2.1.4}Vid\IeC {\'e}o d'introduction}{9}
+\contentsline {subsection}{\numberline {2.2}magot\_f \leavevmode {\color {red}"Amadeus"}}{10}
+\contentsline {subsubsection}{\numberline {2.2.1}Evolution des anciens menus}{10}
+\contentsline {subsubsection}{\numberline {2.2.2}Nouveaux menus - Nouvelles fonctionnalit\IeC {\'e}s}{11}
+\contentsline {subsubsection}{\numberline {2.2.3}Refonte graphique de l'interface}{13}
+\contentsline {subsubsection}{\numberline {2.2.4}Conception graphique du site web}{14}
+\contentsline {subsection}{\numberline {2.3}verger\_h \leavevmode {\color {red}"T3H BAGUETTE"}}{15}
+\contentsline {subsubsection}{\numberline {2.3.1}Grenades}{15}
+\contentsline {subsubsection}{\numberline {2.3.2}Limites et Spawn sur les cartes}{16}
+\contentsline {subsubsection}{\numberline {2.3.3}Pathfinding}{18}
+\contentsline {subsubsection}{\numberline {2.3.4}Vagues}{20}
+\contentsline {subsection}{\numberline {2.4}thuaul\_c \leavevmode {\color {red}"Tapus"}}{22}
+\contentsline {subsubsection}{\numberline {2.4.1}Site web}{22}
+\contentsline {subsubsection}{\numberline {2.4.2}Interface}{25}
+\contentsline {section}{\numberline {3}Et apr\IeC {\`e}s ?}{27}
+\contentsline {subsection}{\numberline {3.1}sahel\_r \leavevmode {\color {red}"The Architect"}}{27}
+\contentsline {subsubsection}{\numberline {3.1.1}Obstacles}{27}
+\contentsline {subsubsection}{\numberline {3.1.2}Environnement}{27}
+\contentsline {subsection}{\numberline {3.2}magot\_f \leavevmode {\color {red}"Amadeus"}}{28}
+\contentsline {subsubsection}{\numberline {3.2.1}Menu}{28}
+\contentsline {subsubsection}{\numberline {3.2.2}Interface}{28}
+\contentsline {subsubsection}{\numberline {3.2.3}Artworks}{28}
+\contentsline {subsection}{\numberline {3.3}verger\_h \leavevmode {\color {red}"T3H BAGUETTE"}}{29}
+\contentsline {subsubsection}{\numberline {3.3.1}Spawn}{29}
+\contentsline {subsubsection}{\numberline {3.3.2}Grenades}{29}
+\contentsline {subsubsection}{\numberline {3.3.3}IA}{29}
+\contentsline {subsection}{\numberline {3.4}thuaul\_c \leavevmode {\color {red}"Tapus"}}{30}
+\contentsline {subsubsection}{\numberline {3.4.1}Site Web}{30}
+\contentsline {subsubsection}{\numberline {3.4.2}R\IeC {\'e}seau}{30}
+\contentsline {section}{\numberline {4}Conclusion}{31}
