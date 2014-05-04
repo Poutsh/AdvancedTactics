@@ -112,33 +112,24 @@ namespace Advanced_Tactics
 
             if (depSelec && !destSelec && curKey.IsKeyDown(Keys.R)) { Reset(); }
 
-            //if (depSelec && coordViseur != depPos && curKey.IsKeyDown(Keys.A) && oldKey != curKey)
-            //{
-            //    map[viseurX, viseurY].unitOfCell.Strength = map[viseurX, viseurY].unitOfCell.Strength - 1;
-            //    destPos = new Vector(coordViseur.X, coordViseur.Y);
-
-            //    if (map[viseurX, viseurY].unitOfCell.Strength <= 0)
-            //    {
-            //        doMoveUnit(map[destPos.X, destPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
-            //    }
-            //}
-            if (Vector.Distance(map[depPos.X, depPos.Y].VectorOfCell, map[viseurX, viseurY].VectorOfCell) <= 2 && map[viseurX, viseurY].unitOfCell != null && curKey.IsKeyDown(Keys.A) && oldKey != curKey)
+            if (map[viseurX, viseurY].Occupe == true && Vector.Distance(map[depPos.X, depPos.Y].VectorOfCell, map[viseurX, viseurY].VectorOfCell) <= 2 && curKey.IsKeyDown(Keys.W) && oldKey != curKey)
             {
                 map[viseurX, viseurY].unitOfCell.Strength = map[viseurX, viseurY].unitOfCell.Strength - 1;
                 if (map[viseurX, viseurY].unitOfCell.Strength <= 0)
-                    map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, ListOfUnit);
+                    map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, map, ListOfUnit);
+                Reset();
             }
 
             if (depSelec && coordViseur != depPos && curKey.IsKeyDown(Keys.W) && oldKey != curKey)
             {
-                if (map[viseurX, viseurY].unitOfCell == null && UnitTemp.Mvt.Contains(data.altitudeTerrain[viseurX, viseurY]))
+                if (map[viseurX, viseurY].Occupe == false && UnitTemp.Mvt.Contains(data.altitudeTerrain[viseurX, viseurY]))
                 {
                     destSelec = true;
                     destPos = new Vector(coordViseur.X, coordViseur.Y);
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (ViseurOverUnit && !depSelec && curKey.IsKeyDown(Keys.Q) && oldKey != curKey)
+            else if (map[viseurX, viseurY].Occupe == true && ViseurOverUnit && !depSelec && curKey.IsKeyDown(Keys.Q) && oldKey != curKey)
             {
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);

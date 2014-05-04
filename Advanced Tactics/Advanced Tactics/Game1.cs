@@ -31,15 +31,6 @@ namespace Advanced_Tactics
         Color color;
         Color clearColor;
         GameState gameState;
-        const short screenWidth = 800;
-        const short screenHeight = 600;
-        Viewport defaultViewport;
-        Viewport leftViewport;
-        Viewport rightViewport;
-        Viewport toprightViewport;
-        Viewport topleftViewport;
-        Viewport bottomrightViewport;
-        Viewport bottomleftViewport;
 
         // Clavier, Souris, Camera
         KeyboardState oldKeyboardState, currentKeyboardState;
@@ -136,8 +127,6 @@ namespace Advanced_Tactics
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            defaultViewport = GraphicsDevice.Viewport;
 
             // Menu
             menu = new Menu(data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));

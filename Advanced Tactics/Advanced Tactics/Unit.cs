@@ -169,6 +169,8 @@ namespace Advanced_Tactics
             this.XofUnit = newCell.XofCell;
             this.YofUnit = newCell.YofCell;
             this.Strength = UnitToMove.Strength;
+            this.PV = UnitToMove.PV;
+            
             map = Map;
 
             if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
@@ -216,16 +218,17 @@ namespace Advanced_Tactics
         /// <param name="data"></param>
         /// <param name="UnitToDestruct"></param>
         /// <param name="ListOfUnit"></param>
-        public Unit(Data data, Unit UnitToDestruct, List<Unit> ListOfUnit)
+        public Unit(Data data, Unit UnitToDestruct, Cell[,] Map, List<Unit> ListOfUnit)
         {
             this.data = data;
             spriteOfUnit = new Sprite();
 
-            this.Rang = UnitToDestruct.Rang;
-            this.Classe = UnitToDestruct.Classe;
             this.XofUnit = UnitToDestruct.XofUnit;
             this.YofUnit = UnitToDestruct.YofUnit;
 
+            map = Map;
+            map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
+            map[this.XofUnit, this.YofUnit].unitOfCell = null; // On mets a jour la valeur de la nouvelle case
 
             //map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].unitOfCell = null;
             for (int i = 0; i < ListOfUnit.Count(); i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
@@ -233,7 +236,7 @@ namespace Advanced_Tactics
                 {
                     ListOfUnit.RemoveAt(i);
 
-                    //map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].Occupe = false;
+                    map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].Occupe = false;
                 }
         }
 
