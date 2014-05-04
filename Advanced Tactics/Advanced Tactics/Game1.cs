@@ -148,7 +148,7 @@ namespace Advanced_Tactics
             sppointer = new Sprite(); sppointer.LC(data.Content, "Curseur/pointer");
 
             // Unit
-            unit = new Unit(data, "Plane", "Fou", map.Carte, 1, 5, ListToDraw);
+            unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
 
             string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
             string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };

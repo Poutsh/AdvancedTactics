@@ -256,77 +256,67 @@ namespace Advanced_Tactics
             {
                 case "King":
                     MvtPossible.Add(new Vector(position.X + 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
                     MvtPossible.Add(new Vector(position.X, position.Y + 1));
+                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
                     MvtPossible.Add(new Vector(position.X, position.Y - 1));
+                    MvtPossible.Add(new Vector(position.X + 1, position.Y + 1));
+                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
+                    MvtPossible.Add(new Vector(position.X - 1, position.Y - 1));
+                    MvtPossible.Add(new Vector(position.X - 1, position.Y + 1));
                     break;
                 case "Queen":
-                    for (float x = 0; x < data.WidthMap; ++x)
-                    {
-                        for (float y = 0; y < data.HeightMap; ++y)
-                        {
-                            if ((position.Y - position.X) == (y - x))
-                                for (int i = 0; i < 5; i++)
-                                    MvtPossible.Add(new Vector(x, y));
-
-                            if ((position.X + position.Y) == (x + y))
-                                for (int i = 0; i < 5; i++)
-                                    MvtPossible.Add(new Vector(x, y));
-                        }
-                    }
-                    for (float x = 0; x < data.WidthMap; ++x)
-                        for (float y = 0; y < data.HeightMap; ++y)
-                        {
-                            MvtPossible.Add(new Vector(x, position.Y));
-                            MvtPossible.Add(new Vector(position.X, y));
-                        }
+                    for (int i = 1; position.Y - i > 0; i++)
+                        MvtPossible.Add(new Vector(position.X, position.Y - i));
+                    for (int i = 1; position.Y + i != data.HeightMap; i++)
+                        MvtPossible.Add(new Vector(position.X, position.Y + i));
+                    for (int i = 1; position.X - i > 0; i++)
+                        MvtPossible.Add(new Vector(position.X - i, position.Y));
+                    for (int i = 1; position.X + i != data.WidthMap; i++)
+                        MvtPossible.Add(new Vector(position.X + i, position.Y));
+                    for (int i = 1; (position.Y - i > 0) && (position.X - i > 0); i++)
+                        MvtPossible.Add(new Vector(position.X - i, position.Y - i));
+                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
+                        MvtPossible.Add(new Vector(position.X + i, position.Y + i));
+                    for (int i = 1; (position.Y - i > 0) && (position.X + i != data.WidthMap); i++)
+                        MvtPossible.Add(new Vector(position.X + i, position.Y - i));
+                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i > 0); i++)
+                        MvtPossible.Add(new Vector(position.X - i, position.Y + i));
                     break;
-                case "Rock":
-                    for (float x = 0; x < data.WidthMap; ++x)
-                        for (float y = 0; y < data.HeightMap; ++y)
-                        {
-                            MvtPossible.Add(new Vector(x, position.Y));
-                            MvtPossible.Add(new Vector(position.X, y));
-                        }
+                case "Rook":
+                    for (int i = 1; position.Y - i > 0; i++)
+                        MvtPossible.Add(new Vector(position.X, position.Y - i));
+                    for (int i = 1; position.Y + i != data.HeightMap; i++)
+                        MvtPossible.Add(new Vector(position.X, position.Y + i));
+                    for (int i = 1; position.X - i > 0; i++)
+                        MvtPossible.Add(new Vector(position.X - i, position.Y));
+                    for (int i = 1; position.X + i != data.WidthMap; i++)
+                        MvtPossible.Add(new Vector(position.X + i, position.Y));
                     break;
                 case "Bishop":
-                    for (float x = 0; x < data.WidthMap; ++x)
-                    {
-                        for (float y = 0; y < data.HeightMap; ++y)
-                        {
-                            if ((position.Y - position.X) == (y - x))
-                                for (int i = 0; i < 5; i++)
-                                    MvtPossible.Add(new Vector(x, y));
-
-                            if ((position.X + position.Y) == (x + y))
-                                for (int i = 0; i < 5; i++)
-                                    MvtPossible.Add(new Vector(x, y));
-                        }
-                    }
+                    for (int i = 1; (position.Y - i > 0) && (position.X - i > 0); i++)
+                        MvtPossible.Add(new Vector(position.X - i, position.Y - i));
+                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
+                        MvtPossible.Add(new Vector(position.X + i, position.Y + i));
+                    for (int i = 1; (position.Y - i > 0) && (position.X + i != data.WidthMap); i++)
+                        MvtPossible.Add(new Vector(position.X + i, position.Y - i));
+                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i > 0); i++)
+                        MvtPossible.Add(new Vector(position.X - i, position.Y + i));
                     break;
                 case "Knight":
-                    for (float x = 0; x < data.WidthMap; ++x)
-                        for (float y = 0; y < data.HeightMap; ++y)
-                        {
-                            if ((position.X - 1 == x && y == position.Y - 2 * 1) || (position.X + 1 == x && y == position.Y - 2 * 1) || (position.X - 2 * 1 == x && y == position.Y - 1) || (position.X + 2 * 1 == x && y == position.Y - 1) || (position.X - 2 * 1 == x && y == position.Y + 1) || (position.X + 2 * 1 == x && y == position.Y + 1) || (position.X - 1 == x && y == position.Y + 2 * 1) || (position.X + 1 == x && y == position.Y + 2 * 1))
-                                for (int i = 0; i < 5; i++)
-                                {
-                                    MvtPossible.Add(new Vector(x, y));
-                                    MvtPossible.Add(new Vector(position.X, position.Y));
-                                }
-                        }
+                    MvtPossible.Add(new Vector(position.X - 1, position.Y + 2));
+                    MvtPossible.Add(new Vector(position.X + 1, position.Y + 2));
+                    MvtPossible.Add(new Vector(position.X + 2, position.Y + 1));
+                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
+                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 2));
+                    MvtPossible.Add(new Vector(position.X - 1, position.Y - 2));
+                    MvtPossible.Add(new Vector(position.X - 2, position.Y - 1));
+                    MvtPossible.Add(new Vector(position.X - 2, position.Y + 1));
                     break;
                 case "Pawn":
-                    for (float x = 0; x < data.WidthMap; ++x)
-                        for (float y = 0; y < data.HeightMap; ++y)
-                        {
-                            if ((position.X - 1 == x && y == position.Y - 2 * 1) || (position.X + 1 == x && y == position.Y - 2 * 1) || (position.X - 2 * 1 == x && y == position.Y - 1) || (position.X + 2 * 1 == x && y == position.Y - 1) || (position.X - 2 * 1 == x && y == position.Y + 1) || (position.X + 2 * 1 == x && y == position.Y + 1) || (position.X - 1 == x && y == position.Y + 2 * 1) || (position.X + 1 == x && y == position.Y + 2 * 1))
-                                for (int i = 0; i < 5; i++)
-                                {
-                                    MvtPossible.Add(new Vector(x, y));
-                                    MvtPossible.Add(new Vector(position.X, position.Y));
-                                }
-                        }
+                    MvtPossible.Add(new Vector(position.X + 1, position.Y));
+                    MvtPossible.Add(new Vector(position.X, position.Y + 1));
+                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
+                    MvtPossible.Add(new Vector(position.X, position.Y - 1));
                     break;
             }
             return MvtPossible;

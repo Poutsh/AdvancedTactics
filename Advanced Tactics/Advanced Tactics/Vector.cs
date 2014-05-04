@@ -180,6 +180,7 @@ namespace Advanced_Tactics
         }
 
         public bool Equals(Vector other) { return other == this; }
+        public bool Equals(Vector2 other) { return other == this; }
 
         public override int GetHashCode() { return (int)((X + Y) % Int32.MaxValue); }
 

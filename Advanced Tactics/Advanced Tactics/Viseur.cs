@@ -144,7 +144,7 @@ namespace Advanced_Tactics
 
         void ViseurColor()
         {
-            if (UnitTemp != null && !UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]) && depSelec)
+            if (UnitTemp != null && !UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]) && depSelec )
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
@@ -230,10 +230,10 @@ namespace Advanced_Tactics
 
             if (UnitTemp != null)
             {
-                for (int i = 0; i < UnitTemp.MvtPossible.Count(); i++)
-                {
-                    spCasebleu.Draw(data, spriteBatch, gameTime, new Vector2(UnitTemp.MvtPossible[i].X, UnitTemp.MvtPossible[i].Y));
-                }
+                //for (int i = 0; i < UnitTemp.MvtPossible.Count(); i++)
+                //{
+                //    spCasebleu.Draw(data, spriteBatch, gameTime, new Vector2(UnitTemp.MvtPossible[i].X, UnitTemp.MvtPossible[i].Y));
+                //}
             }
             
         }
