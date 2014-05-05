@@ -110,8 +110,8 @@ namespace Advanced_Tactics
             gd = this.GraphicsDevice;
 
             // Gestion de la fenetre
-            BufferWidth = 1600;
-            BufferHeight = 900;
+            BufferWidth = 1280;
+            BufferHeight = 720;
             data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
             ListToDraw = new List<Unit>();
 
