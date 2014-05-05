@@ -18,6 +18,7 @@ namespace Advanced_Tactics
         Data data;
 
         Sprite unit;
+        Sprite fondmetal, magasin, info;
         ContentManager ctt;
         List<Unit> _ListOfUnit;
         Map cartemap;
@@ -43,6 +44,9 @@ namespace Advanced_Tactics
         {
             font = ctt.Load<SpriteFont>("info");
             font2 = ctt.Load<SpriteFont>("info2");
+            fondmetal = new Sprite(); fondmetal.LC(data.Content, "Menu/Metal");
+            magasin = new Sprite(); magasin.LC(data.Content, "Menu/Magasin");
+            info = new Sprite(); info.LC(data.Content, "Menu/Informations");
         }
 
         public virtual void Update(GameTime gameTime)
@@ -52,18 +56,25 @@ namespace Advanced_Tactics
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.DrawString(this.font, string.Format("Viewfinder {0},{1}", _viseur.viseurX, _viseur.viseurY), new Vector2(60, 140), Color.Black);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            info.Draw(data, spriteBatch, gameTime, new Vector2((data.PosXInit / 2) - info.Texture.Width / 2, 0));
+            magasin.Draw(data, spriteBatch, gameTime, new Vector2((data.PosXInit / 2) - magasin.Texture.Width / 2, 4 * data.heightWindow / 7));
+            fondmetal.Draw(data, spriteBatch, gameTime, new Vector2(0, 0));
+            spriteBatch.End();
 
-            spriteBatch.DrawString(this.font, string.Format("Unit : "), new Vector2(60, 200), Color.Black);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            spriteBatch.DrawString(this.font, string.Format("Viewfinder {0},{1}", _viseur.viseurX, _viseur.viseurY), new Vector2(1 * (data.PosXInit / 8), info.Texture.Height + 30 * data.Scale), Color.Black);
+
+            spriteBatch.DrawString(this.font, string.Format("Unit : "), new Vector2(1 * (data.PosXInit / 8), info.Texture.Height + 100 * data.Scale), Color.Black);
             if (cartemap.Carte[_viseur.viseurX, _viseur.viseurY].Occupe)
             {
-                spriteBatch.DrawString(this.font, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe), new Vector2(138, 200), Color.Black);
+                spriteBatch.DrawString(this.font, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe), new Vector2(1 * (data.PosXInit / 8) + 100 * data.Scale, info.Texture.Height + 100 * data.Scale), Color.Black);
                 unit.LC(data.Content, "Unit/" + cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang);
-                unit.Draw(data, spriteBatch, gameTime, new Vector2(220, 185), 1.2f);
-                spriteBatch.DrawString(this.font, string.Format("PV :"), new Vector2(60, 230), Color.Black);
-                spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.PV), new Vector2(120, 223), Color.Red);
-                spriteBatch.DrawString(this.font, string.Format("Strength :"), new Vector2(60, 250), Color.Black);
-                spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Strength), new Vector2(210, 243), Color.Red);
+                unit.Draw(data, spriteBatch, gameTime, new Vector2(1 * (data.PosXInit / 8) + 220 * data.Scale, info.Texture.Height + 90 * data.Scale), 1.2f);
+                spriteBatch.DrawString(this.font, string.Format("PV :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 130 * data.Scale), Color.Black);
+                spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.PV), new Vector2(1 * (data.PosXInit / 8) + 90 * data.Scale, info.Texture.Height + 120 * data.Scale), Color.Red);
+                spriteBatch.DrawString(this.font, string.Format("Strength :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 160 * data.Scale), Color.Black);
+                spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Strength), new Vector2(1 * (data.PosXInit / 8) + 230 * data.Scale, info.Texture.Height + 155 * data.Scale), Color.Red);
             }
 
             string field = "";
@@ -83,8 +94,9 @@ namespace Advanced_Tactics
                     color = Color.DarkGray;
                     break;
             }
-            spriteBatch.DrawString(this.font, string.Format("Field : "), new Vector2(60, 320), Color.Black);
-            spriteBatch.DrawString(this.font, string.Format("{0}", field), new Vector2(150, 320), color);
+            spriteBatch.DrawString(this.font, string.Format("Field : "), new Vector2(1 * (data.PosXInit / 8), info.Texture.Height + 230 * data.Scale), Color.Black);
+            spriteBatch.DrawString(this.font, string.Format("{0}", field), new Vector2(1 * (data.PosXInit / 8) + 120 * data.Scale, info.Texture.Height + 230 * data.Scale), color);
+            spriteBatch.End();
         }
     }
 }

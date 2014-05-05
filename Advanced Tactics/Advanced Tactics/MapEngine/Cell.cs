@@ -51,7 +51,8 @@ namespace Advanced_Tactics
         public bool Occupe { get; set; }
         public int XofCell { get { return x; } }
         public int YofCell { get { return y; } }
-        public Vector2 VectorOfCell { get { return new Vector2(x, y); } }
+        public Vector2 Vector2OfCell { get { return new Vector2(x, y); } }
+        public Vector VectorOfCell { get { return new Vector(x, y); } }
 
         public Vector2 positionPixel
         {

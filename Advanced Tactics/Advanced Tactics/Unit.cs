@@ -17,7 +17,6 @@ namespace Advanced_Tactics
         private Cell[,] map;
         public Sprite spriteOfUnit;
         string path;
-        SpriteBatch spriteBatch;
 
         public Viseur Viseur { get; set; }
 
@@ -33,12 +32,9 @@ namespace Advanced_Tactics
         List<int> Mvt3 = new List<int>(3) { 0, 1, 2 };
         List<int> Mvt4 = new List<int>(0) { };
 
-        private AnimatedTexture SpriteTexture;
         private const float Rotation = 0;
         private const float Scale = 2.0f;
         private const float Depth = 0.5f;
-        private Viewport viewport;
-        private Vector2 shipPos;
         private const int Frames = 4;
         private const int FramesPerSec = 2;
         public int PV { get; set; }
@@ -121,7 +117,7 @@ namespace Advanced_Tactics
                         this.Strength = 1;
                         break;
                 }
-                
+
 
                 if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
                 {
@@ -174,7 +170,7 @@ namespace Advanced_Tactics
             this.PV = UnitToMove.PV;
             this.MvtPossible = null;
             this.MvtPossible = MvtPoss(Classe, new Vector(newCell.XofCell, newCell.YofCell), this.MvtPossible, map, data);
-            
+
             map = Map;
 
             if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))

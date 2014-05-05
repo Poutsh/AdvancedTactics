@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Design;
+using System.Media;
 
 namespace Advanced_Tactics
 {
@@ -14,8 +15,10 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift,R }
         Data data;
-        public KeyboardState oldKey, curKey;
+        private KeyboardState oldKey, curKey;
+        private KeyboardState oldKey2, curKey2;
         TimeSpan time;
 
         public Sprite spviseur, sblinkviseur;
@@ -88,14 +91,14 @@ namespace Advanced_Tactics
             if (map[viseurX, viseurY].Occupe) UnitInCell = map[viseurX, viseurY].unitOfCell;
         }
 
-        void Reset()
+        private void Reset()
         {
             depSelec = false; depPos = Vector.Zero;
             destSelec = false; destPos = Vector.Zero;
             UnitTemp = new Unit();
         }
 
-        void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
+        private void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
         {
             CtrlZ = new List<Vector>(2);
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
@@ -103,28 +106,37 @@ namespace Advanced_Tactics
             {
                 unit = new Unit(data, unit, map, newCell, ListOfUnit);
             }
-            
             Reset();
         }
 
-        void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, SpriteBatch spriteBatch)
+        private void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, SpriteBatch spriteBatch)
         {
             curKey = Keyboard.GetState();
 
-            if ((curKey.IsKeyDown(Keys.LeftControl) || curKey.IsKeyDown(Keys.RightControl)) && curKey.IsKeyDown(Keys.Z) && CtrlZ[1] != Vector.Zero)
+            /// Ctrlz
+            if (WasJustPressed(Key.LeftControl) && WasJustPressed(Key.Z) && CtrlZ[1] != Vector.Zero)
                 doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
 
-            if (depSelec && !destSelec && curKey.IsKeyDown(Keys.R)) { Reset(); }
 
-            if (map[viseurX, viseurY].Occupe == true && Vector.Distance(map[depPos.X, depPos.Y].VectorOfCell, map[viseurX, viseurY].VectorOfCell) <= 2 && curKey.IsKeyDown(Keys.W) && oldKey != curKey)
+            /// Touche Reset
+            if (depSelec && !destSelec && WasJustPressed(Key.R)) { Reset(); }
+
+
+            /// Touche Attack
+            if (map[viseurX, viseurY].Occupe == true && Vector.Distance(map[depPos.X, depPos.Y].Vector2OfCell, map[viseurX, viseurY].Vector2OfCell) <= 2 && WasJustPressed(Key.W))
             {
                 map[viseurX, viseurY].unitOfCell.Strength = map[viseurX, viseurY].unitOfCell.Strength - 1;
                 if (map[viseurX, viseurY].unitOfCell.Strength <= 0)
+                {
                     map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, map, ListOfUnit);
+                    Explosion();
+                }
                 Reset();
             }
 
-            if (depSelec && coordViseur != depPos && curKey.IsKeyDown(Keys.W) && oldKey != curKey)
+
+            /// Deplacement
+            if (depSelec && coordViseur != depPos && WasJustPressed(Key.W))
             {
                 if (map[viseurX, viseurY].Occupe == false && UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]))
                 {
@@ -133,18 +145,18 @@ namespace Advanced_Tactics
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (map[viseurX, viseurY].Occupe == true && ViseurOverUnit && !depSelec && curKey.IsKeyDown(Keys.Q) && oldKey != curKey)
+            else if (map[viseurX, viseurY].Occupe == true && ViseurOverUnit && !depSelec && WasJustPressed(Key.Q))
             {
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
-                
+
             }
         }
 
-        void ViseurColor()
+        private void ViseurColor()
         {
-            if (UnitTemp != null && !UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]) && depSelec )
+            if (UnitTemp != null && depSelec && !UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]))
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
@@ -154,16 +166,22 @@ namespace Advanced_Tactics
                 spviseur = Viseurbleu;
         }
 
-        void BlinkSprite(GameTime gameTime, bool blinkviseur, SpriteBatch spriteBatch)
+        private void BlinkSprite(GameTime gameTime, bool blinkviseur, SpriteBatch spriteBatch)
         {
             if (depSelec && !destSelec)
             {
-                if (map[viseurX, viseurY].VectorOfCell == depPos)
+                if (map[viseurX, viseurY].Vector2OfCell == depPos)
                     sblinkviseur.Position = map[viseurX, viseurY].positionPixel;
                 blinkviseur = depSelec;
             }
 
             sblinkviseur.Draw(data, spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
+        }
+
+        private void Explosion()
+        {
+            SoundPlayer player = new SoundPlayer(Resource.explosound);
+            player.Play();
         }
 
         #endregion
@@ -174,7 +192,7 @@ namespace Advanced_Tactics
 
         public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
-            curKey = Keyboard.GetState();
+            curKey2 = Keyboard.GetState();
             float tempo;
 
             getMovingPath(ListOfUnit, gameTime, spriteBatch);
@@ -182,39 +200,39 @@ namespace Advanced_Tactics
 
             #region Gestion des mouvements du viseurs
 
-            if (curKey.IsKeyDown(Keys.LeftShift)) tempo = 0.08f; else tempo = 0.15f;
+            if (WasJustPressed(Key.LeftShift)) tempo = 0.08f; else tempo = 0.15f;
 
-            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || curKey != oldKey)
+            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || curKey2 != oldKey2)
             {
                 time = gameTime.TotalGameTime;
 
-                if (coordViseur.X == 0 && curKey.IsKeyDown(Keys.Left))
+                if (coordViseur.X == 0 && curKey2.IsKeyDown(Keys.Left))
                     coord.X = data.WidthMap - 1;
                 else
-                    if (curKey.IsKeyDown(Keys.Left))
+                    if (curKey2.IsKeyDown(Keys.Left))
                         --coord.X;
 
-                if (coordViseur.X == data.WidthMap - 1 && curKey.IsKeyDown(Keys.Right))
+                if (coordViseur.X == data.WidthMap - 1 && curKey2.IsKeyDown(Keys.Right))
                     coord.X = 0;
                 else
-                    if (curKey.IsKeyDown(Keys.Right))
+                    if (curKey2.IsKeyDown(Keys.Right))
                         ++coord.X;
 
-                if (coordViseur.Y == 0 && curKey.IsKeyDown(Keys.Up))
+                if (coordViseur.Y == 0 && curKey2.IsKeyDown(Keys.Up))
                     coord.Y = data.HeightMap - 1;
                 else
-                    if (curKey.IsKeyDown(Keys.Up))
+                    if (curKey2.IsKeyDown(Keys.Up))
                         --coord.Y;
 
-                if (coordViseur.Y == data.HeightMap - 1 && curKey.IsKeyDown(Keys.Down))
+                if (coordViseur.Y == data.HeightMap - 1 && curKey2.IsKeyDown(Keys.Down))
                     coord.Y = 0;
                 else
-                    if (curKey.IsKeyDown(Keys.Down))
+                    if (curKey2.IsKeyDown(Keys.Down))
                         ++coord.Y;
             }
             #endregion
 
-            oldKey = curKey;
+            oldKey2 = curKey2;
         }
 
         #endregion
@@ -235,9 +253,40 @@ namespace Advanced_Tactics
                 //    spCasebleu.Draw(data, spriteBatch, gameTime, new Vector2(UnitTemp.MvtPossible[i].X, UnitTemp.MvtPossible[i].Y));
                 //}
             }
-            
+
         }
 
+        #endregion
+
+        // // // // // // // //
+
+        #region HELPER
+        private bool WasJustPressed(Key button)
+        {
+            curKey = Keyboard.GetState();
+            switch (button)
+            {
+                case Key.Q:
+                    return curKey.IsKeyDown(Keys.Q) && oldKey != curKey;
+
+                case Key.W:
+                    return curKey.IsKeyDown(Keys.W) && oldKey != curKey;
+
+                case Key.A:
+                    return curKey.IsKeyDown(Keys.A) && oldKey != curKey;
+
+                case Key.Z:
+                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
+                    
+                case Key.LeftControl:
+                    return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;
+
+                case Key.R:
+                    return curKey.IsKeyDown(Keys.R) && oldKey != curKey;
+            }
+            oldKey = curKey;
+            return false;
+        }
         #endregion
     }
 }

@@ -279,6 +279,7 @@
       <Name>info</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
     <Compile Include="info2.spritefont">
       <Name>info2</Name>
@@ -311,6 +312,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Menu\TitreMapEditor.png">
       <Name>TitreMapEditor</Name>
       <Importer>TextureImporter</Importer>
@@ -329,6 +331,10 @@
       <Name>TitreSinglePlayer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+=======
+    <Compile Include="TechnoHideo.ttf">
+      <Name>TechnoHideo</Name>
+>>>>>>> 26e6d44bc3e921eadd68d96323876c74f55ead8c
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

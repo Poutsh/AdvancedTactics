@@ -36,7 +36,7 @@ namespace Advanced_Tactics
         KeyboardState oldKeyboardState, currentKeyboardState;
         MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
-        Sprite sppointer, flou, fondmetal, info, magasin;
+        Sprite sppointer, flou;
 
         // Menu
         Menu menu;
@@ -140,26 +140,26 @@ namespace Advanced_Tactics
             inGameMusic = Content.Load<SoundEffect>("Son/ingamemusic");
             instance = inGameMusic.CreateInstance();
             instance.IsLooped = true;
+            instance.Play();
+
 
             // Map
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
             flou = new Sprite(); flou.LC(data.Content, "Menu/flou");
-            fondmetal = new Sprite(); fondmetal.LC(data.Content, "Menu/Metal");
-            info = new Sprite(); info.LC(data.Content, "Menu/Informations");
-            magasin = new Sprite(); magasin.LC(data.Content, "Menu/Magasin");
-            
+
+
 
             // Clavier, Souris
             viseur = new Viseur(data, map.Carte);
             sppointer = new Sprite(); sppointer.LC(data.Content, "Curseur/pointer");
 
             // Unit
-            unit = new Unit(data, "Plane", "Fou", map.Carte, 1, 5, ListToDraw);
+            unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
 
             string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
             string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
-            
+
 
             // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
             // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
@@ -193,15 +193,17 @@ namespace Advanced_Tactics
             sppointer.Update(gameTime);
 
 
+<<<<<<< HEAD
 
             if (menu.currentGame) // IN GAME
+=======
+            if (!menu.currentGame) // IN GAME
+>>>>>>> 26e6d44bc3e921eadd68d96323876c74f55ead8c
             {
                 MediaPlayer.Stop();
 
                 viseur.Update(gameTime, ListToDraw, spriteBatch);
-
-
-                instance.Play();
+                instance.Volume = 0.4f;
 
                 if (currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
@@ -245,37 +247,23 @@ namespace Advanced_Tactics
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            fondmetal.Draw(data, spriteBatch, gameTime, new Vector2(0, 0));
-            info.Draw(data, spriteBatch, gameTime, new Vector2(55, 0));
-            magasin.Draw(data, spriteBatch, gameTime, new Vector2(55, 500));
-            spriteBatch.End();
+
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
             Informations = new Informations(data, map, viseur, ListToDraw); Informations.LoadContent();
 
             if (menu.currentGame) // IN GAME
             {
-                spriteBatch.Begin();    // Begin NORMAL
+                Informations.Draw(spriteBatch, gameTime);
 
+                spriteBatch.Begin(); 
                 tileMap.Draw(spriteBatch);
-
-                if (currentKeyboardState.IsKeyDown(Keys.P))
-                { 
-                    flou.Draw(data, spriteBatch, gameTime, new Vector2(0, 0), 1);
-                }
-
                 for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
+                spriteBatch.End(); 
 
-                spriteBatch.End();      // End
-
-                /// /// /// ///
-
-                spriteBatch.Begin();    // Begin VISEUR
+                spriteBatch.Begin();
                 debug.Draw(spriteBatch);
-                //Informations.Draw(spriteBatch,gameTime);
                 viseur.Draw(spriteBatch, gameTime);
-                spriteBatch.End();      // End
-
+                spriteBatch.End();
             }
             else // MENU
             {
@@ -286,7 +274,7 @@ namespace Advanced_Tactics
             spriteBatch.Begin();
             //debug.Draw(spriteBatch);
             sppointer.Draw(data, spriteBatch, gameTime, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-            
+
             spriteBatch.End();
             //End
 
