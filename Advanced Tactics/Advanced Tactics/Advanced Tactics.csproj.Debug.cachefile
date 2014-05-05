@@ -32,17 +32,21 @@ Content\Map\0 eau.xnb
 Content\Map\1 terre.xnb
 Content\Map\2 montagne.xnb
 Content\Map\typeTile.xnb
-Content\Son\click1.xnb
-Content\Son\Russian Red Army Choir.xnb
-Content\font.xnb
 Content\Menu\flou.xnb
 Content\Unit\Commando.xnb
 Content\Unit\Engineer.xnb
 Content\Menu\Informations.xnb
 Content\Menu\Magasin.xnb
 Content\Menu\Metal.xnb
+Content\Unit\Teleport.xnb
+Content\Son\click1.xnb
+Content\Son\Russian Red Army Choir.xnb
+Content\font.xnb
 Content\info.xnb
 Content\info2.xnb
+Content\Son\explosound.xnb
+Content\Son\teleportsound.xnb
+Content\Son\ingamemusic.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 MapEngine\map2.txt
