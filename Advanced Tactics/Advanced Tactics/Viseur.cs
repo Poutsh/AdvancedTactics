@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Design;
+using System.Media;
 
 namespace Advanced_Tactics
 {
@@ -16,7 +17,8 @@ namespace Advanced_Tactics
 
         public enum Key { Q, W, A, Z, LeftControl, LeftShift,R }
         Data data;
-        public KeyboardState oldKey, curKey;
+        private KeyboardState oldKey, curKey;
+        private KeyboardState oldKey2, curKey2;
         TimeSpan time;
 
         public Sprite spviseur, sblinkviseur;
@@ -125,7 +127,10 @@ namespace Advanced_Tactics
             {
                 map[viseurX, viseurY].unitOfCell.Strength = map[viseurX, viseurY].unitOfCell.Strength - 1;
                 if (map[viseurX, viseurY].unitOfCell.Strength <= 0)
+                {
                     map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, map, ListOfUnit);
+                    Explosion();
+                }
                 Reset();
             }
 
@@ -173,6 +178,12 @@ namespace Advanced_Tactics
             sblinkviseur.Draw(data, spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
         }
 
+        private void Explosion()
+        {
+            SoundPlayer player = new SoundPlayer(Resource.explosound);
+            player.Play();
+        }
+
         #endregion
 
         // // // // // // // // 
@@ -181,7 +192,7 @@ namespace Advanced_Tactics
 
         public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
-            curKey = Keyboard.GetState();
+            curKey2 = Keyboard.GetState();
             float tempo;
 
             getMovingPath(ListOfUnit, gameTime, spriteBatch);
@@ -191,37 +202,37 @@ namespace Advanced_Tactics
 
             if (WasJustPressed(Key.LeftShift)) tempo = 0.08f; else tempo = 0.15f;
 
-            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || curKey != oldKey)
+            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || curKey2 != oldKey2)
             {
                 time = gameTime.TotalGameTime;
 
-                if (coordViseur.X == 0 && Keyboard.GetState().IsKeyDown(Keys.Left))
+                if (coordViseur.X == 0 && curKey2.IsKeyDown(Keys.Left))
                     coord.X = data.WidthMap - 1;
                 else
-                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    if (curKey2.IsKeyDown(Keys.Left))
                         --coord.X;
 
-                if (coordViseur.X == data.WidthMap - 1 && Keyboard.GetState().IsKeyDown(Keys.Right))
+                if (coordViseur.X == data.WidthMap - 1 && curKey2.IsKeyDown(Keys.Right))
                     coord.X = 0;
                 else
-                    if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    if (curKey2.IsKeyDown(Keys.Right))
                         ++coord.X;
 
-                if (coordViseur.Y == 0 && Keyboard.GetState().IsKeyDown(Keys.Up))
+                if (coordViseur.Y == 0 && curKey2.IsKeyDown(Keys.Up))
                     coord.Y = data.HeightMap - 1;
                 else
-                    if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    if (curKey2.IsKeyDown(Keys.Up))
                         --coord.Y;
 
-                if (coordViseur.Y == data.HeightMap - 1 && Keyboard.GetState().IsKeyDown(Keys.Down))
+                if (coordViseur.Y == data.HeightMap - 1 && curKey2.IsKeyDown(Keys.Down))
                     coord.Y = 0;
                 else
-                    if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    if (curKey2.IsKeyDown(Keys.Down))
                         ++coord.Y;
             }
             #endregion
 
-            oldKey = curKey;
+            oldKey2 = curKey2;
         }
 
         #endregion
@@ -247,6 +258,9 @@ namespace Advanced_Tactics
 
         #endregion
 
+        // // // // // // // //
+
+        #region HELPER
         private bool WasJustPressed(Key button)
         {
             curKey = Keyboard.GetState();
@@ -273,5 +287,6 @@ namespace Advanced_Tactics
             oldKey = curKey;
             return false;
         }
+        #endregion
     }
 }

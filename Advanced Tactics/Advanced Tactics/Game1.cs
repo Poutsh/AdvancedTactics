@@ -140,6 +140,8 @@ namespace Advanced_Tactics
             inGameMusic = Content.Load<SoundEffect>("Son/ingamemusic");
             instance = inGameMusic.CreateInstance();
             instance.IsLooped = true;
+            instance.Play();
+
 
             // Map
             map = new Map(data);
@@ -199,9 +201,7 @@ namespace Advanced_Tactics
                 MediaPlayer.Stop();
 
                 viseur.Update(gameTime, ListToDraw, spriteBatch);
-
-
-                instance.Play();
+                instance.Volume = 0.4f;
 
                 if (currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
