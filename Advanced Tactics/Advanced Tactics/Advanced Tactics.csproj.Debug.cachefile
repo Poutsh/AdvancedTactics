@@ -47,6 +47,9 @@ Content\Unit\Teleport.xnb
 Content\Son\explosound.xnb
 Content\Son\teleportsound.xnb
 Content\Son\ingamemusic.xnb
+Content\Menu\TitreMapEditor.xnb
+Content\Menu\TitreMultiPlayer.xnb
+Content\Menu\TitreSinglePlayer.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 MapEngine\map2.txt

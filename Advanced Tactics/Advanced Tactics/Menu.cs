@@ -19,7 +19,7 @@ namespace Advanced_Tactics
 
         Data data;
         // Main menu
-        Texture2D menuJouer, menuOptions, menuQuitter;
+        Texture2D menuJouer, menuOptions, menuQuitter, menuMapEditor;
 
         //Option menu
         Texture2D optionsRéso, optionsReso2, optionsReso3;
@@ -66,7 +66,7 @@ namespace Advanced_Tactics
 
         public Menu() { }
 
-        public Menu(Data data, bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
+        public Menu(Data data, bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img16, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
         {
             this.data = data;
             
@@ -85,6 +85,7 @@ namespace Advanced_Tactics
             optionsVolumeB3 = img13;
             optionsVolumeM2 = img14;
             optionsVolumeM3 = img15;
+            menuMapEditor = img16;
 
             fullscreen = full;
         }
@@ -104,8 +105,23 @@ namespace Advanced_Tactics
             {
                 sb.Begin();
                 if (position == 1) { sb.Draw(menuJouer, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
-                if (position == 2) { sb.Draw(menuOptions, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
-                if (position == 3) { sb.Draw(menuQuitter, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
+                if (position == 2) { sb.Draw(menuMapEditor, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
+                if (position == 3) { sb.Draw(menuOptions, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
+                if (position == 4) { sb.Draw(menuQuitter, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
+                sb.End();
+            }
+            #endregion
+
+            #region InGame
+            if (currentGame)
+            {
+                sb.Begin();
+
+                if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape))
+                {                    
+                        menuPrincipal = true;                    
+                }
+
                 sb.End();
             }
             #endregion
@@ -132,7 +148,7 @@ namespace Advanced_Tactics
 
                         if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
                         {
-                            data.widthWindow = 12080;
+                            data.widthWindow = 1280;
                             data.heightWindow = 720;
                         }
                     }
@@ -230,12 +246,12 @@ namespace Advanced_Tactics
             {
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Up))
                 {
-                    position = position - 1;
+                    position = position + 1;
                     Console.WriteLine(position);
                 }
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Down))
                 {
-                    position = position + 1;
+                    position = position - 1;
                     Console.WriteLine(position);
                 }
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape))
@@ -243,22 +259,29 @@ namespace Advanced_Tactics
                     isExit = true;
                 }
 
-                if (position < 1) { position = 3; }
-                if (position > 3) { position = 1; }
-                if (position == 3 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter) || currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape)) { isExit = true; }
-                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { this.nothing = false; menuPrincipal = false; inGame = true; }
-                if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                if (position < 1) { position = 4; }
+                if (position > 4) { position = 1; }
+                if (position == 4 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter) || currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape)) { isExit = true; }
+                if (position == 3 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
                     menuPrincipal = false;
                     position2 = 1;
                     options = true;
                 }
+                if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { System.Diagnostics.Process.Start(@"C:\Projet\MapGen.exe"); }
+                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { this.nothing = false; menuPrincipal = false; inGame = true; }
             }
             #endregion
 
             #region Option
             if (options)
             {
+                if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape))
+                {
+                    menuPrincipal = true;
+                    position = 1;
+                    options = false;
+                }
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Up))
                 {
                     position2 = position2 - 1;

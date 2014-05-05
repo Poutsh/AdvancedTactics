@@ -131,7 +131,7 @@ namespace Advanced_Tactics
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Menu
-            menu = new Menu(data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
+            menu = new Menu(data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreMapEditor"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
             click = Content.Load<SoundEffect>("Son/click1");
             musicMenu = Content.Load<Song>("Son/Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
@@ -194,7 +194,7 @@ namespace Advanced_Tactics
 
 
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
@@ -253,7 +253,7 @@ namespace Advanced_Tactics
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
             Informations = new Informations(data, map, viseur, ListToDraw); Informations.LoadContent();
 
-            if (!menu.currentGame) // IN GAME
+            if (menu.currentGame) // IN GAME
             {
                 spriteBatch.Begin();    // Begin NORMAL
 
