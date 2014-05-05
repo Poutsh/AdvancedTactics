@@ -58,15 +58,49 @@ namespace Advanced_Tactics
 
         #region DRAW(S)
 
+        /// <summary>
+        /// Draw normal
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        /// <param name="posinit"></param>
         public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit)
         {
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
+        /// <summary>
+        /// Draw with an origin spec
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        /// <param name="posinit"></param>
+        /// <param name="origin"></param>
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, Vector2 origin)
+        {
+            spriteBatch.Draw(texture, posinit, null, Color.White, 0, origin, data.Scale, SpriteEffects.None, 1);
+        }
+        /// <summary>
+        /// Draw and specify a scale
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        /// <param name="posinit"></param>
+        /// <param name="Scale"></param>
         public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, float Scale)
         {
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
         }
-
+        /// <summary>
+        /// Draw with bool for blink
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        /// <param name="posinit"></param>
+        /// <param name="blink"></param>
         public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool blink)
         {
             if (blink)
