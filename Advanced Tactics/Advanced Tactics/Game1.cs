@@ -41,6 +41,8 @@ namespace Advanced_Tactics
         // Menu
         Menu menu;
         Song musicMenu;
+        SoundEffect inGameMusic;
+        SoundEffectInstance instance;
         SoundEffect click;
         //Pause pause;
 
@@ -85,7 +87,7 @@ namespace Advanced_Tactics
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Ctt = Content;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             this.Window.Title = "Advanced Tactics";
 
             // Gestion souris
@@ -108,8 +110,8 @@ namespace Advanced_Tactics
             gd = this.GraphicsDevice;
 
             // Gestion de la fenetre
-            BufferWidth = 1920;
-            BufferHeight = 1200;
+            BufferWidth = 1600;
+            BufferHeight = 900;
             data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
             ListToDraw = new List<Unit>();
 
@@ -134,6 +136,11 @@ namespace Advanced_Tactics
             musicMenu = Content.Load<Song>("Son/Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
 
+            //Game
+            inGameMusic = Content.Load<SoundEffect>("Son/ingamemusic");
+            instance = inGameMusic.CreateInstance();
+            instance.IsLooped = true;
+
             // Map
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
@@ -148,10 +155,10 @@ namespace Advanced_Tactics
             sppointer = new Sprite(); sppointer.LC(data.Content, "Curseur/pointer");
 
             // Unit
-            unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
+            unit = new Unit(data, "Plane", "Fou", map.Carte, 1, 5, ListToDraw);
 
             string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
-            string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Pawn" };
+            string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
             
 
             // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
@@ -187,11 +194,14 @@ namespace Advanced_Tactics
 
 
 
-            if (menu.currentGame) // IN GAME
+            if (!menu.currentGame) // IN GAME
             {
                 MediaPlayer.Stop();
 
                 viseur.Update(gameTime, ListToDraw, spriteBatch);
+
+
+                instance.Play();
 
                 if (currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
@@ -243,7 +253,7 @@ namespace Advanced_Tactics
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
             Informations = new Informations(data, map, viseur, ListToDraw); Informations.LoadContent();
 
-            if (menu.currentGame) // IN GAME
+            if (!menu.currentGame) // IN GAME
             {
                 spriteBatch.Begin();    // Begin NORMAL
 
@@ -261,8 +271,8 @@ namespace Advanced_Tactics
                 /// /// /// ///
 
                 spriteBatch.Begin();    // Begin VISEUR
-                //debug.Draw(spriteBatch);
-                Informations.Draw(spriteBatch,gameTime);
+                debug.Draw(spriteBatch);
+                //Informations.Draw(spriteBatch,gameTime);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();      // End
 
