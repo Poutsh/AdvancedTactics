@@ -170,7 +170,7 @@ namespace Advanced_Tactics
             unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
             unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
             // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
-            for (int i = 0; i < rrd.Next(90000, 90990); i++)
+            for (int i = 0; i < rrd.Next(200, 300); i++)
                 Rdunit(data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw, unit);
         }
 
@@ -256,7 +256,7 @@ namespace Advanced_Tactics
                 spriteBatch.End(); 
 
                 spriteBatch.Begin();
-                //debug.Draw(spriteBatch);
+                debug.Draw(spriteBatch);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();
             }
