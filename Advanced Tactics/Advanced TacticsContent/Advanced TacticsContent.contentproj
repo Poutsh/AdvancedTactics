@@ -312,29 +312,48 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
+    <None Include="TechnoHideo.ttf">
+      <Name>TechnoHideo</Name>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\aircraft_paper_plane_strategy_1600x900_70991 %281%29.jpg">
+      <Name>aircraft_paper_plane_strategy_1600x900_70991 %281%29</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="Menu\iconeAT.ico">
+      <Name>iconeAT</Name>
+    </None>
+    <Compile Include="Menu\iconeAT.png">
+      <Name>iconeAT</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\Logo.png">
+      <Name>Logo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\MENU.png">
+      <Name>MENU</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Menu\TitreMapEditor.png">
       <Name>TitreMapEditor</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Menu\TitreMultiPlayer.png">
       <Name>TitreMultiPlayer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Menu\TitreSinglePlayer.png">
       <Name>TitreSinglePlayer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-=======
-    <Compile Include="TechnoHideo.ttf">
-      <Name>TechnoHideo</Name>
->>>>>>> 26e6d44bc3e921eadd68d96323876c74f55ead8c
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

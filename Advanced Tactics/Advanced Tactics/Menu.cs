@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
+using System.Diagnostics;
 
 namespace Advanced_Tactics
 {
@@ -58,6 +59,9 @@ namespace Advanced_Tactics
         private bool fullscreen = false;
         public bool Fullscreen { get { return fullscreen; } set { fullscreen = value; } }
 
+        private bool mapssss = false;
+        public bool mapgen { get { return mapssss; } set { mapssss = value; } }
+
         #endregion
 
         // // // // // // // // 
@@ -69,7 +73,7 @@ namespace Advanced_Tactics
         public Menu(Data data, bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img16, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
         {
             this.data = data;
-            
+
             menuJouer = img1;
             menuOptions = img2;
             menuQuitter = img3;
@@ -95,7 +99,7 @@ namespace Advanced_Tactics
         // // // // // // // // 
 
         #region DRAW
-        
+
         public virtual void Draw(SpriteBatch sb, GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
@@ -118,8 +122,8 @@ namespace Advanced_Tactics
                 sb.Begin();
 
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape))
-                {                    
-                        menuPrincipal = true;                    
+                {
+                    menuPrincipal = true;
                 }
 
                 sb.End();
@@ -191,7 +195,7 @@ namespace Advanced_Tactics
                         sb.Draw(optionsVolM, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
 
                         if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
-                            musicVolume = MathHelper.Clamp(musicVolume + 0.01f, 0.0f, 2.0f);    
+                            musicVolume = MathHelper.Clamp(musicVolume + 0.01f, 0.0f, 2.0f);
                     }
                     if (position3 == 2)
                     {
@@ -268,7 +272,10 @@ namespace Advanced_Tactics
                     position2 = 1;
                     options = true;
                 }
-                if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { System.Diagnostics.Process.Start(@"C:\Projet\MapGen.exe"); }
+                if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                {
+                    mapssss = true;
+                }
                 if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { this.nothing = false; menuPrincipal = false; inGame = true; }
             }
             #endregion

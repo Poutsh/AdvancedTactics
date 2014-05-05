@@ -192,13 +192,7 @@ namespace Advanced_Tactics
             currentKeyboardState = Keyboard.GetState();
             sppointer.Update(gameTime);
 
-
-<<<<<<< HEAD
-
-            if (menu.currentGame) // IN GAME
-=======
-            if (!menu.currentGame) // IN GAME
->>>>>>> 26e6d44bc3e921eadd68d96323876c74f55ead8c
+            if (menu.currentGame)
             {
                 MediaPlayer.Stop();
 
@@ -211,12 +205,13 @@ namespace Advanced_Tactics
                     base.Update(gameTime);
                     return;
                 }
-            }
+            }//System.Diagnostics.Process.Start("MapGen.exe", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             else // VIDE INTERSIDERAL
             {
                 menu.Update(gameTime);
 
                 if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
+                if (menu.mapgen) { System.Diagnostics.Process.Start("MapGen.exe", Environment.GetFolderPath(Environment.SpecialFolder.Desktop)); }
 
                 if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released) click.Play();
 
@@ -261,7 +256,7 @@ namespace Advanced_Tactics
                 spriteBatch.End(); 
 
                 spriteBatch.Begin();
-                debug.Draw(spriteBatch);
+                //debug.Draw(spriteBatch);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();
             }

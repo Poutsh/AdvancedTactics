@@ -133,7 +133,7 @@ namespace MapGenerator
         {
             string folderOfMapEditor = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            string newMapPath = (new DirectoryInfo(folderOfMapEditor).Parent.Parent.Parent.Parent.Parent.FullName) + "\\Advanced Tactics\\Advanced Tactics\\Map\\map2.txt";
+            string newMapPath = "Map/map2.txt";
             return newMapPath;
         }
 
