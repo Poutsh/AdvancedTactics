@@ -45,6 +45,8 @@ namespace Advanced_Tactics
         List<Vector> CtrlZ;
 
         public Sprite spriteViseur { get { return spviseur; } }
+        ParticleEngine particleEngine;
+        public List<Texture2D> particlestring;
         #endregion
 
         // // // // // // // // 
@@ -60,7 +62,7 @@ namespace Advanced_Tactics
             this.map = map;
             viseur = new Unit();
             Init();
-
+            
         }
 
         #endregion
@@ -71,6 +73,7 @@ namespace Advanced_Tactics
 
         void Init()
         {
+            particlestring = new List<Texture2D>();
             spviseur = new Sprite(); spviseur.LC(data.Content, "Curseur/viseur");
             sblinkviseur = new Sprite(); sblinkviseur.LC(data.Content, "Curseur/viseurS");
             Viseurbleu = new Sprite(); Viseurbleu.LC(data.Content, "Curseur/viseurB");
@@ -78,6 +81,9 @@ namespace Advanced_Tactics
             Viseurnormal = new Sprite(); Viseurnormal.LC(data.Content, "Curseur/viseur");
             spCaserouge = new Sprite(); spCaserouge.LC(data.Content, "Case/rouge");
             spCasebleu = new Sprite(); spCasebleu.LC(data.Content, "Case/bleu");
+            particlestring.Add(data.Content.Load<Texture2D>("Case/bleu"));
+            particlestring.Add(data.Content.Load<Texture2D>("Case/rouge"));
+            particleEngine = new ParticleEngine(particlestring, new Vector2(400, 240));
         }
 
         #endregion
@@ -129,10 +135,16 @@ namespace Advanced_Tactics
             /// Touche Attack
             if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (WasJustPressed(Key.W)||WasJustPressed(Key.C)))
             {
-                if(WasJustPressed(Key.C))
+                if (WasJustPressed(Key.C))
+                {
                     map[viseurX, viseurY].unitOfCell.PV -= 1000;
+                    particleEngine.EmitterLocation = new Vector2(viseurX, viseurY);
+                }
                 else
+                {
                     map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
+                    particleEngine.EmitterLocation = new Vector2(viseurX, viseurY);
+                }
 
                 if (map[viseurX, viseurY].unitOfCell.PV <= 0)
                 {
@@ -251,7 +263,7 @@ namespace Advanced_Tactics
         {
             BlinkSprite(gameTime, blinkviseur, spriteBatch);
             spviseur.Draw(data, spriteBatch, gameTime, map[viseurX, viseurY].positionPixel);
-
+            particleEngine.Draw(spriteBatch);
             if (UnitTemp != null)
             {
                 //for (int i = 0; i < UnitTemp.MvtPossible.Count(); i++)

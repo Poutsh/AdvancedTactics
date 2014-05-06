@@ -201,12 +201,7 @@ namespace Advanced_Tactics
                 viseur.Update(gameTime, ListToDraw, spriteBatch);
                 instance.Volume = 0.4f;
 
-                if (currentKeyboardState.IsKeyDown(Keys.Escape))
-                {
-                    Exit();
-                    base.Update(gameTime);
-                    return;
-                }
+                checkExitKey(currentKeyboardState);
             }//System.Diagnostics.Process.Start("MapGen.exe", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             else // VIDE INTERSIDERAL
             {
@@ -237,6 +232,27 @@ namespace Advanced_Tactics
 
             base.Update(gameTime);
         }
+        int once = 1;
+        bool checkExitKey(KeyboardState keyboardState)
+        {
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                Exit();
+                if (once == 1)
+                {
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    startInfo.FileName = "MapGen";
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    once--;
+                }
+                
+                return true;
+            }
+            return false;
+        }
+
 
         #endregion
 

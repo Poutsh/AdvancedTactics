@@ -61,8 +61,6 @@ namespace MapGenerator
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _defaultFont = Content.Load<SpriteFont>("DefaultFont");
-            _bigFont = Content.Load<SpriteFont>("BigFont");
             _white = Content.Load<Texture2D>("white");
 
             for (int i = 0; i < _heightColors.Length; i++)
@@ -90,7 +88,7 @@ namespace MapGenerator
 
         private void RespondToInput(GameTime gameTime)
         {
-            if (WasJustPressed(Keys.Escape)) { this.Exit(); }                       // Allows the game to exit
+            //if (WasJustPressed(Keys.Escape)) { this.Exit(); }                       // Allows the game to exit
             if (WasJustPressed(Keys.F11)) { graphics.ToggleFullScreen(); }          //toggles fullscreen
             if (WasJustPressed(Keys.Space) || WasJustClicked(MouseButtons.Right))   //smooth the map
             { _map = MapGenerator.SmoothMap(_map); _roundsOfSmoothing = _roundsOfSmoothing+100; }
