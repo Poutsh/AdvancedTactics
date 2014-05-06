@@ -39,14 +39,6 @@ Content\Menu\Informations.xnb
 Content\Menu\Magasin.xnb
 Content\Menu\Metal.xnb
 Content\Unit\Teleport.xnb
-Content\Son\click1.xnb
-Content\Son\Russian Red Army Choir.xnb
-Content\font.xnb
-Content\info.xnb
-Content\info2.xnb
-Content\Son\explosound.xnb
-Content\Son\teleportsound.xnb
-Content\Son\ingamemusic.xnb
 Content\Menu\aircraft_paper_plane_strategy_1600x900_70991 (1).xnb
 Content\Menu\iconeAT.xnb
 Content\Menu\Logo.xnb
@@ -54,6 +46,14 @@ Content\Menu\MENU.xnb
 Content\Menu\TitreMapEditor.xnb
 Content\Menu\TitreMultiPlayer.xnb
 Content\Menu\TitreSinglePlayer.xnb
+Content\Son\click1.xnb
+Content\Son\explosound.xnb
+Content\Son\teleportsound.xnb
+Content\Son\Russian Red Army Choir.xnb
+Content\Son\ingamemusic.xnb
+Content\font.xnb
+Content\info.xnb
+Content\info2.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 MapEngine\map2.txt

@@ -138,9 +138,9 @@ namespace Advanced_Tactics
                 {
                     if (position3 == 1) //******** 800*600
                     {
-                        sb.Draw(optionsRéso, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
+                        sb.Draw(optionsRéso, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
 
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             data.widthWindow = 800;
                             data.heightWindow = 600;
@@ -148,9 +148,9 @@ namespace Advanced_Tactics
                     }
                     if (position3 == 2) //******** 1280*720
                     {
-                        sb.Draw(optionsReso2, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
+                        sb.Draw(optionsReso2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
 
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             data.widthWindow = 1280;
                             data.heightWindow = 720;
@@ -160,7 +160,7 @@ namespace Advanced_Tactics
                     {
                         sb.Draw(optionsReso3, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
 
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             data.widthWindow = 1920;
                             data.heightWindow = 1080;
@@ -172,16 +172,16 @@ namespace Advanced_Tactics
                 {
                     if (position4 == 1)
                     {
-                        sb.Draw(optionsScreen, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        sb.Draw(optionsScreen, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             fullscreen = true;
                         }
                     }
                     if (position4 == 2)
                     {
-                        sb.Draw(optionsScreen2, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        sb.Draw(optionsScreen2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             fullscreen = false;
                         }
@@ -192,23 +192,23 @@ namespace Advanced_Tactics
                 {
                     if (position3 == 1)
                     {
-                        sb.Draw(optionsVolM, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
+                        sb.Draw(optionsVolM, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
 
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                             musicVolume = MathHelper.Clamp(musicVolume + 0.01f, 0.0f, 2.0f);
                     }
                     if (position3 == 2)
                     {
-                        sb.Draw(optionsVolumeM2, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
+                        sb.Draw(optionsVolumeM2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
 
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                             musicVolume = MathHelper.Clamp(musicVolume - 0.01f, 0.0f, 2.0f);
                     }
                     if (position3 == 3)
                     {
-                        sb.Draw(optionsVolumeM3, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
+                        sb.Draw(optionsVolumeM3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
 
-                        if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                             if (cue.IsPaused)
                             {
                                 cue.Resume();
@@ -222,12 +222,12 @@ namespace Advanced_Tactics
 
                 if (position2 == 4)
                 {
-                    if (position3 == 1) { sb.Draw(optionsVolB, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
-                    if (position3 == 2) { sb.Draw(optionsVolumeB2, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
-                    if (position3 == 3) { sb.Draw(optionsVolumeB3, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
+                    if (position3 == 1) { sb.Draw(optionsVolB, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                    if (position3 == 2) { sb.Draw(optionsVolumeB2, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                    if (position3 == 3) { sb.Draw(optionsVolumeB3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
                 }
 
-                if (position2 == 5) { sb.Draw(optionsRetour, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
+                if (position2 == 5) { sb.Draw(optionsRetour, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
                 sb.End();
             }
             #endregion

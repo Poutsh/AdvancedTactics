@@ -21,10 +21,10 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        GraphicsDevice gd;
+        public static GraphicsDevice gd;
         ContentManager Ctt;
         Data data;
-        GraphicsDeviceManager graphics { get; set; }
+        public static GraphicsDeviceManager graphics { get; set; }
         SpriteBatch spriteBatch;
 
         // Network
@@ -99,7 +99,7 @@ namespace Advanced_Tactics
             this.IsFixedTimeStep = true;
             this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1);
 
-            this.graphics.ApplyChanges();
+            Game1.graphics.ApplyChanges();
         }
 
         #endregion
@@ -113,8 +113,8 @@ namespace Advanced_Tactics
             gd = this.GraphicsDevice;
 
             // Gestion de la fenetre
-            BufferWidth = 1280;
-            BufferHeight = 720;
+            BufferWidth = 800;
+            BufferHeight = 600;
             data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
             ListToDraw = new List<Unit>();
 
@@ -125,12 +125,13 @@ namespace Advanced_Tactics
             packetReader = new PacketReader();
             packetWriter = new PacketWriter();
 
-            this.graphics.ApplyChanges();
+            Game1.graphics.ApplyChanges();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            gd = this.GraphicsDevice;
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Menu
@@ -221,6 +222,15 @@ namespace Advanced_Tactics
 
                 mouseStatePrevious = mouseStateCurrent;
             }
+
+            if (!menu.currentGame && !menu.MenuPrincipal && menu.Options)
+            {
+                graphics.PreferredBackBufferWidth = (int)data.widthWindow;
+                graphics.PreferredBackBufferHeight = (int)data.heightWindow;
+                graphics.IsFullScreen = menu.Fullscreen;
+                Game1.graphics.ApplyChanges();
+            }
+
 
             mouseStatePrevious = mouseStateCurrent;
             oldKey = curKey;
