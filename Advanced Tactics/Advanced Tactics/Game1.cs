@@ -72,7 +72,7 @@ namespace Advanced_Tactics
         //Resolution
         public int BufferHeight { get { return graphics.PreferredBackBufferHeight; } set { graphics.PreferredBackBufferHeight = value; } }
         public int BufferWidth { get { return graphics.PreferredBackBufferWidth; } set { graphics.PreferredBackBufferWidth = value; } }
-
+        
         Debug debug;
         Informations Informations;
 
@@ -92,6 +92,8 @@ namespace Advanced_Tactics
 
             // Gestion souris
             IsMouseVisible = false;
+
+            
 
             this.IsFixedTimeStep = true;
             this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1);
@@ -216,13 +218,16 @@ namespace Advanced_Tactics
                 if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released) click.Play();
 
                 //// MENU OPTIONS
-                //if (!menu.MenuPrincipal && menu.Options)
-                //{
+                if (!menu.MenuPrincipal && menu.Options)
+                {
+                    graphics.PreferredBackBufferWidth = data.widthWindow;
+                    graphics.PreferredBackBufferHeight = data.heightWindow;
+                    graphics.ApplyChanges();
                 //    graphics.PreferredBackBufferWidth = (int)data.widthWindow;
                 //    graphics.PreferredBackBufferHeight = (int)data.heightWindow;
                 //    graphics.IsFullScreen = menu.Fullscreen;
                 //    this.graphics.ApplyChanges();
-                //}
+                }
 
                 mouseStatePrevious = mouseStateCurrent;
             }

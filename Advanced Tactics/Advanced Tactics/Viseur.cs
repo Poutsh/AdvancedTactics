@@ -15,7 +15,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift,R }
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R }
         Data data;
         private KeyboardState oldKey, curKey;
         private KeyboardState oldKey2, curKey2;
@@ -86,6 +86,10 @@ namespace Advanced_Tactics
 
         #region FONCTIONS DU VISEUR
 
+        public bool ViseurOverPos(Vector position) { return coordViseur == position; }
+
+        public bool Contains<T>(List<T> List, T tocompare) where T : struct { return List.Contains(tocompare); }
+
         public void OverUnit()
         {
             if (map[viseurX, viseurY].Occupe) UnitInCell = map[viseurX, viseurY].unitOfCell;
@@ -95,14 +99,13 @@ namespace Advanced_Tactics
         {
             depSelec = false; depPos = Vector.Zero;
             destSelec = false; destPos = Vector.Zero;
-            UnitTemp = new Unit();
         }
 
         private void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
         {
             CtrlZ = new List<Vector>(2);
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
-            if (unit.MvtPossible.Contains(new Vector(newCell.XofCell, newCell.YofCell)))
+            if (Contains<Vector>(unit.MvtPossible, new Vector(newCell.XofCell, newCell.YofCell)))
             {
                 unit = new Unit(data, unit, map, newCell, ListOfUnit);
             }
@@ -123,40 +126,40 @@ namespace Advanced_Tactics
 
 
             /// Touche Attack
-            if (map[viseurX, viseurY].Occupe == true && Vector.Distance(map[depPos.X, depPos.Y].Vector2OfCell, map[viseurX, viseurY].Vector2OfCell) <= 2 && WasJustPressed(Key.W))
+            if (ViseurOverUnit && Vector.Distance(map[depPos.X, depPos.Y].Vector2OfCell, map[viseurX, viseurY].Vector2OfCell) <= 1 && WasJustPressed(Key.W))
             {
                 map[viseurX, viseurY].unitOfCell.Strength = map[viseurX, viseurY].unitOfCell.Strength - 1;
                 if (map[viseurX, viseurY].unitOfCell.Strength <= 0)
                 {
                     map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, map, ListOfUnit);
                     Explosion();
+                    UnitTemp = new Unit();
                 }
                 Reset();
             }
 
 
             /// Deplacement
-            if (depSelec && coordViseur != depPos && WasJustPressed(Key.W))
+            if (depSelec && !ViseurOverPos(depPos) && WasJustPressed(Key.W))
             {
-                if (map[viseurX, viseurY].Occupe == false && UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]))
+                if (!ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
                 {
                     destSelec = true;
                     destPos = new Vector(coordViseur.X, coordViseur.Y);
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (map[viseurX, viseurY].Occupe == true && ViseurOverUnit && !depSelec && WasJustPressed(Key.Q))
+            else if (ViseurOverUnit && !depSelec && WasJustPressed(Key.Q))
             {
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
-
             }
         }
 
         private void ViseurColor()
         {
-            if (UnitTemp != null && depSelec && !UnitTemp.TerrainPossible.Contains(data.altitudeTerrain[viseurX, viseurY]))
+            if (UnitTemp != null && depSelec && (!Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]) || !Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y))))
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
@@ -277,7 +280,7 @@ namespace Advanced_Tactics
 
                 case Key.Z:
                     return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
-                    
+
                 case Key.LeftControl:
                     return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;
 
