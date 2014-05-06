@@ -33,10 +33,11 @@ namespace Advanced_Tactics
         GameState gameState;
 
         // Clavier, Souris, Camera
-        KeyboardState oldKeyboardState, currentKeyboardState;
+        KeyboardState oldKey, curKey;
         MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
         Sprite sppointer, flou;
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C }
 
         // Menu
         Menu menu;
@@ -191,7 +192,7 @@ namespace Advanced_Tactics
         {
             // Init entrees utilisateur
             mouseStateCurrent = Mouse.GetState();
-            currentKeyboardState = Keyboard.GetState();
+            curKey = Keyboard.GetState();
             sppointer.Update(gameTime);
 
             if (menu.currentGame)
@@ -201,34 +202,28 @@ namespace Advanced_Tactics
                 viseur.Update(gameTime, ListToDraw, spriteBatch);
                 instance.Volume = 0.4f;
 
-                checkExitKey(currentKeyboardState);
+                if (curKey.IsKeyDown(Keys.Escape))
+                {
+                    Exit();
+                    base.Update(gameTime);
+                    return;
+                }
             }//System.Diagnostics.Process.Start("MapGen.exe", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             else // VIDE INTERSIDERAL
             {
                 menu.Update(gameTime);
 
-                if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
-                if (menu.mapgen) { System.Diagnostics.Process.Start("MapGen.exe", Environment.GetFolderPath(Environment.SpecialFolder.Desktop)); }
+                //if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
+                checkExitKey(curKey);
+                
 
                 if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released) click.Play();
-
-                //// MENU OPTIONS
-                if (!menu.MenuPrincipal && menu.Options)
-                {
-                    graphics.PreferredBackBufferWidth = data.widthWindow;
-                    graphics.PreferredBackBufferHeight = data.heightWindow;
-                    graphics.ApplyChanges();
-                //    graphics.PreferredBackBufferWidth = (int)data.widthWindow;
-                //    graphics.PreferredBackBufferHeight = (int)data.heightWindow;
-                //    graphics.IsFullScreen = menu.Fullscreen;
-                //    this.graphics.ApplyChanges();
-                }
 
                 mouseStatePrevious = mouseStateCurrent;
             }
 
             mouseStatePrevious = mouseStateCurrent;
-            oldKeyboardState = currentKeyboardState;
+            oldKey = curKey;
 
             base.Update(gameTime);
         }
@@ -242,7 +237,7 @@ namespace Advanced_Tactics
                 {
                     System.Diagnostics.Process process = new System.Diagnostics.Process();
                     System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                    startInfo.FileName = "MapGen";
+                    startInfo.FileName = "MapGenerator";
                     process.StartInfo = startInfo;
                     process.Start();
                     once--;
@@ -297,6 +292,38 @@ namespace Advanced_Tactics
             base.Draw(gameTime);
         }
 
+        #endregion
+
+        #region HELPER
+        private bool WasJustPressed(Key button)
+        {
+            curKey = Keyboard.GetState();
+            switch (button)
+            {
+                case Key.Q:
+                    return curKey.IsKeyDown(Keys.Q) && oldKey != curKey;
+
+                case Key.C:
+                    return curKey.IsKeyDown(Keys.C) && oldKey != curKey;
+
+                case Key.W:
+                    return curKey.IsKeyDown(Keys.W) && oldKey != curKey;
+
+                case Key.A:
+                    return curKey.IsKeyDown(Keys.A) && oldKey != curKey;
+
+                case Key.Z:
+                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
+
+                case Key.LeftControl:
+                    return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;
+
+                case Key.R:
+                    return curKey.IsKeyDown(Keys.R) && oldKey != curKey;
+            }
+            oldKey = curKey;
+            return false;
+        }
         #endregion
     }
 }

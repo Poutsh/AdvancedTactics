@@ -240,7 +240,7 @@ namespace Advanced_Tactics
         // // // // // // // // 
 
         #region UPDATE
-
+        int once = 1;
         public void Update(GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
@@ -274,7 +274,15 @@ namespace Advanced_Tactics
                 }
                 if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
-                    mapssss = true;
+                    if (once == 1)
+                    {
+                        System.Diagnostics.Process process = new System.Diagnostics.Process();
+                        System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                        startInfo.FileName = "MapGen";
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        once--;
+                    }
                 }
                 if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { this.nothing = false; menuPrincipal = false; inGame = true; }
             }
