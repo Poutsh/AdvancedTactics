@@ -15,7 +15,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R }
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C }
         Data data;
         private KeyboardState oldKey, curKey;
         private KeyboardState oldKey2, curKey2;
@@ -88,7 +88,7 @@ namespace Advanced_Tactics
 
         public bool ViseurOverPos(Vector position) { return coordViseur == position; }
 
-        public bool Contains<T>(List<T> List, T tocompare) where T : struct { return List.Contains(tocompare); }
+        public bool Contains<T>(List<T> List, T tocompare) { if (List != null)return List.Contains(tocompare); else return false; }
 
         public void OverUnit()
         {
@@ -99,6 +99,7 @@ namespace Advanced_Tactics
         {
             depSelec = false; depPos = Vector.Zero;
             destSelec = false; destPos = Vector.Zero;
+            UnitTemp = new Unit();
         }
 
         private void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
@@ -126,14 +127,18 @@ namespace Advanced_Tactics
 
 
             /// Touche Attack
-            if (ViseurOverUnit && Vector.Distance(map[depPos.X, depPos.Y].Vector2OfCell, map[viseurX, viseurY].Vector2OfCell) <= 1 && WasJustPressed(Key.W))
+            if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (WasJustPressed(Key.W)||WasJustPressed(Key.C)))
             {
-                map[viseurX, viseurY].unitOfCell.Strength = map[viseurX, viseurY].unitOfCell.Strength - 1;
-                if (map[viseurX, viseurY].unitOfCell.Strength <= 0)
+                if(WasJustPressed(Key.C))
+                    map[viseurX, viseurY].unitOfCell.PV -= 1000;
+                else
+                    map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
+
+                if (map[viseurX, viseurY].unitOfCell.PV <= 0)
                 {
                     map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, map, ListOfUnit);
+                    doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[viseurX, viseurY], ListOfUnit);
                     Explosion();
-                    UnitTemp = new Unit();
                 }
                 Reset();
             }
@@ -142,7 +147,7 @@ namespace Advanced_Tactics
             /// Deplacement
             if (depSelec && !ViseurOverPos(depPos) && WasJustPressed(Key.W))
             {
-                if (!ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
+                if (UnitTemp != null && !ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
                 {
                     destSelec = true;
                     destPos = new Vector(coordViseur.X, coordViseur.Y);
@@ -163,8 +168,6 @@ namespace Advanced_Tactics
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
-            else if (map[viseurX, viseurY].Occupe && depSelec && !destSelec)
-                spviseur = Viseurrouge;
             else if (depSelec || (map[viseurX, viseurY].Occupe && !depSelec))
                 spviseur = Viseurbleu;
         }
@@ -271,6 +274,9 @@ namespace Advanced_Tactics
             {
                 case Key.Q:
                     return curKey.IsKeyDown(Keys.Q) && oldKey != curKey;
+
+                case Key.C:
+                    return curKey.IsKeyDown(Keys.C) && oldKey != curKey;
 
                 case Key.W:
                     return curKey.IsKeyDown(Keys.W) && oldKey != curKey;

@@ -66,6 +66,7 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font, string.Format("Viewfinder {0},{1}", _viseur.viseurX, _viseur.viseurY), new Vector2(1 * (data.PosXInit / 8), info.Texture.Height + 30 * data.Scale), Color.Black);
 
             spriteBatch.DrawString(this.font, string.Format("Unit : "), new Vector2(1 * (data.PosXInit / 8), info.Texture.Height + 100 * data.Scale), Color.Black);
+
             if (cartemap.Carte[_viseur.viseurX, _viseur.viseurY].Occupe)
             {
                 spriteBatch.DrawString(this.font, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe), new Vector2(1 * (data.PosXInit / 8) + 100 * data.Scale, info.Texture.Height + 100 * data.Scale), Color.Black);
@@ -75,6 +76,11 @@ namespace Advanced_Tactics
                 spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.PV), new Vector2(1 * (data.PosXInit / 8) + 90 * data.Scale, info.Texture.Height + 120 * data.Scale), Color.Red);
                 spriteBatch.DrawString(this.font, string.Format("Strength :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 160 * data.Scale), Color.Black);
                 spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Strength), new Vector2(1 * (data.PosXInit / 8) + 230 * data.Scale, info.Texture.Height + 155 * data.Scale), Color.Red);
+            }
+
+            if (_viseur.depSelec)
+            {
+
             }
 
             string field = "";
