@@ -146,16 +146,5 @@ namespace Advanced_Tactics
             }
             return MvtPossible;
         }
-
-        public List<Cell> MvtPossCell(List<Vector> MvtPossUnit, Cell[,] map)
-        {
-            List<Cell> List = new List<Cell>();
-
-            foreach (Vector item in MvtPossUnit)
-            {
-                List.Add(map[item.X, item.Y]);
-            }
-            return List;
-        }
     }
 }

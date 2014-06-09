@@ -136,23 +136,23 @@ namespace Advanced_Tactics
             sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
 
             // Unit
-            //unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
+            unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
 
-            //string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
-            //string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
+            string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
+            string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
 
 
-            //// Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
-            //// http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
-            //// Cette fonction cree tous simplements plusieurs unitees
-            //Func<Data, string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (d, r, c, m, x, y, l, u) => new Unit(d, r, c, m.Carte, x, y, l);
-            //Random rrd = new Random();
-            ////1 23 33 1
-            //unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw); 
-            //unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
-            //// Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
-            //for (int i = 0; i < rrd.Next(200, 300); i++)
-            //    Rdunit(data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw, unit);
+            // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
+            // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
+            // Cette fonction cree tous simplements plusieurs unitees
+            Func<Data, string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (d, r, c, m, x, y, l, u) => new Unit(d, r, c, m.Carte, x, y, l);
+            Random rrd = new Random();
+            //1 23 33 1
+            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw); 
+            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
+            // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
+            for (int i = 0; i < rrd.Next(200, 300); i++)
+                Rdunit(data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw, unit);
         }
 
         protected override void UnloadContent()
@@ -254,7 +254,7 @@ namespace Advanced_Tactics
 
             if (menu.InGame) // IN GAME
             {
-                //Informations.Draw(spriteBatch, gameTime);
+                Informations.Draw(spriteBatch, gameTime);
 
                 spriteBatch.Begin();
                 tileMap.Draw(spriteBatch);
@@ -262,7 +262,7 @@ namespace Advanced_Tactics
                 spriteBatch.End();
 
                 spriteBatch.Begin();
-                debug.Draw(spriteBatch);
+                //debug.Draw(spriteBatch);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();
             }
