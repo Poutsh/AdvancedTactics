@@ -79,74 +79,74 @@ namespace Advanced_Tactics
         public List<Vector> MvtPossUnit(string classe, Vector position, Cell[,] map, Data data)
         {
             List<Vector> MvtPossible = new List<Vector>() { };
-            switch (classe)
-            {
-                case "King":
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y + 1));
-                    break;
-                case "Queen":
-                    for (int i = 1; position.Y - i >= 0; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y - i));
-                    for (int i = 1; position.Y + i != data.HeightMap; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y + i));
-                    for (int i = 1; position.X - i >= 0; i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y));
-                    for (int i = 1; position.X + i != data.WidthMap; i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y));
-                    for (int i = 1; (position.Y - i > 0) && (position.X - i > 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y + i));
-                    for (int i = 1; (position.Y - i > 0) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i > 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y + i));
-                    break;
-                case "Rook":
-                    for (int i = 1; position.Y - i >= 0; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y - i));
-                    for (int i = 1; position.Y + i != data.HeightMap; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y + i));
-                    for (int i = 1; position.X - i >= 0; i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y));
-                    for (int i = 1; position.X + i != data.WidthMap; i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y));
-                    break;
-                case "Bishop":
-                    for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y + i));
-                    for (int i = 1; (position.Y - i >= 0) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i >= 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y + i));
-                    break;
-                case "Knight":
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y + 2));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y + 2));
-                    MvtPossible.Add(new Vector(position.X + 2, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 2));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y - 2));
-                    MvtPossible.Add(new Vector(position.X - 2, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X - 2, position.Y + 1));
-                    break;
-                case "Pawn":
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y - 1));
-                    break;
-            }
-            return MvtPossible;
+            //switch (classe)
+            //{
+            //    case "King":
+            //        MvtPossible.Add(new Vector(position.X + 1, position.Y));
+            //        MvtPossible.Add(new Vector(position.X, position.Y + 1));
+            //        MvtPossible.Add(new Vector(position.X - 1, position.Y));
+            //        MvtPossible.Add(new Vector(position.X, position.Y - 1));
+            //        MvtPossible.Add(new Vector(position.X + 1, position.Y + 1));
+            //        MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
+            //        MvtPossible.Add(new Vector(position.X - 1, position.Y - 1));
+            //        MvtPossible.Add(new Vector(position.X - 1, position.Y + 1));
+            //        break;
+            //    case "Queen":
+            //        for (int i = 1; position.Y - i >= 0; i++)
+            //            MvtPossible.Add(new Vector(position.X, position.Y - i));
+            //        for (int i = 1; position.Y + i != data.HeightMap; i++)
+            //            MvtPossible.Add(new Vector(position.X, position.Y + i));
+            //        for (int i = 1; position.X - i >= 0; i++)
+            //            MvtPossible.Add(new Vector(position.X - i, position.Y));
+            //        for (int i = 1; position.X + i != data.WidthMap; i++)
+            //            MvtPossible.Add(new Vector(position.X + i, position.Y));
+            //        for (int i = 1; (position.Y - i > 0) && (position.X - i > 0); i++)
+            //            MvtPossible.Add(new Vector(position.X - i, position.Y - i));
+            //        for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
+            //            MvtPossible.Add(new Vector(position.X + i, position.Y + i));
+            //        for (int i = 1; (position.Y - i > 0) && (position.X + i != data.WidthMap); i++)
+            //            MvtPossible.Add(new Vector(position.X + i, position.Y - i));
+            //        for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i > 0); i++)
+            //            MvtPossible.Add(new Vector(position.X - i, position.Y + i));
+            //        break;
+            //    case "Rook":
+            //        for (int i = 1; position.Y - i >= 0; i++)
+            //            MvtPossible.Add(new Vector(position.X, position.Y - i));
+            //        for (int i = 1; position.Y + i != data.HeightMap; i++)
+            //            MvtPossible.Add(new Vector(position.X, position.Y + i));
+            //        for (int i = 1; position.X - i >= 0; i++)
+            //            MvtPossible.Add(new Vector(position.X - i, position.Y));
+            //        for (int i = 1; position.X + i != data.WidthMap; i++)
+            //            MvtPossible.Add(new Vector(position.X + i, position.Y));
+            //        break;
+            //    case "Bishop":
+            //        for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
+            //            MvtPossible.Add(new Vector(position.X - i, position.Y - i));
+            //        for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
+            //            MvtPossible.Add(new Vector(position.X + i, position.Y + i));
+            //        for (int i = 1; (position.Y - i >= 0) && (position.X + i != data.WidthMap); i++)
+            //            MvtPossible.Add(new Vector(position.X + i, position.Y - i));
+            //        for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i >= 0); i++)
+            //            MvtPossible.Add(new Vector(position.X - i, position.Y + i));
+            //        break;
+            //    case "Knight":
+            //        MvtPossible.Add(new Vector(position.X - 1, position.Y + 2));
+            //        MvtPossible.Add(new Vector(position.X + 1, position.Y + 2));
+            //        MvtPossible.Add(new Vector(position.X + 2, position.Y + 1));
+            //        MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
+            //        MvtPossible.Add(new Vector(position.X + 1, position.Y - 2));
+            //        MvtPossible.Add(new Vector(position.X - 1, position.Y - 2));
+            //        MvtPossible.Add(new Vector(position.X - 2, position.Y - 1));
+            //        MvtPossible.Add(new Vector(position.X - 2, position.Y + 1));
+            //        break;
+            //    case "Pawn":
+            //        MvtPossible.Add(new Vector(position.X + 1, position.Y));
+            //        MvtPossible.Add(new Vector(position.X, position.Y + 1));
+            //        MvtPossible.Add(new Vector(position.X - 1, position.Y));
+            //        MvtPossible.Add(new Vector(position.X, position.Y - 1));
+            //        break;
+            //}
+            //return MvtPossible;
         }
     }
 }
