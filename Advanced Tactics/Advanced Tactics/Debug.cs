@@ -137,7 +137,7 @@ namespace Advanced_Tactics
             {
                 spriteBatch.DrawString(this.font,
                     string.Format("Unit : {0}", "vide"),
-                    new Vector2(20, 195), Color.Indigo);
+                    new Vector2(20, 195), Color.Yellow);
             }
 
             //spriteBatch.DrawString(this.font,

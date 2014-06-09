@@ -180,7 +180,10 @@ namespace Advanced_Tactics
                 foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible)
                 {
                     if (map[depPos.X, depPos.Y].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[item.X, item.Y]))
+                    {
+                        
                         spCasebleu.Draw(data, spriteBatch, gameTime, map[item.X, item.Y].positionPixel);
+                    }
                 }
                 if (map[viseurX, viseurY].Vector2OfCell == depPos)
                     sblinkviseur.Position = map[viseurX, viseurY].positionPixel;
