@@ -100,13 +100,13 @@ namespace Advanced_Tactics
                         MvtPossible.Add(new Vector(position.X - i, position.Y));
                     for (int i = 1; position.X + i != data.WidthMap; i++)
                         MvtPossible.Add(new Vector(position.X + i, position.Y));
-                    for (int i = 1; (position.Y - i > 0) && (position.X - i > 0); i++)
+                    for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
                         MvtPossible.Add(new Vector(position.X - i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
+                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X + i < data.WidthMap); i++)
                         MvtPossible.Add(new Vector(position.X + i, position.Y + i));
-                    for (int i = 1; (position.Y - i > 0) && (position.X + i != data.WidthMap); i++)
+                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.WidthMap); i++)
                         MvtPossible.Add(new Vector(position.X + i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i > 0); i++)
+                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X - i >= 0); i++)
                         MvtPossible.Add(new Vector(position.X - i, position.Y + i));
                     break;
                 case "Rook":
@@ -122,18 +122,18 @@ namespace Advanced_Tactics
                 case "Bishop":
                     for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
                         MvtPossible.Add(new Vector(position.X - i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
+                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X + i < data.WidthMap); i++)
                         MvtPossible.Add(new Vector(position.X + i, position.Y + i));
-                    for (int i = 1; (position.Y - i >= 0) && (position.X + i != data.WidthMap); i++)
+                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.WidthMap); i++)
                         MvtPossible.Add(new Vector(position.X + i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i >= 0); i++)
+                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X - i >= 0); i++)
                         MvtPossible.Add(new Vector(position.X - i, position.Y + i));
                     break;
                 case "Knight":
                     MvtPossible.Add(new Vector(position.X - 1, position.Y + 2));
                     MvtPossible.Add(new Vector(position.X + 1, position.Y + 2));
                     MvtPossible.Add(new Vector(position.X + 2, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
+                    MvtPossible.Add(new Vector(position.X + 2, position.Y - 1));
                     MvtPossible.Add(new Vector(position.X + 1, position.Y - 2));
                     MvtPossible.Add(new Vector(position.X - 1, position.Y - 2));
                     MvtPossible.Add(new Vector(position.X - 2, position.Y - 1));
