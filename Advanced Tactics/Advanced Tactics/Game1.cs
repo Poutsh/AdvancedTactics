@@ -48,6 +48,8 @@ namespace Advanced_Tactics
         Map map;
 
         // Unit
+        Players Player1, Player2;
+
         Unit unit;
         List<Unit> ListToDraw;
 
