@@ -3,30 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Advanced_Tactics
 {
     class Partie
     {
+
+
         Data data;
         int x, y;
-        Players Player1, Player2;
-        public List<Vector> HQ1, HQ2;
 
-        public Partie(Data data)
+        Viseur viseur;
+
+        public Partie(Data data, Viseur viseur, Map map, List<Player> Players)
         {
             this.data = data;
-            HQ1 = StartPoss();
-            HQ2 = StartPoss2();
+
+            for (int i = 0; i < Players.Count(); i++) Players[i] = new Player();
+            for (int i = 0; i < Players.Count(); i++)
+            {
+                Players[i].StartZone = StartPoss(Players).Item1;
+                Players[i].CenterZone = StartPoss(Players).Item2;
+            }
         }
 
-        List<Vector> StartPoss()
+        Tuple<List<Vector>, Vector> StartPoss(List<Player> Players)
         {
             List<Vector> StartPos = new List<Vector>();
             Random rrd = new Random();
 
             x = rrd.Next(0, data.WidthMap);
             y = rrd.Next(0, data.HeightMap);
+            Vector Center = new Vector(x, y);
 
             for (int i = 0; i < data.WidthMap; i++)
             {
@@ -37,42 +46,25 @@ namespace Advanced_Tactics
                 }
             }
 
-            return StartPos;
+            return Tuple.Create(StartPos, Center);
         }
 
-        List<Vector> StartPoss2()
-        {
-            List<Vector> StartPos = new List<Vector>();
-            int xx = 0, yy = 0;
-            Random rrd = new Random();
 
-            while (Vector.Distance(new Vector(x, y), new Vector(xx, yy)) <= 6)
-            {
-                xx = rrd.Next(0, data.WidthMap);
-                yy = rrd.Next(0, data.HeightMap);
-            }
 
-            for (int i = 0; i < data.WidthMap; i++)
-            {
-                for (int j = 0; j < data.HeightMap; j++)
-                {
-                    if (Vector.Distance(new Vector(xx, yy), new Vector(i, j)) <= 5)
-                        StartPos.Add(new Vector(i, j));
-                }
-            }
 
-            return StartPos;
-        }
 
     }
 
 
-    class Players
+    class Player
     {
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, Enter }
+        private KeyboardState oldKey, curKey;
         Data data;
-        Unit unit;
-        List<Unit> UnitsOfPlayer;
-
+        public List<Vector> StartZone;
+        public Vector CenterZone;
+        public Unit HQ;
+        public bool Create { get { return HQ != null; } set { value = HQ != null; } }
 
 
         public Rectangle Limits { get; set; }
@@ -81,15 +73,44 @@ namespace Advanced_Tactics
         string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
 
 
-        /// <summary>
-        /// Gestion de Joueur
-        /// </summary>
-        /// <param name="Number">Nombre de joueurs</param>
-        public Players(Data data, Map map)
+        public void PosHQ(Viseur viseur, Map map, Data data, List<Unit> ListToDraw)
         {
-            UnitsOfPlayer = new List<Unit>();
+            if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter))
+            {
+                HQ = new Unit(data, "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw);
+            }
+        }
+        private bool WasJustPressed(Key button)
+        {
+            curKey = Keyboard.GetState();
+            switch (button)
+            {
+                case Key.Enter:
+                    return curKey.IsKeyDown(Keys.Enter) && oldKey != curKey;
 
+                case Key.Q:
+                    return curKey.IsKeyDown(Keys.Q) && oldKey != curKey;
 
+                case Key.C:
+                    return curKey.IsKeyDown(Keys.C) && oldKey != curKey;
+
+                case Key.W:
+                    return curKey.IsKeyDown(Keys.W) && oldKey != curKey;
+
+                case Key.A:
+                    return curKey.IsKeyDown(Keys.A) && oldKey != curKey;
+
+                case Key.Z:
+                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
+
+                case Key.LeftControl:
+                    return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;
+
+                case Key.R:
+                    return curKey.IsKeyDown(Keys.R) && oldKey != curKey;
+            }
+            oldKey = curKey;
+            return false;
         }
 
     }

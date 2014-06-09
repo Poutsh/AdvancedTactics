@@ -36,6 +36,7 @@ namespace Advanced_Tactics
         public int viseurX { get { return (int)coord.X; } }
         public int viseurY { get { return (int)coord.Y; } }
         public Vector2 coordViseur { get { return coord; } set { coord = value; } }
+        public Vector coordViseur2 { get { return new Vector(coord.X, coord.Y); } }
 
         public Unit UnitTemp { get; set; }
         public bool depSelec { get; set; }
