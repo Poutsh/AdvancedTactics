@@ -22,15 +22,10 @@ namespace Advanced_Tactics
         #region VARIABLES
 
         public static GraphicsDevice gd;
-        ContentManager Ctt;
+        public static ContentManager Ctt;
         Data data;
         public static GraphicsDeviceManager graphics { get; set; }
         SpriteBatch spriteBatch;
-
-        // Network
-        Color color;
-        Color clearColor;
-        GameState gameState;
 
         // Clavier, Souris, Camera
         KeyboardState oldKey, curKey;
@@ -45,7 +40,8 @@ namespace Advanced_Tactics
         SoundEffect inGameMusic;
         SoundEffectInstance instance;
         SoundEffect click;
-        //Pause pause;
+        List<Texture2D> ListMenu;
+
 
         // Map
         TileEngine tileMap;
@@ -55,25 +51,10 @@ namespace Advanced_Tactics
         Unit unit;
         List<Unit> ListToDraw;
 
-        //Networking members
-        NetworkSession session;
-        AvailableNetworkSessionCollection availableSessions;
-        int sessionIndex;
-        AvailableNetworkSession availableSession;
-        PacketWriter packetWriter;
-        PacketReader packetReader;
-        bool isServer;
-
-        enum GameState { Menu, FindGame, PlayGame }
-        enum SessionProperty { GameMode, SkillLevel, ScoreToWin }
-        enum GameMode { Practice, Timed, CaptureTheFlag }
-        enum SkillLevel { Beginner, Intermediate, Advanced }
-        enum PacketType { Enter, Leave, Data }
-
         //Resolution
         public int BufferHeight { get { return graphics.PreferredBackBufferHeight; } set { graphics.PreferredBackBufferHeight = value; } }
         public int BufferWidth { get { return graphics.PreferredBackBufferWidth; } set { graphics.PreferredBackBufferWidth = value; } }
-        
+
         Debug debug;
         Informations Informations;
 
@@ -94,7 +75,7 @@ namespace Advanced_Tactics
             // Gestion souris
             IsMouseVisible = false;
 
-            
+
 
             this.IsFixedTimeStep = true;
             this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1);
@@ -113,17 +94,11 @@ namespace Advanced_Tactics
             gd = this.GraphicsDevice;
 
             // Gestion de la fenetre
-            BufferWidth = 800;
-            BufferHeight = 600;
-            data = new Data("map2", BufferWidth, BufferHeight, Content, gd);
+            BufferWidth = 1650;
+            BufferHeight = 1080;
+            data = new Data("map2", BufferWidth, BufferHeight);
             ListToDraw = new List<Unit>();
-
-            color = Color.White;
-            clearColor = Color.CornflowerBlue;
-            gameState = GameState.Menu;
-            sessionIndex = 0;
-            packetReader = new PacketReader();
-            packetWriter = new PacketWriter();
+            ListMenu = new List<Texture2D>();
 
             Game1.graphics.ApplyChanges();
             base.Initialize();
@@ -150,13 +125,13 @@ namespace Advanced_Tactics
             // Map
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
-            flou = new Sprite(); flou.LC(data.Content, "Menu/flou");
+            flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");
 
 
 
             // Clavier, Souris
             viseur = new Viseur(data, map.Carte);
-            sppointer = new Sprite(); sppointer.LC(data.Content, "Curseur/pointer");
+            sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
 
             // Unit
             unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
@@ -196,7 +171,9 @@ namespace Advanced_Tactics
             curKey = Keyboard.GetState();
             sppointer.Update(gameTime);
 
-            if (menu.currentGame)
+            menu.InGame = true;
+
+            if (menu.InGame)
             {
                 MediaPlayer.Stop();
 
@@ -215,15 +192,15 @@ namespace Advanced_Tactics
                 menu.Update(gameTime);
 
                 //if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
-                checkExitKey(curKey);
-                
+                //checkExitKey(curKey);
+
 
                 if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released) click.Play();
 
                 mouseStatePrevious = mouseStateCurrent;
             }
 
-            if (!menu.currentGame && !menu.MenuPrincipal && menu.Options)
+            if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
             {
                 graphics.PreferredBackBufferWidth = (int)data.widthWindow;
                 graphics.PreferredBackBufferHeight = (int)data.heightWindow;
@@ -237,6 +214,7 @@ namespace Advanced_Tactics
 
             base.Update(gameTime);
         }
+
         int once = 1;
         bool checkExitKey(KeyboardState keyboardState)
         {
@@ -252,7 +230,7 @@ namespace Advanced_Tactics
                     process.Start();
                     once--;
                 }
-                
+
                 return true;
             }
             return false;
@@ -272,17 +250,17 @@ namespace Advanced_Tactics
             debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
             Informations = new Informations(data, map, viseur, ListToDraw); Informations.LoadContent();
 
-            if (menu.currentGame) // IN GAME
+            if (menu.InGame) // IN GAME
             {
-                Informations.Draw(spriteBatch, gameTime);
-
-                spriteBatch.Begin(); 
-                tileMap.Draw(spriteBatch);
-                for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
-                spriteBatch.End(); 
+                //Informations.Draw(spriteBatch, gameTime);
 
                 spriteBatch.Begin();
-                //debug.Draw(spriteBatch);
+                tileMap.Draw(spriteBatch);
+                for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
+                spriteBatch.End();
+
+                spriteBatch.Begin();
+                debug.Draw(spriteBatch);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();
             }

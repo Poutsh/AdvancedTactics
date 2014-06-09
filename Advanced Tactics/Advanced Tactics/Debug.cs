@@ -36,7 +36,7 @@ namespace Advanced_Tactics
             this.data = data;
             
             cartemap = map;
-            ctt = data.Content;
+            ctt = Game1.Ctt;
             _viseur = viseur;
             _ListOfUnit = ListOfUnit;
 
@@ -59,7 +59,7 @@ namespace Advanced_Tactics
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(this.font,
-                string.Format("Menu  {0}, {1}, {2}, {3}", _menu.currentGame, _menu.MenuPrincipal, _menu.nothing, _menu.Options),
+                string.Format("Menu  {0}, {1}, {2}, {3}", _menu.InGame, _menu.MenuPrincipal, _menu.Loadscreen, _menu.Options),
                 new Vector2(10, 80), Color.Blue);
 
             spriteBatch.DrawString(this.font,
@@ -129,7 +129,7 @@ namespace Advanced_Tactics
                 {
                     spriteBatch.DrawString(this.font,
                     string.Format("Unit : {0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.MvtPossible[i]),
-                    new Vector2(20, 240+i*10), Color.Indigo);
+                    new Vector2(20, 240+i*10), Color.Pink);
                 }
                 
             }

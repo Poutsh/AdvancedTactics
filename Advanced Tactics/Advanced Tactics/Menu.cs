@@ -42,10 +42,11 @@ namespace Advanced_Tactics
 
         TimeSpan time;
 
-        public bool nothing { get; set; }
+        bool loadscreen = true;
+        public bool Loadscreen { get { return loadscreen; } set { loadscreen = value; } }
 
         bool inGame = false;
-        public bool currentGame { get { return inGame; } set { inGame = value; } }
+        public bool InGame { get { return inGame; } set { inGame = value; } }
 
         bool menuPrincipal = true;
         public bool MenuPrincipal { get { return menuPrincipal; } set { menuPrincipal = value; } }
@@ -108,16 +109,16 @@ namespace Advanced_Tactics
             if (menuPrincipal)
             {
                 sb.Begin();
-                if (position == 1) { sb.Draw(menuJouer, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
-                if (position == 2) { sb.Draw(menuMapEditor, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
-                if (position == 3) { sb.Draw(menuOptions, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
-                if (position == 4) { sb.Draw(menuQuitter, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White); }
+                if (position == 1) { sb.Draw(menuJouer, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                if (position == 2) { sb.Draw(menuMapEditor, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                if (position == 3) { sb.Draw(menuOptions, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                if (position == 4) { sb.Draw(menuQuitter, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
                 sb.End();
             }
             #endregion
 
             #region InGame
-            if (currentGame)
+            if (InGame)
             {
                 sb.Begin();
 
@@ -158,7 +159,7 @@ namespace Advanced_Tactics
                     }
                     if (position3 == 3) //******** 1920*1080
                     {
-                        sb.Draw(optionsReso3, new Rectangle(0, 0, data.GraphicsDevice.Viewport.Width, data.GraphicsDevice.Viewport.Height), Color.White);
+                        sb.Draw(optionsReso3, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White);
 
                         if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
@@ -274,17 +275,9 @@ namespace Advanced_Tactics
                 }
                 if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
-                    if (once == 1)
-                    {
-                        System.Diagnostics.Process process = new System.Diagnostics.Process();
-                        System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                        startInfo.FileName = "MapGen";
-                        process.StartInfo = startInfo;
-                        process.Start();
-                        once--;
-                    }
+                    
                 }
-                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { this.nothing = false; menuPrincipal = false; inGame = true; }
+                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { this.Loadscreen = false; menuPrincipal = false; inGame = true; }
             }
             #endregion
 

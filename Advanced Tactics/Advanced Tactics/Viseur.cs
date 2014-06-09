@@ -71,13 +71,13 @@ namespace Advanced_Tactics
 
         void Init()
         {
-            spviseur = new Sprite(); spviseur.LC(data.Content, "Curseur/viseur");
-            sblinkviseur = new Sprite(); sblinkviseur.LC(data.Content, "Curseur/viseurS");
-            Viseurbleu = new Sprite(); Viseurbleu.LC(data.Content, "Curseur/viseurB");
-            Viseurrouge = new Sprite(); Viseurrouge.LC(data.Content, "Curseur/viseurR");
-            Viseurnormal = new Sprite(); Viseurnormal.LC(data.Content, "Curseur/viseur");
-            spCaserouge = new Sprite(); spCaserouge.LC(data.Content, "Case/rouge");
-            spCasebleu = new Sprite(); spCasebleu.LC(data.Content, "Case/bleu");
+            spviseur = new Sprite(); spviseur.LC(Game1.Ctt, "Curseur/viseur");
+            sblinkviseur = new Sprite(); sblinkviseur.LC(Game1.Ctt, "Curseur/viseurS");
+            Viseurbleu = new Sprite(); Viseurbleu.LC(Game1.Ctt, "Curseur/viseurB");
+            Viseurrouge = new Sprite(); Viseurrouge.LC(Game1.Ctt, "Curseur/viseurR");
+            Viseurnormal = new Sprite(); Viseurnormal.LC(Game1.Ctt, "Curseur/viseur");
+            spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/rouge");
+            spCasebleu = new Sprite(); spCasebleu.LC(Game1.Ctt, "Case/bleu");
         }
 
         #endregion
@@ -177,6 +177,11 @@ namespace Advanced_Tactics
         {
             if (depSelec && !destSelec)
             {
+                foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible)
+                {
+                    if (map[depPos.X, depPos.Y].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[item.X, item.Y]))
+                        spCasebleu.Draw(data, spriteBatch, gameTime, map[item.X, item.Y].positionPixel);
+                }
                 if (map[viseurX, viseurY].Vector2OfCell == depPos)
                     sblinkviseur.Position = map[viseurX, viseurY].positionPixel;
                 blinkviseur = depSelec;
