@@ -21,13 +21,13 @@ namespace Advanced_Tactics
         {
             UnitsOfPlayer = new List<Unit>();
 
-            switch (Number)
-            {
-                case 2:
-                    Limit = new Rectangle(
-                default:
-                    break;
-            }
+            //switch (Number)
+            //{
+            //    case 2:
+                    
+            //    default:
+            //        break;
+            //}
         }
     }
 }
