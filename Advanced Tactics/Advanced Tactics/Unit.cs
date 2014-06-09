@@ -18,28 +18,20 @@ namespace Advanced_Tactics
         public Sprite spriteOfUnit;
         string path;
 
+        //
+        public Stats Stats { get; set; }
+        public string Classe { get; set; }
+        public string Rang { get; set; }
+        public int PV { get; set; }
+        public int Strength { get; set; }
+        public List<int> TerrainPossible { get; set; }
+        public List<Vector> MvtPossible { get; set; }
+
+
         public Viseur Viseur { get; set; }
 
         public int XofUnit { get; set; }
         public int YofUnit { get; set; }
-
-        public string Classe { get; set; }
-        public string Rang { get; set; }
-        public List<int> TerrainPossible { get; set; }
-
-        List<int> Mvt1 = new List<int>(1) { 1 };
-        List<int> Mvt2 = new List<int>(2) { 1, 2 };
-        List<int> Mvt3 = new List<int>(3) { 0, 1, 2 };
-        List<int> Mvt4 = new List<int>(0) { };
-
-        private const float Rotation = 0;
-        private const float Scale = 2.0f;
-        private const float Depth = 0.5f;
-        private const int Frames = 4;
-        private const int FramesPerSec = 2;
-        public int PV { get; set; }
-        public int Strength { get; set; }
-        public List<Vector> MvtPossible { get; set; }
 
 
         #endregion
@@ -67,78 +59,30 @@ namespace Advanced_Tactics
         public Unit(Data data, string Rang, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit)
         {
             this.data = data;
+
+            Stats = new Stats();
+
             if (Map[X, Y].unitOfCell == null)
             {
                 spriteOfUnit = new Sprite();
 
-                this.Rang = Rang;
-                this.Classe = Classe;
                 this.XofUnit = X;
                 this.YofUnit = Y;
+
+                this.Rang = Rang;
+                this.Classe = Classe;
+                this.PV = Stats.PVUnit(Rang);
+                this.Strength = Stats.StrengthUnit(Rang);
+                this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
+                this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
+                
                 map = Map;
-                this.MvtPossible = null;
-                this.MvtPossible = MvtPoss(Classe, new Vector(this.XofUnit, this.YofUnit), this.MvtPossible, map, data);
-                switch (Rang)
-                {
-                    case "AA":
-                        this.PV = 30;
-                        this.Strength = 3;
-                        break;
-                    case "Commando":
-                        this.PV = 25;
-                        this.Strength = 3;
-                        break;
-                    case "Doc":
-                        this.PV = 15;
-                        this.Strength = 1;
-                        break;
-                    case "Engineer":
-                        this.PV = 15;
-                        this.Strength = 1;
-                        break;
-                    case "Pvt":
-                        this.PV = 15;
-                        this.Strength = 2;
-                        break;
-                    case "Plane":
-                        this.PV = 50;
-                        this.Strength = 5;
-                        break;
-                    case "HQ":
-                        this.PV = 1000;
-                        this.Strength = 10;
-                        break;
-                    case "Tank":
-                        this.PV = 40;
-                        this.Strength = 4;
-                        break;
-                    case "Truck":
-                        this.PV = 30;
-                        this.Strength = 1;
-                        break;
-                }
-
-
-                if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
-                {
-                    TerrainPossible = new List<int>(2);
-                    TerrainPossible.Add(1); TerrainPossible.Add(2);
-                }
-                if (new List<string>(6) { "AA", "Commando", "Doc", "Engineer", "Pvt" }.Contains(Rang))
-                {
-                    TerrainPossible = new List<int>(1);
-                    TerrainPossible.Add(1);
-                }
-                if (new List<string>(1) { "Plane", "HQ" }.Contains(Rang))
-                {
-                    TerrainPossible = new List<int>(3);
-                    TerrainPossible.Add(0); TerrainPossible.Add(1); TerrainPossible.Add(2);
-                }
 
                 if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
                 {
-                    if (Rang == "viseur") path = "Curseur/"; else path = "Unit/";
-                    Sprite2Unit(path, Rang, data.Content, spriteOfUnit);
+                    Sprite2Unit(
+                        ((Rang == "viseur") ? "Curseur/" : "Unit/"),
+                        Rang, Game1.Ctt, spriteOfUnit);
 
                     if (Rang != null && Classe != null)
                         ListOfUnit.Add(this);
@@ -161,43 +105,31 @@ namespace Advanced_Tactics
         {
             this.data = data;
             spriteOfUnit = new Sprite();
-
+            Stats = new Stats();
             this.Rang = UnitToMove.Rang;
             this.Classe = UnitToMove.Classe;
-            this.XofUnit = newCell.XofCell;
-            this.YofUnit = newCell.YofCell;
             this.Strength = UnitToMove.Strength;
             this.PV = UnitToMove.PV;
-            this.MvtPossible = null;
-            this.MvtPossible = MvtPoss(Classe, new Vector(newCell.XofCell, newCell.YofCell), this.MvtPossible, map, data);
+            this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
+            this.MvtPossible = Stats.MvtPossUnit(this.Classe, new Vector(newCell.XofCell, newCell.YofCell), map, data);
+
+            this.XofUnit = newCell.XofCell;
+            this.YofUnit = newCell.YofCell;
 
             map = Map;
 
-            if (new List<string>(2) { "Tank", "Truck" }.Contains(Rang))
-            {
-                TerrainPossible = new List<int>(2);
-                TerrainPossible.Add(1); TerrainPossible.Add(2);
-            }
-            if (new List<string>(6) { "AA", "Commando", "Doc", "Engineer", "Pvt" }.Contains(Rang))
-            {
-                TerrainPossible = new List<int>(1);
-                TerrainPossible.Add(1);
-            }
-            if (new List<string>(1) { "Plane", "HQ" }.Contains(Rang))
-            {
-                TerrainPossible = new List<int>(3);
-                TerrainPossible.Add(0); TerrainPossible.Add(1); TerrainPossible.Add(2);
-            }
+
 
             if (TerrainPossible.Contains(data.altitudeTerrain[XofUnit, YofUnit]))
             {
-                if (this.Rang == "viseur") path = "Curseur/"; else path = "Unit/";
-                Sprite2Unit(path, this.Rang, data.Content, spriteOfUnit);
+                Sprite2Unit(
+                        ((Rang == "viseur") ? "Curseur/" : "Unit/"),
+                        Rang, Game1.Ctt, spriteOfUnit);
 
                 ListOfUnit.Add(this);
 
                 map[UnitToMove.XofUnit, UnitToMove.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
-                map[newCell.XofCell, newCell.YofCell].unitOfCell = this; // On mets a jour la valeur de la nouvelle case
+                map[newCell.XofCell, newCell.YofCell].unitOfCell = this; // On met a jour la valeur de la nouvelle case
 
                 map[this.XofUnit, this.YofUnit].Occupe = ListOfUnit.Contains(this);
 
@@ -211,6 +143,7 @@ namespace Advanced_Tactics
                 }
             }
         }
+
 
         /// <summary>
         /// Destruction Unite
@@ -227,17 +160,8 @@ namespace Advanced_Tactics
             this.YofUnit = UnitToDestruct.YofUnit;
 
             map = Map;
-            map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
-            map[this.XofUnit, this.YofUnit].unitOfCell = null; // On mets a jour la valeur de la nouvelle case
 
-            //map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].unitOfCell = null;
-            for (int i = 0; i < ListOfUnit.Count(); i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
-                if (ListOfUnit[i] == UnitToDestruct)
-                {
-                    ListOfUnit.RemoveAt(i);
-
-                    map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].Occupe = false;
-                }
+            DelUnitofList(UnitToDestruct, ListOfUnit);
         }
 
         #endregion
@@ -245,77 +169,21 @@ namespace Advanced_Tactics
         // // // // // // // // 
 
         #region FUNCTIONS
-        public List<Vector> MvtPoss(string classe, Vector position, List<Vector> MvtPossible, Cell[,] map, Data data)
+
+        
+
+        void DelUnitofList(Unit UnitToDestruct, List<Unit> ListOfUnit)
         {
-            MvtPossible = new List<Vector>() { };
-            switch (classe)
-            {
-                case "King":
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y + 1));
-                    break;
-                case "Queen":
-                    for (int i = 1; position.Y - i > 0; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y - i));
-                    for (int i = 1; position.Y + i != data.HeightMap; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y + i));
-                    for (int i = 1; position.X - i > 0; i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y));
-                    for (int i = 1; position.X + i != data.WidthMap; i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y));
-                    for (int i = 1; (position.Y - i > 0) && (position.X - i > 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y + i));
-                    for (int i = 1; (position.Y - i > 0) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i > 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y + i));
-                    break;
-                case "Rook":
-                    for (int i = 1; position.Y - i > 0; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y - i));
-                    for (int i = 1; position.Y + i != data.HeightMap; i++)
-                        MvtPossible.Add(new Vector(position.X, position.Y + i));
-                    for (int i = 1; position.X - i > 0; i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y));
-                    for (int i = 1; position.X + i != data.WidthMap; i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y));
-                    break;
-                case "Bishop":
-                    for (int i = 1; (position.Y - i > 0) && (position.X - i > 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y + i));
-                    for (int i = 1; (position.Y - i > 0) && (position.X + i != data.WidthMap); i++)
-                        MvtPossible.Add(new Vector(position.X + i, position.Y - i));
-                    for (int i = 1; (position.Y + i != data.HeightMap) && (position.X - i > 0); i++)
-                        MvtPossible.Add(new Vector(position.X - i, position.Y + i));
-                    break;
-                case "Knight":
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y + 2));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y + 2));
-                    MvtPossible.Add(new Vector(position.X + 2, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y - 2));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y - 2));
-                    MvtPossible.Add(new Vector(position.X - 2, position.Y - 1));
-                    MvtPossible.Add(new Vector(position.X - 2, position.Y + 1));
-                    break;
-                case "Pawn":
-                    MvtPossible.Add(new Vector(position.X + 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y + 1));
-                    MvtPossible.Add(new Vector(position.X - 1, position.Y));
-                    MvtPossible.Add(new Vector(position.X, position.Y - 1));
-                    break;
-            }
-            return MvtPossible;
+            for (int i = 0; i < ListOfUnit.Count(); i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
+                if (ListOfUnit[i] == UnitToDestruct)
+                {
+                    ListOfUnit.RemoveAt(i);
+
+                    map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].Occupe = false;
+                }
+
+            map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
+
         }
         #endregion
 
