@@ -32,6 +32,7 @@ namespace Advanced_Tactics
         MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
         Sprite sppointer, flou;
+        Sprite spCaserouge;
         public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C }
 
         // Menu
@@ -49,6 +50,7 @@ namespace Advanced_Tactics
 
         // Unit
         Players Player1, Player2;
+        Partie Partie;
 
         Unit unit;
         List<Unit> ListToDraw;
@@ -128,7 +130,7 @@ namespace Advanced_Tactics
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
             flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");
-
+            spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/bleu");
 
 
             // Clavier, Souris
@@ -136,6 +138,7 @@ namespace Advanced_Tactics
             sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
 
             // Unit
+            Partie = new Partie(data);
             unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
 
             string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
@@ -148,7 +151,7 @@ namespace Advanced_Tactics
             Func<Data, string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (d, r, c, m, x, y, l, u) => new Unit(d, r, c, m.Carte, x, y, l);
             Random rrd = new Random();
             //1 23 33 1
-            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw); 
+            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
             unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
             // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
             for (int i = 0; i < rrd.Next(200, 300); i++)
@@ -259,6 +262,9 @@ namespace Advanced_Tactics
                 spriteBatch.Begin();
                 tileMap.Draw(spriteBatch);
                 for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
+                for (int i = 0; i < Partie.HQ1.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Partie.HQ1[i].X, Partie.HQ1[i].Y].positionPixel);
+                for (int i = 0; i < Partie.HQ2.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Partie.HQ2[i].X, Partie.HQ2[i].Y].positionPixel);
+
                 spriteBatch.End();
 
                 spriteBatch.Begin();
