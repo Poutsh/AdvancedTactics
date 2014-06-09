@@ -34,7 +34,7 @@ namespace Advanced_Tactics
             this.data = data;
 
             cartemap = map;
-            ctt = data.Content;
+            ctt = Game1.Ctt;
             _viseur = viseur;
             _ListOfUnit = ListOfUnit;
             unit = new Sprite();
@@ -44,9 +44,9 @@ namespace Advanced_Tactics
         {
             font = ctt.Load<SpriteFont>("info");
             font2 = ctt.Load<SpriteFont>("info2");
-            fondmetal = new Sprite(); fondmetal.LC(data.Content, "Menu/Metal");
-            magasin = new Sprite(); magasin.LC(data.Content, "Menu/Magasin");
-            info = new Sprite(); info.LC(data.Content, "Menu/Informations");
+            fondmetal = new Sprite(); fondmetal.LC(Game1.Ctt, "Menu/Metal");
+            magasin = new Sprite(); magasin.LC(Game1.Ctt, "Menu/Magasin");
+            info = new Sprite(); info.LC(Game1.Ctt, "Menu/Informations");
         }
 
         public virtual void Update(GameTime gameTime)
@@ -70,7 +70,7 @@ namespace Advanced_Tactics
             if (cartemap.Carte[_viseur.viseurX, _viseur.viseurY].Occupe)
             {
                 spriteBatch.DrawString(this.font, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe), new Vector2(1 * (data.PosXInit / 8) + 100 * data.Scale, info.Texture.Height + 100 * data.Scale), Color.Black);
-                unit.LC(data.Content, "Unit/" + cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang);
+                unit.LC(Game1.Ctt, "Unit/" + cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang);
                 unit.Draw(data, spriteBatch, gameTime, new Vector2(1 * (data.PosXInit / 8) + 220 * data.Scale, info.Texture.Height + 90 * data.Scale), 1.2f);
                 spriteBatch.DrawString(this.font, string.Format("PV :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 130 * data.Scale), Color.Black);
                 spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.PV), new Vector2(1 * (data.PosXInit / 8) + 90 * data.Scale, info.Texture.Height + 120 * data.Scale), Color.Red);

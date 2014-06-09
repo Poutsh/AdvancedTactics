@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Advanced_Tactics
 {
     public class Data
-    {//load.Write("Option", "1680", "ScreenWidth");
+    {
         protected int _WidthMap, _HeightMap;
         protected float tilesize;
         protected float scale;
@@ -29,13 +29,9 @@ namespace Advanced_Tactics
         public string fileMap { get { return p; } set { p = value; } }
         public int widthWindow { get { return _widthWindow; } set { _widthWindow = value; } }
         public int heightWindow { get { return _heightWindow; } set { _heightWindow = value; } }
-        public ContentManager Content { get; set; }
-        public GraphicsDevice GraphicsDevice { get; set; }
 
-        public Data(string path, int width, int height, ContentManager Content, GraphicsDevice GraphicsDevice)
+        public Data(string path, int width, int height)
         {
-            this.GraphicsDevice = GraphicsDevice;
-            this.Content = Content;
             p = "Map/" + path + ".txt";
 
             _widthWindow = width;
@@ -48,7 +44,7 @@ namespace Advanced_Tactics
             altitudeterrain = new int[_WidthMap, _HeightMap];
 
             tilesize = 32f;
-            
+
             if (_HeightMap < _WidthMap)
             {
                 scale = _heightWindow / (tilesize * _HeightMap);

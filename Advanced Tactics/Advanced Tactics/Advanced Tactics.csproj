@@ -131,6 +131,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Stats.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="Viseur.cs" />

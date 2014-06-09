@@ -33,7 +33,7 @@ namespace Advanced_Tactics
         {
             this.data = data;
             map = carte;
-            LoadTileTextures(data.Content);
+            LoadTileTextures(Game1.Ctt);
             LoadMapData(name);
         }
 
@@ -49,7 +49,7 @@ namespace Advanced_Tactics
             {
                 for (int x = 0; x < tileMap.GetLength(1); x++)
                 {
-                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(data.PosXInit+(x * data.TileSize * data.Scale), 1+y * data.Scale * data.TileSize), null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
+                    spriteBatch.Draw(tiles[tileMap[y, x]], new Vector2(data.PosXInit + (x * data.TileSize * data.Scale), 1 + y * data.Scale * data.TileSize), null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace Advanced_Tactics
             // Width and height of our tile array
             width = 0;
             height = File.ReadLines(data.fileMap).Count();
-            
+
             tileMap = new int[height, width];
             StreamReader sReader = new StreamReader(data.fileMap);
             string line = sReader.ReadLine();
@@ -83,7 +83,7 @@ namespace Advanced_Tactics
 
             // Re-initialising sReader
             sReader = new StreamReader(data.fileMap);
-            
+
             for (int y = 0; y < height; y++)
             {
                 line = sReader.ReadLine();
@@ -92,7 +92,7 @@ namespace Advanced_Tactics
                 for (int x = 0; x < width; x++)
                 {
                     tileMap[y, x] = Convert.ToInt32(tileNo[x]);
-                    data.altitudeTerrain[x,y] = Convert.ToInt32(tileNo[x]);
+                    data.altitudeTerrain[x, y] = Convert.ToInt32(tileNo[x]);
                 }
             }
             sReader.Close();
