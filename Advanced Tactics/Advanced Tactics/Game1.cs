@@ -146,7 +146,7 @@ namespace Advanced_Tactics
             Func<Data, string, string, Map, int, int, List<Unit>, Unit, Unit> Rdunit = (d, r, c, m, x, y, l, u) => new Unit(d, r, c, m.Carte, x, y, l);
             Random rrd = new Random();
             //1 23 33 1
-            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
+            unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw); 
             unit = new Unit(data, "HQ", "King", map.Carte, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap), ListToDraw);
             // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
             for (int i = 0; i < rrd.Next(200, 300); i++)
@@ -252,7 +252,7 @@ namespace Advanced_Tactics
 
             if (menu.InGame) // IN GAME
             {
-                //Informations.Draw(spriteBatch, gameTime);
+                Informations.Draw(spriteBatch, gameTime);
 
                 spriteBatch.Begin();
                 tileMap.Draw(spriteBatch);
@@ -260,7 +260,7 @@ namespace Advanced_Tactics
                 spriteBatch.End();
 
                 spriteBatch.Begin();
-                debug.Draw(spriteBatch);
+                //debug.Draw(spriteBatch);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();
             }
