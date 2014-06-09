@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advanced Tactics", "Advance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advanced TacticsContent", "Advanced Tactics\Advanced TacticsContent\Advanced TacticsContent.contentproj", "{8981B0C8-281A-4571-BF9F-E58A1BF79D19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGen", "MapGen\MapGen\MapGen.csproj", "{DD559125-B37B-4E9C-BA3D-ABEAAA963690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGenContent", "MapGen\MapGenContent\MapGenContent.contentproj", "{48A76F8C-6329-4984-98FA-CCD829A36523}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -17,6 +21,12 @@ Global
 		{777177A5-9E56-45EB-AB1C-BC34161B3688}.Release|x86.Build.0 = Release|x86
 		{8981B0C8-281A-4571-BF9F-E58A1BF79D19}.Debug|x86.ActiveCfg = Debug|x86
 		{8981B0C8-281A-4571-BF9F-E58A1BF79D19}.Release|x86.ActiveCfg = Release|x86
+		{DD559125-B37B-4E9C-BA3D-ABEAAA963690}.Debug|x86.ActiveCfg = Debug|x86
+		{DD559125-B37B-4E9C-BA3D-ABEAAA963690}.Debug|x86.Build.0 = Debug|x86
+		{DD559125-B37B-4E9C-BA3D-ABEAAA963690}.Release|x86.ActiveCfg = Release|x86
+		{DD559125-B37B-4E9C-BA3D-ABEAAA963690}.Release|x86.Build.0 = Release|x86
+		{48A76F8C-6329-4984-98FA-CCD829A36523}.Debug|x86.ActiveCfg = Debug|x86
+		{48A76F8C-6329-4984-98FA-CCD829A36523}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
