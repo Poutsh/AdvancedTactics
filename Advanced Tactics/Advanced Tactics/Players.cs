@@ -24,13 +24,14 @@ namespace Advanced_Tactics
             y = rrd.Next(0, data.HeightMap);
 
             for (int i = 0; i < Players.Count(); i++) Players[i] = new Player();
+            Players[0].Color = "B";
+            Players[1].Color = "R";
             for (int i = 0; i < Players.Count(); i++)
             {
                 Players[i].StartZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item1;
                 Players[i].CenterZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item2;
             }
-            Players[0].Color = "Blue";
-            Players[1].Color = "Red";
+            
         }
 
         Tuple<List<Vector>, Vector> StartPoss(List<Player> Players, int x, int y)
@@ -116,7 +117,7 @@ namespace Advanced_Tactics
         {
             if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter) && HQmax < 1)
             {
-                HQ = new Unit(data, "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
+                HQ = new Unit(data, Color+"HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
                 ++HQmax;
             }
         }

@@ -18,7 +18,6 @@ Content\Menu\TitreOptions.xnb
 Content\Menu\TitreQuitter.xnb
 Content\Curseur\viseurB.xnb
 Content\Curseur\viseurR.xnb
-Content\Unit\tanksheet.xnb
 Content\Curseur\viseurS.xnb
 Content\Map\0 eau.xnb
 Content\Map\1 terre.xnb
@@ -28,7 +27,6 @@ Content\Menu\flou.xnb
 Content\Menu\Informations.xnb
 Content\Menu\Magasin.xnb
 Content\Menu\Metal.xnb
-Content\Unit\Teleport.xnb
 Content\Menu\aircraft_paper_plane_strategy_1600x900_70991 (1).xnb
 Content\Menu\iconeAT.xnb
 Content\Menu\Logo.xnb
@@ -36,24 +34,6 @@ Content\Menu\MENU.xnb
 Content\Menu\TitreMapEditor.xnb
 Content\Menu\TitreMultiPlayer.xnb
 Content\Menu\TitreSinglePlayer.xnb
-Content\Unit\Blue\AA.xnb
-Content\Unit\Blue\Commando.xnb
-Content\Unit\Blue\Doc.xnb
-Content\Unit\Blue\Engineer.xnb
-Content\Unit\Blue\HQ.xnb
-Content\Unit\Blue\Plane.xnb
-Content\Unit\Blue\Pvt.xnb
-Content\Unit\Blue\Tank.xnb
-Content\Unit\Blue\Truck.xnb
-Content\Unit\Red\AA.xnb
-Content\Unit\Red\Commando.xnb
-Content\Unit\Red\Doc.xnb
-Content\Unit\Red\Engineer.xnb
-Content\Unit\Red\HQ.xnb
-Content\Unit\Red\Plane.xnb
-Content\Unit\Red\Pvt.xnb
-Content\Unit\Red\Tank.xnb
-Content\Unit\Red\Truck.xnb
 Content\Son\click1.xnb
 Content\Son\explosound.xnb
 Content\Son\teleportsound.xnb
@@ -62,17 +42,25 @@ Content\Son\ingamemusic.xnb
 Content\font.xnb
 Content\info.xnb
 Content\info2.xnb
-Content\Unit\AA.xnb
-Content\Unit\Commando.xnb
-Content\Unit\Doc.xnb
-Content\Unit\Engineer.xnb
-Content\Unit\explosion.xnb
-Content\Unit\HQ.xnb
-Content\Unit\Plane.xnb
-Content\Unit\Pvt.xnb
-Content\Unit\Tank.xnb
-Content\Unit\Truck.xnb
 Content\Case\bleu.xnb
+Content\Unit\BAA.xnb
+Content\Unit\BCommando.xnb
+Content\Unit\BDoc.xnb
+Content\Unit\BEngineer.xnb
+Content\Unit\BHQ.xnb
+Content\Unit\BPlane.xnb
+Content\Unit\BPvt.xnb
+Content\Unit\BTank.xnb
+Content\Unit\BTruck.xnb
+Content\Unit\RAA.xnb
+Content\Unit\RCommando.xnb
+Content\Unit\RDoc.xnb
+Content\Unit\REngineer.xnb
+Content\Unit\RHQ.xnb
+Content\Unit\RPlane.xnb
+Content\Unit\RPvt.xnb
+Content\Unit\RTank.xnb
+Content\Unit\RTruck.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 MapEngine\map2.txt
