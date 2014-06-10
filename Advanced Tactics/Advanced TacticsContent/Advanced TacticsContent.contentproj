@@ -168,43 +168,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Unit\AA.png">
-      <Name>AA</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Unit\Doc.png">
-      <Name>Doc</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Unit\HQ.png">
-      <Name>HQ</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Unit\Plane.png">
-      <Name>Plane</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Unit\Pvt.png">
-      <Name>Pvt</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Unit\Tank.png">
-      <Name>Tank</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Unit\tanksheet.png">
       <Name>tanksheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Unit\Truck.png">
-      <Name>Truck</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -241,18 +206,6 @@
   <ItemGroup>
     <Compile Include="Menu\flou.png">
       <Name>flou</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Unit\Commando.png">
-      <Name>Commando</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Unit\Engineer.png">
-      <Name>Engineer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -357,48 +310,93 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Unit\AA2.png">
-      <Name>AA2</Name>
+    <Compile Include="Unit\0AA.png">
+      <Name>0AA</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\Commando2.png">
-      <Name>Commando2</Name>
+    <Compile Include="Unit\0Commando.png">
+      <Name>0Commando</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\Doc2.png">
-      <Name>Doc2</Name>
+    <Compile Include="Unit\0Doc.png">
+      <Name>0Doc</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\Engineer2.png">
-      <Name>Engineer2</Name>
+    <Compile Include="Unit\0Engineer.png">
+      <Name>0Engineer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\HQ2.png">
-      <Name>HQ2</Name>
+    <Compile Include="Unit\0HQ.png">
+      <Name>0HQ</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\Plane2.png">
-      <Name>Plane2</Name>
+    <Compile Include="Unit\0Plane.png">
+      <Name>0Plane</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\Pvt2.png">
-      <Name>Pvt2</Name>
+    <Compile Include="Unit\0Pvt.png">
+      <Name>0Pvt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\Tank2.png">
-      <Name>Tank2</Name>
+    <Compile Include="Unit\0Tank.png">
+      <Name>0Tank</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Unit\Truck2.png">
-      <Name>Truck2</Name>
+    <Compile Include="Unit\0Truck.png">
+      <Name>0Truck</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1AA.png">
+      <Name>1AA</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1Commando.png">
+      <Name>1Commando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1Doc.png">
+      <Name>1Doc</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1Engineer.png">
+      <Name>1Engineer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1HQ.png">
+      <Name>1HQ</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1Plane.png">
+      <Name>1Plane</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1Pvt.png">
+      <Name>1Pvt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1Tank.png">
+      <Name>1Tank</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Unit\1Truck.png">
+      <Name>1Truck</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

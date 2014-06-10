@@ -20,21 +20,24 @@ namespace Advanced_Tactics
         {
             this.data = data;
 
-            for (int i = 0; i < Players.Count(); i++) Players[i] = new Player();
-            for (int i = 0; i < Players.Count(); i++)
-            {
-                Players[i].StartZone = StartPoss(Players).Item1;
-                Players[i].CenterZone = StartPoss(Players).Item2;
-            }
-        }
-
-        Tuple<List<Vector>, Vector> StartPoss(List<Player> Players)
-        {
-            List<Vector> StartPos = new List<Vector>();
             Random rrd = new Random();
 
             x = rrd.Next(0, data.WidthMap);
             y = rrd.Next(0, data.HeightMap);
+
+            for (int i = 0; i < Players.Count(); i++) Players[i] = new Player();
+            for (int i = 0; i < Players.Count(); i++)
+            {
+                Players[i].couleur = i.ToString();
+                Players[i].StartZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item1;
+                Players[i].CenterZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item2;
+            }
+        }
+
+        Tuple<List<Vector>, Vector> StartPoss(List<Player> Players, int x, int y)
+        {
+            List<Vector> StartPos = new List<Vector>();
+
             Vector Center = new Vector(x, y);
 
             for (int i = 0; i < data.WidthMap; i++)
@@ -64,6 +67,8 @@ namespace Advanced_Tactics
         public List<Vector> StartZone;
         public Vector CenterZone;
         public Unit HQ;
+        public int HQmax;
+        public string couleur;
         public bool Create { get { return HQ != null; } set { value = HQ != null; } }
 
 
@@ -75,9 +80,10 @@ namespace Advanced_Tactics
 
         public void PosHQ(Viseur viseur, Map map, Data data, List<Unit> ListToDraw)
         {
-            if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter))
+            if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter) &&  HQmax < 1)
             {
-                HQ = new Unit(data, "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw);
+                HQ = new Unit(data, couleur+"HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, couleur);
+                ++HQmax;
             }
         }
         private bool WasJustPressed(Key button)

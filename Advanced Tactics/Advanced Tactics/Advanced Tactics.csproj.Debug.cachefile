@@ -19,22 +19,13 @@ Content\Menu\TitreOptions.xnb
 Content\Menu\TitreQuitter.xnb
 Content\Curseur\viseurB.xnb
 Content\Curseur\viseurR.xnb
-Content\Unit\AA.xnb
-Content\Unit\Doc.xnb
-Content\Unit\HQ.xnb
-Content\Unit\Plane.xnb
-Content\Unit\Pvt.xnb
-Content\Unit\Tank.xnb
 Content\Unit\tanksheet.xnb
-Content\Unit\Truck.xnb
 Content\Curseur\viseurS.xnb
 Content\Map\0 eau.xnb
 Content\Map\1 terre.xnb
 Content\Map\2 montagne.xnb
 Content\Map\typeTile.xnb
 Content\Menu\flou.xnb
-Content\Unit\Commando.xnb
-Content\Unit\Engineer.xnb
 Content\Menu\Informations.xnb
 Content\Menu\Magasin.xnb
 Content\Menu\Metal.xnb
@@ -54,15 +45,24 @@ Content\Son\ingamemusic.xnb
 Content\font.xnb
 Content\info.xnb
 Content\info2.xnb
-Content\Unit\AA2.xnb
-Content\Unit\Commando2.xnb
-Content\Unit\Doc2.xnb
-Content\Unit\Engineer2.xnb
-Content\Unit\HQ2.xnb
-Content\Unit\Plane2.xnb
-Content\Unit\Pvt2.xnb
-Content\Unit\Tank2.xnb
-Content\Unit\Truck2.xnb
+Content\Unit\0AA.xnb
+Content\Unit\0Commando.xnb
+Content\Unit\0Doc.xnb
+Content\Unit\0Engineer.xnb
+Content\Unit\0HQ.xnb
+Content\Unit\0Plane.xnb
+Content\Unit\0Pvt.xnb
+Content\Unit\0Tank.xnb
+Content\Unit\0Truck.xnb
+Content\Unit\1AA.xnb
+Content\Unit\1Commando.xnb
+Content\Unit\1Doc.xnb
+Content\Unit\1Engineer.xnb
+Content\Unit\1HQ.xnb
+Content\Unit\1Plane.xnb
+Content\Unit\1Pvt.xnb
+Content\Unit\1Tank.xnb
+Content\Unit\1Truck.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 MapEngine\map2.txt

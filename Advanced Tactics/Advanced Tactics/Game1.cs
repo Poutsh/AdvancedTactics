@@ -273,7 +273,7 @@ namespace Advanced_Tactics
                 //for (int i = 0; i < Partie.HQ2.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Partie.HQ2[i].X, Partie.HQ2[i].Y].positionPixel);
                 foreach (Player Player in Players)
                 {
-                    for (int i = 0; i < Player.StartZone.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Player.StartZone[i].X,Player.StartZone[i].Y].positionPixel);
+                    for (int i = 0; i < Player.StartZone.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Player.StartZone[i].X, Player.StartZone[i].Y].positionPixel);
                 }
 
                 spriteBatch.End();

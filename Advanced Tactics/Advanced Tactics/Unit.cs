@@ -56,7 +56,7 @@ namespace Advanced_Tactics
         /// <param name="X">Position X de la nouvelle unite</param>
         /// <param name="Y">Position Y de la nouvelle unite</param>
         /// <param name="ListOfUnit">List qui contient toute les unitee a DRAW</param>
-        public Unit(Data data, string Rang, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit)
+        public Unit(Data data, string Rang, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit, string Color)
         {
             this.data = data;
 
@@ -75,13 +75,13 @@ namespace Advanced_Tactics
                 this.Strength = Stats.StrengthUnit(Rang);
                 this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
                 this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
-                
+
                 map = Map;
 
                 if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
                 {
                     Sprite2Unit(
-                        ((Rang == "viseur") ? "Curseur/" : "Unit/"),
+                        (((Rang == "viseur") ? "Curseur/" : "Unit/")),
                         Rang, Game1.Ctt, spriteOfUnit);
 
                     if (Rang != null && Classe != null)
@@ -170,7 +170,7 @@ namespace Advanced_Tactics
 
         #region FUNCTIONS
 
-        
+
 
         void DelUnitofList(Unit UnitToDestruct, List<Unit> ListOfUnit)
         {
