@@ -15,7 +15,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C }
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, X }
         Data data;
         private KeyboardState oldKey, curKey;
         private KeyboardState oldKey2, curKey2;
@@ -109,7 +109,7 @@ namespace Advanced_Tactics
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
             if (Contains<Vector>(unit.MvtPossible, new Vector(newCell.XofCell, newCell.YofCell)))
             {
-                unit = new Unit(data, unit, map, newCell, ListOfUnit);
+                unit = new Unit(data, unit, map, newCell, ListOfUnit, unit.Player);
             }
             Reset();
         }
@@ -131,7 +131,7 @@ namespace Advanced_Tactics
             if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (WasJustPressed(Key.W) || WasJustPressed(Key.C)))
             {
                 if (WasJustPressed(Key.C))
-                    map[viseurX, viseurY].unitOfCell.PV -= 1000;
+                    map[viseurX, viseurY].unitOfCell.PV -= 10000;
                 else
                     map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
 
@@ -162,6 +162,7 @@ namespace Advanced_Tactics
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
             }
+            
         }
 
         private void ViseurColor()
@@ -213,7 +214,7 @@ namespace Advanced_Tactics
 
             #region Gestion des mouvements du viseurs
 
-            if (WasJustPressed(Key.LeftShift)) tempo = 0.08f; else tempo = 0.15f;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) || Keyboard.GetState().IsKeyDown(Keys.RightShift)) tempo = 0.07f; else tempo = 0.15f;
 
             if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || curKey2 != oldKey2)
             {
@@ -284,14 +285,17 @@ namespace Advanced_Tactics
                 case Key.C:
                     return curKey.IsKeyDown(Keys.C) && oldKey != curKey;
 
+                case Key.Z:
+                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
+
+                case Key.X:
+                    return curKey.IsKeyDown(Keys.X) && oldKey != curKey;
+
                 case Key.W:
                     return curKey.IsKeyDown(Keys.W) && oldKey != curKey;
 
                 case Key.A:
                     return curKey.IsKeyDown(Keys.A) && oldKey != curKey;
-
-                case Key.Z:
-                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
 
                 case Key.LeftControl:
                     return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;

@@ -31,8 +31,7 @@ namespace Advanced_Tactics
         KeyboardState oldKey, curKey;
         MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
-        Sprite sppointer, flou;
-        Sprite spCaserouge;
+        Sprite sppointer, flou;        
         public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C }
 
         // Menu
@@ -49,7 +48,7 @@ namespace Advanced_Tactics
         Map map;
 
         // Unit
-        Player Player1,Player2;
+        Player Player1, Player2;
         List<Player> Players;
         Partie Partie;
 
@@ -130,8 +129,7 @@ namespace Advanced_Tactics
             // Map
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
-            flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");
-            spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/bleu");
+            flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");            
 
 
             // Clavier, Souris
@@ -271,11 +269,15 @@ namespace Advanced_Tactics
                 for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
                 //for (int i = 0; i < Partie.HQ1.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Partie.HQ1[i].X, Partie.HQ1[i].Y].positionPixel);
                 //for (int i = 0; i < Partie.HQ2.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Partie.HQ2[i].X, Partie.HQ2[i].Y].positionPixel);
-                foreach (Player Player in Players)
+                for (int j = 0; j < Players.Count(); j++)
                 {
-                    for (int i = 0; i < Player.StartZone.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Player.StartZone[i].X, Player.StartZone[i].Y].positionPixel);
+                    for (int i = 0; i < Players[j].StartZone.Count(); i++)
+                    {
+                        if (Players[j].HQmax < 1) Players[j].spriteStartZone.Draw(data, spriteBatch, gameTime, map.Carte[Players[j].StartZone[i].X, Players[j].StartZone[i].Y].positionPixel);
+                    }
                 }
 
+                //if (Players[i].HQmax < 1) { for (int j = 0; j < Players[j].StartZone.Count(); j++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Players[j].StartZone[j].X, Players[j].StartZone[j].Y].positionPixel); }
                 spriteBatch.End();
 
                 spriteBatch.Begin();

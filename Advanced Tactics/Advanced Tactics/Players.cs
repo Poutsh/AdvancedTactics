@@ -7,10 +7,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Advanced_Tactics
 {
-    class Partie
+    public class Partie
     {
-
-
         Data data;
         int x, y;
 
@@ -28,10 +26,11 @@ namespace Advanced_Tactics
             for (int i = 0; i < Players.Count(); i++) Players[i] = new Player();
             for (int i = 0; i < Players.Count(); i++)
             {
-                Players[i].couleur = i.ToString();
                 Players[i].StartZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item1;
                 Players[i].CenterZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item2;
             }
+            Players[0].Color = "Blue";
+            Players[1].Color = "Red";
         }
 
         Tuple<List<Vector>, Vector> StartPoss(List<Player> Players, int x, int y)
@@ -51,41 +50,13 @@ namespace Advanced_Tactics
 
             return Tuple.Create(StartPos, Center);
         }
-
-
-
-
-
     }
 
 
-    class Player
+    public class Player
     {
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, Enter }
         private KeyboardState oldKey, curKey;
-        Data data;
-        public List<Vector> StartZone;
-        public Vector CenterZone;
-        public Unit HQ;
-        public int HQmax;
-        public string couleur;
-        public bool Create { get { return HQ != null; } set { value = HQ != null; } }
-
-
-        public Rectangle Limits { get; set; }
-
-        string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
-        string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
-
-
-        public void PosHQ(Viseur viseur, Map map, Data data, List<Unit> ListToDraw)
-        {
-            if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter) &&  HQmax < 1)
-            {
-                HQ = new Unit(data, couleur+"HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, couleur);
-                ++HQmax;
-            }
-        }
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, Enter }
         private bool WasJustPressed(Key button)
         {
             curKey = Keyboard.GetState();
@@ -119,5 +90,35 @@ namespace Advanced_Tactics
             return false;
         }
 
+        public Sprite spriteStartZone;
+        Data data;
+        public List<Vector> StartZone;
+        public Vector CenterZone;
+        public Unit HQ;
+        public int HQmax;
+        public string Color;
+        public bool Create { get { return HQ != null; } set { value = HQ != null; } }
+
+
+        public Rectangle Limits { get; set; }
+
+        string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
+        string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
+
+
+        public Player()
+        {
+            spriteStartZone = new Sprite(); spriteStartZone.LC(Game1.Ctt, "Case/bleu");
+        }
+
+
+        public void PosHQ(Viseur viseur, Map map, Data data, List<Unit> ListToDraw)
+        {
+            if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter) && HQmax < 1)
+            {
+                HQ = new Unit(data, Color + "/" + "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
+                ++HQmax;
+            }
+        }
     }
 }
