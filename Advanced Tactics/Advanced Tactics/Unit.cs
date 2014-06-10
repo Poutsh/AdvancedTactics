@@ -50,13 +50,13 @@ namespace Advanced_Tactics
         /// <summary>
         /// Creation d'unite
         /// </summary>
-        /// <param name="Rangg">Rang de l'unite (HQ, PVT, TANK...)</param>
+        /// <param name="Rang">Rang de l'unite (HQ, PVT, TANK...)</param>
         /// <param name="Classe">Classe de l'unite (ROI, DAME, FOU, TOUR...)</param>
         /// <param name="Map">Map</param>
         /// <param name="X">Position X de la nouvelle unite</param>
         /// <param name="Y">Position Y de la nouvelle unite</param>
         /// <param name="ListOfUnit">List qui contient toute les unitee a DRAW</param>
-        public Unit(Data data, string Rangg, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit, Player Player)
+        public Unit(Data data, string Rang, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit, Player Player)
         {
             this.data = data;
 
@@ -69,11 +69,11 @@ namespace Advanced_Tactics
                 this.XofUnit = X;
                 this.YofUnit = Y;
                 this.Player = Player;
-                this.Rang = Rangg.Split('/')[1];
+                this.Rang = Rang;
                 this.Classe = Classe;
-                this.PV = Stats.PVUnit(Rangg.Split('/')[1]);
-                this.Strength = Stats.StrengthUnit(Rangg.Split('/')[1]);
-                this.TerrainPossible = Stats.TerrainPossibleUnit(Rangg.Split('/')[1]);
+                this.PV = Stats.PVUnit(Rang);
+                this.Strength = Stats.StrengthUnit(Rang);
+                this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
                 this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
 
                 map = Map;
@@ -81,10 +81,10 @@ namespace Advanced_Tactics
                 if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
                 {
                     Sprite2Unit(
-                        ((Rangg.Split('/')[1] == "viseur") ? "Curseur/" : "Unit/"),
-                        Rangg, Game1.Ctt, spriteOfUnit);
+                        ((Rang == "viseur") ? "Curseur/" : "Unit/"),
+                        Rang, Game1.Ctt, spriteOfUnit);
 
-                    if (Rangg.Split('/')[1] != null && Classe != null)
+                    if (Rang != null && Classe != null)
                         ListOfUnit.Add(this);
 
                     map[XofUnit, YofUnit].unitOfCell = this;

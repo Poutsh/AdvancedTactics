@@ -116,7 +116,7 @@ namespace Advanced_Tactics
         {
             if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter) && HQmax < 1)
             {
-                HQ = new Unit(data, Color + "/" + "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
+                HQ = new Unit(data, "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
                 ++HQmax;
             }
         }

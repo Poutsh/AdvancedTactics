@@ -1,4 +1,3 @@
-Content\Case\bleu.xnb
 Content\Case\rouge.xnb
 Content\Curseur\pointer.xnb
 Content\Curseur\Viseur.xnb
@@ -37,14 +36,6 @@ Content\Menu\MENU.xnb
 Content\Menu\TitreMapEditor.xnb
 Content\Menu\TitreMultiPlayer.xnb
 Content\Menu\TitreSinglePlayer.xnb
-Content\Son\click1.xnb
-Content\Son\explosound.xnb
-Content\Son\teleportsound.xnb
-Content\Son\Russian Red Army Choir.xnb
-Content\Son\ingamemusic.xnb
-Content\font.xnb
-Content\info.xnb
-Content\info2.xnb
 Content\Unit\Blue\AA.xnb
 Content\Unit\Blue\Commando.xnb
 Content\Unit\Blue\Doc.xnb
@@ -63,6 +54,25 @@ Content\Unit\Red\Plane.xnb
 Content\Unit\Red\Pvt.xnb
 Content\Unit\Red\Tank.xnb
 Content\Unit\Red\Truck.xnb
+Content\Son\click1.xnb
+Content\Son\explosound.xnb
+Content\Son\teleportsound.xnb
+Content\Son\Russian Red Army Choir.xnb
+Content\Son\ingamemusic.xnb
+Content\font.xnb
+Content\info.xnb
+Content\info2.xnb
+Content\Unit\AA.xnb
+Content\Unit\Commando.xnb
+Content\Unit\Doc.xnb
+Content\Unit\Engineer.xnb
+Content\Unit\explosion.xnb
+Content\Unit\HQ.xnb
+Content\Unit\Plane.xnb
+Content\Unit\Pvt.xnb
+Content\Unit\Tank.xnb
+Content\Unit\Truck.xnb
+Content\Case\bleu.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 MapEngine\map2.txt

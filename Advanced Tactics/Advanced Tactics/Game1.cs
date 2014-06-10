@@ -31,7 +31,7 @@ namespace Advanced_Tactics
         KeyboardState oldKey, curKey;
         MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
-        Sprite sppointer, flou;        
+        Sprite sppointer, flou;
         public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C }
 
         // Menu
@@ -129,7 +129,7 @@ namespace Advanced_Tactics
             // Map
             map = new Map(data);
             tileMap = new TileEngine(data.fileMap, data, map);
-            flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");            
+            flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");
 
 
             // Clavier, Souris
