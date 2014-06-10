@@ -41,6 +41,7 @@ namespace Advanced_Tactics
         #region CONSTRUCTEURS
 
         Action<string, string, ContentManager, Sprite> Sprite2Unit = (p, r, c, s) => s.LC(c, p + r);
+        Func<string, string> ColorSide = c => new StringBuilder(c).Remove(0, 1).ToString();
 
         public Unit() { XofUnit = 0; YofUnit = 0; TerrainPossible = new List<int>(0); }
 
@@ -71,9 +72,9 @@ namespace Advanced_Tactics
                 this.Player = Player;
                 this.Rang = Rang;
                 this.Classe = Classe;
-                this.PV = Stats.PVUnit(Rang);
-                this.Strength = Stats.StrengthUnit(Rang);
-                this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
+                this.PV = Stats.PVUnit(ColorSide(Rang));
+                this.Strength = Stats.StrengthUnit(ColorSide(Rang));
+                this.TerrainPossible = Stats.TerrainPossibleUnit(ColorSide(Rang));
                 this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
 
                 map = Map;

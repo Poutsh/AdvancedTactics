@@ -31,7 +31,7 @@ namespace Advanced_Tactics
                 Players[i].StartZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item1;
                 Players[i].CenterZone = StartPoss(Players, rrd.Next(0, data.WidthMap), rrd.Next(0, data.HeightMap)).Item2;
             }
-            
+
         }
 
         Tuple<List<Vector>, Vector> StartPoss(List<Player> Players, int x, int y)
@@ -117,7 +117,7 @@ namespace Advanced_Tactics
         {
             if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter) && HQmax < 1)
             {
-                HQ = new Unit(data, Color+"HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
+                HQ = new Unit(data, Color + "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
                 ++HQmax;
             }
         }

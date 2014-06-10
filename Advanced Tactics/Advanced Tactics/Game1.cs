@@ -98,8 +98,8 @@ namespace Advanced_Tactics
             gd = this.GraphicsDevice;
 
             // Gestion de la fenetre
-            BufferWidth = 1650;
-            BufferHeight = 1080;
+            BufferWidth = 1280;
+            BufferHeight = 720;
             data = new Data("map2", BufferWidth, BufferHeight);
             ListToDraw = new List<Unit>();
             ListMenu = new List<Texture2D>();

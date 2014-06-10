@@ -1,3 +1,4 @@
+Content\Case\bleu.xnb
 Content\Case\rouge.xnb
 Content\Curseur\pointer.xnb
 Content\Curseur\Viseur.xnb
@@ -42,7 +43,6 @@ Content\Son\ingamemusic.xnb
 Content\font.xnb
 Content\info.xnb
 Content\info2.xnb
-Content\Case\bleu.xnb
 Content\Unit\BAA.xnb
 Content\Unit\BCommando.xnb
 Content\Unit\BDoc.xnb
