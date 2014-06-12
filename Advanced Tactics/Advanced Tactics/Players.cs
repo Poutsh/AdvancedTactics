@@ -12,8 +12,6 @@ namespace Advanced_Tactics
         Data data;
         int x, y;
 
-        Viseur viseur;
-
         public Partie(Data data, Viseur viseur, Map map, List<Player> Players)
         {
             this.data = data;
@@ -57,41 +55,6 @@ namespace Advanced_Tactics
 
     public class Player
     {
-        private KeyboardState oldKey, curKey;
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, Enter }
-        private bool WasJustPressed(Key button)
-        {
-            curKey = Keyboard.GetState();
-            switch (button)
-            {
-                case Key.Enter:
-                    return curKey.IsKeyDown(Keys.Enter) && oldKey != curKey;
-
-                case Key.Q:
-                    return curKey.IsKeyDown(Keys.Q) && oldKey != curKey;
-
-                case Key.C:
-                    return curKey.IsKeyDown(Keys.C) && oldKey != curKey;
-
-                case Key.W:
-                    return curKey.IsKeyDown(Keys.W) && oldKey != curKey;
-
-                case Key.A:
-                    return curKey.IsKeyDown(Keys.A) && oldKey != curKey;
-
-                case Key.Z:
-                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
-
-                case Key.LeftControl:
-                    return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;
-
-                case Key.R:
-                    return curKey.IsKeyDown(Keys.R) && oldKey != curKey;
-            }
-            oldKey = curKey;
-            return false;
-        }
-
         public Sprite spriteStartZone;
         public List<Vector> StartZone;
         public Vector CenterZone;
@@ -112,7 +75,7 @@ namespace Advanced_Tactics
 
         public void PosHQ(Viseur viseur, Map map, Data data, List<Unit> ListToDraw)
         {
-            if (StartZone.Contains(viseur.coordViseur2) && WasJustPressed(Key.Enter) && HQmax < 1)
+            if (StartZone.Contains(viseur.coordViseur2) && Inputs.Keyr(Keys.Enter) && HQmax < 1)
             {
                 HQ = new Unit(data, Color + "HQ", "King", map.Carte, viseur.viseurX, viseur.viseurY, ListToDraw, this);
                 ++HQmax;

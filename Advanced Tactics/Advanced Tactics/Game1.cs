@@ -28,11 +28,8 @@ namespace Advanced_Tactics
         SpriteBatch spriteBatch;
 
         // Clavier, Souris, Camera
-        KeyboardState oldKey, curKey;
-        MouseState mouseStatePrevious, mouseStateCurrent;
         Viseur viseur;
         Sprite sppointer, flou;
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C }
 
         // Menu
         Menu menu;
@@ -172,8 +169,7 @@ namespace Advanced_Tactics
         protected override void Update(GameTime gameTime)
         {
             // Init entrees utilisateur
-            mouseStateCurrent = Mouse.GetState();
-            curKey = Keyboard.GetState();
+            Inputs.Update();
             sppointer.Update(gameTime);
 
             menu.InGame = true;
@@ -190,7 +186,7 @@ namespace Advanced_Tactics
                     Player.PosHQ(viseur, map, Data, ListToDraw);
                 }
 
-                if (curKey.IsKeyDown(Keys.Escape))
+                if (Inputs.Keyr(Keys.Escape))
                 {
                     Exit();
                     base.Update(gameTime);
@@ -204,10 +200,7 @@ namespace Advanced_Tactics
                 //if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
                 //checkExitKey(curKey);
 
-
-                if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released) click.Play();
-
-                mouseStatePrevious = mouseStateCurrent;
+                if (Inputs.isLMBClick()) click.Play();
             }
 
             if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
@@ -217,18 +210,14 @@ namespace Advanced_Tactics
                 graphics.IsFullScreen = menu.Fullscreen;
                 Game1.graphics.ApplyChanges();
             }
-
-
-            mouseStatePrevious = mouseStateCurrent;
-            oldKey = curKey;
-
+            
             base.Update(gameTime);
         }
 
         int once = 1;
-        bool checkExitKey(KeyboardState keyboardState)
+        bool checkExitKey()
         {
-            if (keyboardState.IsKeyDown(Keys.Escape))
+            if (Inputs.Keyr(Keys.Escape))
             {
                 Exit();
                 if (once == 1)
@@ -262,26 +251,20 @@ namespace Advanced_Tactics
 
             if (menu.InGame) // IN GAME
             {
-                Informations.Draw(spriteBatch, gameTime);
+                //Informations.Draw(spriteBatch, gameTime);
 
-                spriteBatch.Begin();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 tileMap.Draw(spriteBatch);
-                for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
-                //for (int i = 0; i < Partie.HQ1.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Partie.HQ1[i].X, Partie.HQ1[i].Y].positionPixel);
-                //for (int i = 0; i < Partie.HQ2.Count(); i++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Partie.HQ2[i].X, Partie.HQ2[i].Y].positionPixel);
-                for (int j = 0; j < Players.Count(); j++)
-                {
-                    for (int i = 0; i < Players[j].StartZone.Count(); i++)
-                    {
-                        if (Players[j].HQmax < 1) Players[j].spriteStartZone.Draw(Data, spriteBatch, gameTime, map.Carte[Players[j].StartZone[i].X, Players[j].StartZone[i].Y].positionPixel);
-                    }
-                }
 
-                //if (Players[i].HQmax < 1) { for (int j = 0; j < Players[j].StartZone.Count(); j++) spCaserouge.Draw(data, spriteBatch, gameTime, map.Carte[Players[j].StartZone[j].X, Players[j].StartZone[j].Y].positionPixel); }
+                for (int j = 0; j < Players.Count(); j++)
+                    for (int i = 0; i < Players[j].StartZone.Count(); i++)
+                        if (Players[j].HQmax < 1) Players[j].spriteStartZone.Draw(Data, spriteBatch, gameTime, map.Carte[Players[j].StartZone[i].X, Players[j].StartZone[i].Y].positionPixel);
+
+                for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
                 spriteBatch.End();
 
                 spriteBatch.Begin();
-                //debug.Draw(spriteBatch);
+                debug.Draw(spriteBatch);
                 viseur.Draw(spriteBatch, gameTime);
                 spriteBatch.End();
             }
@@ -301,38 +284,6 @@ namespace Advanced_Tactics
             base.Draw(gameTime);
         }
 
-        #endregion
-
-        #region HELPER
-        private bool WasJustPressed(Key button)
-        {
-            curKey = Keyboard.GetState();
-            switch (button)
-            {
-                case Key.Q:
-                    return curKey.IsKeyDown(Keys.Q) && oldKey != curKey;
-
-                case Key.C:
-                    return curKey.IsKeyDown(Keys.C) && oldKey != curKey;
-
-                case Key.W:
-                    return curKey.IsKeyDown(Keys.W) && oldKey != curKey;
-
-                case Key.A:
-                    return curKey.IsKeyDown(Keys.A) && oldKey != curKey;
-
-                case Key.Z:
-                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
-
-                case Key.LeftControl:
-                    return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;
-
-                case Key.R:
-                    return curKey.IsKeyDown(Keys.R) && oldKey != curKey;
-            }
-            oldKey = curKey;
-            return false;
-        }
         #endregion
     }
 }

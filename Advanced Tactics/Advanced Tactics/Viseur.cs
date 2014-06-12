@@ -15,10 +15,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, X, Enter }
         Data data;
-        private KeyboardState oldKey, curKey;
-        private KeyboardState oldKey2, curKey2;
         TimeSpan time;
 
         public Sprite spviseur, sblinkviseur;
@@ -116,21 +113,19 @@ namespace Advanced_Tactics
 
         private void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, SpriteBatch spriteBatch)
         {
-            curKey = Keyboard.GetState();
-
             /// Ctrlz
-            if (WasJustPressed(Key.LeftControl) && WasJustPressed(Key.Z) && CtrlZ[1] != Vector.Zero)
+            if (Inputs.Keyr(Keys.LeftControl) && Inputs.Keyr(Keys.Z) && CtrlZ[1] != Vector.Zero)
                 doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
 
 
             /// Touche Reset
-            if (depSelec && !destSelec && WasJustPressed(Key.R)) { Reset(); }
+            if (depSelec && !destSelec && Inputs.Keyr(Keys.Back)) { Reset(); }
 
 
             /// Touche Attack
-            if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (WasJustPressed(Key.Enter) || WasJustPressed(Key.C)))
+            if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (Inputs.Keyr(Keys.Enter) || Inputs.Keyr(Keys.C)))
             {
-                if (WasJustPressed(Key.C))
+                if (Inputs.Keyr(Keys.C))
                     map[viseurX, viseurY].unitOfCell.PV -= 10000;
                 else
                     map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
@@ -147,7 +142,7 @@ namespace Advanced_Tactics
 
 
             /// Deplacement
-            if (depSelec && !ViseurOverPos(depPos) && WasJustPressed(Key.Enter))
+            if (depSelec && !ViseurOverPos(depPos) && Inputs.Keyr(Keys.Enter))
             {
                 if (UnitTemp != null && !ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
                 {
@@ -156,7 +151,7 @@ namespace Advanced_Tactics
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (ViseurOverUnit && !depSelec && WasJustPressed(Key.Enter))
+            else if (ViseurOverUnit && !depSelec && Inputs.Keyr(Keys.Enter))
             {
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
@@ -206,47 +201,44 @@ namespace Advanced_Tactics
 
         public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
-            curKey2 = Keyboard.GetState();
             float tempo;
-
+            
             getMovingPath(ListOfUnit, gameTime, spriteBatch);
             ViseurColor();
 
             #region Gestion des mouvements du viseurs
 
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) || Keyboard.GetState().IsKeyDown(Keys.RightShift)) tempo = 0.07f; else tempo = 0.15f;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) || Keyboard.GetState().IsKeyDown(Keys.RightShift)) tempo = 0.07f; else tempo = 0.12f;
 
-            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) || curKey2 != oldKey2)
+            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
             {
                 time = gameTime.TotalGameTime;
 
-                if (coordViseur.X == 0 && curKey2.IsKeyDown(Keys.Left))
+                if (coordViseur.X == 0 && Keyboard.GetState().IsKeyDown(Keys.Left))
                     coord.X = data.WidthMap - 1;
                 else
-                    if (curKey2.IsKeyDown(Keys.Left))
+                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
                         --coord.X;
 
-                if (coordViseur.X == data.WidthMap - 1 && curKey2.IsKeyDown(Keys.Right))
+                if (coordViseur.X == data.WidthMap - 1 && Keyboard.GetState().IsKeyDown(Keys.Right))
                     coord.X = 0;
                 else
-                    if (curKey2.IsKeyDown(Keys.Right))
+                    if (Keyboard.GetState().IsKeyDown(Keys.Right))
                         ++coord.X;
 
-                if (coordViseur.Y == 0 && curKey2.IsKeyDown(Keys.Up))
+                if (coordViseur.Y == 0 && Keyboard.GetState().IsKeyDown(Keys.Up))
                     coord.Y = data.HeightMap - 1;
                 else
-                    if (curKey2.IsKeyDown(Keys.Up))
+                    if (Keyboard.GetState().IsKeyDown(Keys.Up))
                         --coord.Y;
 
-                if (coordViseur.Y == data.HeightMap - 1 && curKey2.IsKeyDown(Keys.Down))
+                if (coordViseur.Y == data.HeightMap - 1 && Keyboard.GetState().IsKeyDown(Keys.Down))
                     coord.Y = 0;
                 else
-                    if (curKey2.IsKeyDown(Keys.Down))
+                    if (Keyboard.GetState().IsKeyDown(Keys.Down))
                         ++coord.Y;
             }
             #endregion
-
-            oldKey2 = curKey2;
         }
 
         #endregion
@@ -269,46 +261,6 @@ namespace Advanced_Tactics
 
         }
 
-        #endregion
-
-        // // // // // // // //
-
-        #region HELPER
-        private bool WasJustPressed(Key button)
-        {
-            curKey = Keyboard.GetState();
-            switch (button)
-            {
-                case Key.Q:
-                    return curKey.IsKeyDown(Keys.Q) && oldKey != curKey;
-
-                case Key.C:
-                    return curKey.IsKeyDown(Keys.C) && oldKey != curKey;
-
-                case Key.Z:
-                    return curKey.IsKeyDown(Keys.Z) && oldKey != curKey;
-
-                case Key.X:
-                    return curKey.IsKeyDown(Keys.X) && oldKey != curKey;
-
-                case Key.W:
-                    return curKey.IsKeyDown(Keys.W) && oldKey != curKey;
-
-                case Key.A:
-                    return curKey.IsKeyDown(Keys.A) && oldKey != curKey;
-
-                case Key.LeftControl:
-                    return curKey.IsKeyDown(Keys.LeftControl) && oldKey != curKey;
-
-                case Key.R:
-                    return curKey.IsKeyDown(Keys.R) && oldKey != curKey;
-
-                case Key.Enter:
-                    return curKey.IsKeyDown(Keys.Enter) && oldKey != curKey;
-            }
-            oldKey = curKey;
-            return false;
-        }
         #endregion
     }
 }

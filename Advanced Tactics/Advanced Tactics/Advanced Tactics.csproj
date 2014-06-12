@@ -116,6 +116,7 @@
     <Compile Include="AnimatedTexture.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Informations.cs" />
+    <Compile Include="Inputs.cs" />
     <Compile Include="MapEngine\Cell.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="MapEngine\TileEngine.cs" />
@@ -138,7 +139,6 @@
     <Compile Include="Viseur.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Game.ico" />
     <Content Include="iconeAT.ico" />
     <Content Include="Map\map2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -148,10 +148,6 @@
     <None Include="Resources\ingamemusic.mp3" />
     <None Include="Resources\explosound.wav" />
     <None Include="Resources\click1.wav" />
-    <None Include="MapEngine\map2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MapEngine\map1.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MapGen\MapGen\MapGen.csproj">
