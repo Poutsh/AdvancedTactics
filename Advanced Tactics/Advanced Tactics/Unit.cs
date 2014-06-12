@@ -61,7 +61,7 @@ namespace Advanced_Tactics
         {
             this.data = data;
 
-            Stats = new Stats();
+            Stats = new Stats(data);
 
             if (Map[X, Y].unitOfCell == null)
             {
@@ -106,7 +106,7 @@ namespace Advanced_Tactics
         {
             this.data = data;
             spriteOfUnit = new Sprite();
-            Stats = new Stats();
+            Stats = new Stats(data);
             this.Player = UnitToMove.Player;
             this.Rang = UnitToMove.Rang;
             this.Classe = UnitToMove.Classe;

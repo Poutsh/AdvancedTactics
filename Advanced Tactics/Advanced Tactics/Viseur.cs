@@ -15,7 +15,7 @@ namespace Advanced_Tactics
     {
         #region VARIABLES
 
-        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, X }
+        public enum Key { Q, W, A, Z, LeftControl, LeftShift, R, C, X, Enter }
         Data data;
         private KeyboardState oldKey, curKey;
         private KeyboardState oldKey2, curKey2;
@@ -128,7 +128,7 @@ namespace Advanced_Tactics
 
 
             /// Touche Attack
-            if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (WasJustPressed(Key.W) || WasJustPressed(Key.C)))
+            if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (WasJustPressed(Key.Enter) || WasJustPressed(Key.C)))
             {
                 if (WasJustPressed(Key.C))
                     map[viseurX, viseurY].unitOfCell.PV -= 10000;
@@ -147,7 +147,7 @@ namespace Advanced_Tactics
 
 
             /// Deplacement
-            if (depSelec && !ViseurOverPos(depPos) && WasJustPressed(Key.W))
+            if (depSelec && !ViseurOverPos(depPos) && WasJustPressed(Key.Enter))
             {
                 if (UnitTemp != null && !ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
                 {
@@ -156,7 +156,7 @@ namespace Advanced_Tactics
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (ViseurOverUnit && !depSelec && WasJustPressed(Key.Q))
+            else if (ViseurOverUnit && !depSelec && WasJustPressed(Key.Enter))
             {
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
@@ -302,6 +302,9 @@ namespace Advanced_Tactics
 
                 case Key.R:
                     return curKey.IsKeyDown(Keys.R) && oldKey != curKey;
+
+                case Key.Enter:
+                    return curKey.IsKeyDown(Keys.Enter) && oldKey != curKey;
             }
             oldKey = curKey;
             return false;

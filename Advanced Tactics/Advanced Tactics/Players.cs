@@ -44,6 +44,7 @@ namespace Advanced_Tactics
             {
                 for (int j = 0; j < data.HeightMap; j++)
                 {
+                    /// Verifie si la distance entre les deux positions de depart des HQ est bien superieur a 6 cases
                     if (Vector.Distance(new Vector(x, y), new Vector(i, j)) <= 5)
                         StartPos.Add(new Vector(i, j));
                 }
@@ -92,7 +93,6 @@ namespace Advanced_Tactics
         }
 
         public Sprite spriteStartZone;
-        Data data;
         public List<Vector> StartZone;
         public Vector CenterZone;
         public Unit HQ;
@@ -107,10 +107,7 @@ namespace Advanced_Tactics
         string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
 
 
-        public Player()
-        {
-            spriteStartZone = new Sprite(); spriteStartZone.LC(Game1.Ctt, "Case/bleu");
-        }
+        public Player() { spriteStartZone = new Sprite(); spriteStartZone.LC(Game1.Ctt, "Case/bleu"); }
 
 
         public void PosHQ(Viseur viseur, Map map, Data data, List<Unit> ListToDraw)

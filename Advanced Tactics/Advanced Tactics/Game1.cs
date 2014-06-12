@@ -23,7 +23,7 @@ namespace Advanced_Tactics
 
         public static GraphicsDevice gd;
         public static ContentManager Ctt;
-        Data data;
+        public Data Data { get; set; }
         public static GraphicsDeviceManager graphics { get; set; }
         SpriteBatch spriteBatch;
 
@@ -100,7 +100,7 @@ namespace Advanced_Tactics
             // Gestion de la fenetre
             BufferWidth = 1280;
             BufferHeight = 720;
-            data = new Data("map2", BufferWidth, BufferHeight);
+            Data = new Data("map2", BufferWidth, BufferHeight);
             ListToDraw = new List<Unit>();
             ListMenu = new List<Texture2D>();
 
@@ -114,7 +114,7 @@ namespace Advanced_Tactics
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Menu
-            menu = new Menu(data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreMapEditor"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
+            menu = new Menu(Data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreMapEditor"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
             click = Content.Load<SoundEffect>("Son/click1");
             musicMenu = Content.Load<Song>("Son/Russian Red Army Choir");
             MediaPlayer.Play(musicMenu);
@@ -127,18 +127,18 @@ namespace Advanced_Tactics
 
 
             // Map
-            map = new Map(data);
-            tileMap = new TileEngine(data.fileMap, data, map);
+            map = new Map(Data);
+            tileMap = new TileEngine(Data.fileMap, Data, map);
             flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");
 
 
             // Clavier, Souris
-            viseur = new Viseur(data, map.Carte);
+            viseur = new Viseur(Data, map.Carte);
             sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
 
             // Unit
             Players = new List<Player>(2) { Player1, Player2 };
-            Partie = new Partie(data, viseur, map, Players);
+            Partie = new Partie(Data, viseur, map, Players);
             //unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListToDraw);
 
             //string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
@@ -187,7 +187,7 @@ namespace Advanced_Tactics
 
                 foreach (Player Player in Players)
                 {
-                    Player.PosHQ(viseur, map, data, ListToDraw);
+                    Player.PosHQ(viseur, map, Data, ListToDraw);
                 }
 
                 if (curKey.IsKeyDown(Keys.Escape))
@@ -212,8 +212,8 @@ namespace Advanced_Tactics
 
             if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
             {
-                graphics.PreferredBackBufferWidth = (int)data.widthWindow;
-                graphics.PreferredBackBufferHeight = (int)data.heightWindow;
+                graphics.PreferredBackBufferWidth = (int)Data.widthWindow;
+                graphics.PreferredBackBufferHeight = (int)Data.heightWindow;
                 graphics.IsFullScreen = menu.Fullscreen;
                 Game1.graphics.ApplyChanges();
             }
@@ -257,8 +257,8 @@ namespace Advanced_Tactics
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            debug = new Debug(data, map, viseur, ListToDraw); debug.LoadContent();
-            Informations = new Informations(data, map, viseur, ListToDraw); Informations.LoadContent();
+            debug = new Debug(Data, map, viseur, ListToDraw); debug.LoadContent();
+            Informations = new Informations(Data, map, viseur, ListToDraw); Informations.LoadContent();
 
             if (menu.InGame) // IN GAME
             {
@@ -273,7 +273,7 @@ namespace Advanced_Tactics
                 {
                     for (int i = 0; i < Players[j].StartZone.Count(); i++)
                     {
-                        if (Players[j].HQmax < 1) Players[j].spriteStartZone.Draw(data, spriteBatch, gameTime, map.Carte[Players[j].StartZone[i].X, Players[j].StartZone[i].Y].positionPixel);
+                        if (Players[j].HQmax < 1) Players[j].spriteStartZone.Draw(Data, spriteBatch, gameTime, map.Carte[Players[j].StartZone[i].X, Players[j].StartZone[i].Y].positionPixel);
                     }
                 }
 
@@ -293,7 +293,7 @@ namespace Advanced_Tactics
             //Begin DEBUG
             spriteBatch.Begin();
             //debug.Draw(spriteBatch);
-            sppointer.Draw(data, spriteBatch, gameTime, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            sppointer.Draw(Data, spriteBatch, gameTime, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
 
             spriteBatch.End();
             //End
