@@ -246,6 +246,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="message.spritefont">
+      <Name>message</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="TechnoHideo.ttf">
       <Name>TechnoHideo</Name>
     </None>
@@ -385,6 +390,18 @@
     </Compile>
     <Compile Include="Unit\RTruck.png">
       <Name>RTruck</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Case\B.png">
+      <Name>B</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Case\R.png">
+      <Name>R</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

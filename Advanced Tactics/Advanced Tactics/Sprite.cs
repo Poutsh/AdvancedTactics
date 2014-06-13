@@ -63,9 +63,8 @@ namespace Advanced_Tactics
         /// </summary>
         /// <param name="data"></param>
         /// <param name="spriteBatch"></param>
-        /// <param name="gameTime"></param>
         /// <param name="posinit"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit)
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit)
         {
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
@@ -74,10 +73,9 @@ namespace Advanced_Tactics
         /// </summary>
         /// <param name="data"></param>
         /// <param name="spriteBatch"></param>
-        /// <param name="gameTime"></param>
         /// <param name="posinit"></param>
         /// <param name="origin"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, Vector2 origin)
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, Vector2 origin)
         {
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, origin, data.Scale, SpriteEffects.None, 1);
         }
@@ -86,10 +84,9 @@ namespace Advanced_Tactics
         /// </summary>
         /// <param name="data"></param>
         /// <param name="spriteBatch"></param>
-        /// <param name="gameTime"></param>
         /// <param name="posinit"></param>
         /// <param name="Scale"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, float Scale)
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, float Scale)
         {
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
         }
@@ -98,10 +95,9 @@ namespace Advanced_Tactics
         /// </summary>
         /// <param name="data"></param>
         /// <param name="spriteBatch"></param>
-        /// <param name="gameTime"></param>
         /// <param name="posinit"></param>
         /// <param name="blink"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, GameTime gameTime, Vector2 posinit, bool blink)
+        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, bool blink)
         {
             if (blink)
                 spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);

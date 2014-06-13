@@ -71,7 +71,7 @@ namespace Advanced_Tactics
 
         public Menu() { }
 
-        public Menu(Data data, bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img16, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
+        public Menu(Game1.GameState current, Data data, bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img16, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
         {
             this.data = data;
 
@@ -143,8 +143,8 @@ namespace Advanced_Tactics
 
                         if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
-                            data.widthWindow = 800;
-                            data.heightWindow = 600;
+                            data.WindowWidth = 800;
+                            data.WindowHeight = 600;
                         }
                     }
                     if (position3 == 2) //******** 1280*720
@@ -153,8 +153,8 @@ namespace Advanced_Tactics
 
                         if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
-                            data.widthWindow = 1280;
-                            data.heightWindow = 720;
+                            data.WindowWidth = 1280;
+                            data.WindowHeight = 720;
                         }
                     }
                     if (position3 == 3) //******** 1920*1080
@@ -163,8 +163,8 @@ namespace Advanced_Tactics
 
                         if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
-                            data.widthWindow = 1920;
-                            data.heightWindow = 1080;
+                            data.WindowWidth = 1920;
+                            data.WindowHeight = 1080;
                         }
                     }
                 }
@@ -262,6 +262,7 @@ namespace Advanced_Tactics
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
                     isExit = true;
+                    Game1.currentGameState = Game1.GameState.Exit;
                 }
 
                 if (position < 1) { position = 4; }
@@ -272,12 +273,13 @@ namespace Advanced_Tactics
                     menuPrincipal = false;
                     position2 = 1;
                     options = true;
+                    Game1.currentGameState = Game1.GameState.Option;
                 }
                 if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
                     
                 }
-                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { this.Loadscreen = false; menuPrincipal = false; inGame = true; }
+                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { Game1.currentGameState = Game1.GameState.GameStart; this.Loadscreen = false; menuPrincipal = false; inGame = true; }
             }
             #endregion
 
@@ -289,6 +291,7 @@ namespace Advanced_Tactics
                     menuPrincipal = true;
                     position = 1;
                     options = false;
+                    Game1.currentGameState = Game1.GameState.Menu;
                 }
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Up))
                 {
@@ -341,6 +344,7 @@ namespace Advanced_Tactics
                 {
                     options = false;
                     menuPrincipal = true;
+                    Game1.currentGameState = Game1.GameState.Menu;
                 }
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Right))
                 {
@@ -372,6 +376,7 @@ namespace Advanced_Tactics
                 {
                     menuPrincipal = true;
                     options = false;
+                    Game1.currentGameState = Game1.GameState.Menu;
                 }
 
             }

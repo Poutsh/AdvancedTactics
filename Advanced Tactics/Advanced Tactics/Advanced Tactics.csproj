@@ -124,6 +124,7 @@
     <Compile Include="Debug.cs" />
     <Compile Include="MapEngine\TileEngine.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="ParticleEngine\Particle.cs" />
     <Compile Include="ParticleEngine\ParticleEngine.cs" />
     <Compile Include="Players.cs" />

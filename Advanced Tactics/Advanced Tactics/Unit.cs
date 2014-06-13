@@ -26,6 +26,7 @@ namespace Advanced_Tactics
         public int Strength { get; set; }
         public List<int> TerrainPossible { get; set; }
         public List<Vector> MvtPossible { get; set; }
+        public List<Vector> HQPossible { get; set; }
         public Player Player { get; set; }
 
         public Viseur Viseur { get; set; }
@@ -77,6 +78,8 @@ namespace Advanced_Tactics
                 this.TerrainPossible = Stats.TerrainPossibleUnit(ColorSide(Rang));
                 this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
 
+                if (Classe.Contains("King")) this.HQPossible = Stats.MvtPossUnit("HQPossible", new Vector(this.XofUnit, this.YofUnit), map, data);
+
                 map = Map;
 
                 if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
@@ -114,7 +117,7 @@ namespace Advanced_Tactics
             this.PV = UnitToMove.PV;
             this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
             this.MvtPossible = Stats.MvtPossUnit(this.Classe, new Vector(newCell.XofCell, newCell.YofCell), map, data);
-
+            if (Classe.Contains("King")) this.HQPossible = Stats.MvtPossUnit("HQPossible", new Vector(newCell.XofCell, newCell.YofCell), map, data); else this.HQPossible = null;
             this.XofUnit = newCell.XofCell;
             this.YofUnit = newCell.YofCell;
 
@@ -195,7 +198,7 @@ namespace Advanced_Tactics
 
         public void DrawUnit(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteOfUnit.Draw(data, spriteBatch, gameTime, map[XofUnit, YofUnit].positionPixel);
+            spriteOfUnit.Draw(data, spriteBatch, map[XofUnit, YofUnit].positionPixel);
         }
         #endregion
     }

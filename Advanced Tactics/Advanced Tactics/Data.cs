@@ -27,8 +27,8 @@ namespace Advanced_Tactics
         public float PosXInit { get { return posXinit; } set { posXinit = value; } }
         public int[,] altitudeTerrain { get { return altitudeterrain; } set { altitudeterrain = value; } }
         public string fileMap { get { return p; } set { p = value; } }
-        public int widthWindow { get { return _widthWindow; } set { _widthWindow = value; } }
-        public int heightWindow { get { return _heightWindow; } set { _heightWindow = value; } }
+        public int WindowWidth { get { return _widthWindow; } set { _widthWindow = value; } }
+        public int WindowHeight { get { return _heightWindow; } set { _heightWindow = value; } }
 
         public Data(string path, int width, int height)
         {

@@ -46,7 +46,6 @@ namespace Advanced_Tactics
         }
         #endregion
 
-
         #region OPERATION
 
         #region OPERATOR -
@@ -181,6 +180,11 @@ namespace Advanced_Tactics
 
         public bool Equals(Vector other) { return other == this; }
         public bool Equals(Vector2 other) { return other == this; }
+
+        public Vector2 ToVector2()
+        {
+            return new Vector2(X, Y);
+        }
 
         public override int GetHashCode() { return (int)((X + Y) % Int32.MaxValue); }
 

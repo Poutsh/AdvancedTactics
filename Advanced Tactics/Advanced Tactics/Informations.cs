@@ -57,9 +57,9 @@ namespace Advanced_Tactics
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            info.Draw(data, spriteBatch, gameTime, new Vector2((data.PosXInit / 2) - info.Texture.Width / 2, 0));
-            magasin.Draw(data, spriteBatch, gameTime, new Vector2((data.PosXInit / 2) - magasin.Texture.Width / 2, 4 * data.heightWindow / 7));
-            fondmetal.Draw(data, spriteBatch, gameTime, new Vector2(0, 0));
+            info.Draw(data, spriteBatch,  new Vector2((data.PosXInit / 2) - info.Texture.Width / 2, 0));
+            magasin.Draw(data, spriteBatch,  new Vector2((data.PosXInit / 2) - magasin.Texture.Width / 2, 4 * data.WindowHeight / 7));
+            fondmetal.Draw(data, spriteBatch,  new Vector2(0, 0));
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
@@ -71,7 +71,7 @@ namespace Advanced_Tactics
             {
                 spriteBatch.DrawString(this.font, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe), new Vector2(1 * (data.PosXInit / 8) + 100 * data.Scale, info.Texture.Height + 100 * data.Scale), Color.Black);
                 unit.LC(Game1.Ctt, "Unit/" + cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang);
-                unit.Draw(data, spriteBatch, gameTime, new Vector2(1 * (data.PosXInit / 8) + 220 * data.Scale, info.Texture.Height + 90 * data.Scale), 1.2f);
+                unit.Draw(data, spriteBatch,  new Vector2(1 * (data.PosXInit / 8) + 220 * data.Scale, info.Texture.Height + 90 * data.Scale), 1.2f);
                 spriteBatch.DrawString(this.font, string.Format("PV :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 130 * data.Scale), Color.Black);
                 spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.PV), new Vector2(1 * (data.PosXInit / 8) + 90 * data.Scale, info.Texture.Height + 120 * data.Scale), Color.Red);
                 spriteBatch.DrawString(this.font, string.Format("Strength :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 160 * data.Scale), Color.Black);

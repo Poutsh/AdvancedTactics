@@ -26,15 +26,17 @@ namespace Advanced_Tactics
         Map cartemap;
         private Viseur _viseur;
 
+        Match Match;
+
         Menu _menu = new Menu();
 
         private int h, w;
         List<string> deg = new List<string>();
 
-        public Debug(Data data, Map map, Viseur viseur, List<Unit> ListOfUnit)
+        public Debug(Data data, Map map, Viseur viseur, List<Unit> ListOfUnit, Match Match)
         {
             this.data = data;
-            
+            this.Match = Match;
             cartemap = map;
             ctt = Game1.Ctt;
             _viseur = viseur;
@@ -44,19 +46,19 @@ namespace Advanced_Tactics
             _b = new Sprite();
         }
 
-        public virtual void LoadContent()
+        public void LoadContent()
         {
             font = ctt.Load<SpriteFont>("font");
             _r.LC(ctt, "Case/rouge");
             _b.LC(ctt, "Case/bleu");
         }
 
-        public virtual void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             mouseStateCurrent = Mouse.GetState();
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(this.font,
                 string.Format("Menu  {0}, {1}, {2}, {3}", _menu.InGame, _menu.MenuPrincipal, _menu.Loadscreen, _menu.Options),
@@ -107,6 +109,18 @@ namespace Advanced_Tactics
                     string.Format("List {0}", _ListOfUnit.Count()),
                     new Vector2(10, 510), Color.Black);
 
+            spriteBatch.DrawString(this.font,
+                    string.Format("Match {0}", Match.TurnState),
+                    new Vector2(10, 600), Color.Black);
+
+            spriteBatch.DrawString(this.font,
+                    string.Format("Match {0}", Match.canStart),
+                    new Vector2(10, 625), Color.Black);
+
+            spriteBatch.DrawString(this.font,
+                    string.Format("Match {0}", Match.inTurnState),
+                    new Vector2(10, 650), Color.Black);
+
 
             ///////////
             //Viseur
@@ -129,9 +143,17 @@ namespace Advanced_Tactics
                 {
                     spriteBatch.DrawString(this.font,
                     string.Format("Unit : {0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.MvtPossible[i]),
-                    new Vector2(20, 240+i*10), Color.Pink);
+                    new Vector2(20, 240 + i * 10), Color.Pink);
                 }
-                
+
+                if (cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Player != null)
+                {
+                    spriteBatch.DrawString(this.font,
+                        string.Format("Match {0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Player.PlayerName),
+                        new Vector2(10, 675), Color.Black);
+                }
+
+
             }
             else
             {

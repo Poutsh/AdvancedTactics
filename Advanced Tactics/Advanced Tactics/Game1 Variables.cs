@@ -25,15 +25,19 @@ namespace Advanced_Tactics
         SoundEffect inGameMusic;
         SoundEffectInstance instance;
         SoundEffect click;
-        List<Texture2D> ListMenu;
 
+        public enum GameState { Menu, Option, Game, GameStart, Exit }
+        public static GameState currentGameState;
+
+        // Match
+        float oneSecondTimer;
 
         // Map
         TileEngine tileMap;
         Map map;
 
         // Unit
-        List<Player> Players;
+        Match Match;
 
         List<Unit> ListToDraw;
 

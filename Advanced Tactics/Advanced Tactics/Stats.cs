@@ -96,6 +96,26 @@ namespace Advanced_Tactics
             MvtPossible = new List<Vector>() { };
             switch (classe)
             {
+                case "HQPossible":
+                    AddMvt(position.X + 1, position.Y);
+                    AddMvt(position.X, position.Y + 1);
+                    AddMvt(position.X - 1, position.Y);
+                    AddMvt(position.X, position.Y - 1);
+                    AddMvt(position.X + 1, position.Y + 1);
+                    AddMvt(position.X + 1, position.Y - 1);
+                    AddMvt(position.X - 1, position.Y - 1);
+                    AddMvt(position.X - 1, position.Y + 1);
+
+                    AddMvt(position.X + 2, position.Y);
+                    AddMvt(position.X, position.Y + 2);
+                    AddMvt(position.X - 2, position.Y);
+                    AddMvt(position.X, position.Y - 2);
+                    AddMvt(position.X + 2, position.Y + 2);
+                    AddMvt(position.X + 2, position.Y - 2);
+                    AddMvt(position.X - 2, position.Y - 2);
+                    AddMvt(position.X - 2, position.Y + 2);
+                    break;
+
                 case "King":
                     AddMvt(position.X + 1, position.Y);
                     AddMvt(position.X, position.Y + 1);

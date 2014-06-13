@@ -40,8 +40,10 @@ namespace Advanced_Tactics
         public Vector depPos { get; set; }
         public bool destSelec { get; set; }
         public Vector destPos { get; set; }
+        public bool build;
         List<Vector> CtrlZ;
 
+        Match Match;
         public Sprite spriteViseur { get { return spviseur; } }
         #endregion
 
@@ -52,13 +54,13 @@ namespace Advanced_Tactics
 
         public Viseur() { }
 
-        public Viseur(Data data, Cell[,] map)
+        public Viseur(Data data, Cell[,] map, Match match)
         {
             this.data = data;
             this.map = map;
+            Match = match;
             viseur = new Unit();
             Init();
-
         }
 
         #endregion
@@ -76,6 +78,8 @@ namespace Advanced_Tactics
             Viseurnormal = new Sprite(); Viseurnormal.LC(Game1.Ctt, "Curseur/viseur");
             spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/rouge");
             spCasebleu = new Sprite(); spCasebleu.LC(Game1.Ctt, "Case/bleu");
+            coord.X = map[data.WidthMap / 2, data.HeightMap / 2].XofCell;
+            coord.Y = map[data.WidthMap / 2, data.HeightMap / 2].YofCell;
         }
 
         #endregion
@@ -97,6 +101,7 @@ namespace Advanced_Tactics
         {
             depSelec = false; depPos = Vector.Zero;
             destSelec = false; destPos = Vector.Zero;
+            build = false;
             UnitTemp = new Unit();
         }
 
@@ -109,6 +114,7 @@ namespace Advanced_Tactics
                 unit = new Unit(data, unit, map, newCell, ListOfUnit, unit.Player);
             }
             Reset();
+            Match.TurnbyTurn.MvtCount++;
         }
 
         private void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, SpriteBatch spriteBatch)
@@ -138,11 +144,29 @@ namespace Advanced_Tactics
                     Explosion();
                 }
                 Reset();
+                Match.TurnbyTurn.MvtCount++;
+            }
+
+            /// Build
+            if (build && depSelec && !ViseurOverPos(depPos) && Inputs.Keyr(Keys.B))
+            {
+                destSelec = true;
+                destPos = new Vector(coordViseur.X, coordViseur.Y);
+                map[viseurX, viseurY].unitOfCell = new Unit(data, Match.PlayerTurn.ColorSideN + "Pvt", "Queen", map, destPos.X, destPos.Y, ListOfUnit, Match.PlayerTurn);
+                Match.TurnbyTurn.MvtCount++;
+                Reset();
+            }
+            else if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !build && !depSelec && Inputs.Keyr(Keys.B))
+            {
+                depSelec = true;
+                build = true;
+                depPos = new Vector(coordViseur.X, coordViseur.Y);
+                UnitTemp = Match.PlayerTurn.HQ;
             }
 
 
             /// Deplacement
-            if (depSelec && !ViseurOverPos(depPos) && Inputs.Keyr(Keys.Enter))
+            if (!build && depSelec && !ViseurOverPos(depPos) && Inputs.Keyr(Keys.Enter))
             {
                 if (UnitTemp != null && !ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
                 {
@@ -151,18 +175,19 @@ namespace Advanced_Tactics
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (ViseurOverUnit && !depSelec && Inputs.Keyr(Keys.Enter))
+            else if (!build && map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && Inputs.Keyr(Keys.Enter))
             {
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
-            }
-            
+            }            
         }
 
         private void ViseurColor()
         {
-            if (UnitTemp != null && depSelec && (!Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]) || !Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y))))
+            if (build)
+                spviseur = Viseurbleu;
+            else if (UnitTemp != null && depSelec && (!Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]) || !Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y))))
                 spviseur = Viseurrouge;
             else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
                 spviseur = Viseurnormal;
@@ -172,19 +197,28 @@ namespace Advanced_Tactics
 
         private void BlinkSprite(GameTime gameTime, bool blinkviseur, SpriteBatch spriteBatch)
         {
-            if (depSelec && !destSelec)
+            if (depSelec && !destSelec && build)
+            {
+                foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HQPossible)
+                {
+                    spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
+                }
+            }
+            else if (depSelec && !destSelec && !build)
             {
                 foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible)
                 {
                     if (map[depPos.X, depPos.Y].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[item.X, item.Y]))
-                        spCasebleu.Draw(data, spriteBatch, gameTime, map[item.X, item.Y].positionPixel);
+                        spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
+                    //spCasebleu.Draw(data, spriteBatch, gameTime, map[item.X, item.Y].positionPixel);
                 }
                 if (map[viseurX, viseurY].Vector2OfCell == depPos)
                     sblinkviseur.Position = map[viseurX, viseurY].positionPixel;
                 blinkviseur = depSelec;
             }
 
-            sblinkviseur.Draw(data, spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
+            sblinkviseur.Draw(data, spriteBatch, sblinkviseur.Position, blinkviseur);
+            //sblinkviseur.Draw(data, spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
         }
 
         private void Explosion()
@@ -202,7 +236,7 @@ namespace Advanced_Tactics
         public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
             float tempo;
-            
+
             getMovingPath(ListOfUnit, gameTime, spriteBatch);
             ViseurColor();
 
@@ -250,7 +284,7 @@ namespace Advanced_Tactics
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             BlinkSprite(gameTime, blinkviseur, spriteBatch);
-            spviseur.Draw(data, spriteBatch, gameTime, map[viseurX, viseurY].positionPixel);
+            spviseur.Draw(data, spriteBatch, map[viseurX, viseurY].positionPixel);
             if (UnitTemp != null)
             {
                 //for (int i = 0; i < UnitTemp.MvtPossible.Count(); i++)

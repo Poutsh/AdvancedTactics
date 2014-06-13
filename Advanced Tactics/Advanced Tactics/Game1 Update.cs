@@ -6,50 +6,92 @@ namespace Advanced_Tactics
 {
     public partial class Game1 : Microsoft.Xna.Framework.Game
     {
+        int once2 = 1;
         protected override void Update(GameTime gameTime)
         {
             // Init entrees utilisateur
             Inputs.Update();
             sppointer.Update(gameTime);
+            //menu.InGame = true;
 
-            menu.InGame = true;
-
-            if (menu.InGame)
+            switch (currentGameState)
             {
-                MediaPlayer.Stop();
+                case GameState.Menu:
+                    menu.Update(gameTime);
+                    if (Inputs.isLMBClick()) click.Play();
+                    if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
+                    {
+                        graphics.PreferredBackBufferWidth = (int)Data.WindowWidth;
+                        graphics.PreferredBackBufferHeight = (int)Data.WindowHeight;
+                        graphics.IsFullScreen = menu.Fullscreen;
+                        Game1.graphics.ApplyChanges();
+                    }
+                    break;
 
-                viseur.Update(gameTime, ListToDraw, spriteBatch);
-                instance.Volume = 0.4f;
+                case GameState.Option:
+                    goto case GameState.Menu;
 
-                foreach (Player Player in Players)
-                {
-                    Player.PosHQ(viseur, map, Data, ListToDraw);
-                }
 
-                if (Inputs.Keyr(Keys.Escape))
-                {
+                case GameState.Game:
+                    debug.Update(gameTime);
+                    MediaPlayer.Stop();
+
+                    Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
+
+                    viseur.Update(gameTime, ListToDraw, spriteBatch);
+                    instance.Volume = 0.4f;
+
+                    if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;
+                    break;
+
+
+                case GameState.GameStart:
+                    LoadContent();
+                    currentGameState = GameState.Game;
+                    debug.Update(gameTime);
+                    break;
+
+
+                case GameState.Exit:
+                    UnloadContent();
                     Exit();
                     base.Update(gameTime);
                     return;
-                }
-            }
-            else // VIDE INTERSIDERAL
-            {
-                menu.Update(gameTime);
 
-                //if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
-                //checkExitKey(curKey);
-
-                if (Inputs.isLMBClick()) click.Play();
+                default:
+                    break;
             }
 
-            if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
-            {
-                graphics.PreferredBackBufferWidth = (int)Data.widthWindow;
-                graphics.PreferredBackBufferHeight = (int)Data.heightWindow;
-                graphics.IsFullScreen = menu.Fullscreen;
-                Game1.graphics.ApplyChanges();
-            }
+            
+            
+
+            //if (menu.InGame)
+            //{
+            //    MediaPlayer.Stop();
+
+            //    viseur.Update(gameTime, ListToDraw, spriteBatch);
+            //    instance.Volume = 0.4f;
+
+            //    Match.Update(gameTime, spriteBatch);
+
+            //    if (Inputs.Keyr(Keys.Escape))
+            //    {
+            //        Exit();
+            //        base.Update(gameTime);
+            //        return;
+            //    }
+            //}
+            //else // VIDE INTERSIDERAL
+            //{
+            //    menu.Update(currentGameState, gameTime);
+
+            //    //if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
+            //    //checkExitKey(curKey);
+
+            //    if (Inputs.isLMBClick()) click.Play();
+            //}
+
+
 
             base.Update(gameTime);
         }
