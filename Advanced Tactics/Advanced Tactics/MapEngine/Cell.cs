@@ -27,10 +27,10 @@ namespace Advanced_Tactics
         public Map(Data data)
         {
             this.data = data;
-            map = new Cell[data.WidthMap, data.HeightMap];
+            map = new Cell[data.MapWidth, data.MapHeight];
 
-            for (int x = 0; x < data.WidthMap; x++)
-                for (int y = 0; y < data.HeightMap; y++)
+            for (int x = 0; x < data.MapWidth; x++)
+                for (int y = 0; y < data.MapHeight; y++)
                     map[x, y] = new Cell(data, x, y);
             
         }
@@ -56,7 +56,7 @@ namespace Advanced_Tactics
 
         public Vector2 positionPixel
         {
-            get { if (x <= data.WidthMap && y <= data.HeightMap && x >= 0 && y >= 0) return pos; else return new Vector2(data.PosXInit, 0); }
+            get { if (x <= data.MapWidth && y <= data.MapHeight && x >= 0 && y >= 0) return pos; else return new Vector2(data.PosXInit, 0); }
         }
 
         #endregion

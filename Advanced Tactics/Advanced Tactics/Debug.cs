@@ -81,11 +81,11 @@ namespace Advanced_Tactics
                 new Vector2(10, 139), Color.Black);
 
             spriteBatch.DrawString(this.font,
-                "HeightMap : " + Convert.ToString(data.HeightMap),
+                "HeightMap : " + Convert.ToString(data.MapHeight),
                 new Vector2(10, 400), Color.Black);
 
             spriteBatch.DrawString(this.font,
-                "WidthMap : " + Convert.ToString(data.WidthMap),
+                "WidthMap : " + Convert.ToString(data.MapWidth),
                 new Vector2(10, 415), Color.Black);
 
             spriteBatch.DrawString(this.font,

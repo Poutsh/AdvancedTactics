@@ -78,8 +78,8 @@ namespace Advanced_Tactics
             Viseurnormal = new Sprite(); Viseurnormal.LC(Game1.Ctt, "Curseur/viseur");
             spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/rouge");
             spCasebleu = new Sprite(); spCasebleu.LC(Game1.Ctt, "Case/bleu");
-            coord.X = map[data.WidthMap / 2, data.HeightMap / 2].XofCell;
-            coord.Y = map[data.WidthMap / 2, data.HeightMap / 2].YofCell;
+            coord.X = map[data.MapWidth / 2, data.MapHeight / 2].XofCell;
+            coord.Y = map[data.MapWidth / 2, data.MapHeight / 2].YofCell;
         }
 
         #endregion
@@ -101,7 +101,6 @@ namespace Advanced_Tactics
         {
             depSelec = false; depPos = Vector.Zero;
             destSelec = false; destPos = Vector.Zero;
-            build = false;
             UnitTemp = new Unit();
         }
 
@@ -152,8 +151,9 @@ namespace Advanced_Tactics
             {
                 destSelec = true;
                 destPos = new Vector(coordViseur.X, coordViseur.Y);
-                map[viseurX, viseurY].unitOfCell = new Unit(data, Match.PlayerTurn.ColorSideN + "Pvt", "Queen", map, destPos.X, destPos.Y, ListOfUnit, Match.PlayerTurn);
+                map[viseurX, viseurY].unitOfCell = new Unit(data, Match.PlayerTurn.ColorSideN + "Plane", "Queen", map, destPos.X, destPos.Y, ListOfUnit, Match.PlayerTurn);
                 Match.TurnbyTurn.MvtCount++;
+                build = false;
                 Reset();
             }
             else if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !build && !depSelec && Inputs.Keyr(Keys.B))
@@ -180,7 +180,7 @@ namespace Advanced_Tactics
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
-            }            
+            }
         }
 
         private void ViseurColor()
@@ -248,25 +248,34 @@ namespace Advanced_Tactics
             {
                 time = gameTime.TotalGameTime;
 
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    if (Mouse.GetState().X >= data.PosXInit && Mouse.GetState().X <= data.PosXInit + data.MapWidth * data.TileSize * data.Scale && Mouse.GetState().Y >= 0 && Mouse.GetState().Y <= data.WindowHeight)
+                    {
+                        coord.X = (Mouse.GetState().X - data.PosXInit) / (data.TileSize * data.Scale);
+                        coord.Y = Mouse.GetState().Y / (data.TileSize * data.Scale);
+                    }
+                }
+
                 if (coordViseur.X == 0 && Keyboard.GetState().IsKeyDown(Keys.Left))
-                    coord.X = data.WidthMap - 1;
+                    coord.X = data.MapWidth - 1;
                 else
                     if (Keyboard.GetState().IsKeyDown(Keys.Left))
                         --coord.X;
 
-                if (coordViseur.X == data.WidthMap - 1 && Keyboard.GetState().IsKeyDown(Keys.Right))
+                if (coordViseur.X == data.MapWidth - 1 && Keyboard.GetState().IsKeyDown(Keys.Right))
                     coord.X = 0;
                 else
                     if (Keyboard.GetState().IsKeyDown(Keys.Right))
                         ++coord.X;
 
                 if (coordViseur.Y == 0 && Keyboard.GetState().IsKeyDown(Keys.Up))
-                    coord.Y = data.HeightMap - 1;
+                    coord.Y = data.MapHeight - 1;
                 else
                     if (Keyboard.GetState().IsKeyDown(Keys.Up))
                         --coord.Y;
 
-                if (coordViseur.Y == data.HeightMap - 1 && Keyboard.GetState().IsKeyDown(Keys.Down))
+                if (coordViseur.Y == data.MapHeight - 1 && Keyboard.GetState().IsKeyDown(Keys.Down))
                     coord.Y = 0;
                 else
                     if (Keyboard.GetState().IsKeyDown(Keys.Down))

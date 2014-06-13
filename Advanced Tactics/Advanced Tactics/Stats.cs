@@ -87,7 +87,7 @@ namespace Advanced_Tactics
         /// <param name="Y">Y >= 0 && Y <= HeightMap</param>
         void AddMvt(int X, int Y)
         {
-            if ((X >= 0 && X <= Data.WidthMap) && (Y >= 0 && Y <= Data.HeightMap))
+            if ((X >= 0 && X <= Data.MapWidth) && (Y >= 0 && Y <= Data.MapHeight))
                 MvtPossible.Add(new Vector(X, Y));
         }
 
@@ -130,40 +130,40 @@ namespace Advanced_Tactics
                 case "Queen":
                     for (int i = 1; position.Y - i >= 0; i++)
                         AddMvt(position.X, position.Y - i);
-                    for (int i = 1; position.Y + i != data.HeightMap; i++)
+                    for (int i = 1; position.Y + i != data.MapHeight; i++)
                         AddMvt(position.X, position.Y + i);
                     for (int i = 1; position.X - i >= 0; i++)
                         AddMvt(position.X - i, position.Y);
-                    for (int i = 1; position.X + i != data.WidthMap; i++)
+                    for (int i = 1; position.X + i != data.MapWidth; i++)
                         AddMvt(position.X + i, position.Y);
                     for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
                         AddMvt(position.X - i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X + i < data.WidthMap); i++)
+                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X + i < data.MapWidth); i++)
                         AddMvt(position.X + i, position.Y + i);
-                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.WidthMap); i++)
+                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.MapWidth); i++)
                         AddMvt(position.X + i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X - i >= 0); i++)
+                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X - i >= 0); i++)
                         AddMvt(position.X - i, position.Y + i);
                     break;
 
                 case "Rook":
                     for (int i = 1; position.Y - i >= 0; i++)
                         AddMvt(position.X, position.Y - i);
-                    for (int i = 1; position.Y + i != data.HeightMap; i++)
+                    for (int i = 1; position.Y + i != data.MapHeight; i++)
                         AddMvt(position.X, position.Y + i);
                     for (int i = 1; position.X - i >= 0; i++)
                         AddMvt(position.X - i, position.Y);
-                    for (int i = 1; position.X + i != data.WidthMap; i++)
+                    for (int i = 1; position.X + i != data.MapWidth; i++)
                         AddMvt(position.X + i, position.Y);
                     break;
                 case "Bishop":
                     for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
                         AddMvt(position.X - i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X + i < data.WidthMap); i++)
+                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X + i < data.MapWidth); i++)
                         AddMvt(position.X + i, position.Y + i);
-                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.WidthMap); i++)
+                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.MapWidth); i++)
                         AddMvt(position.X + i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.HeightMap) && (position.X - i >= 0); i++)
+                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X - i >= 0); i++)
                         AddMvt(position.X - i, position.Y + i);
                     break;
 

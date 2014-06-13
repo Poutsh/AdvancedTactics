@@ -20,8 +20,8 @@ namespace Advanced_Tactics
         protected string p;
         protected int _widthWindow, _heightWindow;
 
-        public int WidthMap { get { return _WidthMap; } set { _WidthMap = value; } }
-        public int HeightMap { get { return _HeightMap; } set { _HeightMap = value; } }
+        public int MapWidth { get { return _WidthMap; } set { _WidthMap = value; } }
+        public int MapHeight { get { return _HeightMap; } set { _HeightMap = value; } }
         public float TileSize { get { return tilesize; } set { tilesize = value; } }
         public float Scale { get { return scale; } set { scale = value; } }
         public float PosXInit { get { return posXinit; } set { posXinit = value; } }

@@ -36,10 +36,10 @@ namespace Advanced_Tactics
             NumberMvtPerTurn = 2;
 
             Random random = new Random();
-            Vector temp = new Vector(random.Next(0, Data.WidthMap + 1), random.Next(0, Data.HeightMap + 1));
-            Vector temp2 = new Vector(random.Next(0, Data.WidthMap + 1), random.Next(0, Data.HeightMap + 1));
+            Vector temp = new Vector(random.Next(0, Data.MapWidth + 1), random.Next(0, Data.MapHeight + 1));
+            Vector temp2 = new Vector(random.Next(0, Data.MapWidth + 1), random.Next(0, Data.MapHeight + 1));
 
-            while (Vector.Distance(temp, temp2) <= 6) { temp2 = new Vector(random.Next(0, Data.WidthMap + 1), random.Next(0, Data.HeightMap + 1)); }
+            while (Vector.Distance(temp, temp2) <= 6) { temp2 = new Vector(random.Next(0, Data.MapWidth + 1), random.Next(0, Data.MapHeight + 1)); }
 
             List<Vector> Temp = new List<Vector>(2) { temp, temp2 };
 
@@ -60,9 +60,9 @@ namespace Advanced_Tactics
 
         public List<Vector> DrawStartZone(Player Player)
         {
-            for (int i = 0; i < Data.WidthMap; i++)
+            for (int i = 0; i < Data.MapWidth; i++)
             {
-                for (int j = 0; j < Data.HeightMap; j++)
+                for (int j = 0; j < Data.MapHeight; j++)
                 {
                     /// Verifie si la distance entre les deux positions de depart des HQ est bien superieur a 6 cases
                     if (Vector.Distance(Player.StartZoneCenter, new Vector(i, j)) <= 5)
@@ -89,7 +89,7 @@ namespace Advanced_Tactics
                 }
                 else if (Players[0].HQ == null)
                 {
-                    if (!once) TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                    if (!once) TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
                     if (!once && (Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = true; }
                     if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && Inputs.Keyr(Keys.Enter))
                     {
@@ -99,13 +99,13 @@ namespace Advanced_Tactics
                 }
                 else if (Players[1].HQ == null)
                 {
-                    if (once) TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                    if (once) TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
                     if (once && (Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = false; }
                     if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && Inputs.Keyr(Keys.Enter))
                     {
                         TurnbyTurn.PlayerTurn.HQ = new Unit(Data, TurnbyTurn.PlayerTurn.ColorSideN + "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, ListToDraw, TurnbyTurn.PlayerTurn);
                         TurnbyTurn.PlayerTurn = Players[0];
-                        TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                        TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
                     }
                 }
             }
@@ -154,7 +154,7 @@ namespace Advanced_Tactics
                     Match.TurnState = Match.Turn.Player1;
                     PlayerTurn = Match.Players[0];
                 }
-                Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(2.0), new Vector2(Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.X - Message.font.MeasureString("Player 1").X / 2, Map[Data.WidthMap / 2, Data.HeightMap / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(2.0), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
             }
         }
 
