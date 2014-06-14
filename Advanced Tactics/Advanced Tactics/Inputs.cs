@@ -36,9 +36,13 @@ namespace Advanced_Tactics
         {
             return curKeyBState.IsKeyUp(k) && prevKeyBState.IsKeyDown(k);
         }
-        static public bool isLMBClick()
+        static public bool Clickg()
         {
             return curMouseState.LeftButton == ButtonState.Released && prevMouseState.LeftButton == ButtonState.Pressed;
+        }
+        static public bool Clickd()
+        {
+            return curMouseState.RightButton == ButtonState.Released && prevMouseState.RightButton == ButtonState.Pressed;
         }
     }
 }

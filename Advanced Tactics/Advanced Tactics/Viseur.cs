@@ -42,7 +42,7 @@ namespace Advanced_Tactics
         public Vector destPos { get; set; }
         public bool build;
         List<Vector> CtrlZ;
-
+        MouseState cur, old;
         Match Match;
         public Sprite spriteViseur { get { return spviseur; } }
         #endregion
@@ -118,10 +118,10 @@ namespace Advanced_Tactics
 
         private void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, SpriteBatch spriteBatch)
         {
+            cur = Mouse.GetState();
             /// Ctrlz
             if (Inputs.Keyr(Keys.LeftControl) && Inputs.Keyr(Keys.Z) && CtrlZ[1] != Vector.Zero)
                 doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
-
 
             /// Touche Reset
             if (depSelec && !destSelec && Inputs.Keyr(Keys.Back)) { Reset(); }
@@ -147,7 +147,7 @@ namespace Advanced_Tactics
             }
 
             /// Build
-            if (build && depSelec && !ViseurOverPos(depPos) && Inputs.Keyr(Keys.B))
+            if (build && depSelec && !ViseurOverPos(depPos) && (Inputs.Keyr(Keys.B) || (cur.RightButton == ButtonState.Pressed && cur != old)))
             {
                 destSelec = true;
                 destPos = new Vector(coordViseur.X, coordViseur.Y);
@@ -156,7 +156,7 @@ namespace Advanced_Tactics
                 build = false;
                 Reset();
             }
-            else if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !build && !depSelec && Inputs.Keyr(Keys.B))
+            else if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !build && !depSelec && (Inputs.Keyr(Keys.B) || (cur.RightButton == ButtonState.Pressed && cur != old)))
             {
                 depSelec = true;
                 build = true;
@@ -166,7 +166,11 @@ namespace Advanced_Tactics
 
 
             /// Deplacement
-            if (!build && depSelec && !ViseurOverPos(depPos) && Inputs.Keyr(Keys.Enter))
+            if (!build && cur.RightButton == ButtonState.Pressed && cur != old && map[viseurX, viseurY] == map[depPos.X, depPos.Y] && !destSelec)
+            {
+                Reset();
+            }
+            else if (!build && depSelec && !ViseurOverPos(depPos) && (Inputs.Keyr(Keys.Enter) || (cur.LeftButton == ButtonState.Pressed && cur != old)))
             {
                 if (UnitTemp != null && !ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
                 {
@@ -175,12 +179,13 @@ namespace Advanced_Tactics
                     doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                 }
             }
-            else if (!build && map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && Inputs.Keyr(Keys.Enter))
+            else if (!build && map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (cur.LeftButton == ButtonState.Pressed && cur != old)))
             {
                 depSelec = true;
                 depPos = new Vector(coordViseur.X, coordViseur.Y);
                 UnitTemp = map[viseurX, viseurY].unitOfCell;
             }
+            old = cur;
         }
 
         private void ViseurColor()

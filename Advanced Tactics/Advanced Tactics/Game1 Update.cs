@@ -18,7 +18,7 @@ namespace Advanced_Tactics
             {
                 case GameState.Menu:
                     menu.Update(gameTime);
-                    if (Inputs.isLMBClick()) click.Play();
+                    if (Inputs.Clickg()) click.Play();
                     if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
                     {
                         graphics.PreferredBackBufferWidth = (int)Data.WindowWidth;
