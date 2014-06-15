@@ -163,8 +163,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Curseur\viseurS.png">
-      <Name>viseurS</Name>
+    <Compile Include="Curseur\viseurJ.png">
+      <Name>viseurJ</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

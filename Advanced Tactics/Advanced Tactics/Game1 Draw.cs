@@ -26,7 +26,7 @@ namespace Advanced_Tactics
 
 
                 case GameState.Game:
-                    //Informations.Draw(spriteBatch, gameTime);
+                    Informations.Draw(spriteBatch, gameTime);
 
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     tileMap.Draw(spriteBatch);

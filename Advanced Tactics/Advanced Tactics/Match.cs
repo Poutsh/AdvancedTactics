@@ -90,8 +90,8 @@ namespace Advanced_Tactics
                 }
                 else if (Players[0].HQ == null)
                 {
-                    if (!once) { Viseur.coord = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
-                    if (!once && (Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = true; }
+                    if (!once) { Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
+                    if (!once && (Inputs.Keyd(Keys.Enter) || Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = true; }
                     if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && Inputs.Keyr(Keys.Enter))
                     {
                         TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn, this);
@@ -100,8 +100,8 @@ namespace Advanced_Tactics
                 }
                 else if (Players[1].HQ == null)
                 {
-                    if (once) { Viseur.coord = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
-                    if (once && (Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = false; }
+                    if (once) { Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
+                    if (once && (Inputs.Keyd(Keys.Enter) || Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = false; }
                     if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && Inputs.Keyr(Keys.Enter))
                     {
                         TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn, this);

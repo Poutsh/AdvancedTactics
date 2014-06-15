@@ -20,23 +20,19 @@ namespace Advanced_Tactics
         Sprite unit;
         Sprite fondmetal, magasin, info;
         ContentManager ctt;
-        List<Unit> _ListOfUnit;
         Map cartemap;
         private Viseur _viseur;
-
         Menu _menu = new Menu();
 
         private int h, w;
         List<string> deg = new List<string>();
 
-        public Informations(Data data, Map map, Viseur viseur, List<Unit> ListOfUnit)
+        public Informations(Data data, Map map, Viseur viseur)
         {
             this.data = data;
-
             cartemap = map;
             ctt = Game1.Ctt;
             _viseur = viseur;
-            _ListOfUnit = ListOfUnit;
             unit = new Sprite();
         }
 
@@ -52,14 +48,14 @@ namespace Advanced_Tactics
         public virtual void Update(GameTime gameTime)
         {
             mouseStateCurrent = Mouse.GetState();
-        }//61 164
+        }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            info.Draw(data, spriteBatch,  new Vector2((data.PosXInit / 2) - info.Texture.Width / 2, 0));
-            magasin.Draw(data, spriteBatch,  new Vector2((data.PosXInit / 2) - magasin.Texture.Width / 2, 4 * data.WindowHeight / 7));
-            fondmetal.Draw(data, spriteBatch,  new Vector2(0, 0));
+            info.Draw(data, spriteBatch, new Vector2((data.PosXInit / 2) - info.Texture.Width / 2, 0));
+            magasin.Draw(data, spriteBatch, new Vector2((data.PosXInit / 2) - magasin.Texture.Width / 2, 4 * data.WindowHeight / 7));
+            fondmetal.Draw(data, spriteBatch, new Vector2(0, 0));
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
@@ -67,11 +63,11 @@ namespace Advanced_Tactics
 
             spriteBatch.DrawString(this.font, string.Format("Unit : "), new Vector2(1 * (data.PosXInit / 8), info.Texture.Height + 100 * data.Scale), Color.Black);
 
-            if (cartemap.Carte[_viseur.viseurX, _viseur.viseurY].Occupe)
+            if (_viseur.viseurX >= 0 && _viseur.viseurX <= data.MapWidth && _viseur.viseurY >= 0 && _viseur.viseurY <= data.MapHeight && cartemap.Carte[_viseur.viseurX, _viseur.viseurY].Occupe)
             {
                 spriteBatch.DrawString(this.font, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe), new Vector2(1 * (data.PosXInit / 8) + 100 * data.Scale, info.Texture.Height + 100 * data.Scale), Color.Black);
-                unit.LC(Game1.Ctt, "Unit/" + cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang);
-                unit.Draw(data, spriteBatch,  new Vector2(1 * (data.PosXInit / 8) + 220 * data.Scale, info.Texture.Height + 90 * data.Scale), 1.2f);
+                unit.LC(Game1.Ctt, "Unit/" + cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Player.ColorSideN + cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang);
+                unit.Draw(data, spriteBatch, new Vector2(1 * (data.PosXInit / 8) + 220 * data.Scale, info.Texture.Height + 90 * data.Scale), 1.2f);
                 spriteBatch.DrawString(this.font, string.Format("PV :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 130 * data.Scale), Color.Black);
                 spriteBatch.DrawString(this.font2, string.Format("{0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.PV), new Vector2(1 * (data.PosXInit / 8) + 90 * data.Scale, info.Texture.Height + 120 * data.Scale), Color.Red);
                 spriteBatch.DrawString(this.font, string.Format("Strength :"), new Vector2(1 * (data.PosXInit / 8) + 10 * data.Scale, info.Texture.Height + 160 * data.Scale), Color.Black);

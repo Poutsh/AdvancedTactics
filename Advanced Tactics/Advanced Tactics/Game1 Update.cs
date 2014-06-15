@@ -58,42 +58,7 @@ namespace Advanced_Tactics
                     Exit();
                     base.Update(gameTime);
                     return;
-
-                default:
-                    break;
             }
-
-            
-            
-
-            //if (menu.InGame)
-            //{
-            //    MediaPlayer.Stop();
-
-            //    viseur.Update(gameTime, ListToDraw, spriteBatch);
-            //    instance.Volume = 0.4f;
-
-            //    Match.Update(gameTime, spriteBatch);
-
-            //    if (Inputs.Keyr(Keys.Escape))
-            //    {
-            //        Exit();
-            //        base.Update(gameTime);
-            //        return;
-            //    }
-            //}
-            //else // VIDE INTERSIDERAL
-            //{
-            //    menu.Update(currentGameState, gameTime);
-
-            //    //if (menu.IsExit) { base.EndRun(); base.Exit(); base.Update(gameTime); return; }
-            //    //checkExitKey(curKey);
-
-            //    if (Inputs.isLMBClick()) click.Play();
-            //}
-
-
-
             base.Update(gameTime);
         }
 

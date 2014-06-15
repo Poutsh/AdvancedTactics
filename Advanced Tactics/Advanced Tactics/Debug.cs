@@ -128,6 +128,10 @@ namespace Advanced_Tactics
                     string.Format("GameState {0}", Game1.currentGameState),
                     new Vector2(10, 675), Color.Orchid);
 
+            spriteBatch.DrawString(this.font,
+                    string.Format("ViseurState {0}", _viseur.currentViseurState),
+                    new Vector2(10, 700), Color.Orchid);
+
 
             ///////////
             //Viseur

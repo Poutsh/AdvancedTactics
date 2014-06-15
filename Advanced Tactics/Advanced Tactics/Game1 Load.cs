@@ -94,7 +94,7 @@ namespace Advanced_Tactics
                     viseur = new Viseur(Data, map.Carte, Match);
 
                     debug = new Debug(Data, map, viseur, ListToDraw, Match); debug.LoadContent();
-                    Informations = new Informations(Data, map, viseur, ListToDraw); Informations.LoadContent();
+                    Informations = new Informations(Data, map, viseur); Informations.LoadContent();
 
                     if (true)
                     {

@@ -79,9 +79,9 @@ namespace Advanced_Tactics
                 this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
                 //this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
 
-                
 
-                
+
+
 
                 if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
                 {
@@ -100,7 +100,7 @@ namespace Advanced_Tactics
                     this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
                     this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
                     if (Classe.Contains("King")) this.HQPossible = Stats.HQPoss(this, map, data);
-                }                
+                }
             }
         }
 
@@ -133,12 +133,8 @@ namespace Advanced_Tactics
                         Player.ColorSideN,
                         Rang, Game1.Ctt, spriteOfUnit);
 
-                Player.UnitOfPlayer.Add(this);
-
                 map[UnitToMove.XofUnit, UnitToMove.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
                 map[newCell.XofCell, newCell.YofCell].unitOfCell = this; // On met a jour la valeur de la nouvelle case                
-
-                map[this.XofUnit, this.YofUnit].Occupe = Player.UnitOfPlayer.Contains(this);
 
                 for (int i = 0; i < Player.UnitOfPlayer.Count(); i++)    // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
                 {
@@ -148,6 +144,10 @@ namespace Advanced_Tactics
                         map[UnitToMove.XofUnit, UnitToMove.YofUnit].Occupe = false;
                     }
                 }
+
+                Player.UnitOfPlayer.Add(this);
+                map[this.XofUnit, this.YofUnit].Occupe = Player.UnitOfPlayer.Contains(this);
+
                 this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
                 this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
                 if (Classe.Contains("King")) this.HQPossible = Stats.HQPoss(this, map, data); else this.HQPossible = null;
@@ -170,8 +170,6 @@ namespace Advanced_Tactics
             this.YofUnit = UnitToDestruct.YofUnit;
 
             map = Map;
-
-            DelUnitofList(UnitToDestruct, ListOfUnit);
         }
 
         #endregion
@@ -182,18 +180,16 @@ namespace Advanced_Tactics
 
 
 
-        void DelUnitofList(Unit UnitToDestruct, List<Unit> ListOfUnit)
+        public void DelUnitofList()
         {
-            for (int i = 0; i < ListOfUnit.Count(); i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
-                if (ListOfUnit[i] == UnitToDestruct)
+            for (int i = 0; i < Player.UnitOfPlayer.Count; i++) // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
+                if (Player.UnitOfPlayer[i] == this)
                 {
-                    ListOfUnit.RemoveAt(i);
+                    Player.UnitOfPlayer.RemoveAt(i);
 
-                    map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].Occupe = false;
+                    map[this.XofUnit, this.YofUnit].Occupe = false;
+                    map[this.XofUnit, this.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
                 }
-
-            map[UnitToDestruct.XofUnit, UnitToDestruct.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
-
         }
         #endregion
 

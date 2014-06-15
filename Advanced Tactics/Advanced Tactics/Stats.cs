@@ -82,34 +82,21 @@ namespace Advanced_Tactics
         private List<Vector> AttackPossible;
         private List<Vector> HQPossible;
 
-        
-        void AddMvtHQ(int X, int Y)
-        {
-            if ((X >= 0 && X <= Data.MapWidth) && (Y >= 0 && Y <= Data.MapHeight))
-                HQPossible.Add(new Vector(X, Y));
-        }
 
         public List<Vector> HQPoss(Unit unit, Cell[,] map, Data data)
         {
             HQPossible = new List<Vector>() { };
 
-            AddMvtHQ(unit.XofUnit + 1, unit.YofUnit);
-            AddMvtHQ(unit.XofUnit, unit.YofUnit + 1);
-            AddMvtHQ(unit.XofUnit - 1, unit.YofUnit);
-            AddMvtHQ(unit.XofUnit, unit.YofUnit - 1);
-            AddMvtHQ(unit.XofUnit + 1, unit.YofUnit + 1);
-            AddMvtHQ(unit.XofUnit + 1, unit.YofUnit - 1);
-            AddMvtHQ(unit.XofUnit - 1, unit.YofUnit - 1);
-            AddMvtHQ(unit.XofUnit - 1, unit.YofUnit + 1);
-            AddMvtHQ(unit.XofUnit + 2, unit.YofUnit);
-            AddMvtHQ(unit.XofUnit, unit.YofUnit + 2);
-            AddMvtHQ(unit.XofUnit - 2, unit.YofUnit);
-            AddMvtHQ(unit.XofUnit, unit.YofUnit - 2);
-            AddMvtHQ(unit.XofUnit + 2, unit.YofUnit + 2);
-            AddMvtHQ(unit.XofUnit + 2, unit.YofUnit - 2);
-            AddMvtHQ(unit.XofUnit - 2, unit.YofUnit - 2);
-            AddMvtHQ(unit.XofUnit - 2, unit.YofUnit + 2);
-
+            for (int x = unit.XofUnit - 2; x <= unit.XofUnit + 2; x++)
+            {
+                for (int y = unit.YofUnit - 2; y <= unit.YofUnit + 2; y++)
+                {
+                    if (x >= 0 && x < data.MapWidth && y >= 0 && y < data.MapHeight)
+                    {
+                        if (!map[x, y].Occupe) HQPossible.Add(new Vector(x, y));
+                    }
+                }
+            }
             return HQPossible;
         }
 
@@ -404,7 +391,7 @@ namespace Advanced_Tactics
                         {
                             if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
                         }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+                        else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
 
                     }
                     if (unit.YofUnit + 1 < data.MapHeight)
@@ -413,7 +400,7 @@ namespace Advanced_Tactics
                         {
                             if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
                         }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
 
                     }
                     if (unit.XofUnit - 1 >= 0)
@@ -422,7 +409,7 @@ namespace Advanced_Tactics
                         {
                             if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
                         }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+                        else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
 
                     }
                     if (unit.YofUnit - 1 >= 0)
@@ -431,7 +418,7 @@ namespace Advanced_Tactics
                         {
                             if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
                         }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
                     }
                     break;
             }
