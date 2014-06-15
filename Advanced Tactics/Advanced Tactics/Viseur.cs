@@ -188,6 +188,7 @@ namespace Advanced_Tactics
 
                         if (map[viseurX, viseurY].unitOfCell.PV <= 0)
                         {
+                            Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
                             map[viseurX, viseurY].unitOfCell.DelUnitofList();
                             destPos = new Vector(coordViseur.X, coordViseur.Y);
                             doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
@@ -202,6 +203,7 @@ namespace Advanced_Tactics
 
                         if (map[viseurX, viseurY].unitOfCell.PV <= 0)
                         {
+                            Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
                             map[viseurX, viseurY].unitOfCell.DelUnitofList();
                             destPos = new Vector(coordViseur.X, coordViseur.Y);
                             doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);

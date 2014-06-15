@@ -24,6 +24,7 @@ namespace Advanced_Tactics
         public string Rang { get; set; }
         public int PV { get; set; }
         public int Strength { get; set; }
+        public int Point { get; set; }
         public List<int> TerrainPossible { get; set; }
         public List<Vector> MvtPossible { get; set; }
         public List<Vector> AttackPossible { get; set; }
@@ -76,6 +77,7 @@ namespace Advanced_Tactics
                 this.Classe = Classe;
                 this.PV = Stats.PVUnit(Rang);
                 this.Strength = Stats.StrengthUnit(Rang);
+                this.Point = Stats.PointUnit(Rang, Classe);
                 this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
                 //this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
 
@@ -122,6 +124,7 @@ namespace Advanced_Tactics
             this.Classe = UnitToMove.Classe;
             this.Strength = UnitToMove.Strength;
             this.PV = UnitToMove.PV;
+            this.Point = UnitToMove.Point;
             this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
             this.XofUnit = newCell.XofCell;
             this.YofUnit = newCell.YofCell;

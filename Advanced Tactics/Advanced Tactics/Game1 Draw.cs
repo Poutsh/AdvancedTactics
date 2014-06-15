@@ -10,19 +10,24 @@ namespace Advanced_Tactics
     {
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            GraphicsDevice.Clear(Color.White);
             switch (currentGameState)
             {
                 case GameState.Menu:
-                    spriteBatch.Begin();
                     menu.Draw(spriteBatch, gameTime);
-                    spriteBatch.End();
                     break;
 
 
                 case GameState.Option:
                     goto case GameState.Menu;
+
+
+                case GameState.Loading:
+                    GraphicsDevice.Clear(Color.Black);
+                    spriteBatch.Begin();
+                    message.Draw(spriteBatch);
+                    spriteBatch.End();
+                    return;
 
 
                 case GameState.Game:

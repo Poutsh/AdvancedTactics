@@ -14,6 +14,7 @@ namespace Advanced_Tactics
         Cell[,] Map;
         Stats Stats;
         public int MvtCount = 0;
+        TimeSpan time;
 
         public TurnbyTurn(Data data, Cell[,] map, Match Match)
         {
@@ -31,9 +32,11 @@ namespace Advanced_Tactics
         public void UpdateTurn(SpriteBatch spriteBatch, GameTime gameTime, Match Match, Viseur Viseur, List<Unit> ListToDraw)
         {
             Message.Update(gameTime);
+            float tempo = 1f;
 
-            if (Inputs.Keyr(Keys.Space) || Match.NumberMvtPerTurn == MvtCount)
+            if ((Inputs.Keyr(Keys.Space) || Match.NumberMvtPerTurn == MvtCount) && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
             {
+                time = gameTime.TotalGameTime;
                 MvtCount = 0;
                 if (Match.TurnState == Match.Turn.Player1)
                 {
@@ -45,7 +48,7 @@ namespace Advanced_Tactics
                     Match.TurnState = Match.Turn.Player1;
                     PlayerTurn = Match.Players[0];
                 }
-                Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.7), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
             }
         }
 

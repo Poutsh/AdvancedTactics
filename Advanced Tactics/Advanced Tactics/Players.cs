@@ -14,6 +14,7 @@ namespace Advanced_Tactics
         public Unit HQ;
         public Sprite ColorStartZoneSprite;
 
+        public int Score;
 
         public List<Unit> UnitOfPlayer { get; set; }
         public Color ColorSide { get; set; }
@@ -24,6 +25,7 @@ namespace Advanced_Tactics
         public Player(Data data)
         {
             Data = data;
+            Score = 0;
             UnitOfPlayer = new List<Unit>();
             StartZone = new List<Vector>();
             ColorStartZoneSprite = new Sprite();

@@ -44,8 +44,8 @@ namespace Advanced_Tactics
             BufferHeight = 720;
             Data = new Data("map2", BufferWidth, BufferHeight);
 
-            currentGameState = GameState.GameStart;
-
+            currentGameState = GameState.Menu;
+            message = new Message();
             ListToDraw = new List<Unit>();
 
 
@@ -73,13 +73,16 @@ namespace Advanced_Tactics
                 case GameState.Option:
                     goto case GameState.Menu;
 
-
-                case GameState.Game:
-                    
+                case GameState.Loading:
+                    float tempo = 5f;
+                    if (gt.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
+                    {
+                        time = gt.TotalGameTime;
+                        currentGameState = GameState.GameStart;
+                    }
                     break;
 
-
-                case GameState.GameStart:
+               case GameState.GameStart:
                     tileMap = new TileEngine(Data.fileMap, Data, map);
                     map = new Map(Data);
                     Match = new Match(Data, 2, map);
@@ -96,7 +99,7 @@ namespace Advanced_Tactics
                     debug = new Debug(); debug.LoadContent();
                     Informations = new Informations(); Informations.LoadContent();
 
-                    if (true)
+                    if (false)
                     {
                         //Unit
                         //unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListOfUnit, Match.PlayerTurn);
@@ -114,14 +117,6 @@ namespace Advanced_Tactics
                         for (int i = 0; i < rrd.Next(50, 100); i++)
                             Rdunit(Data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, Data.MapWidth), rrd.Next(0, Data.MapHeight), unit, Match.PlayerTurn, Match);
                     }
-                    break;
-
-
-                case GameState.Exit:
-                    break;
-
-
-                default:
                     break;
             }
 

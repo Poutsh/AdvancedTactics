@@ -64,6 +64,65 @@ namespace Advanced_Tactics
             }
         }
 
+        public int PointUnit(string rang, string classe)
+        {
+            float point1 = 0, point2 = 0;
+            switch (rang)
+            {
+                case "AA":
+                    point1 = 4;
+                    break;
+                case "Commando":
+                    point1 = 3;
+                    break;
+                case "Doc":
+                    point1 = 2.5f;
+                    break;
+                case "Engineer":
+                    point1 = 2.5f;
+                    break;
+                case "Pvt":
+                    point1 = 1;
+                    break;
+                case "Plane":
+                    point1 = 6;
+                    break;
+                case "HQ":
+                    point1 = 1;
+                    break;
+                case "Tank":
+                    point1 = 5;
+                    break;
+                case "Truck":
+                    point1 = 3.5f;
+                    break;
+            }
+
+            switch (classe)
+            {
+                case "King":
+                    point2 = 100000;
+                    break;
+                case "Queen":
+                    point2 = 9;
+                    break;
+                case "Rook":
+                    point2 = 5;
+                    break;
+                case "Bishop":
+                    point2 = 3;
+                    break;
+                case "Knight":
+                    point2 = 3;
+                    break;
+                case "Pawn":
+                    point2 = 1;
+                    break;
+            }
+
+            return (int)(point1 * point2);
+        }
+
         public List<int> TerrainPossibleUnit(string rang)
         {
             if (new List<string>(6) { "AA", "Commando", "Doc", "Engineer", "Pvt" }.Contains(rang))

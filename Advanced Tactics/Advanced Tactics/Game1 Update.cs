@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
@@ -6,7 +7,7 @@ namespace Advanced_Tactics
 {
     public partial class Game1 : Microsoft.Xna.Framework.Game
     {
-        int once2 = 1;
+        int once2 = 0;
         protected override void Update(GameTime gameTime)
         {
             // Init entrees utilisateur
@@ -31,6 +32,29 @@ namespace Advanced_Tactics
                 case GameState.Option:
                     goto case GameState.Menu;
 
+
+                case GameState.Loading:
+                    float tempo = 5.1f;
+                    float tempo2 = 1f;
+                    message.Update(gameTime);
+
+                    if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
+                    {
+                        time = gameTime.TotalGameTime;
+                        currentGameState = GameState.GameStart;
+                    }
+                    else
+                    {
+                        if (gameTime.TotalGameTime - time2 > TimeSpan.FromSeconds(tempo2))
+                        {
+                            time2 = gameTime.TotalGameTime;
+                            if (once2 == 0) message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(Data.WindowWidth / 2 - message.font.MeasureString("Loading...").X, Data.WindowHeight / 2), Color.White));
+                            if (once2 % 2 == 0 && once2 < 3)
+                                message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(Data.WindowWidth / 2 - message.font.MeasureString("Loading...").X, Data.WindowHeight / 2), Color.White));
+                            once2++;
+                        }
+                    }
+                    break;
 
                 case GameState.Game:
                     debug.Update(Data, map, viseur, ListToDraw, Match);

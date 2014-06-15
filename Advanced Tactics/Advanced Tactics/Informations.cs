@@ -57,19 +57,25 @@ namespace Advanced_Tactics
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             spriteBatch.DrawString(this.font, string.Format("Turn"), new Vector2(17, 120), Color.Black);
             spriteBatch.DrawString(this.font, string.Format("{0}", match.PlayerTurn.PlayerName), new Vector2(17 + this.font.MeasureString("Turn  ").X, 120), match.PlayerTurn.ColorSide);
-            spriteBatch.DrawString(this.font, string.Format("Viewfinder {0},{1}", viseur.viseurX, viseur.viseurY), new Vector2(17, 160), Color.Black);
 
-            spriteBatch.DrawString(this.font, string.Format("Unit : "), new Vector2(17, 200), Color.Black);
+            spriteBatch.DrawString(this.font, string.Format("Score"), new Vector2(17, 140), Color.Black);
+            spriteBatch.DrawString(this.font, string.Format("{0}", match.PlayerTurn.Score), new Vector2(17 + this.font.MeasureString("Score  ").X, 140), match.PlayerTurn.ColorSide);
+            
+            spriteBatch.DrawString(this.font, string.Format("Viewfinder {0},{1}", viseur.viseurX, viseur.viseurY), new Vector2(17, 190), Color.Black);
+
+            spriteBatch.DrawString(this.font, string.Format("Unit : "), new Vector2(17, 230), Color.Black);
 
             if (map[viseur.viseurX, viseur.viseurY].unitOfCell != null)
             {
-                spriteBatch.DrawString(this.font, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Classe), new Vector2(17 + this.font.MeasureString("Unit :  ").X, 200), Color.Black);
+                spriteBatch.DrawString(this.font, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Classe), new Vector2(17 + this.font.MeasureString("Unit :  ").X, 230), Color.Black);
                 unit.LC(Game1.Ctt, "Unit/" + map[viseur.viseurX, viseur.viseurY].unitOfCell.Player.ColorSideN + map[viseur.viseurX, viseur.viseurY].unitOfCell.Rang);
-                unit.Draw(data, spriteBatch, new Vector2(this.font.MeasureString("Unit :  " + map[viseur.viseurX, viseur.viseurY].unitOfCell.Classe + "    ").X, 185), 1.2f);
-                spriteBatch.DrawString(this.font, string.Format("PV : "), new Vector2(17 + this.font.MeasureString("Unit :").X - this.font.MeasureString("PV :").X, 225), Color.Black);
-                spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.PV), new Vector2(17 + this.font.MeasureString("Unit :").X - this.font.MeasureString("PV :").X + this.font.MeasureString("PV :  ").X, 225), Color.Red);
-                spriteBatch.DrawString(this.font, string.Format("Strength : "), new Vector2(35, 245), Color.Black);
-                spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Strength), new Vector2(35 + this.font.MeasureString("Strength :  ").X, 245), Color.Red);
+                unit.Draw(data, spriteBatch, new Vector2(this.font.MeasureString("Unit :  " + map[viseur.viseurX, viseur.viseurY].unitOfCell.Classe + "    ").X, 215), 1.2f);
+                spriteBatch.DrawString(this.font, string.Format("PV : "), new Vector2(17 + this.font.MeasureString("Unit :").X - this.font.MeasureString("PV :").X, 255), Color.Black);
+                spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.PV), new Vector2(17 + this.font.MeasureString("Unit :").X - this.font.MeasureString("PV :").X + this.font.MeasureString("PV :  ").X, 255), Color.Red);
+                spriteBatch.DrawString(this.font, string.Format("Strength : "), new Vector2(35, 275), Color.Black);
+                spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Strength), new Vector2(35 + this.font.MeasureString("Strength :  ").X, 275), Color.Red);
+                spriteBatch.DrawString(this.font, string.Format("Value : "), new Vector2(35, 295), Color.Black);
+                spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Point), new Vector2(35 + this.font.MeasureString("Value :  ").X, 295), Color.Red);
             }
 
             string field = "";
@@ -89,8 +95,8 @@ namespace Advanced_Tactics
                     color = Color.DarkGray;
                     break;
             }
-            spriteBatch.DrawString(this.font, string.Format("Field : "), new Vector2(17, 300), Color.Black);
-            spriteBatch.DrawString(this.font, string.Format("{0}", field), new Vector2(17 + this.font.MeasureString("Field :  ").X, 300), color);
+            spriteBatch.DrawString(this.font, string.Format("Field : "), new Vector2(17, 330), Color.Black);
+            spriteBatch.DrawString(this.font, string.Format("{0}", field), new Vector2(17 + this.font.MeasureString("Field :  ").X, 330), color);
             spriteBatch.End();
         }
     }

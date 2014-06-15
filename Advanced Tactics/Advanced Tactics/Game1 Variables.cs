@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -14,11 +15,12 @@ namespace Advanced_Tactics
         public Data Data { get; set; }
         public static GraphicsDeviceManager graphics { get; set; }
         SpriteBatch spriteBatch;
+        GameTime gt;
 
         // Clavier, Souris, Camera
         Viseur viseur;
         Sprite sppointer, flou;
-
+        TimeSpan time, time2;
         // Menu
         Menu menu;
         Song musicMenu;
@@ -26,11 +28,11 @@ namespace Advanced_Tactics
         SoundEffectInstance instance;
         SoundEffect click;
 
-        public enum GameState { Menu, Option, Game, GameStart, Exit }
+        public enum GameState { Menu, Option, Game, GameStart, Exit, Loading }
         public static GameState currentGameState;
 
         // Match
-        float oneSecondTimer;
+        Message message;
 
         // Map
         TileEngine tileMap;

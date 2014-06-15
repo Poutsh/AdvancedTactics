@@ -18,6 +18,7 @@ Content\Menu\TitreOptions.xnb
 Content\Menu\TitreQuitter.xnb
 Content\Curseur\viseurB.xnb
 Content\Curseur\viseurR.xnb
+Content\Curseur\viseurJ.xnb
 Content\Map\0 eau.xnb
 Content\Map\1 terre.xnb
 Content\Map\2 montagne.xnb
@@ -52,6 +53,8 @@ Content\Unit\RPlane.xnb
 Content\Unit\RPvt.xnb
 Content\Unit\RTank.xnb
 Content\Unit\RTruck.xnb
+Content\Case\B.xnb
+Content\Case\R.xnb
 Content\Son\click1.xnb
 Content\Son\explosound.xnb
 Content\Son\teleportsound.xnb
@@ -61,9 +64,6 @@ Content\font.xnb
 Content\info.xnb
 Content\info2.xnb
 Content\message.xnb
-Content\Case\B.xnb
-Content\Case\R.xnb
-Content\Curseur\viseurJ.xnb
 Content\Son\Russian Red Army Choir.wma
 Map\map2.txt
 Content\BigFont.xnb

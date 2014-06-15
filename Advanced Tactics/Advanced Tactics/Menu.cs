@@ -277,9 +277,12 @@ namespace Advanced_Tactics
                 }
                 if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
-                    
+
                 }
-                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter)) { Game1.currentGameState = Game1.GameState.GameStart; this.Loadscreen = false; menuPrincipal = false; inGame = true; }
+                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                {
+                    Game1.currentGameState = Game1.GameState.Loading; this.Loadscreen = false; menuPrincipal = false; inGame = true;
+                }
             }
             #endregion
 
