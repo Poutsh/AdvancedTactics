@@ -64,11 +64,11 @@ namespace Advanced_Tactics
                     break;
 
 
-                case GameState.GameStart:
-                    break;
-
-
-                case GameState.Exit:
+                case GameState.Winner:
+                    GraphicsDevice.Clear(Color.Black);
+                    spriteBatch.Begin();
+                    message.Draw(spriteBatch);
+                    spriteBatch.End();
                     break;
             }
 

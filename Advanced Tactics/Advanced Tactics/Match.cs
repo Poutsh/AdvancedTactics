@@ -18,6 +18,7 @@ namespace Advanced_Tactics
 
         public bool canStart;
         public Player PlayerTurn { get { return TurnbyTurn.PlayerTurn; } }
+        public Player Winner;
 
         public int TurnNumber;
         public TurnbyTurn TurnbyTurn;
@@ -78,31 +79,18 @@ namespace Advanced_Tactics
         {
             if (canStart)
             {
-                //float tempo = 3f;
-                //if (Players[0].Score >= 100000)
-                //{
-                //    //TurnbyTurn.Message.Messages.Add(new DisplayMessage(Players[0].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1  WIN").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
-                //    //if (gameTime.TotalGameTime - time2 > TimeSpan.FromSeconds(tempo))
-                //    //{
-                //    //    time2 = gameTime.TotalGameTime;
-                //    //    Game1.currentGameState = Game1.GameState.Menu;
-                //    //}
-                //    Game1.currentGameState = Game1.GameState.Menu;
-                //}
-                //else if (Players[1].Score >= 100000)
-                //{
-                //    TurnbyTurn.Message.Messages.Add(new DisplayMessage(Players[1].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1  WIN").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
-                //    if (gameTime.TotalGameTime - time2 > TimeSpan.FromSeconds(tempo))
-                //    {
-                //        time2 = gameTime.TotalGameTime;
-                //        Game1.currentGameState = Game1.GameState.Menu;
-                //    }
-                //}
-                //else
-                //{
-                //    TurnbyTurn.UpdateTurn(spriteBatch, gameTime, this, Viseur, ListToDraw);
-                //}
-                TurnbyTurn.UpdateTurn(spriteBatch, gameTime, this, Viseur, ListToDraw);
+                if (Players[0].Score >= 100000)
+                {
+                    Winner = Players[0];
+                }
+                else if (Players[1].Score >= 100000)
+                {
+                    Winner = Players[1];
+                }
+                else
+                {
+                    TurnbyTurn.UpdateTurn(spriteBatch, gameTime, this, Viseur, ListToDraw);
+                }
             }
             else
             {

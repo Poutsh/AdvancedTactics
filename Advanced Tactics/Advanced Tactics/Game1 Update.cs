@@ -64,30 +64,24 @@ namespace Advanced_Tactics
                     }
                     break;
 
+                case GameState.Winner:
+                    message.Update(gameTime);
+                    message.Messages.Add(new DisplayMessage(Match.Winner.PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Player 1  WIN").X / 2, map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), Match.Winner.ColorSide));
+                    if (Inputs.Keyr(Keys.Enter))
+                    {
+                        UnloadContent();
+                        menu.MenuPrincipal = true;
+                        menu.Options = false;
+                        menu.InGame = false;
+                        currentGameState = GameState.Menu;
+                    }
+                    break;
+
                 case GameState.Game:
                     message.Update(gameTime);
-                    if (Match.Players[0].Score >= 100000)
+                    if (Match.Winner != null)
                     {
-                        message.Messages.Add(new DisplayMessage(Match.Players[0].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Player 1  WIN").X / 2, map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), Match.Players[0].ColorSide));
-                        
-                        if (gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(temp4))
-                        {
-                            time3 = gameTime.TotalGameTime;
-                            UnloadContent();
-                            menu.MenuPrincipal = true;
-                            menu.Options = false;
-                            menu.InGame = false;
-                            currentGameState = GameState.Menu;
-                        }
-                    }
-                    else if (Match.Players[1].Score >= 100000)
-                    {
-                        message.Messages.Add(new DisplayMessage(Match.Players[1].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Player 1  WIN").X / 2, map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), Match.Players[1].ColorSide));
-                        //if (gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(tempo4))
-                        //{
-                        //    time3 = gameTime.TotalGameTime;
-                        //    Game1.currentGameState = Game1.GameState.Menu;
-                        //}
+                        currentGameState = GameState.Winner;
                     }
                     else
                     {
@@ -115,13 +109,7 @@ namespace Advanced_Tactics
                     break;
 
 
-                case GameState.Winner:
-                    UnloadContent();
-                    currentGameState = GameState.Menu;
-                    return;
-
-
-                case GameState.Exit:
+               case GameState.Exit:
                     UnloadContent();
                     Exit();
                     base.Update(gameTime);

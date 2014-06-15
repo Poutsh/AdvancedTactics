@@ -20,7 +20,7 @@ namespace Advanced_Tactics
         // Clavier, Souris, Camera
         Viseur viseur;
         Sprite sppointer, flou;
-        public static TimeSpan time, time2, time3;
+        public static TimeSpan time, time2, time3, time5, time6;
         // Menu
         Menu menu;
         Song musicMenu;
@@ -33,6 +33,7 @@ namespace Advanced_Tactics
 
         // Match
         Message message;
+
 
         // Map
         TileEngine tileMap;

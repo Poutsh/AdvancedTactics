@@ -176,6 +176,7 @@ namespace Advanced_Tactics
                         depSelec = true;
                         depPos = new Vector(coordViseur.X, coordViseur.Y);
                         UnitTemp = Match.PlayerTurn.HQ;
+                        Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
                         currentViseurState = ViseurState.Build;
                     }
                     else if (map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
@@ -229,7 +230,6 @@ namespace Advanced_Tactics
                         destPos = new Vector(coordViseur.X, coordViseur.Y);
                         map[viseurX, viseurY].unitOfCell = new Unit(data, "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
                         Match.TurnbyTurn.MvtCount++;
-                        Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
                         Reset();
                     }
                 }
