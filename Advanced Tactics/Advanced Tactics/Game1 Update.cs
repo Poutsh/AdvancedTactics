@@ -56,9 +56,9 @@ namespace Advanced_Tactics
                         if (gameTime.TotalGameTime - time2 > TimeSpan.FromSeconds(tempo2))
                         {
                             time2 = gameTime.TotalGameTime;
-                            if (once2 == 0) message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(Data.WindowWidth / 2 - message.font.MeasureString("Loading...").X, Data.WindowHeight / 2), Color.White));
+                            if (once2 == 0) message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Loading...").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Loading...").Y / 2), Color.White));
                             if (once2 % 2 == 0 && once2 < 3)
-                                message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(Data.WindowWidth / 2 - message.font.MeasureString("Loading...").X, Data.WindowHeight / 2), Color.White));
+                                message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(Data.WindowWidth / 2 - message.font.MeasureString("Loading...").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Loading...").Y / 2), Color.White));
                             once2++;
                         }
                     }
@@ -66,7 +66,8 @@ namespace Advanced_Tactics
 
                 case GameState.Winner:
                     message.Update(gameTime);
-                    message.Messages.Add(new DisplayMessage(Match.Winner.PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Player 1  WIN").X / 2, map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), Match.Winner.ColorSide));
+                    message.Messages.Add(new DisplayMessage(Match.Winner.PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Player 1  WIN").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Player 1  WIN").Y / 2), Match.Winner.ColorSide));
+                    message.Messages.Add(new DisplayMessage("enter key for retry", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("enter key for retry").X / 2, gd.Viewport.Height / 2 + message.font.MeasureString("Player 1  WIN").Y + 10 - message.font.MeasureString("enter key for retry").Y / 2), Match.Winner.ColorSide));
                     if (Inputs.Keyr(Keys.Enter))
                     {
                         UnloadContent();
@@ -96,7 +97,7 @@ namespace Advanced_Tactics
 
                         instance.Volume = 0.4f;
 
-                        if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;                        
+                        if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;
                     }
                     break;
 
@@ -109,7 +110,7 @@ namespace Advanced_Tactics
                     break;
 
 
-               case GameState.Exit:
+                case GameState.Exit:
                     UnloadContent();
                     Exit();
                     base.Update(gameTime);
