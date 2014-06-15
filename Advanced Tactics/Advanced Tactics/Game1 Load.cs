@@ -93,8 +93,8 @@ namespace Advanced_Tactics
                     sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
                     viseur = new Viseur(Data, map.Carte, Match);
 
-                    debug = new Debug(Data, map, viseur, ListToDraw, Match); debug.LoadContent();
-                    Informations = new Informations(Data, map, viseur); Informations.LoadContent();
+                    debug = new Debug(); debug.LoadContent();
+                    Informations = new Informations(); Informations.LoadContent();
 
                     if (true)
                     {

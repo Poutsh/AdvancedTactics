@@ -26,8 +26,7 @@ namespace Advanced_Tactics
 
 
                 case GameState.Game:
-                    Informations.Draw(spriteBatch, gameTime);
-
+                    Informations.Draw(spriteBatch, gameTime, Match, viseur);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     tileMap.Draw(spriteBatch);
 
@@ -45,9 +44,9 @@ namespace Advanced_Tactics
                     spriteBatch.End();
 
                     spriteBatch.Begin();
-                    debug.Draw(spriteBatch);
+                    //debug.Draw(spriteBatch);
                     viseur.Draw(spriteBatch, gameTime);
-                    spriteBatch.End();
+                    spriteBatch.End();                    
 
                     spriteBatch.Begin();
                     Match.Draw(gameTime, spriteBatch);
@@ -64,9 +63,7 @@ namespace Advanced_Tactics
             }
 
             spriteBatch.Begin();
-            //debug.Draw(spriteBatch);
             sppointer.Draw(Data, spriteBatch, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-
             spriteBatch.End();
 
             //if (menu.InGame) // IN GAME

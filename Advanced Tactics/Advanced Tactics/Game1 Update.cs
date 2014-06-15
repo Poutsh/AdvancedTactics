@@ -33,12 +33,15 @@ namespace Advanced_Tactics
 
 
                 case GameState.Game:
-                    debug.Update(gameTime);
+                    debug.Update(Data, map, viseur, ListToDraw, Match);
                     MediaPlayer.Stop();
 
                     Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
 
                     viseur.Update(gameTime, ListToDraw, spriteBatch);
+
+                    Informations.Update(Data, map.Carte);
+
                     instance.Volume = 0.4f;
 
                     if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;
@@ -47,7 +50,7 @@ namespace Advanced_Tactics
 
                 case GameState.GameStart:
                     LoadContent();
-                    debug.Update(gameTime);
+                    debug.Update(Data, map, viseur, ListToDraw, Match);
                     Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
                     currentGameState = GameState.Game;
                     break;

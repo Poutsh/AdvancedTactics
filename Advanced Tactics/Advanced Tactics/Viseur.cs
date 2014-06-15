@@ -82,6 +82,8 @@ namespace Advanced_Tactics
             spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/rouge");
             spCasebleu = new Sprite(); spCasebleu.LC(Game1.Ctt, "Case/bleu");
             currentViseurState = ViseurState.Normal;
+            coord.X = data.MapWidth / 2;
+            coord.Y = data.MapHeight / 2;
         }
 
         #endregion
@@ -116,89 +118,6 @@ namespace Advanced_Tactics
             }
         }
 
-        private void getMovingPath(List<Unit> ListOfUnit, GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            //curmouse = Mouse.GetState();
-
-
-
-            ///// Ctrlz
-            //if (Inputs.Keyr(Keys.LeftControl) && Inputs.Keyr(Keys.Z) && CtrlZ[1] != Vector.Zero)
-            //    doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
-
-            ///// Touche Reset
-            //if (depSelec && !destSelec && (Inputs.Keyr(Keys.Back) || (curmouse.MiddleButton == ButtonState.Pressed && curmouse != oldmouse))) { Reset(); }
-
-
-            ///// Touche Attack
-            //if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (Inputs.Keyr(Keys.Enter) || Inputs.Keyr(Keys.C)))
-            //{
-            //    if (Inputs.Keyr(Keys.C))
-            //        map[viseurX, viseurY].unitOfCell.PV -= 10000;
-            //    else
-            //        map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
-
-
-            //    if (map[viseurX, viseurY].unitOfCell.PV <= 0)
-            //    {
-            //        map[viseurX, viseurY].unitOfCell = new Unit(data, map[viseurX, viseurY].unitOfCell, map, ListOfUnit);
-            //        doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[viseurX, viseurY], ListOfUnit);
-            //        Explosion();
-            //    }
-            //    Reset();
-            //    Match.TurnbyTurn.MvtCount++;
-            //}
-
-            ///// Build
-            //if (build && depSelec && !ViseurOverPos(depPos) && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
-            //{
-            //    destSelec = true;
-            //    destPos = new Vector(coordViseur.X, coordViseur.Y);
-            //    map[viseurX, viseurY].unitOfCell = new Unit(data, "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
-            //    Match.TurnbyTurn.MvtCount++;
-            //    build = false;
-            //    Reset();
-            //}
-            //else if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !build && !depSelec && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
-            //{
-            //    depSelec = true;
-            //    build = true;
-            //    depPos = new Vector(coordViseur.X, coordViseur.Y);
-            //    UnitTemp = Match.PlayerTurn.HQ;
-            //}
-
-
-            ///// Deplacement
-            //if (!build && depSelec && !ViseurOverPos(depPos) && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
-            //{
-            //    if (UnitTemp != null && !ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
-            //    {
-            //        destSelec = true;
-            //        destPos = new Vector(coordViseur.X, coordViseur.Y);
-            //        doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
-            //    }
-            //}
-            //else if (!build && map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
-            //{
-            //    depSelec = true;
-            //    depPos = new Vector(coordViseur.X, coordViseur.Y);
-            //    UnitTemp = map[viseurX, viseurY].unitOfCell;
-            //}
-            oldmouse = curmouse;
-
-        }
-
-        //private void ViseurColor()
-        //{
-        //    if (UnitTemp != null && depSelec && (!Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]) || !Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y))))
-        //        spviseur = Viseurrouge;
-        //    else if ((map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn != map[viseurX, viseurY].unitOfCell.Player) || (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec))
-        //        spviseur = Viseurnormal;
-        //    else if ((!depSelec && map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn == map[viseurX, viseurY].unitOfCell.Player) || (depSelec && (Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) || (map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn != map[viseurX, viseurY].unitOfCell.Player && Contains<Vector>(UnitTemp.AttackPossible, new Vector(coordViseur.X, coordViseur.Y))))))
-        //        spviseur = Viseurbleu;
-        //    //else if (map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn == map[viseurX, viseurY].unitOfCell.Player && (depSelec || (map[viseurX, viseurY].Occupe && !depSelec)))
-        //}
-
         private void BlinkSprite(GameTime gameTime, bool blinkviseur, SpriteBatch spriteBatch)
         {
             switch (currentViseurState)
@@ -220,21 +139,6 @@ namespace Advanced_Tactics
                     foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.AttackPossible) spCaserouge.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
                     break;
             }
-
-            //if (depSelec && !destSelec && build)
-            //{
-            //    foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HQPossible) spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-            //}
-            //else if (depSelec && !destSelec && !build)
-            //{
-            //    foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible) spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-            //    foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.AttackPossible) spCaserouge.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-            //    if (map[viseurX, viseurY].Vector2OfCell == depPos)
-            //        Viseurjaune.Position = map[viseurX, viseurY].positionPixel;
-            //    blinkviseur = depSelec;
-            //}
-
-            //Viseurjaune.Draw(data, spriteBatch, Viseurjaune.Position, blinkviseur);
         }
 
         private void Explosion()
@@ -251,7 +155,6 @@ namespace Advanced_Tactics
 
         public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
-            float tempo;
             if (Match.canStart)
             {
 
@@ -365,7 +268,7 @@ namespace Advanced_Tactics
             //ViseurColor();
 
             #region Gestion des mouvements du viseurs
-
+            float tempo;
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) || Keyboard.GetState().IsKeyDown(Keys.RightShift)) tempo = 0.07f; else tempo = 0.12f;
 
             if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
@@ -418,14 +321,6 @@ namespace Advanced_Tactics
         {
             BlinkSprite(gameTime, blinkviseur, spriteBatch);
             spviseur.Draw(data, spriteBatch, map[viseurX, viseurY].positionPixel);
-            if (UnitTemp != null)
-            {
-                //for (int i = 0; i < UnitTemp.MvtPossible.Count(); i++)
-                //{
-                //    spCasebleu.Draw(data, spriteBatch, gameTime, new Vector2(UnitTemp.MvtPossible[i].X, UnitTemp.MvtPossible[i].Y));
-                //}
-            }
-
         }
 
         #endregion

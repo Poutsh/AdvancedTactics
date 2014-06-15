@@ -33,15 +33,9 @@ namespace Advanced_Tactics
         private int h, w;
         List<string> deg = new List<string>();
 
-        public Debug(Data data, Map map, Viseur viseur, List<Unit> ListOfUnit, Match Match)
+        public Debug()
         {
-            this.data = data;
-            this.Match = Match;
-            cartemap = map;
             ctt = Game1.Ctt;
-            _viseur = viseur;
-            _ListOfUnit = ListOfUnit;
-
             _r = new Sprite();
             _b = new Sprite();
         }
@@ -53,8 +47,13 @@ namespace Advanced_Tactics
             _b.LC(ctt, "Case/bleu");
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(Data data, Map map, Viseur viseur, List<Unit> ListOfUnit, Match Match)
         {
+            this.data = data;
+            this.Match = Match;
+            cartemap = map;
+            _viseur = viseur;
+            _ListOfUnit = ListOfUnit;
             mouseStateCurrent = Mouse.GetState();
         }
 
