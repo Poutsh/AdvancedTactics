@@ -82,16 +82,7 @@ namespace Advanced_Tactics
         private List<Vector> AttackPossible;
         private List<Vector> HQPossible;
 
-        /// <summary>
-        /// Ajoute une position aux mvts possible en verifiant que les coordonnees sont possibles
-        /// </summary>
-        /// <param name="X">X >= 0 && X <= WidthMap</param>
-        /// <param name="Y">Y >= 0 && Y <= HeightMap</param>
-        void AddMvt(int X, int Y)
-        {
-            if ((X >= 0 && X <= Data.MapWidth) && (Y >= 0 && Y <= Data.MapHeight))
-                MvtPossible.Add(new Vector(X, Y));
-        }
+        
         void AddMvtHQ(int X, int Y)
         {
             if ((X >= 0 && X <= Data.MapWidth) && (Y >= 0 && Y <= Data.MapHeight))
@@ -216,7 +207,7 @@ namespace Advanced_Tactics
                         }
                         else MvtPossible.Add(new Vector(x, unit.YofUnit));
                     }
-                    for (int x = unit.XofUnit - 1; x > 0; x--)
+                    for (int x = unit.XofUnit - 1; x >= 0; x--)
                     {
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
                         else if (map[x, unit.YofUnit].unitOfCell != null)
@@ -260,7 +251,7 @@ namespace Advanced_Tactics
                         }
                         else MvtPossible.Add(new Vector(x, unit.YofUnit));
                     }
-                    for (int x = unit.XofUnit - 1; x > 0; x--)
+                    for (int x = unit.XofUnit - 1; x >= 0; x--)
                     {
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
                         else if (map[x, unit.YofUnit].unitOfCell != null)
