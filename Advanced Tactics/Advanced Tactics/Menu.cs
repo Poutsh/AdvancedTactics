@@ -43,6 +43,7 @@ namespace Advanced_Tactics
         TimeSpan time;
 
         public bool changeres;
+        public bool changeres2;
 
         bool loadscreen = true;
         public bool Loadscreen { get { return loadscreen; } set { loadscreen = value; } }
@@ -184,7 +185,7 @@ namespace Advanced_Tactics
                         if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             fullscreen = true;
-                            changeres = true;
+                            changeres2 = true;
                         }
                     }
                     if (position4 == 2)
@@ -193,7 +194,7 @@ namespace Advanced_Tactics
                         if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             fullscreen = false;
-                            changeres = true;
+                            changeres2 = true;
 
                         }
                     }
@@ -290,9 +291,11 @@ namespace Advanced_Tactics
                 {
 
                 }
-                if (position == 1 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                if (position == 1 && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
-                    Game1.currentGameState = Game1.GameState.Loading; this.Loadscreen = false; menuPrincipal = false; inGame = true;
+                    this.Loadscreen = false; menuPrincipal = false; inGame = true;
+                    Game1.time = gameTime.TotalGameTime;
+                    Game1.currentGameState = Game1.GameState.Loading;
                 }
             }
             #endregion

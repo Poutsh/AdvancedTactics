@@ -20,7 +20,7 @@ namespace Advanced_Tactics
         // Clavier, Souris, Camera
         Viseur viseur;
         Sprite sppointer, flou;
-        TimeSpan time, time2;
+        public static TimeSpan time, time2;
         // Menu
         Menu menu;
         Song musicMenu;

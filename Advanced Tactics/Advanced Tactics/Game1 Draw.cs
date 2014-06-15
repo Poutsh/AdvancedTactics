@@ -19,7 +19,8 @@ namespace Advanced_Tactics
 
 
                 case GameState.Option:
-                    goto case GameState.Menu;
+                    menu.Draw(spriteBatch, gameTime);
+                    break;
 
 
                 case GameState.Loading:
@@ -49,7 +50,7 @@ namespace Advanced_Tactics
                     spriteBatch.End();
 
                     spriteBatch.Begin();
-                    //debug.Draw(spriteBatch);
+                    debug.Draw(spriteBatch);
                     viseur.Draw(spriteBatch, gameTime);
                     spriteBatch.End();                    
 

@@ -20,24 +20,22 @@ namespace Advanced_Tactics
                 case GameState.Menu:
                     menu.Update(gameTime);
                     if (Inputs.Clickg()) click.Play();
-                    //if (!menu.InGame && !menu.MenuPrincipal && menu.Options)
-                    //{
-                    //    graphics.PreferredBackBufferWidth = (int)Data.WindowWidth;
-                    //    graphics.PreferredBackBufferHeight = (int)Data.WindowHeight;
-                    //    graphics.IsFullScreen = menu.Fullscreen;
-                    //    Game1.graphics.ApplyChanges();
-                    //}
                     break;
 
                 case GameState.Option:
                     menu.Update(gameTime);
-                    if (menu.changeres == true)
+                    if (menu.changeres == true && BufferWidth != (int)Data.WindowWidth)
                     {
                         BufferWidth = (int)Data.WindowWidth;
                         BufferHeight = (int)Data.WindowHeight;
-                        graphics.IsFullScreen = menu.Fullscreen;
                         Game1.graphics.ApplyChanges();
                         menu.changeres = false;
+                    }
+                    if (menu.changeres2 == true && graphics.IsFullScreen != menu.Fullscreen)
+                    {
+                        graphics.IsFullScreen = menu.Fullscreen;
+                        Game1.graphics.ApplyChanges();
+                        menu.changeres2 = false;
                     }
                     break;
 
