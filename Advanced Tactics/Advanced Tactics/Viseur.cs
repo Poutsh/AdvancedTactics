@@ -151,7 +151,7 @@ namespace Advanced_Tactics
             {
                 destSelec = true;
                 destPos = new Vector(coordViseur.X, coordViseur.Y);
-                map[viseurX, viseurY].unitOfCell = new Unit(data, Match.PlayerTurn.ColorSideN + "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
+                map[viseurX, viseurY].unitOfCell = new Unit(data, "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
                 Match.TurnbyTurn.MvtCount++;
                 build = false;
                 Reset();
@@ -186,31 +186,25 @@ namespace Advanced_Tactics
 
         private void ViseurColor()
         {
-            if (build)
-                spviseur = Viseurbleu;
-            else if (UnitTemp != null && depSelec && (!Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]) || !Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y))))
+            if (UnitTemp != null && depSelec && (!Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]) || !Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y))))
                 spviseur = Viseurrouge;
-            else if (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec)
+            else if ((map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn != map[viseurX, viseurY].unitOfCell.Player) || (!map[viseurX, viseurY].Occupe && !depSelec && !destSelec))
                 spviseur = Viseurnormal;
-            else if (depSelec || (map[viseurX, viseurY].Occupe && !depSelec))
+            else if ((!depSelec && map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn == map[viseurX, viseurY].unitOfCell.Player) || (depSelec && (Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) || (map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn != map[viseurX, viseurY].unitOfCell.Player && Contains<Vector>(UnitTemp.AttackPossible, new Vector(coordViseur.X, coordViseur.Y))))))
                 spviseur = Viseurbleu;
+            //else if (map[viseurX, viseurY].unitOfCell != null && Match.PlayerTurn == map[viseurX, viseurY].unitOfCell.Player && (depSelec || (map[viseurX, viseurY].Occupe && !depSelec)))
         }
 
         private void BlinkSprite(GameTime gameTime, bool blinkviseur, SpriteBatch spriteBatch)
         {
             if (depSelec && !destSelec && build)
             {
-                foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HQPossible)
-                {
-                    spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-                }
+                foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HQPossible) spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
             }
             else if (depSelec && !destSelec && !build)
             {
-                foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible)
-                {
-                    spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-                }
+                foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible) spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
+                foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.AttackPossible) spCaserouge.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
                 if (map[viseurX, viseurY].Vector2OfCell == depPos)
                     sblinkviseur.Position = map[viseurX, viseurY].positionPixel;
                 blinkviseur = depSelec;

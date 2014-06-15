@@ -123,6 +123,7 @@
     <Compile Include="MapEngine\Cell.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="MapEngine\TileEngine.cs" />
+    <Compile Include="Match.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="ParticleEngine\Particle.cs" />
@@ -138,6 +139,7 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Stats.cs" />
+    <Compile Include="TurnByTurn.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="Viseur.cs" />
