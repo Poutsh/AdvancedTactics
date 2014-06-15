@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MapGenerator;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -28,13 +29,13 @@ namespace Advanced_Tactics
         SoundEffectInstance instance;
         SoundEffect click;
 
-        public enum GameState { Menu, Option, Game, GameStart, Exit, Loading, Winner }
+        public enum GameState { Menu, Option, Game, GameStart, Exit, Loading, Winner, MapGen, ExitConfirm }
         public static GameState currentGameState;
 
         // Match
         Message message;
 
-
+        MapGen Mapgen;
         // Map
         TileEngine tileMap;
         Map map;

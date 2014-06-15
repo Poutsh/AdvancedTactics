@@ -147,7 +147,7 @@
   <ItemGroup>
     <Content Include="iconeAT.ico" />
     <Content Include="Map\map2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\teleportsound.wav" />
     <None Include="Resources\Russian Red Army Choir.mp3" />

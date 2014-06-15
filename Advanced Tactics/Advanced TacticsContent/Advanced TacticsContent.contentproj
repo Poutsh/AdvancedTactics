@@ -251,6 +251,11 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+    <Compile Include="message2.spritefont">
+      <Name>message2</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="TechnoHideo.ttf">
       <Name>TechnoHideo</Name>
     </None>

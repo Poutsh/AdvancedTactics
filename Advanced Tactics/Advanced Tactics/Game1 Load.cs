@@ -59,7 +59,6 @@ namespace Advanced_Tactics
             gd = this.GraphicsDevice;
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
             switch (currentGameState)
             {
                 case GameState.Menu:
@@ -79,8 +78,10 @@ namespace Advanced_Tactics
                     sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
                     break;
 
+
                 case GameState.Loading:
                     float tempo = 5f;
+                    Data = new Data("map2", BufferWidth, BufferHeight);
                     if (gt.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
                     {
                         time = gt.TotalGameTime;
@@ -125,31 +126,6 @@ namespace Advanced_Tactics
                     }
                     break;
             }
-
-            //// Menu
-            //menu = new Menu(currentGameState, Data, false, Content.Load<Texture2D>("Menu/TitreJouer"), Content.Load<Texture2D>("Menu/TitreOptions"), Content.Load<Texture2D>("Menu/TitreMapEditor"), Content.Load<Texture2D>("Menu/TitreQuitter"), Content.Load<Texture2D>("Menu/OptionsReso"), Content.Load<Texture2D>("Menu/OptionsScreen"), Content.Load<Texture2D>("Menu/OptionsVolM"), Content.Load<Texture2D>("Menu/OptionsVolB"), Content.Load<Texture2D>("Menu/OptionsRetour"), Content.Load<Texture2D>("Menu/OptionsReso2"), Content.Load<Texture2D>("Menu/OptionsReso3"), Content.Load<Texture2D>("Menu/OptionsScreen2"), Content.Load<Texture2D>("Menu/OptionsVolumeB2"), Content.Load<Texture2D>("Menu/OptionsVolumeB3"), Content.Load<Texture2D>("Menu/OptionsVolumeM2"), Content.Load<Texture2D>("Menu/OptionsVolumeM3"));
-            //click = Content.Load<SoundEffect>("Son/click1");
-            //musicMenu = Content.Load<Song>("Son/Russian Red Army Choir");
-            //MediaPlayer.Play(musicMenu);
-
-            ////Game
-            //inGameMusic = Content.Load<SoundEffect>("Son/ingamemusic");
-            //instance = inGameMusic.CreateInstance();
-            //instance.IsLooped = true;
-            //instance.Play();
-
-            //// Map
-
-            //tileMap = new TileEngine(Data.fileMap, Data, map);
-            //flou = new Sprite(); flou.LC(Game1.Ctt, "Menu/flou");
-
-
-            //// Clavier, Souris
-            //viseur = new Viseur(Data, map.Carte);
-            //sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
-
-            //debug = new Debug(Data, map, viseur, ListToDraw, Match); debug.LoadContent();
-            //Informations = new Informations(Data, map, viseur, ListToDraw); Informations.LoadContent();
         }
 
         protected override void UnloadContent()

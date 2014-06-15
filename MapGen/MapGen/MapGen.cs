@@ -99,8 +99,11 @@ namespace MapGenerator
             {
                 bool saveWithHeight = _currentKeyboard.IsKeyDown(Keys.LeftShift) || _currentKeyboard.IsKeyDown(Keys.RightShift);
                 string newSavePath = GetSavePath();
-                
                 MapGenerator.SaveMapWithHeight(_map, newSavePath, (byte)_oceanHeight);
+                UnloadContent();
+                Exit();
+                base.Update(gameTime);
+                return;
             }
 
 

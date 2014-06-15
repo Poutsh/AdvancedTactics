@@ -20,6 +20,11 @@ namespace Advanced_Tactics
             {
                 case GameState.Menu:
                     menu.Update(gameTime);
+                    if (menu.mapgen)
+                    {
+                        System.Diagnostics.Process.Start("MapGenerator.exe", System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+                        menu.mapgen = false;
+                    }
                     if (Inputs.Clickg()) click.Play();
                     break;
 
@@ -97,7 +102,10 @@ namespace Advanced_Tactics
 
                         instance.Volume = 0.4f;
 
-                        if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;
+                        if (Inputs.Keyr(Keys.Escape))
+                        {
+                            currentGameState = GameState.ExitConfirm;
+                        }
                     }
                     break;
 
@@ -107,6 +115,27 @@ namespace Advanced_Tactics
                     debug.Update(Data, map, viseur, ListToDraw, Match);
                     Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
                     currentGameState = GameState.Game;
+                    break;
+
+
+                case GameState.ExitConfirm:
+                    message.Update(gameTime);
+                    message.Messages.Add(new DisplayMessage("Do you want exit ?", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Do you want exit ?").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Do you want exit ?").Y / 2), Color.Red));
+                    message.Messages.Add(new DisplayMessage("Enter to confirm", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Enter to confirm").X / 2, gd.Viewport.Height / 2 + message.font.MeasureString("Do you want exit ?").Y + 10 - message.font.MeasureString("Enter to confirm").Y / 2), Color.White));
+                    message.Messages.Add(new DisplayMessage("Backspace to return", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Backspace to return").X / 2, gd.Viewport.Height / 2 + message.font.MeasureString("Do you want exit ?").Y + 10 - message.font.MeasureString("Enter to confirm").Y / 2 + message.font.MeasureString("Backspace to return").Y), Color.White));
+
+                    if (Inputs.Keyr(Keys.Enter) || Inputs.Keyr(Keys.Escape))
+                    {
+                        UnloadContent();
+                        menu.MenuPrincipal = true;
+                        menu.Options = false;
+                        menu.InGame = false;
+                        currentGameState = GameState.Menu;
+                    }
+                    if(Inputs.Keyr(Keys.Back))
+                    {
+                        currentGameState = GameState.Game;
+                    }
                     break;
 
 

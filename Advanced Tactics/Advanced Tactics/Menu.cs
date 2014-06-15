@@ -259,12 +259,12 @@ namespace Advanced_Tactics
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Up))
                 {
                     position = position + 1;
-                    Console.WriteLine(position);
+                    //Console.WriteLine(position);
                 }
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Down))
                 {
                     position = position - 1;
-                    Console.WriteLine(position);
+                    //Console.WriteLine(position);
                 }
                 if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape))
                 {
@@ -274,8 +274,12 @@ namespace Advanced_Tactics
 
                 if (position < 1) { position = 4; }
                 if (position > 4) { position = 1; }
-                if (position == 4 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter) || currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape)) { isExit = true; }
+                if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter) || currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape)) { isExit = true; Game1.currentGameState = Game1.GameState.Exit; }
 
+                if (position == 4 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
+                {
+                    mapssss = true;
+                }
 
                 if (position == 3 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
@@ -287,10 +291,7 @@ namespace Advanced_Tactics
                     options = true;
                     Game1.currentGameState = Game1.GameState.Option;
                 }
-                if (position == 2 && currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Enter))
-                {
-
-                }
+                
                 if (position == 1 && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
                     this.Loadscreen = false; menuPrincipal = false; inGame = true;

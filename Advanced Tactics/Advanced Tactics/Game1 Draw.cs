@@ -70,6 +70,13 @@ namespace Advanced_Tactics
                     message.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
+
+                case GameState.ExitConfirm:
+                    GraphicsDevice.Clear(Color.Black);
+                    spriteBatch.Begin();
+                    message.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
             }
 
             spriteBatch.Begin();
