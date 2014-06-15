@@ -72,4 +72,50 @@ namespace Advanced_Tactics
             }
         }
     }
+
+    public class Message2
+    {
+        public List<DisplayMessage> Messages;
+        public SpriteFont font;
+
+        public Message2()
+        {
+            Messages = new List<DisplayMessage>();
+            font = Game1.Ctt.Load<SpriteFont>("message2");
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (Messages.Count > 0)
+            {
+                for (int i = 0; i < Messages.Count; i++)
+                {
+                    DisplayMessage dm = Messages[i];
+                    dm.DisplayTime -= gameTime.ElapsedGameTime;
+                    if (dm.DisplayTime <= TimeSpan.Zero)
+                        Messages.RemoveAt(i);
+                    else
+                        Messages[i] = dm;
+                }
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (Messages.Count > 0)
+            {
+                for (int i = 0; i < Messages.Count; i++)
+                {
+                    DisplayMessage dm = Messages[i];
+                    dm.DrawMessage += dm.Message[dm.CurrentIndex].ToString();
+                    spriteBatch.DrawString(font, dm.DrawMessage, dm.Position, dm.DrawColor);
+                    if (dm.CurrentIndex != dm.Message.Length - 1)
+                    {
+                        dm.CurrentIndex++;
+                        Messages[i] = dm;
+                    }
+                }
+            }
+        }
+    }
 }

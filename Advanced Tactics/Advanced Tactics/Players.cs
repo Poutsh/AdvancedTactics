@@ -21,10 +21,12 @@ namespace Advanced_Tactics
         public string ColorSideN { get; set; }
         public string PlayerName { get { return "Player " + playernumber; } set { value = PlayerName; } }
         public int playernumber;
+        public int Money;
 
         public Player(Data data)
         {
             Data = data;
+            Money = 100;
             Score = 0;
             UnitOfPlayer = new List<Unit>();
             StartZone = new List<Vector>();
