@@ -11,7 +11,7 @@ namespace Advanced_Tactics
         protected override void Update(GameTime gameTime)
         {
             // Init entrees utilisateur
-            //Inputs.Update();
+            Inputs.Update();
             sppointer.Update(gameTime);
             //menu.InGame = true;
 
@@ -19,7 +19,6 @@ namespace Advanced_Tactics
             switch (currentGameState)
             {
                 case GameState.Menu:
-                    Inputs.Update();
                     menu.Update(gameTime);
                     if (Inputs.Clickg()) click.Play();
                     break;
@@ -103,14 +102,12 @@ namespace Advanced_Tactics
 
                         instance.Volume = 0.4f;
 
-                        if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;
-                        Inputs.Update();
+                        if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;                        
                     }
                     break;
 
 
                 case GameState.GameStart:
-                    Inputs.Update();
                     LoadContent();
                     debug.Update(Data, map, viseur, ListToDraw, Match);
                     Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
