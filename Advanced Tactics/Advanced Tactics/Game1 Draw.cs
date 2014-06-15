@@ -32,7 +32,7 @@ namespace Advanced_Tactics
 
 
                 case GameState.Game:
-                    //Informations.Draw(spriteBatch, gameTime, Match, viseur);
+                    Informations.Draw(spriteBatch, gameTime, Match, viseur);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     tileMap.Draw(spriteBatch);
 
@@ -50,7 +50,7 @@ namespace Advanced_Tactics
                     spriteBatch.End();
 
                     spriteBatch.Begin();
-                    debug.Draw(spriteBatch);
+                    //debug.Draw(spriteBatch);
                     viseur.Draw(spriteBatch, gameTime);
                     spriteBatch.End();                    
 
