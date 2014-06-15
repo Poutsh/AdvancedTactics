@@ -38,6 +38,7 @@ namespace Advanced_Tactics
 
         // Unit
         Match Match;
+        Unit unit;
 
         List<Unit> ListToDraw;
 

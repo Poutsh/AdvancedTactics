@@ -79,6 +79,8 @@ namespace Advanced_Tactics
 
 
         private List<Vector> MvtPossible;
+        private List<Vector> AttackPossible;
+        private List<Vector> HQPossible;
 
         /// <summary>
         /// Ajoute une position aux mvts possible en verifiant que les coordonnees sont possibles
@@ -90,102 +92,359 @@ namespace Advanced_Tactics
             if ((X >= 0 && X <= Data.MapWidth) && (Y >= 0 && Y <= Data.MapHeight))
                 MvtPossible.Add(new Vector(X, Y));
         }
+        void AddMvtHQ(int X, int Y)
+        {
+            if ((X >= 0 && X <= Data.MapWidth) && (Y >= 0 && Y <= Data.MapHeight))
+                HQPossible.Add(new Vector(X, Y));
+        }
 
-        public List<Vector> MvtPossUnit(string classe, Vector position, Cell[,] map, Data data)
+        public List<Vector> HQPoss(Unit unit, Cell[,] map, Data data)
+        {
+            HQPossible = new List<Vector>() { };
+
+            AddMvtHQ(unit.XofUnit + 1, unit.YofUnit);
+            AddMvtHQ(unit.XofUnit, unit.YofUnit + 1);
+            AddMvtHQ(unit.XofUnit - 1, unit.YofUnit);
+            AddMvtHQ(unit.XofUnit, unit.YofUnit - 1);
+            AddMvtHQ(unit.XofUnit + 1, unit.YofUnit + 1);
+            AddMvtHQ(unit.XofUnit + 1, unit.YofUnit - 1);
+            AddMvtHQ(unit.XofUnit - 1, unit.YofUnit - 1);
+            AddMvtHQ(unit.XofUnit - 1, unit.YofUnit + 1);
+            AddMvtHQ(unit.XofUnit + 2, unit.YofUnit);
+            AddMvtHQ(unit.XofUnit, unit.YofUnit + 2);
+            AddMvtHQ(unit.XofUnit - 2, unit.YofUnit);
+            AddMvtHQ(unit.XofUnit, unit.YofUnit - 2);
+            AddMvtHQ(unit.XofUnit + 2, unit.YofUnit + 2);
+            AddMvtHQ(unit.XofUnit + 2, unit.YofUnit - 2);
+            AddMvtHQ(unit.XofUnit - 2, unit.YofUnit - 2);
+            AddMvtHQ(unit.XofUnit - 2, unit.YofUnit + 2);
+
+            return HQPossible;
+        }
+
+        public Tuple<List<Vector>, List<Vector>> Possible(Unit unit, Cell[,] map, Data data, Match match)
         {
             MvtPossible = new List<Vector>() { };
-            switch (classe)
+            AttackPossible = new List<Vector>() { };
+            switch (unit.Classe)
             {
-                case "HQPossible":
-                    AddMvt(position.X + 1, position.Y);
-                    AddMvt(position.X, position.Y + 1);
-                    AddMvt(position.X - 1, position.Y);
-                    AddMvt(position.X, position.Y - 1);
-                    AddMvt(position.X + 1, position.Y + 1);
-                    AddMvt(position.X + 1, position.Y - 1);
-                    AddMvt(position.X - 1, position.Y - 1);
-                    AddMvt(position.X - 1, position.Y + 1);
-
-                    AddMvt(position.X + 2, position.Y);
-                    AddMvt(position.X, position.Y + 2);
-                    AddMvt(position.X - 2, position.Y);
-                    AddMvt(position.X, position.Y - 2);
-                    AddMvt(position.X + 2, position.Y + 2);
-                    AddMvt(position.X + 2, position.Y - 2);
-                    AddMvt(position.X - 2, position.Y - 2);
-                    AddMvt(position.X - 2, position.Y + 2);
-                    break;
-
                 case "King":
-                    AddMvt(position.X + 1, position.Y);
-                    AddMvt(position.X, position.Y + 1);
-                    AddMvt(position.X - 1, position.Y);
-                    AddMvt(position.X, position.Y - 1);
-                    AddMvt(position.X + 1, position.Y + 1);
-                    AddMvt(position.X + 1, position.Y - 1);
-                    AddMvt(position.X - 1, position.Y - 1);
-                    AddMvt(position.X - 1, position.Y + 1);
+                    for (int x = unit.XofUnit - 1; x <= unit.XofUnit + 1; x++)
+                    {
+                        if (x >= 0 && x < data.MapWidth && unit.YofUnit - 1 >= 0)
+                        {
+                            if (map[x, unit.YofUnit - 1].unitOfCell != null)
+                            {
+                                if (map[x, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit - 1));
+                            }
+                            else MvtPossible.Add(new Vector(x, unit.YofUnit - 1));
+                        }
+                    }
+                    for (int x = unit.XofUnit - 1; x <= unit.XofUnit + 1; x++)
+                    {
+                        if (x >= 0 && x < data.MapWidth && unit.YofUnit + 1 < data.MapHeight)
+                        {
+                            if (map[x, unit.YofUnit + 1].unitOfCell != null)
+                            {
+                                if (map[x, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit + 1));
+                            }
+                            else MvtPossible.Add(new Vector(x, unit.YofUnit + 1));
+                        }
+                    }
+                    if (unit.XofUnit - 1 >= 0 && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
+                    {
+                        if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                    }
+                    else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+
+                    if (unit.XofUnit + 1 < data.MapWidth && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
+                    {
+                        if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                    }
+                    else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
                     break;
+
 
                 case "Queen":
-                    for (int i = 1; position.Y - i >= 0; i++)
-                        AddMvt(position.X, position.Y - i);
-                    for (int i = 1; position.Y + i != data.MapHeight; i++)
-                        AddMvt(position.X, position.Y + i);
-                    for (int i = 1; position.X - i >= 0; i++)
-                        AddMvt(position.X - i, position.Y);
-                    for (int i = 1; position.X + i != data.MapWidth; i++)
-                        AddMvt(position.X + i, position.Y);
-                    for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
-                        AddMvt(position.X - i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X + i < data.MapWidth); i++)
-                        AddMvt(position.X + i, position.Y + i);
-                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.MapWidth); i++)
-                        AddMvt(position.X + i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X - i >= 0); i++)
-                        AddMvt(position.X - i, position.Y + i);
+                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit - i >= 0); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                    }
+                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit + i < data.MapWidth); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                    }
+                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit + i < data.MapWidth); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                    }
+                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit - i >= 0); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                    }
+                    for (int x = unit.XofUnit + 1; x < data.MapWidth; x++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
+                        else if (map[x, unit.YofUnit].unitOfCell != null)
+                        {
+                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            x = data.MapWidth + 10;
+                        }
+                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                    }
+                    for (int x = unit.XofUnit - 1; x > 0; x--)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
+                        else if (map[x, unit.YofUnit].unitOfCell != null)
+                        {
+                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            x = -10;
+                        }
+                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                    }
+                    for (int y = unit.YofUnit + 1; y < data.MapHeight; y++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
+                        else if (map[unit.XofUnit, y].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            y = data.MapHeight + 10;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                    }
+                    for (int y = unit.YofUnit - 1; y >= 0; y--)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
+                        else if (map[unit.XofUnit, y].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            y = -10;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                    }
                     break;
+
 
                 case "Rook":
-                    for (int i = 1; position.Y - i >= 0; i++)
-                        AddMvt(position.X, position.Y - i);
-                    for (int i = 1; position.Y + i != data.MapHeight; i++)
-                        AddMvt(position.X, position.Y + i);
-                    for (int i = 1; position.X - i >= 0; i++)
-                        AddMvt(position.X - i, position.Y);
-                    for (int i = 1; position.X + i != data.MapWidth; i++)
-                        AddMvt(position.X + i, position.Y);
+                    for (int x = unit.XofUnit + 1; x < data.MapWidth; x++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
+                        else if (map[x, unit.YofUnit].unitOfCell != null)
+                        {
+                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            x = data.MapWidth + 10;
+                        }
+                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                    }
+                    for (int x = unit.XofUnit - 1; x > 0; x--)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
+                        else if (map[x, unit.YofUnit].unitOfCell != null)
+                        {
+                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            x = -10;
+                        }
+                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                    }
+                    for (int y = unit.YofUnit + 1; y < data.MapHeight; y++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
+                        else if (map[unit.XofUnit, y].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            y = data.MapHeight + 10;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                    }
+                    for (int y = unit.YofUnit - 1; y >= 0; y--)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
+                        else if (map[unit.XofUnit, y].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            y = -10;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                    }
                     break;
+
+
                 case "Bishop":
-                    for (int i = 1; (position.Y - i >= 0) && (position.X - i >= 0); i++)
-                        AddMvt(position.X - i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X + i < data.MapWidth); i++)
-                        AddMvt(position.X + i, position.Y + i);
-                    for (int i = 1; (position.Y - i >= 0) && (position.X + i < data.MapWidth); i++)
-                        AddMvt(position.X + i, position.Y - i);
-                    for (int i = 1; (position.Y + i < data.MapHeight) && (position.X - i >= 0); i++)
-                        AddMvt(position.X - i, position.Y + i);
+                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit - i >= 0); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                    }
+                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit + i < data.MapWidth); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                    }
+                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit + i < data.MapWidth); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                    }
+                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit - i >= 0); i++)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                        else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                            i = data.MapHeight * data.MapWidth;
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                    }
                     break;
+
 
                 case "Knight":
-                    AddMvt(position.X - 1, position.Y + 2);
-                    AddMvt(position.X + 1, position.Y + 2);
-                    AddMvt(position.X + 2, position.Y + 1);
-                    AddMvt(position.X + 2, position.Y - 1);
-                    AddMvt(position.X + 1, position.Y - 2);
-                    AddMvt(position.X - 1, position.Y - 2);
-                    AddMvt(position.X - 2, position.Y - 1);
-                    AddMvt(position.X - 2, position.Y + 1);
+                    if ((unit.XofUnit - 1 >= 0) && (unit.YofUnit + 2 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 1, unit.YofUnit + 2]) == true)
+                    {
+                        if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
+                    }
+
+                    if ((unit.XofUnit + 1 < data.MapWidth) && (unit.YofUnit + 2 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 1, unit.YofUnit + 2]) == true)
+                    {
+                        if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
+                    }
+                    if ((unit.XofUnit + 2 < data.MapWidth) && (unit.YofUnit + 1 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 2, unit.YofUnit + 1]) == true)
+                    {
+                        if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
+                    }
+                    if ((unit.XofUnit + 2 < data.MapWidth) && (unit.YofUnit - 1 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 2, unit.YofUnit - 1]) == true)
+                    {
+                        if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
+                    }
+                    if ((unit.XofUnit + 1 < data.MapWidth) && (unit.YofUnit - 2 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 1, unit.YofUnit - 2]) == true)
+                    {
+                        if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
+                    }
+                    if ((unit.XofUnit - 1 >= 0) && (unit.YofUnit - 2 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 1, unit.YofUnit - 2]) == true)
+                    {
+                        if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
+                    }
+                    if ((unit.XofUnit - 2 >= 0) && (unit.YofUnit - 1 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 2, unit.YofUnit - 1]) == true)
+                    {
+                        if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
+                    }
+                    if ((unit.XofUnit - 2 >= 0) && (unit.YofUnit + 1 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 2, unit.YofUnit + 1]) == true)
+                    {
+                        if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
+                    }
                     break;
 
+
                 case "Pawn":
-                    AddMvt(position.X + 1, position.Y);
-                    AddMvt(position.X, position.Y + 1);
-                    AddMvt(position.X - 1, position.Y);
-                    AddMvt(position.X, position.Y - 1);
+                    if (unit.XofUnit + 1 < data.MapWidth)
+                    {
+                        if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+
+                    }
+                    if (unit.YofUnit + 1 < data.MapHeight)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+
+                    }
+                    if (unit.XofUnit - 1 >= 0)
+                    {
+                        if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+
+                    }
+                    if (unit.YofUnit - 1 >= 0)
+                    {
+                        if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell != null)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
+                        }
+                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit));
+                    }
                     break;
             }
-            return MvtPossible;
+            return new Tuple<List<Vector>, List<Vector>>(MvtPossible, AttackPossible);
         }
     }
 }

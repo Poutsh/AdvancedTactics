@@ -110,7 +110,7 @@ namespace Advanced_Tactics
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
             if (Contains<Vector>(unit.MvtPossible, new Vector(newCell.XofCell, newCell.YofCell)))
             {
-                unit = new Unit(data, unit, map, newCell, ListOfUnit, unit.Player);
+                unit = new Unit(data, unit, map, newCell, unit.Player, Match);
             }
             Reset();
             Match.TurnbyTurn.MvtCount++;
@@ -124,7 +124,7 @@ namespace Advanced_Tactics
                 doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
 
             /// Touche Reset
-            if (depSelec && !destSelec && Inputs.Keyr(Keys.Back)) { Reset(); }
+            if (depSelec && !destSelec && (Inputs.Keyr(Keys.Back) || (cur.MiddleButton == ButtonState.Pressed && cur != old))) { Reset(); }
 
 
             /// Touche Attack
@@ -151,7 +151,7 @@ namespace Advanced_Tactics
             {
                 destSelec = true;
                 destPos = new Vector(coordViseur.X, coordViseur.Y);
-                map[viseurX, viseurY].unitOfCell = new Unit(data, Match.PlayerTurn.ColorSideN + "Plane", "Queen", map, destPos.X, destPos.Y, ListOfUnit, Match.PlayerTurn);
+                map[viseurX, viseurY].unitOfCell = new Unit(data, Match.PlayerTurn.ColorSideN + "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
                 Match.TurnbyTurn.MvtCount++;
                 build = false;
                 Reset();
@@ -166,11 +166,7 @@ namespace Advanced_Tactics
 
 
             /// Deplacement
-            if (!build && cur.RightButton == ButtonState.Pressed && cur != old && map[viseurX, viseurY] == map[depPos.X, depPos.Y] && !destSelec)
-            {
-                Reset();
-            }
-            else if (!build && depSelec && !ViseurOverPos(depPos) && (Inputs.Keyr(Keys.Enter) || (cur.LeftButton == ButtonState.Pressed && cur != old)))
+            if (!build && depSelec && !ViseurOverPos(depPos) && (Inputs.Keyr(Keys.Enter) || (cur.LeftButton == ButtonState.Pressed && cur != old)))
             {
                 if (UnitTemp != null && !ViseurOverUnit && Contains<int>(UnitTemp.TerrainPossible, data.altitudeTerrain[viseurX, viseurY]))
                 {
@@ -215,7 +211,6 @@ namespace Advanced_Tactics
                 {
                     if (map[depPos.X, depPos.Y].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[item.X, item.Y]))
                         spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-                    //spCasebleu.Draw(data, spriteBatch, gameTime, map[item.X, item.Y].positionPixel);
                 }
                 if (map[viseurX, viseurY].Vector2OfCell == depPos)
                     sblinkviseur.Position = map[viseurX, viseurY].positionPixel;
@@ -223,7 +218,6 @@ namespace Advanced_Tactics
             }
 
             sblinkviseur.Draw(data, spriteBatch, sblinkviseur.Position, blinkviseur);
-            //sblinkviseur.Draw(data, spriteBatch, gameTime, sblinkviseur.Position, blinkviseur);
         }
 
         private void Explosion()

@@ -47,8 +47,9 @@ namespace Advanced_Tactics
 
                 case GameState.GameStart:
                     LoadContent();
-                    currentGameState = GameState.Game;
                     debug.Update(gameTime);
+                    Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
+                    currentGameState = GameState.Game;
                     break;
 
 

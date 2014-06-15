@@ -75,7 +75,7 @@ namespace Advanced_Tactics
 
 
                 case GameState.Game:
-
+                    
                     break;
 
 
@@ -90,12 +90,30 @@ namespace Advanced_Tactics
                     instance.IsLooped = true;
                     instance.Play();
 
-                    
                     sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
                     viseur = new Viseur(Data, map.Carte, Match);
 
                     debug = new Debug(Data, map, viseur, ListToDraw, Match); debug.LoadContent();
                     Informations = new Informations(Data, map, viseur, ListToDraw); Informations.LoadContent();
+
+                    if (true)
+                    {
+                        //Unit
+                        //unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListOfUnit, Match.PlayerTurn);
+
+                        string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
+                        string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
+
+
+                        // Fonction anonyme qui permet de faire ce que ferait une methode void sans utiliser de methode, et c'est justement l'avantage
+                        // http://msdn.microsoft.com/en-us/library/dd267613(v=vs.110).aspx
+                        // Cette fonction cree tous simplements plusieurs unitees
+                        Func<Data, string, string, Map, int, int, Unit, Player, Match, Unit> Rdunit = (d, r, c, m, x, y, u, p, ma) => new Unit(d, r, c, m.Carte, x, y, p, ma);
+                        Random rrd = new Random();
+                        // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
+                        for (int i = 0; i < rrd.Next(50, 100); i++)
+                            Rdunit(Data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, Data.MapWidth), rrd.Next(0, Data.MapHeight), unit, Match.PlayerTurn, Match);
+                    }
                     break;
 
 

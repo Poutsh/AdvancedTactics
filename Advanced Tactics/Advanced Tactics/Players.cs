@@ -18,7 +18,7 @@ namespace Advanced_Tactics
         public enum inTurn { Start, Mid, End }
 
         public bool canStart;
-        public Player PlayerTurn { get { return TurnbyTurn.PlayerTurn; } }
+        public Player PlayerTurn { get { return TurnbyTurn.PlayerTurn; }  }
 
         public int TurnNumber;
         public TurnbyTurn TurnbyTurn;
@@ -28,12 +28,14 @@ namespace Advanced_Tactics
         List<string> ColorSideName = new List<string>(2) { "B", "R" };
         public List<Player> Players = new List<Player>();
         Cell[,] Map;
+        Stats stats;
 
         public Match(Data data, int number, Map map)
         {
             Data = data;
             Map = map.Carte;
             NumberMvtPerTurn = 2;
+            stats = new Stats(Data);
 
             Random random = new Random();
             Vector temp = new Vector(random.Next(0, Data.MapWidth + 1), random.Next(0, Data.MapHeight + 1));
@@ -93,7 +95,7 @@ namespace Advanced_Tactics
                     if (!once && (Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = true; }
                     if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && Inputs.Keyr(Keys.Enter))
                     {
-                        TurnbyTurn.PlayerTurn.HQ = new Unit(Data, TurnbyTurn.PlayerTurn.ColorSideN + "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, ListToDraw, TurnbyTurn.PlayerTurn);
+                        TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn, this);
                         TurnbyTurn.PlayerTurn = Players[1];
                     }
                 }
@@ -103,10 +105,18 @@ namespace Advanced_Tactics
                     if (once && (Inputs.Keyd(Keys.Left) || Inputs.Keyd(Keys.Right) || Inputs.Keyd(Keys.Down) || Inputs.Keyd(Keys.Up))) { once = false; }
                     if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && Inputs.Keyr(Keys.Enter))
                     {
-                        TurnbyTurn.PlayerTurn.HQ = new Unit(Data, TurnbyTurn.PlayerTurn.ColorSideN + "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, ListToDraw, TurnbyTurn.PlayerTurn);
+                        TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn,this);
                         TurnbyTurn.PlayerTurn = Players[0];
                         TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(1.5), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
                     }
+                }
+            }
+            for (int i = 0; i < Players.Count; i++)
+            {
+                for (int j = 0; j < Players[i].UnitOfPlayer.Count; j++)
+                {
+                    Players[i].UnitOfPlayer[j].MvtPossible = stats.Possible(Players[i].UnitOfPlayer[j], Map, Data, this).Item1;
+                    Players[i].UnitOfPlayer[j].AttackPossible = stats.Possible(Players[i].UnitOfPlayer[j], Map, Data, this).Item2;
                 }
             }
         }
@@ -123,12 +133,14 @@ namespace Advanced_Tactics
         public Player PlayerTurn;
         public Message Message;
         Cell[,] Map;
+        Stats Stats;
         public int MvtCount = 0;
 
         public TurnbyTurn(Data data, Cell[,] map, Match Match)
         {
             Data = data;
             Map = map;
+            Stats = new Stats(Data);
 
             Message = new Message();
             Match.TurnState = Match.Turn.Player1;
@@ -164,7 +176,6 @@ namespace Advanced_Tactics
         }
     }
 
-
     public class Player
     {
         //string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
@@ -189,6 +200,31 @@ namespace Advanced_Tactics
             UnitOfPlayer = new List<Unit>();
             StartZone = new List<Vector>();
             ColorStartZoneSprite = new Sprite();
+        }
+    }
+
+    public class UpdateAll
+    {
+        Data data;
+        Match match;
+        Cell[,] map;
+        Stats stats;
+
+        public UpdateAll(Data Data, Match Match, Cell[,] Map)
+        {
+            data = Data;
+            match = Match;
+            map = Map;
+            stats = new Stats(data);
+        }
+
+        public void Update(GameTime GameTime)
+        {
+            for (int i = 0; i < match.PlayerTurn.UnitOfPlayer.Count; i++)
+            {
+                match.PlayerTurn.UnitOfPlayer[i].MvtPossible = stats.Possible(match.PlayerTurn.UnitOfPlayer[i], map, data, match).Item1;
+                match.PlayerTurn.UnitOfPlayer[i].AttackPossible = stats.Possible(match.PlayerTurn.UnitOfPlayer[i], map, data, match).Item2;
+            }
         }
     }
 }

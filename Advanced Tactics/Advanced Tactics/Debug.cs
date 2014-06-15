@@ -106,8 +106,11 @@ namespace Advanced_Tactics
             ////////////
 
             spriteBatch.DrawString(this.font,
-                    string.Format("List {0}", _ListOfUnit.Count()),
-                    new Vector2(10, 510), Color.Black);
+                    string.Format("Units Player1 {0}", Match.Players[0].UnitOfPlayer.Count()),
+                    new Vector2(10, 510), Match.Players[0].ColorSide);
+            spriteBatch.DrawString(this.font,
+                    string.Format("Units Player2 {0}", Match.Players[1].UnitOfPlayer.Count()),
+                    new Vector2(10, 535), Match.Players[1].ColorSide);
 
             spriteBatch.DrawString(this.font,
                     string.Format("Match {0}", Match.TurnState),
@@ -120,6 +123,10 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font,
                     string.Format("Match {0}", Match.inTurnState),
                     new Vector2(10, 650), Color.Black);
+
+            spriteBatch.DrawString(this.font,
+                    string.Format("GameState {0}", Game1.currentGameState),
+                    new Vector2(10, 675), Color.Orchid);
 
 
             ///////////

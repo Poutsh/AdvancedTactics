@@ -26,6 +26,7 @@ namespace Advanced_Tactics
         public int Strength { get; set; }
         public List<int> TerrainPossible { get; set; }
         public List<Vector> MvtPossible { get; set; }
+        public List<Vector> AttackPossible { get; set; }
         public List<Vector> HQPossible { get; set; }
         public Player Player { get; set; }
 
@@ -41,7 +42,7 @@ namespace Advanced_Tactics
 
         #region CONSTRUCTEURS
 
-        Action<string, string, ContentManager, Sprite> Sprite2Unit = (p, r, c, s) => s.LC(c, p + r);
+        Action<string, string, string, ContentManager, Sprite> Sprite2Unit = (p, pc, r, c, s) => s.LC(c, p + pc + r);
         Func<string, string> ColorSide = c => new StringBuilder(c).Remove(0, 1).ToString();
 
         public Unit() { XofUnit = 0; YofUnit = 0; TerrainPossible = new List<int>(0); }
@@ -58,10 +59,10 @@ namespace Advanced_Tactics
         /// <param name="X">Position X de la nouvelle unite</param>
         /// <param name="Y">Position Y de la nouvelle unite</param>
         /// <param name="ListOfUnit">List qui contient toute les unitee a DRAW</param>
-        public Unit(Data data, string Rang, string Classe, Cell[,] Map, int X, int Y, List<Unit> ListOfUnit, Player Player)
+        public Unit(Data data, string Rang, string Classe, Cell[,] Map, int X, int Y, Player Player, Match match)
         {
             this.data = data;
-
+            map = Map;
             Stats = new Stats(data);
 
             if (Map[X, Y].unitOfCell == null)
@@ -73,28 +74,33 @@ namespace Advanced_Tactics
                 this.Player = Player;
                 this.Rang = Rang;
                 this.Classe = Classe;
-                this.PV = Stats.PVUnit(ColorSide(Rang));
-                this.Strength = Stats.StrengthUnit(ColorSide(Rang));
-                this.TerrainPossible = Stats.TerrainPossibleUnit(ColorSide(Rang));
-                this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
+                this.PV = Stats.PVUnit(Rang);
+                this.Strength = Stats.StrengthUnit(Rang);
+                this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
+                //this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
 
-                if (Classe.Contains("King")) this.HQPossible = Stats.MvtPossUnit("HQPossible", new Vector(this.XofUnit, this.YofUnit), map, data);
+                
 
-                map = Map;
+                
 
                 if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
                 {
                     Sprite2Unit(
                         ((Rang == "viseur") ? "Curseur/" : "Unit/"),
+                        Player.ColorSideN,
                         Rang, Game1.Ctt, spriteOfUnit);
 
                     if (Rang != null && Classe != null)
-                        ListOfUnit.Add(this);
+                        Player.UnitOfPlayer.Add(this);
 
                     map[XofUnit, YofUnit].unitOfCell = this;
 
-                    map[this.XofUnit, this.YofUnit].Occupe = ListOfUnit.Contains(this);
-                }
+                    map[this.XofUnit, this.YofUnit].Occupe = Player.UnitOfPlayer.Contains(this);
+
+                    this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
+                    this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
+                    if (Classe.Contains("King")) this.HQPossible = Stats.HQPoss(this, map, data);
+                }                
             }
         }
 
@@ -105,9 +111,10 @@ namespace Advanced_Tactics
         /// <param name="Map">Map sur laquelle est pose l'unite</param>
         /// <param name="newCell">Case ou l'on veut deplacer l'unite</param>
         /// <param name="ListOfUnit">List qui contient toute les unitee a DRAW</param>
-        public Unit(Data data, Unit UnitToMove, Cell[,] Map, Cell newCell, List<Unit> ListOfUnit, Player Player)   // Constructeur de DESTRUCTION ahahahahahahahahahahahah
+        public Unit(Data data, Unit UnitToMove, Cell[,] Map, Cell newCell, Player Player, Match match)   // Constructeur de DESTRUCTION ahahahahahahahahahahahah
         {
             this.data = data;
+            map = Map;
             spriteOfUnit = new Sprite();
             Stats = new Stats(data);
             this.Player = UnitToMove.Player;
@@ -116,36 +123,34 @@ namespace Advanced_Tactics
             this.Strength = UnitToMove.Strength;
             this.PV = UnitToMove.PV;
             this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
-            this.MvtPossible = Stats.MvtPossUnit(this.Classe, new Vector(newCell.XofCell, newCell.YofCell), map, data);
-            if (Classe.Contains("King")) this.HQPossible = Stats.MvtPossUnit("HQPossible", new Vector(newCell.XofCell, newCell.YofCell), map, data); else this.HQPossible = null;
             this.XofUnit = newCell.XofCell;
             this.YofUnit = newCell.YofCell;
-
-            map = Map;
-
-
 
             if (TerrainPossible.Contains(data.altitudeTerrain[XofUnit, YofUnit]))
             {
                 Sprite2Unit(
                         ((Rang == "viseur") ? "Curseur/" : "Unit/"),
+                        Player.ColorSideN,
                         Rang, Game1.Ctt, spriteOfUnit);
 
-                ListOfUnit.Add(this);
+                Player.UnitOfPlayer.Add(this);
 
                 map[UnitToMove.XofUnit, UnitToMove.YofUnit].unitOfCell = null; // On mets a null la valeur de lunite dans lancienne case
-                map[newCell.XofCell, newCell.YofCell].unitOfCell = this; // On met a jour la valeur de la nouvelle case
+                map[newCell.XofCell, newCell.YofCell].unitOfCell = this; // On met a jour la valeur de la nouvelle case                
 
-                map[this.XofUnit, this.YofUnit].Occupe = ListOfUnit.Contains(this);
+                map[this.XofUnit, this.YofUnit].Occupe = Player.UnitOfPlayer.Contains(this);
 
-                for (int i = 0; i < ListOfUnit.Count(); i++)    // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
+                for (int i = 0; i < Player.UnitOfPlayer.Count(); i++)    // On cherche lancienne unite et on la supprime de la liste des unitees a draw,
                 {
-                    if (ListOfUnit[i] == UnitToMove)
+                    if (Player.UnitOfPlayer[i] == UnitToMove)
                     {
-                        ListOfUnit.RemoveAt(i);
+                        Player.UnitOfPlayer.RemoveAt(i);
                         map[UnitToMove.XofUnit, UnitToMove.YofUnit].Occupe = false;
                     }
                 }
+                this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
+                this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
+                if (Classe.Contains("King")) this.HQPossible = Stats.HQPoss(this, map, data); else this.HQPossible = null;
             }
         }
 

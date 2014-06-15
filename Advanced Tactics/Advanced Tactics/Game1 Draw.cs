@@ -31,11 +31,6 @@ namespace Advanced_Tactics
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     tileMap.Draw(spriteBatch);
 
-                    //for (int i = 0; i < Match.Players.Count; i++)
-                    //    if (Match.Players[i].HQ == null)
-                    //        for (int j = 0; j < Match.Players[i].StartZone.Count; j++) { caseb.Draw(Data, spriteBatch, map.Carte[Match.Players[i].StartZone[j].X, Match.Players[i].StartZone[j].Y].positionPixel); }
-
-                    bool once = false;
                     if (!Match.canStart)
                     {
                         for (int j = 0; j < Match.PlayerTurn.StartZone.Count; j++)
@@ -44,7 +39,8 @@ namespace Advanced_Tactics
 
 
 
-                    for (int i = 0; i < ListToDraw.Count(); i++) ListToDraw[i].DrawUnit(spriteBatch, gameTime);
+                    for (int i = 0; i < Match.Players[0].UnitOfPlayer.Count(); i++) Match.Players[0].UnitOfPlayer[i].DrawUnit(spriteBatch, gameTime);
+                    for (int i = 0; i < Match.Players[1].UnitOfPlayer.Count(); i++) Match.Players[1].UnitOfPlayer[i].DrawUnit(spriteBatch, gameTime);
 
                     spriteBatch.End();
 

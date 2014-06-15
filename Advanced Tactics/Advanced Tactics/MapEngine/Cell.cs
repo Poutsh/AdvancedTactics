@@ -31,7 +31,10 @@ namespace Advanced_Tactics
 
             for (int x = 0; x < data.MapWidth; x++)
                 for (int y = 0; y < data.MapHeight; y++)
+                {
                     map[x, y] = new Cell(data, x, y);
+                    map[x, y].unitOfCell = null;
+                }
             
         }
 
