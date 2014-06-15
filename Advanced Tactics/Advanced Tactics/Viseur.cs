@@ -48,6 +48,7 @@ namespace Advanced_Tactics
         MouseState curmouse, oldmouse;
         Match Match;
         public Sprite spriteViseur { get { return spviseur; } }
+        Stats stats;
         #endregion
 
         // // // // // // // // 
@@ -62,6 +63,7 @@ namespace Advanced_Tactics
             this.data = data;
             this.map = map;
             Match = match;
+            stats = new Stats(data);
             viseur = new Unit();
             Init();
         }
@@ -106,6 +108,7 @@ namespace Advanced_Tactics
             depSelec = false; depPos = Vector.Zero;
             destSelec = false; destPos = Vector.Zero;
             UnitTemp = new Unit();
+            currentViseurState = ViseurState.Normal;
         }
 
         private void doMoveUnit(Unit unit, Cell newCell, List<Unit> ListOfUnit)
@@ -114,7 +117,8 @@ namespace Advanced_Tactics
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
             if (Contains<Vector>(unit.MvtPossible, new Vector(newCell.XofCell, newCell.YofCell)) || (Contains<Vector>(unit.AttackPossible, new Vector(newCell.XofCell, newCell.YofCell)) && !map[newCell.XofCell, newCell.YofCell].Occupe))
             {
-                unit = new Unit(data, unit, map, newCell, unit.Player, Match);
+                unit = new Unit(data, unit, map, newCell, Match);
+                //if (unit.Classe == "King") Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
             }
         }
 
@@ -155,115 +159,224 @@ namespace Advanced_Tactics
 
         public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
+            curmouse = Mouse.GetState();
             if (Match.canStart)
             {
+                if (depSelec && !destSelec && (Inputs.Keyr(Keys.Back) || (curmouse.MiddleButton == ButtonState.Pressed && curmouse != oldmouse))) Reset();
 
-                if (depSelec && !destSelec && (Inputs.Keyr(Keys.Back) || (curmouse.MiddleButton == ButtonState.Pressed && curmouse != oldmouse))) currentViseurState = ViseurState.Reset;
-                switch (currentViseurState)
+                if (currentViseurState == ViseurState.Normal)
                 {
-                    case ViseurState.Normal:
-                        if (!map[viseurX, viseurY].Occupe || map[viseurX, viseurY].unitOfCell.Player != Match.PlayerTurn) spviseur = Viseurnormal;
-                        else if (map[viseurX, viseurY].Occupe && map[viseurX, viseurY].unitOfCell.Player == Match.PlayerTurn) spviseur = Viseurbleu;
+                    if (!map[viseurX, viseurY].Occupe || map[viseurX, viseurY].unitOfCell.Player != Match.PlayerTurn) spviseur = Viseurnormal;
+                    else if (map[viseurX, viseurY].Occupe && map[viseurX, viseurY].unitOfCell.Player == Match.PlayerTurn) spviseur = Viseurbleu;
 
-                        if (Inputs.Keyr(Keys.LeftControl) && Inputs.Keyr(Keys.Z) && CtrlZ[1] != Vector.Zero) currentViseurState = ViseurState.CtrlZ;
-                        else if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !build && !depSelec && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
-                        {
-                            depSelec = true;
-                            build = true;
-                            depPos = new Vector(coordViseur.X, coordViseur.Y);
-                            UnitTemp = Match.PlayerTurn.HQ;
-                            currentViseurState = ViseurState.Build;
-                        }
-                        else if (!build && map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
-                        {
-                            depSelec = true;
-                            depPos = new Vector(coordViseur.X, coordViseur.Y);
-                            UnitTemp = map[viseurX, viseurY].unitOfCell;
-                            currentViseurState = ViseurState.Moving;
-                        }
-                        break;
+                    if (Inputs.Keyr(Keys.LeftControl) && Inputs.Keyr(Keys.Z) && CtrlZ[1] != Vector.Zero) currentViseurState = ViseurState.CtrlZ;
 
-                    case ViseurState.AttackCheat:
-                        map[viseurX, viseurY].unitOfCell.PV -= 10000;
-
-                        if (map[viseurX, viseurY].unitOfCell.PV <= 0)
-                        {
-                            Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
-                            map[viseurX, viseurY].unitOfCell.DelUnitofList();
-                            destPos = new Vector(coordViseur.X, coordViseur.Y);
-                            doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
-                            Explosion();
-                        }
-                        Match.TurnbyTurn.MvtCount++;
-                        currentViseurState = ViseurState.Reset;
-                        break;
-
-                    case ViseurState.Attack:
-                        map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
-
-                        if (map[viseurX, viseurY].unitOfCell.PV <= 0)
-                        {
-                            Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
-                            map[viseurX, viseurY].unitOfCell.DelUnitofList();
-                            destPos = new Vector(coordViseur.X, coordViseur.Y);
-                            doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
-                            Explosion();
-                        }
-                        Match.TurnbyTurn.MvtCount++;
-                        currentViseurState = ViseurState.Reset;
-                        break;
-
-
-                    case ViseurState.Build:
-                        if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
-                        else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HQPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
-                        else spviseur = Viseurrouge;
-
-                        if (build && depSelec && !ViseurOverPos(depPos) && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
-                        {
-                            destSelec = true;
-                            destPos = new Vector(coordViseur.X, coordViseur.Y);
-                            map[viseurX, viseurY].unitOfCell = new Unit(data, "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
-                            Match.TurnbyTurn.MvtCount++;
-                            build = false;
-                            currentViseurState = ViseurState.Reset;
-                        }
-                        break;
-
-
-                    case ViseurState.Moving:
-                        if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
-                        else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.AttackPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurjaune;
-                        else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.MvtPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
-                        else spviseur = Viseurrouge;
-
-                        if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.AttackPossible, new Vector(coordViseur.X, coordViseur.Y)))
-                        {
-                            if (Inputs.Keyr(Keys.C)) currentViseurState = ViseurState.AttackCheat;
-                            else if (Inputs.Keyr(Keys.Enter)) currentViseurState = ViseurState.Attack;
-                        }
-                        else if (!build && depSelec && UnitTemp != null && !ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
-                        {
-                            destSelec = true;
-                            destPos = new Vector(coordViseur.X, coordViseur.Y);
-                            doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
-                            Match.TurnbyTurn.MvtCount++;
-                            currentViseurState = ViseurState.Reset;
-                        }
-                        break;
-
-
-                    case ViseurState.Reset:
-                        Reset();
-                        currentViseurState = ViseurState.Normal;
-                        break;
-
-
-                    case ViseurState.CtrlZ:
-                        doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
-                        currentViseurState = ViseurState.Reset;
-                        break;
+                    if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !depSelec && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
+                    {
+                        depSelec = true;
+                        depPos = new Vector(coordViseur.X, coordViseur.Y);
+                        UnitTemp = Match.PlayerTurn.HQ;
+                        currentViseurState = ViseurState.Build;
+                    }
+                    else if (map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
+                    {
+                        depSelec = true;
+                        depPos = new Vector(coordViseur.X, coordViseur.Y);
+                        UnitTemp = map[viseurX, viseurY].unitOfCell;
+                        currentViseurState = ViseurState.Moving;
+                    }
                 }
+                else if (currentViseurState == ViseurState.AttackCheat)
+                {
+                    map[viseurX, viseurY].unitOfCell.PV -= 10000;
+
+                    if (map[viseurX, viseurY].unitOfCell.PV <= 0)
+                    {
+                        Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
+                        map[viseurX, viseurY].unitOfCell.DelUnitofList();
+                        destPos = new Vector(coordViseur.X, coordViseur.Y);
+                        if (UnitTemp.Classe != "King") doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
+                        Explosion();
+                    }
+                    Match.TurnbyTurn.MvtCount++;
+                    Reset();
+                }
+                else if (currentViseurState == ViseurState.Attack)
+                {
+                    if (UnitTemp.Classe != "King") map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
+                    else map[viseurX, viseurY].unitOfCell.PV -= stats.PVUnit(map[viseurX, viseurY].unitOfCell.Rang) / 2;
+
+                    if (map[viseurX, viseurY].unitOfCell.PV <= 0)
+                    {
+                        Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
+                        map[viseurX, viseurY].unitOfCell.DelUnitofList();
+                        destPos = new Vector(coordViseur.X, coordViseur.Y);
+                        if (UnitTemp.Classe != "King") doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
+                        Explosion();
+                    }
+                    Match.TurnbyTurn.MvtCount++;
+                    Reset();
+                }
+                else if (currentViseurState == ViseurState.Build)
+                {
+                    if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
+                    else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HQPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
+                    else spviseur = Viseurrouge;
+
+                    if (depSelec && map[viseurX, viseurY].unitOfCell == null && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
+                    {
+                        destSelec = true;
+                        destPos = new Vector(coordViseur.X, coordViseur.Y);
+                        map[viseurX, viseurY].unitOfCell = new Unit(data, "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
+                        Match.TurnbyTurn.MvtCount++;
+                        Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
+                        Reset();
+                    }
+                }
+                else if (currentViseurState == ViseurState.Moving)
+                {
+                    if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
+                    else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.AttackPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurjaune;
+                    else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.MvtPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
+                    else spviseur = Viseurrouge;
+
+                    if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.AttackPossible, new Vector(coordViseur.X, coordViseur.Y)))
+                    {
+                        if (Inputs.Keyr(Keys.C)) currentViseurState = ViseurState.AttackCheat;
+                        else if (Inputs.Keyr(Keys.Enter)) currentViseurState = ViseurState.Attack;
+                    }
+                    else if (depSelec && UnitTemp != null && !ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
+                    {
+                        destSelec = true;
+                        destPos = new Vector(coordViseur.X, coordViseur.Y);
+                        if (UnitTemp.Classe != "King") doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
+                        if (UnitTemp.Classe != "King") Match.TurnbyTurn.MvtCount++;
+                        Reset();
+                    }
+                }
+                else if (currentViseurState == ViseurState.Reset)
+                {
+                    Reset();
+                    currentViseurState = ViseurState.Normal;
+                }
+                else if (currentViseurState == ViseurState.CtrlZ)
+                {
+                    doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
+                    currentViseurState = ViseurState.Reset;
+                }
+
+
+
+                //switch (currentViseurState)
+                //{
+                //    case ViseurState.Normal:
+                //        if (!map[viseurX, viseurY].Occupe || map[viseurX, viseurY].unitOfCell.Player != Match.PlayerTurn) spviseur = Viseurnormal;
+                //        else if (map[viseurX, viseurY].Occupe && map[viseurX, viseurY].unitOfCell.Player == Match.PlayerTurn) spviseur = Viseurbleu;
+
+                //        if (Inputs.Keyr(Keys.LeftControl) && Inputs.Keyr(Keys.Z) && CtrlZ[1] != Vector.Zero) currentViseurState = ViseurState.CtrlZ;
+                //        if (map[viseurX, viseurY].unitOfCell == Match.PlayerTurn.HQ && !depSelec && (Inputs.Keyr(Keys.V) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
+                //        {
+                //            depSelec = true;
+                //            depPos = new Vector(coordViseur.X, coordViseur.Y);
+                //            UnitTemp = Match.PlayerTurn.HQ;
+                //            currentViseurState = ViseurState.Build;
+                //        }
+                //        else if (map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
+                //        {
+                //            depSelec = true;
+                //            depPos = new Vector(coordViseur.X, coordViseur.Y);
+                //            UnitTemp = map[viseurX, viseurY].unitOfCell;
+                //            currentViseurState = ViseurState.Moving;
+                //        }
+                //        break;
+
+                //    case ViseurState.AttackCheat:
+                //        map[viseurX, viseurY].unitOfCell.PV -= 10000;
+
+                //        if (map[viseurX, viseurY].unitOfCell.PV <= 0)
+                //        {
+                //            Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
+                //            map[viseurX, viseurY].unitOfCell.DelUnitofList();
+                //            destPos = new Vector(coordViseur.X, coordViseur.Y);
+                //            doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
+                //            Explosion();
+                //        }
+                //        Match.TurnbyTurn.MvtCount++;
+                //        currentViseurState = ViseurState.Reset;
+                //        break;
+
+                //    case ViseurState.Attack:
+                //        map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
+
+                //        if (map[viseurX, viseurY].unitOfCell.PV <= 0)
+                //        {
+                //            Match.PlayerTurn.Score = map[viseurX, viseurY].unitOfCell.Point;
+                //            map[viseurX, viseurY].unitOfCell.DelUnitofList();
+                //            destPos = new Vector(coordViseur.X, coordViseur.Y);
+                //            doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
+                //            Explosion();
+                //        }
+                //        Match.TurnbyTurn.MvtCount++;
+                //        currentViseurState = ViseurState.Reset;
+                //        break;
+
+
+                //    case ViseurState.Build:
+                //        if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
+                //        else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HQPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
+                //        else spviseur = Viseurrouge;
+
+                //        if (depSelec && map[viseurX, viseurY].unitOfCell == null && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
+                //        {
+                //            destSelec = true;
+                //            destPos = new Vector(coordViseur.X, coordViseur.Y);
+                //            map[viseurX, viseurY].unitOfCell = new Unit(data, "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
+                //            Match.TurnbyTurn.MvtCount++;
+                //            Reset();
+                //        }
+                //        break;
+
+
+                //    case ViseurState.Moving:
+                //        if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
+                //        else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.AttackPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurjaune;
+                //        else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.MvtPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
+                //        else spviseur = Viseurrouge;
+
+                //        if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.AttackPossible, new Vector(coordViseur.X, coordViseur.Y)))
+                //        {
+                //            if (Inputs.Keyr(Keys.C)) currentViseurState = ViseurState.AttackCheat;
+                //            else if (Inputs.Keyr(Keys.Enter)) currentViseurState = ViseurState.Attack;
+                //            Reset();
+                //        }
+                //        else if (depSelec && UnitTemp != null && !ViseurOverUnit && Contains<Vector>(UnitTemp.MvtPossible, new Vector(coordViseur.X, coordViseur.Y)) && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
+                //        {
+                //            destSelec = true;
+                //            destPos = new Vector(coordViseur.X, coordViseur.Y);
+                //            doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
+                //            if (map[depPos.X, depPos.Y].unitOfCell == Match.PlayerTurn.HQ)
+                //            {
+                //                Match.PlayerTurn.HQ = map[destPos.X, destPos.Y].unitOfCell;
+                //            }
+
+
+                //            Match.TurnbyTurn.MvtCount++;
+                //            Reset();
+                //        }
+                //        break;
+
+
+                //    case ViseurState.Reset:
+                //        Reset();
+                //        currentViseurState = ViseurState.Normal;
+                //        break;
+
+
+                //    case ViseurState.CtrlZ:
+                //        doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
+                //        currentViseurState = ViseurState.Reset;
+                //        break;
+                //}
             }
 
             //getMovingPath(ListOfUnit, gameTime, spriteBatch);
@@ -311,6 +424,7 @@ namespace Advanced_Tactics
                         ++coord.Y;
             }
             #endregion
+            oldmouse = curmouse;
         }
 
         #endregion

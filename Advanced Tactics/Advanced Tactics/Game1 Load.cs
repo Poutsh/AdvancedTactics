@@ -44,7 +44,8 @@ namespace Advanced_Tactics
             BufferHeight = 720;
             Data = new Data("map2", BufferWidth, BufferHeight);
 
-            currentGameState = GameState.Menu;
+            //currentGameState = GameState.Menu;
+            currentGameState = GameState.GameStart;
             message = new Message();
             ListToDraw = new List<Unit>();
 

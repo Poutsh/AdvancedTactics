@@ -20,7 +20,7 @@ namespace Advanced_Tactics
         // Clavier, Souris, Camera
         Viseur viseur;
         Sprite sppointer, flou;
-        public static TimeSpan time, time2;
+        public static TimeSpan time, time2, time3;
         // Menu
         Menu menu;
         Song musicMenu;
@@ -28,7 +28,7 @@ namespace Advanced_Tactics
         SoundEffectInstance instance;
         SoundEffect click;
 
-        public enum GameState { Menu, Option, Game, GameStart, Exit, Loading }
+        public enum GameState { Menu, Option, Game, GameStart, Exit, Loading, Winner }
         public static GameState currentGameState;
 
         // Match

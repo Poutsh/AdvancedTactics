@@ -9,7 +9,7 @@ namespace Advanced_Tactics
     public class Match
     {
         Data Data;
-        TimeSpan time;
+        TimeSpan time, time2;
         public Turn TurnState;
         public enum Turn { Player1, Player2 }
 
@@ -78,21 +78,31 @@ namespace Advanced_Tactics
         {
             if (canStart)
             {
-                float tempo = 2f;
-                if (Players[0].Score >= 100000)
-                {
-                    TurnbyTurn.Message.Messages.Add(new DisplayMessage(Players[0].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1  WIN").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
-                    if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo)) { time = gameTime.TotalGameTime; Game1.currentGameState = Game1.GameState.Menu; }
-                }
-                else if (Players[1].Score >= 100000)
-                {
-                    TurnbyTurn.Message.Messages.Add(new DisplayMessage(Players[1].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1  WIN").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
-                    if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo)) { time = gameTime.TotalGameTime; Game1.currentGameState = Game1.GameState.Menu; }
-                }
-                else
-                {
-                    TurnbyTurn.UpdateTurn(spriteBatch, gameTime, this, Viseur, ListToDraw);
-                }
+                //float tempo = 3f;
+                //if (Players[0].Score >= 100000)
+                //{
+                //    //TurnbyTurn.Message.Messages.Add(new DisplayMessage(Players[0].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1  WIN").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                //    //if (gameTime.TotalGameTime - time2 > TimeSpan.FromSeconds(tempo))
+                //    //{
+                //    //    time2 = gameTime.TotalGameTime;
+                //    //    Game1.currentGameState = Game1.GameState.Menu;
+                //    //}
+                //    Game1.currentGameState = Game1.GameState.Menu;
+                //}
+                //else if (Players[1].Score >= 100000)
+                //{
+                //    TurnbyTurn.Message.Messages.Add(new DisplayMessage(Players[1].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1  WIN").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                //    if (gameTime.TotalGameTime - time2 > TimeSpan.FromSeconds(tempo))
+                //    {
+                //        time2 = gameTime.TotalGameTime;
+                //        Game1.currentGameState = Game1.GameState.Menu;
+                //    }
+                //}
+                //else
+                //{
+                //    TurnbyTurn.UpdateTurn(spriteBatch, gameTime, this, Viseur, ListToDraw);
+                //}
+                TurnbyTurn.UpdateTurn(spriteBatch, gameTime, this, Viseur, ListToDraw);
             }
             else
             {
@@ -100,7 +110,7 @@ namespace Advanced_Tactics
 
                 float tempo = 0.5f;
                 float tempo2 = 1f;
-                
+
 
                 if (Players[0].HQ != null && Players[1].HQ != null)
                 {
@@ -128,6 +138,7 @@ namespace Advanced_Tactics
                     }
                 }
             }
+
             for (int i = 0; i < Players.Count; i++)
             {
                 for (int j = 0; j < Players[i].UnitOfPlayer.Count; j++)

@@ -11,13 +11,15 @@ namespace Advanced_Tactics
         protected override void Update(GameTime gameTime)
         {
             // Init entrees utilisateur
-            Inputs.Update();
+            //Inputs.Update();
             sppointer.Update(gameTime);
             //menu.InGame = true;
 
+            float temp4 = 3f;
             switch (currentGameState)
             {
                 case GameState.Menu:
+                    Inputs.Update();
                     menu.Update(gameTime);
                     if (Inputs.Clickg()) click.Play();
                     break;
@@ -64,27 +66,62 @@ namespace Advanced_Tactics
                     break;
 
                 case GameState.Game:
-                    debug.Update(Data, map, viseur, ListToDraw, Match);
-                    MediaPlayer.Stop();
+                    message.Update(gameTime);
+                    if (Match.Players[0].Score >= 100000)
+                    {
+                        message.Messages.Add(new DisplayMessage(Match.Players[0].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Player 1  WIN").X / 2, map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), Match.Players[0].ColorSide));
+                        
+                        if (gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(temp4))
+                        {
+                            time3 = gameTime.TotalGameTime;
+                            UnloadContent();
+                            menu.MenuPrincipal = true;
+                            menu.Options = false;
+                            menu.InGame = false;
+                            currentGameState = GameState.Menu;
+                        }
+                    }
+                    else if (Match.Players[1].Score >= 100000)
+                    {
+                        message.Messages.Add(new DisplayMessage(Match.Players[1].PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Player 1  WIN").X / 2, map.Carte[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), Match.Players[1].ColorSide));
+                        //if (gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(tempo4))
+                        //{
+                        //    time3 = gameTime.TotalGameTime;
+                        //    Game1.currentGameState = Game1.GameState.Menu;
+                        //}
+                    }
+                    else
+                    {
+                        debug.Update(Data, map, viseur, ListToDraw, Match);
+                        MediaPlayer.Stop();
 
-                    Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
+                        Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
 
-                    viseur.Update(gameTime, ListToDraw, spriteBatch);
+                        viseur.Update(gameTime, ListToDraw, spriteBatch);
 
-                    Informations.Update(Data, map.Carte);
+                        Informations.Update(Data, map.Carte);
 
-                    instance.Volume = 0.4f;
+                        instance.Volume = 0.4f;
 
-                    if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;
+                        if (Inputs.Keyr(Keys.Escape)) goto case GameState.Exit;
+                        Inputs.Update();
+                    }
                     break;
 
 
                 case GameState.GameStart:
+                    Inputs.Update();
                     LoadContent();
                     debug.Update(Data, map, viseur, ListToDraw, Match);
                     Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
                     currentGameState = GameState.Game;
                     break;
+
+
+                case GameState.Winner:
+                    UnloadContent();
+                    currentGameState = GameState.Menu;
+                    return;
 
 
                 case GameState.Exit:

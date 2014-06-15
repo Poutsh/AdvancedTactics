@@ -59,6 +59,14 @@ namespace Advanced_Tactics
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            for (int i = 0; i < Keyboard.GetState().GetPressedKeys().Count(); i++)
+            {
+                spriteBatch.DrawString(this.font,
+                string.Format("{0}", Keyboard.GetState().GetPressedKeys()[i]),
+                new Vector2(10, 10 + i * 5), Color.ForestGreen);
+            }
+
+
             spriteBatch.DrawString(this.font,
                 string.Format("Menu  {0}, {1}, {2}, {3}", _menu.InGame, _menu.MenuPrincipal, _menu.Loadscreen, _menu.Options),
                 new Vector2(10, 80), Color.Blue);
@@ -145,7 +153,7 @@ namespace Advanced_Tactics
             {
                 spriteBatch.DrawString(this.font,
                     string.Format("Unit : {0}, {1}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Classe, cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Rang),
-                    new Vector2(20, 195), Color.Indigo);
+                    new Vector2(20, 195), Color.Brown);
                 spriteBatch.DrawString(this.font,
                     string.Format("Unit : {0}", cartemap.Carte[_viseur.viseurX, _viseur.viseurY].unitOfCell.Strength),
                     new Vector2(20, 215), Color.Indigo);

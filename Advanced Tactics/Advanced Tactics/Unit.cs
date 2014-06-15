@@ -113,7 +113,7 @@ namespace Advanced_Tactics
         /// <param name="Map">Map sur laquelle est pose l'unite</param>
         /// <param name="newCell">Case ou l'on veut deplacer l'unite</param>
         /// <param name="ListOfUnit">List qui contient toute les unitee a DRAW</param>
-        public Unit(Data data, Unit UnitToMove, Cell[,] Map, Cell newCell, Player Player, Match match)   // Constructeur de DESTRUCTION ahahahahahahahahahahahah
+        public Unit(Data data, Unit UnitToMove, Cell[,] Map, Cell newCell, Match match)   // Constructeur de DESTRUCTION ahahahahahahahahahahahah
         {
             this.data = data;
             map = Map;
