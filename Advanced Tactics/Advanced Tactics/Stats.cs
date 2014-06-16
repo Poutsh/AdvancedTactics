@@ -139,6 +139,7 @@ namespace Advanced_Tactics
 
         private List<Vector> MvtPossible;
         private List<Vector> AttackPossible;
+        private List<Vector> HealPossible;
         private List<Vector> HQPossible;
 
 
@@ -159,10 +160,11 @@ namespace Advanced_Tactics
             return HQPossible;
         }
 
-        public Tuple<List<Vector>, List<Vector>> Possible(Unit unit, Cell[,] map, Data data, Match match)
+        public Tuple<List<Vector>, List<Vector>, List<Vector>> Possible(Unit unit, Cell[,] map, Data data, Match match)
         {
             MvtPossible = new List<Vector>() { };
             AttackPossible = new List<Vector>() { };
+            HealPossible = new List<Vector>() { };
             switch (unit.Classe)
             {
                 case "King":
@@ -172,7 +174,8 @@ namespace Advanced_Tactics
                         {
                             if (map[x, unit.YofUnit - 1].unitOfCell != null)
                             {
-                                if (map[x, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit - 1));
+                                if (unit.Rang == "Doc" && map[x, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit - 1));
+                                else if (map[x, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit - 1));
                             }
                             else MvtPossible.Add(new Vector(x, unit.YofUnit - 1));
                         }
@@ -183,20 +186,23 @@ namespace Advanced_Tactics
                         {
                             if (map[x, unit.YofUnit + 1].unitOfCell != null)
                             {
-                                if (map[x, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit + 1));
+                                if (unit.Rang == "Doc" && map[x, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit + 1));
+                                else if (map[x, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit + 1));
                             }
                             else MvtPossible.Add(new Vector(x, unit.YofUnit + 1));
                         }
                     }
                     if (unit.XofUnit - 1 >= 0 && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
                     {
-                        if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                        if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                        else if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
                     }
                     else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
 
                     if (unit.XofUnit + 1 < data.MapWidth && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
                     {
-                        if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                        if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                        else if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
                     }
                     else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
                     break;
@@ -208,7 +214,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                            else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
@@ -218,7 +225,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                            else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
@@ -228,7 +236,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                            else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
@@ -238,7 +247,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                            else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
@@ -248,7 +258,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
                         else if (map[x, unit.YofUnit].unitOfCell != null)
                         {
-                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
                             x = data.MapWidth + 10;
                         }
                         else MvtPossible.Add(new Vector(x, unit.YofUnit));
@@ -258,7 +269,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
                         else if (map[x, unit.YofUnit].unitOfCell != null)
                         {
-                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
                             x = -10;
                         }
                         else MvtPossible.Add(new Vector(x, unit.YofUnit));
@@ -268,7 +280,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
                         else if (map[unit.XofUnit, y].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
                             y = data.MapHeight + 10;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit, y));
@@ -278,7 +291,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
                         else if (map[unit.XofUnit, y].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
                             y = -10;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit, y));
@@ -292,7 +306,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
                         else if (map[x, unit.YofUnit].unitOfCell != null)
                         {
-                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
                             x = data.MapWidth + 10;
                         }
                         else MvtPossible.Add(new Vector(x, unit.YofUnit));
@@ -302,7 +317,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
                         else if (map[x, unit.YofUnit].unitOfCell != null)
                         {
-                            if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
                             x = -10;
                         }
                         else MvtPossible.Add(new Vector(x, unit.YofUnit));
@@ -312,7 +328,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
                         else if (map[unit.XofUnit, y].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
                             y = data.MapHeight + 10;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit, y));
@@ -322,7 +339,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
                         else if (map[unit.XofUnit, y].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
                             y = -10;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit, y));
@@ -336,7 +354,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                            else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
@@ -346,7 +365,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                            else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
@@ -356,7 +376,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                            else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
@@ -366,7 +387,8 @@ namespace Advanced_Tactics
                         if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
                         else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                            else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
                             i = data.MapHeight * data.MapWidth;
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
@@ -379,7 +401,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
+                            else if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
                     }
@@ -388,7 +411,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
+                            else if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
                     }
@@ -396,7 +420,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
+                            else if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
                     }
@@ -404,7 +429,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
+                            else if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
                     }
@@ -412,7 +438,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
+                            else if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
                     }
@@ -420,7 +447,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
+                            else if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
                     }
@@ -428,7 +456,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
+                            else if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
                     }
@@ -436,7 +465,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
+                            else if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
                     }
@@ -448,7 +478,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                            else if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
 
@@ -457,7 +488,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
+                            else if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
 
@@ -466,7 +498,8 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                            else if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
 
@@ -475,13 +508,14 @@ namespace Advanced_Tactics
                     {
                         if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell != null)
                         {
-                            if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
+                            else if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
                     }
                     break;
             }
-            return new Tuple<List<Vector>, List<Vector>>(MvtPossible, AttackPossible);
+            return new Tuple<List<Vector>, List<Vector>, List<Vector>>(MvtPossible, AttackPossible, HealPossible);
         }
     }
 }

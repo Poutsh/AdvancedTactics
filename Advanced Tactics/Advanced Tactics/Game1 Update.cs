@@ -20,6 +20,7 @@ namespace Advanced_Tactics
             {
                 case GameState.Menu:
                     menu.Update(gameTime);
+                    message.Update(gameTime);
                     if (menu.mapgen)
                     {
                         System.Diagnostics.Process.Start("MapGenerator.exe", System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
@@ -71,7 +72,7 @@ namespace Advanced_Tactics
 
                 case GameState.Winner:
                     message.Update(gameTime);
-                    message.Messages.Add(new DisplayMessage(Match.Winner.PlayerName + " WIN", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Player 1  WIN").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Player 1  WIN").Y / 2), Match.Winner.ColorSide));
+                    message.Messages.Add(new DisplayMessage(Match.Winner.PlayerName + " WINS", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Player 1  WINS").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Player 1  WIN").Y / 2), Match.Winner.ColorSide));
                     message.Messages.Add(new DisplayMessage("enter key for retry", TimeSpan.FromSeconds(0.9), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("enter key for retry").X / 2, gd.Viewport.Height / 2 + message.font.MeasureString("Player 1  WIN").Y + 10 - message.font.MeasureString("enter key for retry").Y / 2), Match.Winner.ColorSide));
                     if (Inputs.Keyr(Keys.Enter))
                     {
@@ -132,7 +133,7 @@ namespace Advanced_Tactics
                         menu.InGame = false;
                         currentGameState = GameState.Menu;
                     }
-                    if(Inputs.Keyr(Keys.Back))
+                    else if (Inputs.Keyr(Keys.Back))
                     {
                         currentGameState = GameState.Game;
                     }
@@ -146,27 +147,6 @@ namespace Advanced_Tactics
                     return;
             }
             base.Update(gameTime);
-        }
-
-        int once = 1;
-        bool checkExitKey()
-        {
-            if (Inputs.Keyr(Keys.Escape))
-            {
-                Exit();
-                if (once == 1)
-                {
-                    System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                    startInfo.FileName = "MapGenerator";
-                    process.StartInfo = startInfo;
-                    process.Start();
-                    once--;
-                }
-
-                return true;
-            }
-            return false;
-        }
+        }        
     }
 }

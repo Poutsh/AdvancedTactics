@@ -41,6 +41,7 @@ namespace Advanced_Tactics
                 if (Match.TurnState == Match.Turn.Player1)
                 {
                     Match.TurnState = Match.Turn.Player2;
+                    PlayerTurn.Money += 10;
                     PlayerTurn = Match.Players[1];
                 }
                 else
@@ -49,6 +50,7 @@ namespace Advanced_Tactics
                     PlayerTurn = Match.Players[0];
                 }
                 Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                Match.LoadShop();
             }
         }
 

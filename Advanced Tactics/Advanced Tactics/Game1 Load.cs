@@ -108,7 +108,7 @@ namespace Advanced_Tactics
                     
 
                     debug = new Debug(); debug.LoadContent();                    
-                    if (false)
+                    if (true)
                     {
                         //Unit
                         //unit = new Unit(data, "Plane", "Bishop", map.Carte, 1, 5, ListOfUnit, Match.PlayerTurn);

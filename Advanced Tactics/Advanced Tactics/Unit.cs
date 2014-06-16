@@ -29,6 +29,7 @@ namespace Advanced_Tactics
         public List<Vector> MvtPossible { get; set; }
         public List<Vector> AttackPossible { get; set; }
         public List<Vector> HQPossible { get; set; }
+        public List<Vector> HealPossible { get; set; }
         public Player Player { get; set; }
 
         public Viseur Viseur { get; set; }
@@ -79,11 +80,7 @@ namespace Advanced_Tactics
                 this.Strength = Stats.StrengthUnit(Rang);
                 this.Point = Stats.PointUnit(Rang, Classe);
                 this.TerrainPossible = Stats.TerrainPossibleUnit(Rang);
-                //this.MvtPossible = Stats.MvtPossUnit(Classe, new Vector(this.XofUnit, this.YofUnit), map, data);
-
-
-
-
+                
 
                 if (TerrainPossible.Contains(data.altitudeTerrain[X, Y]))
                 {
@@ -101,6 +98,7 @@ namespace Advanced_Tactics
 
                     this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
                     this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
+                    if (Rang == "Doc") this.HealPossible = Stats.Possible(this, map, data, match).Item3;
                     if (Classe.Contains("King")) this.HQPossible = Stats.HQPoss(this, map, data);
                 }
             }
@@ -153,6 +151,7 @@ namespace Advanced_Tactics
 
                 this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
                 this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
+                if (Rang == "Doc") this.HealPossible = Stats.Possible(this, map, data, match).Item3;
                 if (Classe.Contains("King")) this.HQPossible = Stats.HQPoss(this, map, data); else this.HQPossible = null;
             }
         }

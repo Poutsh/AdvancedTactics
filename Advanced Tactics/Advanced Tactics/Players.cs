@@ -26,7 +26,7 @@ namespace Advanced_Tactics
         public Player(Data data)
         {
             Data = data;
-            Money = 100;
+            Money = 40;
             Score = 0;
             UnitOfPlayer = new List<Unit>();
             StartZone = new List<Vector>();

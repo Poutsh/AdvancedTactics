@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Media;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Design;
-using System.Media;
 
 namespace Advanced_Tactics
 {
@@ -16,13 +13,13 @@ namespace Advanced_Tactics
         #region VARIABLES
 
         Data data;
-        TimeSpan time;
+        TimeSpan time, time2;
 
         public enum ViseurState { Normal, Attack, AttackCheat, Build, Moving, Reset, CtrlZ }
         public ViseurState currentViseurState;
 
         public Sprite spviseur, Viseurjaune;
-        public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal, spCase3bleu;
+        public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal, spCase3bleu, Viseurvert;
         public List<Sprite> ListSprite;
 
         public Cell[,] map;
@@ -49,7 +46,7 @@ namespace Advanced_Tactics
         Match Match;
         public Sprite spriteViseur { get { return spviseur; } }
         Stats stats;
-        Message2 message;
+        Message2 message, message2;
 
         public Rectangle AA, Commando, Doc, Engineer, Plane, Pvt, Tank, Truck, Queen, Rook, Bishop, Knight, Pawn;
         Rectangle[] test;
@@ -84,6 +81,7 @@ namespace Advanced_Tactics
         {
             spviseur = new Sprite(); spviseur.LC(Game1.Ctt, "Curseur/viseur");
             Viseurjaune = new Sprite(); Viseurjaune.LC(Game1.Ctt, "Curseur/viseurJ");
+            //Viseurvert = new Sprite(); Viseurvert.LC(Game1.Ctt, "Curseur/viseurV");
             Viseurbleu = new Sprite(); Viseurbleu.LC(Game1.Ctt, "Curseur/viseurB");
             Viseurrouge = new Sprite(); Viseurrouge.LC(Game1.Ctt, "Curseur/viseurR");
             Viseurnormal = new Sprite(); Viseurnormal.LC(Game1.Ctt, "Curseur/viseur");
@@ -94,6 +92,7 @@ namespace Advanced_Tactics
             coord.X = data.MapWidth / 2;
             coord.Y = data.MapHeight / 2;
             message = new Message2();
+            message2 = new Message2();
             test = new Rectangle[2];
             test2 = new String[2];
         }
@@ -153,6 +152,8 @@ namespace Advanced_Tactics
                 case ViseurState.Moving:
                     foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible) spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
                     foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.AttackPossible) spCaserouge.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
+                    if (map[depPos.X, depPos.Y].unitOfCell.Rang == "Doc") foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HealPossible) Viseurjaune.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
+                    //foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HealPossible) Viseurjaune.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
                     break;
             }
         }
@@ -208,14 +209,16 @@ namespace Advanced_Tactics
                 ////////////////////////
                 else if (currentViseurState == ViseurState.AttackCheat)
                 {
-                    map[viseurX, viseurY].unitOfCell.PV -= 10000;
+                    if (UnitTemp.Rang == "Doc" && map[viseurX, viseurY].unitOfCell.Player == Match.PlayerTurn) map[viseurX, viseurY].unitOfCell.PV += stats.PVUnit(map[viseurX, viseurY].unitOfCell.Rang);
+                    else if (UnitTemp.Rang == "Doc" && map[viseurX, viseurY].unitOfCell.Player == Match.PlayerTurn) map[viseurX, viseurY].unitOfCell.PV += map[depPos.X, depPos.Y].unitOfCell.Strength;
+                    else map[viseurX, viseurY].unitOfCell.PV -= 10000;
 
+                    destPos = new Vector(coordViseur.X, coordViseur.Y);
                     if (map[viseurX, viseurY].unitOfCell.PV <= 0)
                     {
                         Match.PlayerTurn.Money += map[viseurX, viseurY].unitOfCell.Point;
                         Match.PlayerTurn.Score += map[viseurX, viseurY].unitOfCell.Point;
                         map[viseurX, viseurY].unitOfCell.DelUnitofList();
-                        destPos = new Vector(coordViseur.X, coordViseur.Y);
                         if (UnitTemp.Classe != "King") doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                         Explosion();
                     }
@@ -228,14 +231,15 @@ namespace Advanced_Tactics
                 else if (currentViseurState == ViseurState.Attack)
                 {
                     if (UnitTemp.Classe != "King") map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
+                    else if (UnitTemp.Rang == "Doc" && map[viseurX, viseurY].unitOfCell.Player == Match.PlayerTurn) map[viseurX, viseurY].unitOfCell.PV += map[depPos.X, depPos.Y].unitOfCell.Strength;
                     else map[viseurX, viseurY].unitOfCell.PV -= stats.PVUnit(map[viseurX, viseurY].unitOfCell.Rang) / 2;
 
+                    destPos = new Vector(coordViseur.X, coordViseur.Y);
                     if (map[viseurX, viseurY].unitOfCell.PV <= 0)
                     {
                         Match.PlayerTurn.Money += map[viseurX, viseurY].unitOfCell.Point;
                         Match.PlayerTurn.Score += map[viseurX, viseurY].unitOfCell.Point;
                         map[viseurX, viseurY].unitOfCell.DelUnitofList();
-                        destPos = new Vector(coordViseur.X, coordViseur.Y);
                         if (UnitTemp.Classe != "King") doMoveUnit(map[depPos.X, depPos.Y].unitOfCell, map[destPos.X, destPos.Y], ListOfUnit);
                         Explosion();
                     }
@@ -247,12 +251,16 @@ namespace Advanced_Tactics
                 ////////////////////////
                 else if (currentViseurState == ViseurState.Build)
                 {
+                    float temp = 1f;
+
                     if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
                     else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HQPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
                     else spviseur = Viseurrouge;
 
                     string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
                     string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
+
+                    if (Inputs.Keyr(Keys.C)) Match.PlayerTurn.Money += 10000;
 
                     if (currentViseurState == ViseurState.Build)
                     {
@@ -291,7 +299,7 @@ namespace Advanced_Tactics
                         }
                         else
                         {
-                            message.Messages.Add(new DisplayMessage("Not enough money", TimeSpan.FromSeconds(0.9), new Vector2(map[data.MapWidth / 2, data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Not enough money").X / 2, map[data.MapWidth / 2, data.MapHeight / 2].positionPixel.Y), Color.Gold));
+                            message2.Messages.Add(new DisplayMessage("Not enough money", TimeSpan.FromSeconds(0.9), new Vector2(map[data.MapWidth / 2, data.MapHeight / 2].positionPixel.X - message.font.MeasureString("Not enough money").X / 2, map[data.MapWidth / 2, data.MapHeight / 2].positionPixel.Y), Color.Gold));
                         }
                         Reset();
                     }
@@ -302,11 +310,12 @@ namespace Advanced_Tactics
                 else if (currentViseurState == ViseurState.Moving)
                 {
                     if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
+                    else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HealPossible, map[viseurX, viseurY].VectorOfCell) && map[depPos.X, depPos.Y].unitOfCell.Rang == "Doc") spviseur = Viseurjaune;
                     else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.AttackPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurjaune;
                     else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.MvtPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
                     else spviseur = Viseurrouge;
 
-                    if (UnitTemp != null && ViseurOverUnit && Contains<Vector>(UnitTemp.AttackPossible, new Vector(coordViseur.X, coordViseur.Y)))
+                    if (UnitTemp != null && ViseurOverUnit && (Contains<Vector>(UnitTemp.AttackPossible, new Vector(coordViseur.X, coordViseur.Y)) || (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HealPossible, map[viseurX, viseurY].VectorOfCell) && map[depPos.X, depPos.Y].unitOfCell.Rang == "Doc")))
                     {
                         if (Inputs.Keyr(Keys.C)) currentViseurState = ViseurState.AttackCheat;
                         else if (Inputs.Keyr(Keys.Enter)) currentViseurState = ViseurState.Attack;

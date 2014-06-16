@@ -35,7 +35,6 @@ Content\Menu\TitreMapEditor.xnb
 Content\Menu\TitreMultiPlayer.xnb
 Content\Menu\TitreSinglePlayer.xnb
 Content\Case\bleu.xnb
-Content\Unit\BAA.xnb
 Content\Unit\BCommando.xnb
 Content\Unit\BDoc.xnb
 Content\Unit\BEngineer.xnb
@@ -55,6 +54,12 @@ Content\Unit\RTank.xnb
 Content\Unit\RTruck.xnb
 Content\Case\B.xnb
 Content\Case\R.xnb
+Content\Unit\pdame.xnb
+Content\Unit\pfou.xnb
+Content\Unit\ppion.xnb
+Content\Unit\ptour.xnb
+Content\Unit\BAA.xnb
+Content\Unit\pcav.xnb
 Content\Son\click1.xnb
 Content\Son\explosound.xnb
 Content\Son\teleportsound.xnb
@@ -65,11 +70,6 @@ Content\info.xnb
 Content\info2.xnb
 Content\message.xnb
 Content\message2.xnb
-Content\Unit\pcav.xnb
-Content\Unit\pdame.xnb
-Content\Unit\pfou.xnb
-Content\Unit\ppion.xnb
-Content\Unit\ptour.xnb
 Content\Son\Russian Red Army Choir.wma
 Content\BigFont.xnb
 Content\DefaultFont.xnb

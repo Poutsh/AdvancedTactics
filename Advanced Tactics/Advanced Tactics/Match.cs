@@ -40,7 +40,7 @@ namespace Advanced_Tactics
         {
             Data = data;
             Map = map.Carte;
-            NumberMvtPerTurn = 2;
+            NumberMvtPerTurn = 8;
             stats = new Stats(Data);
             font = Game1.Ctt.Load<SpriteFont>("info");
 
