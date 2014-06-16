@@ -31,7 +31,7 @@ namespace Advanced_Tactics
                     return;
 
 
-                case GameState.Game:
+                case GameState.GameMulti:
                     Info.Draw(spriteBatch, gameTime, Match, viseur);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     tileMap.Draw(spriteBatch);

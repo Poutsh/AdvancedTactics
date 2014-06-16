@@ -9,7 +9,7 @@ namespace Advanced_Tactics
     public class Match
     {
         Data Data;
-        TimeSpan time, time2;
+        TimeSpan time, time2, time3;
         public Turn TurnState;
         public enum Turn { Player1, Player2 }
 
@@ -19,7 +19,7 @@ namespace Advanced_Tactics
         public bool canStart;
         public Player PlayerTurn { get { return TurnbyTurn.PlayerTurn; } }
         public Player Winner;
-
+        public bool iabool;
         public int TurnNumber;
         public TurnbyTurn TurnbyTurn;
         public int NumberMvtPerTurn;
@@ -29,6 +29,7 @@ namespace Advanced_Tactics
         public List<Player> Players = new List<Player>();
         Cell[,] Map;
         Stats stats;
+        public IA IA;
 
         SpriteFont font;
         public Sprite AA, Commando, Doc, Engineer, Plane, Pvt, Tank, Truck, Viseurjaune;
@@ -36,11 +37,12 @@ namespace Advanced_Tactics
 
 
 
-        public Match(Data data, int number, Map map)
+        public Match(Data data, int number, Map map, bool IAbool)
         {
             Data = data;
             Map = map.Carte;
-            NumberMvtPerTurn = 8;
+            iabool = IAbool;
+            NumberMvtPerTurn = 5;
             stats = new Stats(Data);
             font = Game1.Ctt.Load<SpriteFont>("info");
 
@@ -58,13 +60,14 @@ namespace Advanced_Tactics
             for (int i = 0; i < number; i++)
             {
                 Players.Add(new Player(Data));
-                Players[i].playernumber = i + 1;
                 Players[i].ColorSide = ColorSide[i];
+                Players[i].playernumber = i + 1;
                 Players[i].ColorSideN = ColorSideName[i];
                 Players[i].StartZoneCenter = Temp[i];
                 Players[i].StartZone = DrawStartZone(Players[i]);
                 Players[i].ColorStartZoneSprite.LC(Game1.Ctt, "Case/" + ColorSideName[i]);
             }
+            if (iabool) { IA = new IA(data, this, Map); Players[1].PlayerName = "IA"; Players[0].PlayerName = "Player";}
 
             TurnNumber = 0;
             TurnbyTurn = new TurnbyTurn(Data, Map, this);
@@ -84,7 +87,7 @@ namespace Advanced_Tactics
             return Player.StartZone;
         }
 
-        bool once;
+        bool once, once2;
         public void Update(GameTime gameTime, SpriteBatch spriteBatch, Viseur Viseur, List<Unit> ListToDraw)
         {
             if (canStart)
@@ -107,6 +110,7 @@ namespace Advanced_Tactics
                 TurnbyTurn.Message.Update(gameTime);
 
                 float tempo = 0.5f;
+                float tempo3 = 1f;
                 float tempo2 = 1f;
 
 
@@ -116,35 +120,66 @@ namespace Advanced_Tactics
                 }
                 else if (Players[0].HQ == null)
                 {
-                    if (!once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo2)) { time = gameTime.TotalGameTime; Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
-                    if (!once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo)) { time = gameTime.TotalGameTime; once = true; }
-                    if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && (Inputs.Keyr(Keys.Enter) || Inputs.doubleclick(gameTime)))
+                    if (iabool)
                     {
-                        TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn, this);
-                        TurnbyTurn.PlayerTurn = Players[1];
+                        if (!once2 && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo2)) { time = gameTime.TotalGameTime; Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); once2 = true; }
+                        if (once2 && gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(tempo3)) { time3 = gameTime.TotalGameTime; once2 = false; }
+
+                        if (!once2)
+                        {
+                            Random rr = new Random();
+                            Vector test = TurnbyTurn.PlayerTurn.StartZone[rr.Next(0, TurnbyTurn.PlayerTurn.StartZone.Count)];
+
+                            TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, test.X, test.Y, TurnbyTurn.PlayerTurn, this);
+
+                            TurnbyTurn.PlayerTurn = Players[1];
+                            TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("IA").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                        }
+                    }
+                    else
+                    {
+                        if (!once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo2)) { time = gameTime.TotalGameTime; Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
+                        if (!once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo)) { time = gameTime.TotalGameTime; once = true; }
+                        if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && (Inputs.Keyr(Keys.Enter) || Inputs.doubleclick(gameTime)))
+                        {
+                            TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn, this);
+                            TurnbyTurn.PlayerTurn = Players[1];
+                        }
                     }
                 }
                 else if (Players[1].HQ == null)
                 {
-                    if (once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo2)) { time = gameTime.TotalGameTime; Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
-                    if (once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo)) { time = gameTime.TotalGameTime; once = false; }
-                    if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && (Inputs.Keyr(Keys.Enter) || Inputs.doubleclick(gameTime)))
+                    if (iabool)
                     {
-                        TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn, this);
-                        TurnbyTurn.PlayerTurn = Players[0];
-                        TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                        if (!once2 && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo2)) { time = gameTime.TotalGameTime; Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("IA").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); once2 = true; }
+                        if (once2 && gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(tempo3)) { time3 = gameTime.TotalGameTime; once2 = false; }
+
+                        if (!once2)
+                        {
+                            Random rr = new Random();
+                            Vector test = TurnbyTurn.PlayerTurn.StartZone[rr.Next(0, TurnbyTurn.PlayerTurn.StartZone.Count)];
+
+                            TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, test.X, test.Y, TurnbyTurn.PlayerTurn, this);
+                            
+                            TurnbyTurn.PlayerTurn = Players[0];
+                            TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                        }
+                    }
+                    else
+                    {
+                        if (once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo2)) { time = gameTime.TotalGameTime; Viseur.coordViseur = PlayerTurn.StartZoneCenter.ToVector2(); TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide)); }
+                        if (once && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo)) { time = gameTime.TotalGameTime; once = false; }
+                        if (TurnbyTurn.PlayerTurn.StartZone.Contains(Viseur.coordViseur2) && (Inputs.Keyr(Keys.Enter) || Inputs.doubleclick(gameTime)))
+                        {
+                            TurnbyTurn.PlayerTurn.HQ = new Unit(Data, "HQ", "King", Map, Viseur.viseurX, Viseur.viseurY, TurnbyTurn.PlayerTurn, this);
+                            TurnbyTurn.PlayerTurn = Players[0];
+                            TurnbyTurn.Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - TurnbyTurn.Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+                        }
                     }
                 }
             }
 
-            for (int i = 0; i < Players.Count; i++)
-            {
-                for (int j = 0; j < Players[i].UnitOfPlayer.Count; j++)
-                {
-                    Players[i].UnitOfPlayer[j].MvtPossible = stats.Possible(Players[i].UnitOfPlayer[j], Map, Data, this).Item1;
-                    Players[i].UnitOfPlayer[j].AttackPossible = stats.Possible(Players[i].UnitOfPlayer[j], Map, Data, this).Item2;
-                }
-            }
+            
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -26,15 +26,15 @@ namespace Advanced_Tactics
             Match.TurnState = Match.Turn.Player1;
             Match.inTurnState = Match.inTurn.Start;
             PlayerTurn = Match.Players[0];
-
+            Match.IA.IAPlayer = Match.Players[0];
         }
 
         public void UpdateTurn(SpriteBatch spriteBatch, GameTime gameTime, Match Match, Viseur Viseur, List<Unit> ListToDraw)
         {
             Message.Update(gameTime);
             float tempo = 1f;
-
-            if ((Inputs.Keyr(Keys.Space) || Match.NumberMvtPerTurn == MvtCount) && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
+            
+            if ((Inputs.Keyr(Keys.Space) || MvtCount >= Match.NumberMvtPerTurn) && gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
             {
                 time = gameTime.TotalGameTime;
                 MvtCount = 0;
@@ -43,13 +43,26 @@ namespace Advanced_Tactics
                     Match.TurnState = Match.Turn.Player2;
                     PlayerTurn.Money += 10;
                     PlayerTurn = Match.Players[1];
+                    Match.IA.IAPlayer = Match.Players[1];
                 }
                 else
                 {
+                    PlayerTurn.Money += 10;
                     Match.TurnState = Match.Turn.Player1;
                     PlayerTurn = Match.Players[0];
+                    Match.IA.IAPlayer = Match.Players[0];
                 }
-                Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - Message.font.MeasureString("Player 1").X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
+
+                for (int i = 0; i < Match.Players.Count; i++)
+                {
+                    for (int j = 0; j < Match.Players[i].UnitOfPlayer.Count; j++)
+                    {
+                        Match.Players[i].UnitOfPlayer[j].MvtPossible = Stats.Possible(Match.Players[i].UnitOfPlayer[j], Map, Data, Match).Item1;
+                        Match.Players[i].UnitOfPlayer[j].AttackPossible = Stats.Possible(Match.Players[i].UnitOfPlayer[j], Map, Data, Match).Item2;
+                    }
+                }
+
+                Message.Messages.Add(new DisplayMessage(PlayerTurn.PlayerName, TimeSpan.FromSeconds(0.9), new Vector2(Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.X - Message.font.MeasureString(PlayerTurn.PlayerName).X / 2, Map[Data.MapWidth / 2, Data.MapHeight / 2].positionPixel.Y), PlayerTurn.ColorSide));
                 Match.LoadShop();
             }
         }

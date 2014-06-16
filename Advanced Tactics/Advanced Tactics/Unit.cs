@@ -149,11 +149,11 @@ namespace Advanced_Tactics
                 Player.UnitOfPlayer.Add(this);
                 map[this.XofUnit, this.YofUnit].Occupe = Player.UnitOfPlayer.Contains(this);
 
-                this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
-                this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
                 if (Rang == "Doc") this.HealPossible = Stats.Possible(this, map, data, match).Item3;
                 if (Classe.Contains("King")) this.HQPossible = Stats.HQPoss(this, map, data); else this.HQPossible = null;
             }
+            this.MvtPossible = Stats.Possible(this, map, data, match).Item1;
+            this.AttackPossible = Stats.Possible(this, map, data, match).Item2;
         }
 
 

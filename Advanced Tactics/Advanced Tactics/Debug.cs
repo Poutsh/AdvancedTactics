@@ -111,6 +111,9 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font,
                 string.Format("Mouse ({0}, {1})", Mouse.GetState().X, Mouse.GetState().Y),
                 new Vector2(1111, 80), Color.Black);
+            spriteBatch.DrawString(this.font,
+                string.Format("{0}", Match.IA.IAPlayer.PlayerName),
+                new Vector2(1111, 120), Color.Black);
             ////////////
 
             spriteBatch.DrawString(this.font,

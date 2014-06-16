@@ -67,7 +67,7 @@ namespace Advanced_Tactics
         public void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit)
         {
             position = new Vector(posinit.X, posinit.Y);
-            spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
+            if (texture != null) spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
         /// <summary>
         /// Draw with an origin spec
@@ -79,7 +79,7 @@ namespace Advanced_Tactics
         public void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, Vector2 origin)
         {
             position = new Vector(posinit.X, posinit.Y);
-            spriteBatch.Draw(texture, posinit, null, Color.White, 0, origin, data.Scale, SpriteEffects.None, 1);
+            if (texture != null) spriteBatch.Draw(texture, posinit, null, Color.White, 0, origin, data.Scale, SpriteEffects.None, 1);
         }
         /// <summary>
         /// Draw and specify a scale
@@ -91,7 +91,7 @@ namespace Advanced_Tactics
         public void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, float Scale)
         {
             position = new Vector(posinit.X, posinit.Y);
-            spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
+            if (texture != null) spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
         }
         /// <summary>
         /// Draw with bool for blink
@@ -104,7 +104,7 @@ namespace Advanced_Tactics
         {
             position = new Vector(posinit.X, posinit.Y);
             if (blink)
-                spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
+                if (texture != null) spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Advanced_Tactics
         /// <param name="rectangle"></param>
         public void Draw(SpriteBatch spriteBatch, Rectangle rectangle)
         {
-            spriteBatch.Draw(texture, rectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            if (texture != null) spriteBatch.Draw(texture, rectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         #endregion

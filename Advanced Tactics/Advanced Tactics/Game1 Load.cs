@@ -92,7 +92,7 @@ namespace Advanced_Tactics
                case GameState.GameStart:
                     tileMap = new TileEngine(Data.fileMap, Data, map);
                     map = new Map(Data);
-                    Match = new Match(Data, 2, map);
+                    Match = new Match(Data, 2, map, true);
 
 
                     inGameMusic = Content.Load<SoundEffect>("Son/ingamemusic");
@@ -123,8 +123,8 @@ namespace Advanced_Tactics
                         Func<Data, string, string, Map, int, int, Unit, Player, Match, Unit> Rdunit = (d, r, c, m, x, y, u, p, ma) => new Unit(d, r, c, m.Carte, x, y, p, ma);
                         Random rrd = new Random();
                         // Et ici j'appelle en boucle la dite fonction n fois, n etant le nombre d'unitees voulus
-                        for (int i = 0; i < rrd.Next(50, 100); i++)
-                            Rdunit(Data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, Data.MapWidth), rrd.Next(0, Data.MapHeight), unit, Match.PlayerTurn, Match);
+                        for (int i = 0; i < rrd.Next(200, 500); i++)
+                            Rdunit(Data, arrayrang[rrd.Next(arrayrang.Count())], arrayclasse[rrd.Next(arrayclasse.Count())], map, rrd.Next(0, Data.MapWidth), rrd.Next(0, Data.MapHeight), unit, Match.Players[0], Match);
                     }
                     break;
             }

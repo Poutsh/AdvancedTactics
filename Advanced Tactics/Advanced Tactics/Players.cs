@@ -19,14 +19,14 @@ namespace Advanced_Tactics
         public List<Unit> UnitOfPlayer { get; set; }
         public Color ColorSide { get; set; }
         public string ColorSideN { get; set; }
-        public string PlayerName { get { return "Player " + playernumber; } set { value = PlayerName; } }
+        public string PlayerName;// { get { return "Player " + playernumber; } set { PlayerName = value; } }
         public int playernumber;
         public int Money;
 
         public Player(Data data)
         {
             Data = data;
-            Money = 40;
+            Money = 2000;
             Score = 0;
             UnitOfPlayer = new List<Unit>();
             StartZone = new List<Vector>();

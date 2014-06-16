@@ -29,7 +29,7 @@ namespace Advanced_Tactics
         SoundEffectInstance instance;
         SoundEffect click;
 
-        public enum GameState { Menu, Option, Game, GameStart, Exit, Loading, Winner, MapGen, ExitConfirm }
+        public enum GameState { Menu, Option, GameMulti, GameSolo, GameStart, Exit, Loading, Winner, MapGen, ExitConfirm }
         public static GameState currentGameState;
 
         // Match
@@ -43,7 +43,7 @@ namespace Advanced_Tactics
         // Unit
         Match Match;
         Unit unit;
-
+        public static bool test = true;
         List<Unit> ListToDraw;
 
         //Resolution

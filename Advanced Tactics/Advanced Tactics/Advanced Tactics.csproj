@@ -118,6 +118,7 @@
     <Compile Include="Game1 Draw.cs" />
     <Compile Include="Game1 Update.cs" />
     <Compile Include="Game1 Variables.cs" />
+    <Compile Include="IA.cs" />
     <Compile Include="Informations.cs" />
     <Compile Include="Inputs.cs" />
     <Compile Include="MapEngine\Cell.cs" />

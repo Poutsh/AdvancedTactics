@@ -84,7 +84,7 @@ namespace Advanced_Tactics
                     }
                     break;
 
-                case GameState.Game:
+                case GameState.GameMulti:
                     message.Update(gameTime);
                     if (Match.Winner != null)
                     {
@@ -115,7 +115,7 @@ namespace Advanced_Tactics
                     LoadContent();
                     debug.Update(Data, map, viseur, ListToDraw, Match);
                     Match.Update(gameTime, spriteBatch, viseur, ListToDraw);
-                    currentGameState = GameState.Game;
+                    currentGameState = GameState.GameMulti;
                     break;
 
 
@@ -135,7 +135,7 @@ namespace Advanced_Tactics
                     }
                     else if (Inputs.Keyr(Keys.Back))
                     {
-                        currentGameState = GameState.Game;
+                        currentGameState = GameState.GameMulti;
                     }
                     break;
 

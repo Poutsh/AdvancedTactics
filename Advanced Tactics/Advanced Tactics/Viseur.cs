@@ -13,7 +13,7 @@ namespace Advanced_Tactics
         #region VARIABLES
 
         Data data;
-        TimeSpan time, time2;
+        TimeSpan time, time2, time3, time4;
 
         public enum ViseurState { Normal, Attack, AttackCheat, Build, Moving, Reset, CtrlZ }
         public ViseurState currentViseurState;
@@ -40,7 +40,7 @@ namespace Advanced_Tactics
         public Vector depPos { get; set; }
         public bool destSelec { get; set; }
         public Vector destPos { get; set; }
-        public bool build;
+        public bool Build;
         List<Vector> CtrlZ;
         MouseState curmouse, oldmouse;
         Match Match;
@@ -51,6 +51,7 @@ namespace Advanced_Tactics
         public Rectangle AA, Commando, Doc, Engineer, Plane, Pvt, Tank, Truck, Queen, Rook, Bishop, Knight, Pawn;
         Rectangle[] test;
         String[] test2;
+        bool build = true, move = true, attack = true;
         public int cost { get { return stats.PointUnit(test2[0], test2[1]); } }
         #endregion
 
@@ -155,7 +156,7 @@ namespace Advanced_Tactics
             }
         }
 
-        private void Explosion()
+        public void Explosion()
         {
             SoundPlayer player = new SoundPlayer(Resource.explosound);
             player.Play();
@@ -170,7 +171,7 @@ namespace Advanced_Tactics
         public void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
             curmouse = Mouse.GetState();
-            if (Match.canStart)
+            if (Match.canStart && !Game1.test)
             {
                 if (depSelec && !destSelec && (Inputs.Keyr(Keys.Back) || (curmouse.MiddleButton == ButtonState.Pressed && curmouse != oldmouse))) Reset();
 
@@ -343,6 +344,57 @@ namespace Advanced_Tactics
                     currentViseurState = ViseurState.Reset;
                 }
             }
+            else if (Match.canStart && Game1.test)
+            {
+                float temp = 0.0f;
+                float temp2 = 15f;
+                Match.Players[0].HQ.HQPossible = stats.HQPoss(Match.Players[0].HQ, map, data);
+                Match.Players[1].HQ.HQPossible = stats.HQPoss(Match.Players[1].HQ, map, data);
+                List<bool> action = new List<bool>(8) { build, move, move, attack, move, attack, attack, build };
+
+                Random rr = new Random();
+
+                if (Match.TurnbyTurn.MvtCount < Match.NumberMvtPerTurn && gameTime.TotalGameTime - time4 > TimeSpan.FromSeconds(temp))
+                    Match.TurnbyTurn.MvtCount++;
+
+                if (Match.TurnbyTurn.MvtCount < Match.NumberMvtPerTurn && gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(temp))
+                {
+                    time3 = gameTime.TotalGameTime;
+
+                    Match.IA.Build(Match);
+                    Match.IA.Move(Match);
+                    Match.IA.Attack(Match, this);
+                    //if (action[rr.Next(0, 8)] == build) Match.IA.Build(Match);
+                    //if (action[rr.Next(0, 8)] == move) Match.IA.Move(Match);
+                    //if (action[rr.Next(0, 8)] == attack) Match.IA.Attack(Match, this);
+                }
+                //if (Match.PlayerTurn.PlayerName == "IA")
+                //{
+                //    float temp = 0.5f;
+                //    if (Match.TurnbyTurn.MvtCount < Match.NumberMvtPerTurn && gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(temp))
+                //    {
+                //        time3 = gameTime.TotalGameTime;
+                //        //Match.TurnbyTurn.MvtCount -= 10;
+                //        Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
+                //        if (Match.Players[1].Money >= 0) Match.IA.Build(Match);
+                //        if (Match.Players[1].UnitOfPlayer.Count > 0) Match.IA.Move(Match);
+                //        if (Match.Players[1].UnitOfPlayer.Count > 0) Match.IA.Attack(Match, this);
+                //    }
+                //}
+                //else
+                //{
+                //    float temp = 0.5f;
+                //    if (Match.TurnbyTurn.MvtCount < Match.NumberMvtPerTurn && gameTime.TotalGameTime - time3 > TimeSpan.FromSeconds(temp))
+                //    {
+                //        time3 = gameTime.TotalGameTime;
+                //        //if (Match.Players[0].Money <= 0) Match.TurnbyTurn.MvtCount += 10;
+                //        Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
+                //        if (Match.Players[0].Money >= 0) Match.IA.Build(Match);
+                //        if (Match.Players[0].UnitOfPlayer.Count > 0) Match.IA.Move(Match);
+                //        if (Match.Players[0].UnitOfPlayer.Count > 0) Match.IA.Attack(Match, this);
+                //    }
+                //}
+            }
 
             //getMovingPath(ListOfUnit, gameTime, spriteBatch);
             //ViseurColor();
@@ -351,7 +403,7 @@ namespace Advanced_Tactics
             float tempo;
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) || Keyboard.GetState().IsKeyDown(Keys.RightShift)) tempo = 0.15f; else tempo = 0.07f;
 
-            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo))
+            if (gameTime.TotalGameTime - time > TimeSpan.FromSeconds(tempo) && Match.PlayerTurn.PlayerName != "IA")
             {
                 time = gameTime.TotalGameTime;
 

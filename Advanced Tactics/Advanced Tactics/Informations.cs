@@ -59,8 +59,16 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font, string.Format("{0}", match.PlayerTurn.PlayerName), new Vector2(17 + this.font.MeasureString("Turn  ").X, 120), match.PlayerTurn.ColorSide);
 
             spriteBatch.DrawString(this.font, string.Format("Score"), new Vector2(17, 145), Color.Black);
-            spriteBatch.DrawString(this.font, string.Format("Player 1  : {0}", match.Players[0].Score), new Vector2(35, 165), match.Players[0].ColorSide);
-            spriteBatch.DrawString(this.font, string.Format("Player 2 : {0}", match.Players[1].Score), new Vector2(35, 185), match.Players[1].ColorSide);
+            if (match.iabool)
+            {
+                spriteBatch.DrawString(this.font, string.Format("Player  : {0}", match.Players[0].Score), new Vector2(35, 165), match.Players[0].ColorSide);
+                spriteBatch.DrawString(this.font, string.Format("IA : {0}", match.Players[1].Score), new Vector2(35, 185), match.Players[1].ColorSide);
+            }
+            else
+            {
+                spriteBatch.DrawString(this.font, string.Format("Player 1  : {0}", match.Players[0].Score), new Vector2(35, 165), match.Players[0].ColorSide);
+                spriteBatch.DrawString(this.font, string.Format("Player 2 : {0}", match.Players[1].Score), new Vector2(35, 185), match.Players[1].ColorSide);
+            }            
             
             spriteBatch.DrawString(this.font, string.Format("Viewfinder {0},{1}", viseur.viseurX, viseur.viseurY), new Vector2(17, 215), Color.Black);
 

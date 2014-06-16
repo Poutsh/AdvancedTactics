@@ -165,357 +165,367 @@ namespace Advanced_Tactics
             MvtPossible = new List<Vector>() { };
             AttackPossible = new List<Vector>() { };
             HealPossible = new List<Vector>() { };
-            switch (unit.Classe)
+
+
+            try
             {
-                case "King":
-                    for (int x = unit.XofUnit - 1; x <= unit.XofUnit + 1; x++)
-                    {
-                        if (x >= 0 && x < data.MapWidth && unit.YofUnit - 1 >= 0)
+                switch (unit.Classe)
+                {
+                    case "King":
+                        for (int x = unit.XofUnit - 1; x <= unit.XofUnit + 1; x++)
                         {
-                            if (map[x, unit.YofUnit - 1].unitOfCell != null)
+                            if (x >= 0 && x < data.MapWidth && unit.YofUnit - 1 >= 0)
                             {
-                                if (unit.Rang == "Doc" && map[x, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit - 1));
-                                else if (map[x, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit - 1));
+                                if (map[x, unit.YofUnit - 1].unitOfCell != null)
+                                {
+                                    if (unit.Rang == "Doc" && map[x, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit - 1));
+                                    else if (map[x, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit - 1));
+                                }
+                                else MvtPossible.Add(new Vector(x, unit.YofUnit - 1));
                             }
-                            else MvtPossible.Add(new Vector(x, unit.YofUnit - 1));
                         }
-                    }
-                    for (int x = unit.XofUnit - 1; x <= unit.XofUnit + 1; x++)
-                    {
-                        if (x >= 0 && x < data.MapWidth && unit.YofUnit + 1 < data.MapHeight)
+                        for (int x = unit.XofUnit - 1; x <= unit.XofUnit + 1; x++)
                         {
-                            if (map[x, unit.YofUnit + 1].unitOfCell != null)
+                            if (x >= 0 && x < data.MapWidth && unit.YofUnit + 1 < data.MapHeight)
                             {
-                                if (unit.Rang == "Doc" && map[x, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit + 1));
-                                else if (map[x, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit + 1));
+                                if (map[x, unit.YofUnit + 1].unitOfCell != null)
+                                {
+                                    if (unit.Rang == "Doc" && map[x, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit + 1));
+                                    else if (map[x, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit + 1));
+                                }
+                                else MvtPossible.Add(new Vector(x, unit.YofUnit + 1));
                             }
-                            else MvtPossible.Add(new Vector(x, unit.YofUnit + 1));
                         }
-                    }
-                    if (unit.XofUnit - 1 >= 0 && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
-                    {
-                        if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
-                        else if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
-                    }
-                    else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
-
-                    if (unit.XofUnit + 1 < data.MapWidth && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
-                    {
-                        if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
-                        else if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
-                    }
-                    else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
-                    break;
-
-
-                case "Queen":
-                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit - i >= 0); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
-                            else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
-                    }
-                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit + i < data.MapWidth); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
-                            else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
-                    }
-                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit + i < data.MapWidth); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
-                            else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
-                    }
-                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit - i >= 0); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
-                            else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
-                    }
-                    for (int x = unit.XofUnit + 1; x < data.MapWidth; x++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
-                        else if (map[x, unit.YofUnit].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
-                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
-                            x = data.MapWidth + 10;
-                        }
-                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
-                    }
-                    for (int x = unit.XofUnit - 1; x >= 0; x--)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
-                        else if (map[x, unit.YofUnit].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
-                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
-                            x = -10;
-                        }
-                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
-                    }
-                    for (int y = unit.YofUnit + 1; y < data.MapHeight; y++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
-                        else if (map[unit.XofUnit, y].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
-                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
-                            y = data.MapHeight + 10;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
-                    }
-                    for (int y = unit.YofUnit - 1; y >= 0; y--)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
-                        else if (map[unit.XofUnit, y].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
-                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
-                            y = -10;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
-                    }
-                    break;
-
-
-                case "Rook":
-                    for (int x = unit.XofUnit + 1; x < data.MapWidth; x++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
-                        else if (map[x, unit.YofUnit].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
-                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
-                            x = data.MapWidth + 10;
-                        }
-                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
-                    }
-                    for (int x = unit.XofUnit - 1; x >= 0; x--)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
-                        else if (map[x, unit.YofUnit].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
-                            else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
-                            x = -10;
-                        }
-                        else MvtPossible.Add(new Vector(x, unit.YofUnit));
-                    }
-                    for (int y = unit.YofUnit + 1; y < data.MapHeight; y++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
-                        else if (map[unit.XofUnit, y].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
-                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
-                            y = data.MapHeight + 10;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
-                    }
-                    for (int y = unit.YofUnit - 1; y >= 0; y--)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
-                        else if (map[unit.XofUnit, y].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
-                            else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
-                            y = -10;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, y));
-                    }
-                    break;
-
-
-                case "Bishop":
-                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit - i >= 0); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
-                            else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
-                    }
-                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit + i < data.MapWidth); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
-                            else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
-                    }
-                    for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit + i < data.MapWidth); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
-                            else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
-                    }
-                    for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit - i >= 0); i++)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
-                        else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
-                            else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
-                            i = data.MapHeight * data.MapWidth;
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
-                    }
-                    break;
-
-
-                case "Knight":
-                    if ((unit.XofUnit - 1 >= 0) && (unit.YofUnit + 2 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 1, unit.YofUnit + 2]) == true)
-                    {
-                        if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
-                            else if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
-                    }
-
-                    if ((unit.XofUnit + 1 < data.MapWidth) && (unit.YofUnit + 2 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 1, unit.YofUnit + 2]) == true)
-                    {
-                        if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
-                            else if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
-                    }
-                    if ((unit.XofUnit + 2 < data.MapWidth) && (unit.YofUnit + 1 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 2, unit.YofUnit + 1]) == true)
-                    {
-                        if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
-                            else if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
-                    }
-                    if ((unit.XofUnit + 2 < data.MapWidth) && (unit.YofUnit - 1 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 2, unit.YofUnit - 1]) == true)
-                    {
-                        if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
-                            else if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
-                    }
-                    if ((unit.XofUnit + 1 < data.MapWidth) && (unit.YofUnit - 2 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 1, unit.YofUnit - 2]) == true)
-                    {
-                        if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
-                            else if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
-                    }
-                    if ((unit.XofUnit - 1 >= 0) && (unit.YofUnit - 2 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 1, unit.YofUnit - 2]) == true)
-                    {
-                        if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
-                            else if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
-                    }
-                    if ((unit.XofUnit - 2 >= 0) && (unit.YofUnit - 1 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 2, unit.YofUnit - 1]) == true)
-                    {
-                        if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
-                            else if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
-                    }
-                    if ((unit.XofUnit - 2 >= 0) && (unit.YofUnit + 1 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 2, unit.YofUnit + 1]) == true)
-                    {
-                        if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
-                            else if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
-                    }
-                    break;
-
-
-                case "Pawn":
-                    if (unit.XofUnit + 1 < data.MapWidth)
-                    {
-                        if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
-                            else if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
-
-                    }
-                    if (unit.YofUnit + 1 < data.MapHeight)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell != null)
-                        {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
-                            else if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
-                        }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
-
-                    }
-                    if (unit.XofUnit - 1 >= 0)
-                    {
-                        if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
+                        if (unit.XofUnit - 1 >= 0 && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
                         {
                             if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
                             else if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
                         }
                         else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
 
-                    }
-                    if (unit.YofUnit - 1 >= 0)
-                    {
-                        if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell != null)
+                        if (unit.XofUnit + 1 < data.MapWidth && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
                         {
-                            if (unit.Rang == "Doc" && map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
-                            else if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
+                            if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                            else if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
                         }
-                        else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
-                    }
-                    break;
+                        else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                        break;
+
+
+                    case "Queen":
+                        for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit - i >= 0); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                                else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                        }
+                        for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit + i < data.MapWidth); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                                else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                        }
+                        for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit + i < data.MapWidth); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                                else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                        }
+                        for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit - i >= 0); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                                else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                        }
+                        for (int x = unit.XofUnit + 1; x < data.MapWidth ; x++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
+                            else if (map[x, unit.YofUnit].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                                else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                                x = data.MapWidth + 10;
+                            }
+                            else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                        }
+                        for (int x = unit.XofUnit - 1; x >= 0 ; x--)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
+                            else if (map[x, unit.YofUnit].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                                else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                                x = -10;
+                            }
+                            else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                        }
+                        for (int y = unit.YofUnit + 1; y < data.MapHeight; y++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
+                            else if (map[unit.XofUnit, y].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                                else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                                y = data.MapHeight + 10;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                        }
+                        for (int y = unit.YofUnit - 1; y >= 0; y--)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
+                            else if (map[unit.XofUnit, y].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                                else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                                y = -10;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                        }
+                        break;
+
+
+                    case "Rook":
+                        for (int x = unit.XofUnit + 1; x < data.MapWidth; x++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = data.MapWidth + 10;
+                            else if (map[x, unit.YofUnit].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                                else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                                x = data.MapWidth + 10;
+                            }
+                            else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                        }
+                        for (int x = unit.XofUnit - 1; x >= 0; x--)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[x, unit.YofUnit]) == false) x = -10;
+                            else if (map[x, unit.YofUnit].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[x, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(x, unit.YofUnit));
+                                else if (map[x, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(x, unit.YofUnit));
+                                x = -10;
+                            }
+                            else MvtPossible.Add(new Vector(x, unit.YofUnit));
+                        }
+                        for (int y = unit.YofUnit + 1; y < data.MapHeight; y++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = data.MapHeight + 10;
+                            else if (map[unit.XofUnit, y].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                                else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                                y = data.MapHeight + 10;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                        }
+                        for (int y = unit.YofUnit - 1; y >= 0; y--)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit, y]) == false) y = -10;
+                            else if (map[unit.XofUnit, y].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit, y].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, y));
+                                else if (map[unit.XofUnit, y].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, y));
+                                y = -10;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit, y));
+                        }
+                        break;
+
+
+                    case "Bishop":
+                        for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit - i >= 0); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                                else if (map[unit.XofUnit - i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit - i));
+                        }
+                        for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit + i < data.MapWidth); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                                else if (map[unit.XofUnit + i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit + i));
+                        }
+                        for (int i = 1; (unit.YofUnit - i >= 0) && (unit.XofUnit + i < data.MapWidth); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + i, unit.YofUnit - i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                                else if (map[unit.XofUnit + i, unit.YofUnit - i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + i, unit.YofUnit - i));
+                        }
+                        for (int i = 1; (unit.YofUnit + i < data.MapHeight) && (unit.XofUnit - i >= 0); i++)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - i, unit.YofUnit + i]) == false) i = data.MapHeight * data.MapWidth;
+                            else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                                else if (map[unit.XofUnit - i, unit.YofUnit + i].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                                i = data.MapHeight * data.MapWidth;
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - i, unit.YofUnit + i));
+                        }
+                        break;
+
+
+                    case "Knight":
+                        if ((unit.XofUnit - 1 >= 0) && (unit.YofUnit + 2 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 1, unit.YofUnit + 2]) == true)
+                        {
+                            if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
+                                else if (map[unit.XofUnit - 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit + 2));
+                        }
+
+                        if ((unit.XofUnit + 1 < data.MapWidth) && (unit.YofUnit + 2 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 1, unit.YofUnit + 2]) == true)
+                        {
+                            if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
+                                else if (map[unit.XofUnit + 1, unit.YofUnit + 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit + 2));
+                        }
+                        if ((unit.XofUnit + 2 < data.MapWidth) && (unit.YofUnit + 1 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 2, unit.YofUnit + 1]) == true)
+                        {
+                            if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
+                                else if (map[unit.XofUnit + 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit + 1));
+                        }
+                        if ((unit.XofUnit + 2 < data.MapWidth) && (unit.YofUnit - 1 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 2, unit.YofUnit - 1]) == true)
+                        {
+                            if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
+                                else if (map[unit.XofUnit + 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + 2, unit.YofUnit - 1));
+                        }
+                        if ((unit.XofUnit + 1 < data.MapWidth) && (unit.YofUnit - 2 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit + 1, unit.YofUnit - 2]) == true)
+                        {
+                            if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
+                                else if (map[unit.XofUnit + 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit - 2));
+                        }
+                        if ((unit.XofUnit - 1 >= 0) && (unit.YofUnit - 2 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 1, unit.YofUnit - 2]) == true)
+                        {
+                            if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
+                                else if (map[unit.XofUnit - 1, unit.YofUnit - 2].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit - 2));
+                        }
+                        if ((unit.XofUnit - 2 >= 0) && (unit.YofUnit - 1 >= 0) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 2, unit.YofUnit - 1]) == true)
+                        {
+                            if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
+                                else if (map[unit.XofUnit - 2, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit - 1));
+                        }
+                        if ((unit.XofUnit - 2 >= 0) && (unit.YofUnit + 1 < data.MapHeight) && map[unit.XofUnit, unit.YofUnit].unitOfCell.TerrainPossible.Contains(data.altitudeTerrain[unit.XofUnit - 2, unit.YofUnit + 1]) == true)
+                        {
+                            if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
+                                else if (map[unit.XofUnit - 2, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - 2, unit.YofUnit + 1));
+                        }
+                        break;
+
+
+                    case "Pawn":
+                        if (unit.XofUnit + 1 < data.MapWidth)
+                        {
+                            if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                                else if (map[unit.XofUnit + 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit + 1, unit.YofUnit));
+
+                        }
+                        if (unit.YofUnit + 1 < data.MapHeight)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
+                                else if (map[unit.XofUnit, unit.YofUnit + 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit + 1));
+
+                        }
+                        if (unit.XofUnit - 1 >= 0)
+                        {
+                            if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                                else if (map[unit.XofUnit - 1, unit.YofUnit].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit - 1, unit.YofUnit));
+
+                        }
+                        if (unit.YofUnit - 1 >= 0)
+                        {
+                            if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell != null)
+                            {
+                                if (unit.Rang == "Doc" && map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player == match.PlayerTurn) HealPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
+                                else if (map[unit.XofUnit, unit.YofUnit - 1].unitOfCell.Player != match.PlayerTurn) AttackPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
+                            }
+                            else MvtPossible.Add(new Vector(unit.XofUnit, unit.YofUnit - 1));
+                        }
+                        break;
+                }
+
+                return new Tuple<List<Vector>, List<Vector>, List<Vector>>(MvtPossible, AttackPossible, HealPossible);
             }
-            return new Tuple<List<Vector>, List<Vector>, List<Vector>>(MvtPossible, AttackPossible, HealPossible);
+            catch (NullReferenceException)
+            {
+                return new Tuple<List<Vector>, List<Vector>, List<Vector>>(MvtPossible, AttackPossible, HealPossible);
+            }
         }
     }
 }
