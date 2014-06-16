@@ -44,21 +44,21 @@ namespace Advanced_Tactics
                 case "AA":
                     return 10;
                 case "Commando":
-                    return 10;
+                    return 13;
                 case "Doc":
                     return -15;
                 case "Engineer":
                     return 10;
                 case "Pvt":
-                    return 10;
+                    return 5;
                 case "Plane":
-                    return 10;
+                    return 20;
                 case "HQ":
                     return 10;
                 case "Tank":
-                    return 10;
+                    return 15;
                 case "Truck":
-                    return 10;
+                    return 7;
                 default:
                     return 0;
             }
