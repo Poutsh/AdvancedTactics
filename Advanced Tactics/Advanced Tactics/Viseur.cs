@@ -19,7 +19,7 @@ namespace Advanced_Tactics
         public ViseurState currentViseurState;
 
         public Sprite spviseur, Viseurjaune;
-        public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal, spCase3bleu, Viseurvert;
+        public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal, spCase3bleu, casevert, Viseurvert;
         public List<Sprite> ListSprite;
 
         public Cell[,] map;
@@ -81,12 +81,13 @@ namespace Advanced_Tactics
         {
             spviseur = new Sprite(); spviseur.LC(Game1.Ctt, "Curseur/viseur");
             Viseurjaune = new Sprite(); Viseurjaune.LC(Game1.Ctt, "Curseur/viseurJ");
-            //Viseurvert = new Sprite(); Viseurvert.LC(Game1.Ctt, "Curseur/viseurV");
+            Viseurvert = new Sprite(); Viseurvert.LC(Game1.Ctt, "Curseur/viseurV");
             Viseurbleu = new Sprite(); Viseurbleu.LC(Game1.Ctt, "Curseur/viseurB");
             Viseurrouge = new Sprite(); Viseurrouge.LC(Game1.Ctt, "Curseur/viseurR");
             Viseurnormal = new Sprite(); Viseurnormal.LC(Game1.Ctt, "Curseur/viseur");
             spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/rouge");
             spCasebleu = new Sprite(); spCasebleu.LC(Game1.Ctt, "Case/bleu");
+            casevert = new Sprite(); casevert.LC(Game1.Ctt, "Case/vert");
             spCase3bleu = new Sprite(); spCase3bleu.LC(Game1.Ctt, "Case/bleu");
             currentViseurState = ViseurState.Normal;
             coord.X = data.MapWidth / 2;
@@ -127,10 +128,7 @@ namespace Advanced_Tactics
             CtrlZ = new List<Vector>(2);
             CtrlZ.Add(destPos); CtrlZ.Add(depPos);
             if (Contains<Vector>(unit.MvtPossible, new Vector(newCell.XofCell, newCell.YofCell)) || (Contains<Vector>(unit.AttackPossible, new Vector(newCell.XofCell, newCell.YofCell)) && !map[newCell.XofCell, newCell.YofCell].Occupe))
-            {
                 unit = new Unit(data, unit, map, newCell, Match);
-                //if (unit.Classe == "King") Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
-            }
         }
 
         private void BlinkSprite(GameTime gameTime, bool blinkviseur, SpriteBatch spriteBatch)
@@ -152,8 +150,7 @@ namespace Advanced_Tactics
                 case ViseurState.Moving:
                     foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.MvtPossible) spCasebleu.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
                     foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.AttackPossible) spCaserouge.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-                    if (map[depPos.X, depPos.Y].unitOfCell.Rang == "Doc") foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HealPossible) Viseurjaune.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
-                    //foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HealPossible) Viseurjaune.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
+                    if (map[depPos.X, depPos.Y].unitOfCell.Rang == "Doc") foreach (Vector item in map[depPos.X, depPos.Y].unitOfCell.HealPossible) casevert.Draw(data, spriteBatch, map[item.X, item.Y].positionPixel);
                     break;
             }
         }
@@ -310,7 +307,7 @@ namespace Advanced_Tactics
                 else if (currentViseurState == ViseurState.Moving)
                 {
                     if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
-                    else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HealPossible, map[viseurX, viseurY].VectorOfCell) && map[depPos.X, depPos.Y].unitOfCell.Rang == "Doc") spviseur = Viseurjaune;
+                    else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HealPossible, map[viseurX, viseurY].VectorOfCell) && map[depPos.X, depPos.Y].unitOfCell.Rang == "Doc") spviseur = Viseurvert;
                     else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.AttackPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurjaune;
                     else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.MvtPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
                     else spviseur = Viseurrouge;

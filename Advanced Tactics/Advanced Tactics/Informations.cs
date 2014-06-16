@@ -50,7 +50,7 @@ namespace Advanced_Tactics
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             info.Draw(data, spriteBatch, new Vector2((data.PosXInit / 2) - info.Texture.Width / 2, 0));
-            magasin.Draw(data, spriteBatch, new Vector2(17, 388));
+            magasin.Draw(data, spriteBatch, new Vector2(17, 380));
             fondmetal.Draw(data, spriteBatch, new Vector2(0, 0));
             spriteBatch.End();
 
@@ -109,16 +109,16 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font, string.Format("Field : "), new Vector2(17, 350), Color.Black);
             spriteBatch.DrawString(this.font, string.Format("{0}", field), new Vector2(17 + this.font.MeasureString("Field :  ").X, 350), color);
 
-            spriteBatch.DrawString(this.font, string.Format("Money "), new Vector2(17, 500), Color.Black);
-            spriteBatch.DrawString(this.font2, string.Format("{0}", match.PlayerTurn.Money), new Vector2(17 + this.font.MeasureString("Money  ").X, 500), Color.Gold);
+            spriteBatch.DrawString(this.font, string.Format("Money "), new Vector2(17, 490), Color.Black);
+            spriteBatch.DrawString(this.font2, string.Format("{0}", match.PlayerTurn.Money), new Vector2(17 + this.font.MeasureString("Money  ").X, 490), Color.Gold);
             if (viseur.currentViseurState == Viseur.ViseurState.Build)
             {
-                spriteBatch.DrawString(this.font, string.Format("Fund "), new Vector2(17, 540), Color.Black);
-                spriteBatch.DrawString(this.font2, string.Format("{0}", match.PlayerTurn.Money - viseur.cost), new Vector2(17 + this.font.MeasureString("Fund ").X, 540), Color.Gold);
+                spriteBatch.DrawString(this.font, string.Format("Fund "), new Vector2(17, 530), Color.Black);
+                spriteBatch.DrawString(this.font2, string.Format("{0}", match.PlayerTurn.Money - viseur.cost), new Vector2(17 + this.font.MeasureString("Fund ").X, 530), Color.Gold);
             }
 
-            spriteBatch.DrawString(this.font, string.Format("Cost "), new Vector2(17, 520), Color.Black);
-            spriteBatch.DrawString(this.font2, string.Format("{0}", viseur.cost), new Vector2(17 + this.font.MeasureString("Cost  ").X, 520), Color.Gold);
+            spriteBatch.DrawString(this.font, string.Format("Cost "), new Vector2(17, 510), Color.Black);
+            spriteBatch.DrawString(this.font2, string.Format("{0}", viseur.cost), new Vector2(17 + this.font.MeasureString("Cost  ").X, 510), Color.Gold);
             spriteBatch.End();
         }
     }

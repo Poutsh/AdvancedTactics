@@ -168,7 +168,7 @@ namespace Advanced_Tactics
             Bishop.LC(Game1.Ctt, "Unit/pfou");
             Knight.LC(Game1.Ctt, "Unit/pcav");
             Pawn.LC(Game1.Ctt, "Unit/ppion");
-            
+
         }
 
         public void Shop(SpriteBatch spriteBatch, Viseur viseur)
@@ -198,11 +198,11 @@ namespace Advanced_Tactics
             viseur.Truck = new Rectangle(Truck.Position.X, Truck.Position.Y, (int)(Truck.Texture.Width * 1.2f), (int)(Truck.Texture.Height * 1.2f));
 
 
-            viseur.Queen = new Rectangle(Queen.Position.X, Queen.Position.Y, (int)(Queen.Texture.Width), (int)(Queen.Texture.Height));
-            viseur.Rook = new Rectangle(Rook.Position.X, Rook.Position.Y, (int)(Rook.Texture.Width), (int)(Rook.Texture.Height));
-            viseur.Bishop = new Rectangle(Bishop.Position.X, Bishop.Position.Y, (int)(Bishop.Texture.Width), (int)(Bishop.Texture.Height));
-            viseur.Knight = new Rectangle(Knight.Position.X, Knight.Position.Y, (int)(Knight.Texture.Width), (int)(Knight.Texture.Height));
-            viseur.Pawn = new Rectangle(Pawn.Position.X, Pawn.Position.Y, (int)(Pawn.Texture.Width), (int)(Pawn.Texture.Height));
+            viseur.Queen = new Rectangle(Queen.Position.X - 4, Queen.Position.Y - 4, (int)(Queen.Texture.Width), (int)(Queen.Texture.Height));
+            viseur.Rook = new Rectangle(Rook.Position.X - 4, Rook.Position.Y - 4, (int)(Rook.Texture.Width), (int)(Rook.Texture.Height));
+            viseur.Bishop = new Rectangle(Bishop.Position.X - 4, Bishop.Position.Y - 4, (int)(Bishop.Texture.Width), (int)(Bishop.Texture.Height));
+            viseur.Knight = new Rectangle(Knight.Position.X - 4, Knight.Position.Y - 4, (int)(Knight.Texture.Width), (int)(Knight.Texture.Height));
+            viseur.Pawn = new Rectangle(Pawn.Position.X - 4, Pawn.Position.Y - 4, (int)(Pawn.Texture.Width), (int)(Pawn.Texture.Height));
         }
     }
 }

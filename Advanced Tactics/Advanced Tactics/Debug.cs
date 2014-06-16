@@ -110,7 +110,7 @@ namespace Advanced_Tactics
 
             spriteBatch.DrawString(this.font,
                 string.Format("Mouse ({0}, {1})", Mouse.GetState().X, Mouse.GetState().Y),
-                new Vector2(10, 475), Color.Black);
+                new Vector2(1111, 80), Color.Black);
             ////////////
 
             spriteBatch.DrawString(this.font,

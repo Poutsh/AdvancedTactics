@@ -64,7 +64,7 @@ namespace Advanced_Tactics
                             time2 = gameTime.TotalGameTime;
                             if (once2 == 0) message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Loading...").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Loading...").Y / 2), Color.White));
                             if (once2 % 2 == 0 && once2 < 3)
-                                message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(Data.WindowWidth / 2 - message.font.MeasureString("Loading...").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Loading...").Y / 2), Color.White));
+                                message.Messages.Add(new DisplayMessage("Loading...", TimeSpan.FromSeconds(1), new Vector2(gd.Viewport.Width / 2 - message.font.MeasureString("Loading...").X / 2, gd.Viewport.Height / 2 - message.font.MeasureString("Loading...").Y / 2), Color.White));
                             once2++;
                         }
                     }
