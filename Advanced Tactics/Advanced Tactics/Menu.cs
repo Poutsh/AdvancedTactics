@@ -21,6 +21,7 @@ namespace Advanced_Tactics
         Data data;
         // Main menu
         Texture2D menuJouer, menuOptions, menuQuitter, menuMapEditor;
+        Texture2D single, multi;
 
         //Option menu
         Texture2D optionsRéso, optionsReso2, optionsReso3;
@@ -35,10 +36,11 @@ namespace Advanced_Tactics
         float musicVolume = 1.0f;        // Pour Volume Master
         Cue cue;                         // Pour Son off/on
 
-        int position = 1;
-        int position2 = 0;
-        int position3 = 1;
-        int position4 = 1;
+        int position = 1;             //Main menu
+        int position2 = 0;            //Options Vertical
+        int position3 = 1;            //Options Horizontal
+        int position4 = 1;            //Options Horizontal Fullscreen
+        int position5 = 1;            //Nombre de joueur
 
         TimeSpan time;
 
@@ -66,6 +68,9 @@ namespace Advanced_Tactics
         private bool mapssss = false;
         public bool mapgen { get { return mapssss; } set { mapssss = value; } }
 
+        bool nbJoueur = false;
+        public bool NbJoueur { get { return nbJoueur; } set { nbJoueur = value; } }
+
         #endregion
 
         // // // // // // // // 
@@ -74,7 +79,7 @@ namespace Advanced_Tactics
 
         public Menu() { }
 
-        public Menu(Game1.GameState current, Data data, bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img16, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15)
+        public Menu(Game1.GameState current, Data data, bool full, Texture2D img1, Texture2D img2, Texture2D img3, Texture2D img16, Texture2D img4, Texture2D img5, Texture2D img6, Texture2D img7, Texture2D img8, Texture2D img9, Texture2D img10, Texture2D img11, Texture2D img12, Texture2D img13, Texture2D img14, Texture2D img15, Texture2D img17, Texture2D img18)
         {
             this.data = data;
 
@@ -96,6 +101,8 @@ namespace Advanced_Tactics
             optionsVolumeM2 = img14;
             optionsVolumeM3 = img15;
             menuMapEditor = img16;
+            single = img17;
+            multi = img18;
 
             fullscreen = full;
         }
@@ -120,6 +127,17 @@ namespace Advanced_Tactics
                 if (position == 4) { sb.Draw(menuQuitter, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
                 sb.End();
             }
+            #endregion
+
+            #region Nombre de Joueur
+            if (nbJoueur)
+            {
+                sb.Begin();
+                if (position5 == 1) { sb.Draw(single, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                if (position5 == 2) { sb.Draw(multi, new Rectangle(0, 0, Game1.gd.Viewport.Width, Game1.gd.Viewport.Height), Color.White); }
+                sb.End();
+            }
+
             #endregion
 
             #region InGame
@@ -294,11 +312,50 @@ namespace Advanced_Tactics
                 
                 if (position == 1 && currentKeyboardState.IsKeyDown(Keys.Enter))
                 {
-                    this.Loadscreen = false; menuPrincipal = false; inGame = true;
-                    Game1.time = gameTime.TotalGameTime;
-                    Game1.currentGameState = Game1.GameState.Loading;
+                    //this.Loadscreen = false; menuPrincipal = false; inGame = true;
+                    //Game1.time = gameTime.TotalGameTime;
+                    //Game1.currentGameState = Game1.GameState.Loading;
+                    nbJoueur = true;
+                    position5 = 1;
+                    menuPrincipal = false;
                 }
             }
+            #endregion
+
+            #region Nombre de Joueur
+            if (nbJoueur)
+            {
+                if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Up))
+                {
+                    position5 = position5 + 1;
+                    //Console.WriteLine(position);
+                }
+                if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Down))
+                {
+                    position5 = position5 - 1;
+                    //Console.WriteLine(position);
+                }
+                if (currentKeyboardState != oldKeyboardState && currentKeyboardState.IsKeyDown(Keys.Escape))
+                {
+                    menuPrincipal = true;
+                    position = 1;
+                    nbJoueur = false;
+                    Game1.currentGameState = Game1.GameState.Menu;
+                }
+
+                if (position5 < 1) { position5 = 2; }
+                if (position5 > 2) { position5 = 1; }
+
+                if (position5 == 1 && currentKeyboardState.IsKeyDown(Keys.Enter))
+                {
+                    //lancer single player
+                }
+                if (position5 == 2 && currentKeyboardState.IsKeyDown(Keys.Enter))
+                {
+                    //lancer multiplayer
+                }
+            }
+
             #endregion
 
             #region Option

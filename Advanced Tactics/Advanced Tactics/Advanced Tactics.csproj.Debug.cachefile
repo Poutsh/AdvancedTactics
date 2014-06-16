@@ -18,7 +18,6 @@ Content\Menu\TitreOptions.xnb
 Content\Menu\TitreQuitter.xnb
 Content\Curseur\viseurB.xnb
 Content\Curseur\viseurR.xnb
-Content\Curseur\viseurJ.xnb
 Content\Map\0 eau.xnb
 Content\Map\1 terre.xnb
 Content\Map\2 montagne.xnb
@@ -35,6 +34,7 @@ Content\Menu\TitreMapEditor.xnb
 Content\Menu\TitreMultiPlayer.xnb
 Content\Menu\TitreSinglePlayer.xnb
 Content\Case\bleu.xnb
+Content\Unit\BAA.xnb
 Content\Unit\BCommando.xnb
 Content\Unit\BDoc.xnb
 Content\Unit\BEngineer.xnb
@@ -52,14 +52,6 @@ Content\Unit\RPlane.xnb
 Content\Unit\RPvt.xnb
 Content\Unit\RTank.xnb
 Content\Unit\RTruck.xnb
-Content\Case\B.xnb
-Content\Case\R.xnb
-Content\Unit\pdame.xnb
-Content\Unit\pfou.xnb
-Content\Unit\ppion.xnb
-Content\Unit\ptour.xnb
-Content\Unit\BAA.xnb
-Content\Unit\pcav.xnb
 Content\Son\click1.xnb
 Content\Son\explosound.xnb
 Content\Son\teleportsound.xnb
@@ -68,7 +60,15 @@ Content\Son\ingamemusic.xnb
 Content\font.xnb
 Content\info.xnb
 Content\info2.xnb
+Content\Case\B.xnb
+Content\Case\R.xnb
 Content\message.xnb
+Content\Curseur\viseurJ.xnb
+Content\Unit\pdame.xnb
+Content\Unit\pfou.xnb
+Content\Unit\ppion.xnb
+Content\Unit\ptour.xnb
+Content\Unit\pcav.xnb
 Content\message2.xnb
 Content\Case\vert.xnb
 Content\Curseur\viseurV.xnb
