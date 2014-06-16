@@ -14,14 +14,30 @@ namespace Advanced_Tactics
 
         static private KeyboardState curKeyBState = new KeyboardState();
         static private KeyboardState prevKeyBState = new KeyboardState();
+        static double ClickTimer;
+        const double TimerDelay = 500;
+        static int ee = 0;
 
         static public void Update()
         {
             prevMouseState = curMouseState;
             prevKeyBState = curKeyBState;
 
+
+
             curMouseState = Mouse.GetState();
             curKeyBState = Keyboard.GetState();
+        }
+
+        static public bool doubleclick(GameTime gameTime)
+        {
+            ClickTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (curMouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && ee == 0)
+            {
+                if (ClickTimer < TimerDelay) ee = 1; else ee = 0;
+                ClickTimer = 0;
+            }
+            return ee == 1;
         }
 
         static public Vector2 getMousePos()

@@ -32,7 +32,7 @@ namespace Advanced_Tactics
 
 
                 case GameState.Game:
-                    Informations.Draw(spriteBatch, gameTime, Match, viseur);
+                    Info.Draw(spriteBatch, gameTime, Match, viseur);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     tileMap.Draw(spriteBatch);
 
@@ -43,10 +43,10 @@ namespace Advanced_Tactics
                     }
 
 
-
                     for (int i = 0; i < Match.Players[0].UnitOfPlayer.Count(); i++) Match.Players[0].UnitOfPlayer[i].DrawUnit(spriteBatch, gameTime);
                     for (int i = 0; i < Match.Players[1].UnitOfPlayer.Count(); i++) Match.Players[1].UnitOfPlayer[i].DrawUnit(spriteBatch, gameTime);
 
+                    Match.Shop(spriteBatch,viseur);
                     spriteBatch.End();
 
                     spriteBatch.Begin();

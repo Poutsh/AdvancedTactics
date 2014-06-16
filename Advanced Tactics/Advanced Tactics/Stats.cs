@@ -46,7 +46,7 @@ namespace Advanced_Tactics
                 case "Commando":
                     return 10;
                 case "Doc":
-                    return 10;
+                    return -15;
                 case "Engineer":
                     return 10;
                 case "Pvt":

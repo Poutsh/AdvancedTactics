@@ -11,12 +11,12 @@ using System.Xml;
 
 namespace Advanced_Tactics
 {
-    class Informations
+    public class Informations
     {
         SpriteFont font, font2;
         Data data;
 
-        Sprite unit;
+        public Sprite unit;
         Sprite fondmetal, magasin, info;
         ContentManager ctt;
         Cell[,] map;
@@ -50,7 +50,7 @@ namespace Advanced_Tactics
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             info.Draw(data, spriteBatch, new Vector2((data.PosXInit / 2) - info.Texture.Width / 2, 0));
-            magasin.Draw(data, spriteBatch, new Vector2((data.PosXInit / 2) - magasin.Texture.Width / 2, 4 * data.WindowHeight / 7));
+            magasin.Draw(data, spriteBatch, new Vector2(17, 388));
             fondmetal.Draw(data, spriteBatch, new Vector2(0, 0));
             spriteBatch.End();
 
@@ -73,8 +73,18 @@ namespace Advanced_Tactics
                 unit.Draw(data, spriteBatch, new Vector2(this.font.MeasureString("Unit :  " + map[viseur.viseurX, viseur.viseurY].unitOfCell.Classe + "    ").X, 240), 1.2f);
                 spriteBatch.DrawString(this.font, string.Format("PV : "), new Vector2(17 + this.font.MeasureString("Unit :").X - this.font.MeasureString("PV :").X, 280), Color.Black);
                 spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.PV), new Vector2(17 + this.font.MeasureString("Unit :").X - this.font.MeasureString("PV :").X + this.font.MeasureString("PV :  ").X, 280), Color.Red);
-                spriteBatch.DrawString(this.font, string.Format("Strength : "), new Vector2(35, 300), Color.Black);
-                spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Strength), new Vector2(35 + this.font.MeasureString("Strength :  ").X, 300), Color.Red);
+
+                if (map[viseur.viseurX, viseur.viseurY].unitOfCell.Rang == "Doc")
+                {
+                    spriteBatch.DrawString(this.font, string.Format("Heal : "), new Vector2(35, 300), Color.Black);
+                    spriteBatch.DrawString(this.font2, string.Format("{0}", Math.Abs(map[viseur.viseurX, viseur.viseurY].unitOfCell.Strength)), new Vector2(35 + this.font.MeasureString("Heal :  ").X, 300), Color.Red);
+                }
+                else
+                {
+                    spriteBatch.DrawString(this.font, string.Format("Strength : "), new Vector2(35, 300), Color.Black);
+                    spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Strength), new Vector2(35 + this.font.MeasureString("Strength :  ").X, 300), Color.Red);
+                }                
+                
                 spriteBatch.DrawString(this.font, string.Format("Value : "), new Vector2(35, 320), Color.Black);
                 spriteBatch.DrawString(this.font2, string.Format("{0}", map[viseur.viseurX, viseur.viseurY].unitOfCell.Point), new Vector2(35 + this.font.MeasureString("Value :  ").X, 320), Color.Red);
             }
@@ -99,11 +109,16 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font, string.Format("Field : "), new Vector2(17, 350), Color.Black);
             spriteBatch.DrawString(this.font, string.Format("{0}", field), new Vector2(17 + this.font.MeasureString("Field :  ").X, 350), color);
 
-            spriteBatch.DrawString(this.font, string.Format("Money "), new Vector2(17, 530), Color.Black);
-            spriteBatch.DrawString(this.font, string.Format("{0}", match.PlayerTurn.Money), new Vector2(17 + this.font.MeasureString("Money  ").X, 530), Color.Gold);
+            spriteBatch.DrawString(this.font, string.Format("Money "), new Vector2(17, 500), Color.Black);
+            spriteBatch.DrawString(this.font2, string.Format("{0}", match.PlayerTurn.Money), new Vector2(17 + this.font.MeasureString("Money  ").X, 500), Color.Gold);
+            if (viseur.currentViseurState == Viseur.ViseurState.Build)
+            {
+                spriteBatch.DrawString(this.font, string.Format("Fund "), new Vector2(17, 540), Color.Black);
+                spriteBatch.DrawString(this.font2, string.Format("{0}", match.PlayerTurn.Money - viseur.cost), new Vector2(17 + this.font.MeasureString("Fund ").X, 540), Color.Gold);
+            }
 
-
-
+            spriteBatch.DrawString(this.font, string.Format("Cost "), new Vector2(17, 520), Color.Black);
+            spriteBatch.DrawString(this.font2, string.Format("{0}", viseur.cost), new Vector2(17 + this.font.MeasureString("Cost  ").X, 520), Color.Gold);
             spriteBatch.End();
         }
     }

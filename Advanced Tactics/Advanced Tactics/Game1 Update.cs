@@ -98,7 +98,7 @@ namespace Advanced_Tactics
 
                         viseur.Update(gameTime, ListToDraw, spriteBatch);
 
-                        Informations.Update(Data, map.Carte);
+                        Info.Update(Data, map.Carte);
 
                         instance.Volume = 0.4f;
 

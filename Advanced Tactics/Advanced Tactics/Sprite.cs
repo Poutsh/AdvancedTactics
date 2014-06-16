@@ -16,8 +16,8 @@ namespace Advanced_Tactics
         public Texture2D Texture { get { return texture; } set { texture = value; } }
         private Texture2D texture;
 
-        public Vector2 Position { get { return position; } set { position = value; } }
-        private Vector2 position;
+        public Vector Position { get { return position; } set { position = value; } }
+        private Vector position;
 
         public Vector2 Direction { get { return direction; } set { direction = Vector2.Normalize(value); } }
         private Vector2 direction;
@@ -33,22 +33,22 @@ namespace Advanced_Tactics
 
         public Sprite()
         {
-            position = Vector2.Zero;
+            position = Vector.Zero;
             direction = Vector2.Zero;
             speed = 0;
         }
 
-        public virtual void LC(ContentManager content, string assetName)
+        public void LC(ContentManager content, string assetName)
         {
             texture = content.Load<Texture2D>(assetName);
         }
 
-        public virtual void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             position += direction * speed * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public virtual void HandleInput(KeyboardState keyboardState, MouseState mouseState)
+        public void HandleInput(KeyboardState keyboardState, MouseState mouseState)
         {
         }
 
@@ -64,8 +64,9 @@ namespace Advanced_Tactics
         /// <param name="data"></param>
         /// <param name="spriteBatch"></param>
         /// <param name="posinit"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit)
+        public void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit)
         {
+            position = new Vector(posinit.X, posinit.Y);
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
         }
         /// <summary>
@@ -75,8 +76,9 @@ namespace Advanced_Tactics
         /// <param name="spriteBatch"></param>
         /// <param name="posinit"></param>
         /// <param name="origin"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, Vector2 origin)
+        public void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, Vector2 origin)
         {
+            position = new Vector(posinit.X, posinit.Y);
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, origin, data.Scale, SpriteEffects.None, 1);
         }
         /// <summary>
@@ -86,8 +88,9 @@ namespace Advanced_Tactics
         /// <param name="spriteBatch"></param>
         /// <param name="posinit"></param>
         /// <param name="Scale"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, float Scale)
+        public void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, float Scale)
         {
+            position = new Vector(posinit.X, posinit.Y);
             spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
         }
         /// <summary>
@@ -97,10 +100,21 @@ namespace Advanced_Tactics
         /// <param name="spriteBatch"></param>
         /// <param name="posinit"></param>
         /// <param name="blink"></param>
-        public virtual void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, bool blink)
+        public void Draw(Data data, SpriteBatch spriteBatch, Vector2 posinit, bool blink)
         {
+            position = new Vector(posinit.X, posinit.Y);
             if (blink)
                 spriteBatch.Draw(texture, posinit, null, Color.White, 0, Vector2.Zero, data.Scale, SpriteEffects.None, 1);
+        }
+
+        /// <summary>
+        /// rectangle
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="rectangle"></param>
+        public void Draw(SpriteBatch spriteBatch, Rectangle rectangle)
+        {
+            spriteBatch.Draw(texture, rectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         #endregion

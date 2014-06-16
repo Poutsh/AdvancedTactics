@@ -22,7 +22,7 @@ namespace Advanced_Tactics
         public ViseurState currentViseurState;
 
         public Sprite spviseur, Viseurjaune;
-        public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal;
+        public Sprite spCaserouge, spCasebleu, Viseurbleu, Viseurrouge, Viseurnormal, spCase3bleu;
         public List<Sprite> ListSprite;
 
         public Cell[,] map;
@@ -50,6 +50,11 @@ namespace Advanced_Tactics
         public Sprite spriteViseur { get { return spviseur; } }
         Stats stats;
         Message2 message;
+
+        public Rectangle AA, Commando, Doc, Engineer, Plane, Pvt, Tank, Truck, Queen, Rook, Bishop, Knight, Pawn;
+        Rectangle[] test;
+        String[] test2;
+        public int cost { get { return stats.PointUnit(test2[0], test2[1]); } }
         #endregion
 
         // // // // // // // // 
@@ -84,10 +89,13 @@ namespace Advanced_Tactics
             Viseurnormal = new Sprite(); Viseurnormal.LC(Game1.Ctt, "Curseur/viseur");
             spCaserouge = new Sprite(); spCaserouge.LC(Game1.Ctt, "Case/rouge");
             spCasebleu = new Sprite(); spCasebleu.LC(Game1.Ctt, "Case/bleu");
+            spCase3bleu = new Sprite(); spCase3bleu.LC(Game1.Ctt, "Case/bleu");
             currentViseurState = ViseurState.Normal;
             coord.X = data.MapWidth / 2;
             coord.Y = data.MapHeight / 2;
             message = new Message2();
+            test = new Rectangle[2];
+            test2 = new String[2];
         }
 
         #endregion
@@ -110,6 +118,8 @@ namespace Advanced_Tactics
             depSelec = false; depPos = Vector.Zero;
             destSelec = false; destPos = Vector.Zero;
             UnitTemp = new Unit();
+            test = new Rectangle[2];
+            test2 = new String[2];
             currentViseurState = ViseurState.Normal;
         }
 
@@ -159,13 +169,17 @@ namespace Advanced_Tactics
 
         #region UPDATE
 
-        public virtual void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
+        public void Update(GameTime gameTime, List<Unit> ListOfUnit, SpriteBatch spriteBatch)
         {
             curmouse = Mouse.GetState();
             if (Match.canStart)
             {
                 if (depSelec && !destSelec && (Inputs.Keyr(Keys.Back) || (curmouse.MiddleButton == ButtonState.Pressed && curmouse != oldmouse))) Reset();
 
+
+                /////////////////////////
+                /// ViseurState.Normal
+                ////////////////////////
                 if (currentViseurState == ViseurState.Normal)
                 {
                     if (!map[viseurX, viseurY].Occupe || map[viseurX, viseurY].unitOfCell.Player != Match.PlayerTurn) spviseur = Viseurnormal;
@@ -181,7 +195,7 @@ namespace Advanced_Tactics
                         Match.PlayerTurn.HQ.HQPossible = stats.HQPoss(Match.PlayerTurn.HQ, map, data);
                         currentViseurState = ViseurState.Build;
                     }
-                    else if (map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)))
+                    else if (map[viseurX, viseurY].unitOfCell != null && Match.canStart && Match.PlayerTurn.PlayerName == map[viseurX, viseurY].unitOfCell.Player.PlayerName && ViseurOverUnit && !depSelec && (Inputs.Keyr(Keys.Enter) || (Inputs.Clickd() && Inputs.Clickg())))
                     {
                         depSelec = true;
                         depPos = new Vector(coordViseur.X, coordViseur.Y);
@@ -189,6 +203,9 @@ namespace Advanced_Tactics
                         currentViseurState = ViseurState.Moving;
                     }
                 }
+                /////////////////////////
+                /// ViseurState.AttackCheat
+                ////////////////////////
                 else if (currentViseurState == ViseurState.AttackCheat)
                 {
                     map[viseurX, viseurY].unitOfCell.PV -= 10000;
@@ -205,6 +222,9 @@ namespace Advanced_Tactics
                     Match.TurnbyTurn.MvtCount++;
                     Reset();
                 }
+                /////////////////////////
+                /// ViseurState.Attack
+                ////////////////////////
                 else if (currentViseurState == ViseurState.Attack)
                 {
                     if (UnitTemp.Classe != "King") map[viseurX, viseurY].unitOfCell.PV -= map[depPos.X, depPos.Y].unitOfCell.Strength;
@@ -222,21 +242,51 @@ namespace Advanced_Tactics
                     Match.TurnbyTurn.MvtCount++;
                     Reset();
                 }
+                /////////////////////////
+                /// ViseurState.Build
+                ////////////////////////
                 else if (currentViseurState == ViseurState.Build)
                 {
                     if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
                     else if (Contains<Vector>(map[depPos.X, depPos.Y].unitOfCell.HQPossible, map[viseurX, viseurY].VectorOfCell)) spviseur = Viseurbleu;
                     else spviseur = Viseurrouge;
 
-                    if (depSelec && map[viseurX, viseurY].unitOfCell == null && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
+                    string[] arrayrang = new string[] { "AA", "Commando", "Doc", "Engineer", "Plane", "Pvt", "Tank", "Truck" };
+                    string[] arrayclasse = new string[] { "Queen", "Rook", "Bishop", "Knight", "Pawn" };
+
+                    if (currentViseurState == ViseurState.Build)
+                    {
+                        if (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)
+                        {
+                            if (AA.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = AA; test2[0] = "AA"; }
+                            else if (Commando.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = Commando; test2[0] = "Commando"; }
+                            else if (Doc.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = Doc; test2[0] = "Doc"; }
+                            else if (Engineer.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = Engineer; test2[0] = "Engineer"; }
+                            else if (Plane.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = Plane; test2[0] = "Plane"; }
+                            else if (Pvt.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = Pvt; test2[0] = "Pvt"; }
+                            else if (Tank.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = Tank; test2[0] = "Tank"; }
+                            else if (Truck.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[0] = Truck; test2[0] = "Truck"; }
+                        }
+
+                        if (curmouse.LeftButton == ButtonState.Pressed && curmouse != oldmouse)
+                        {
+                            if (Queen.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[1] = Queen; test2[1] = "Queen"; }
+                            else if (Rook.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[1] = Rook; test2[1] = "Rook"; }
+                            else if (Bishop.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[1] = Bishop; test2[1] = "Bishop"; }
+                            else if (Knight.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[1] = Knight; test2[1] = "Knight"; }
+                            else if (Pawn.Contains(Mouse.GetState().X, Mouse.GetState().Y)) { test[1] = Pawn; test2[1] = "Pawn"; }
+                        }
+                    }
+
+                    if (arrayrang.Contains(test2[0]) && arrayclasse.Contains(test2[1]) && depSelec && map[viseurX, viseurY].unitOfCell == null && (Inputs.Keyr(Keys.B) || (curmouse.RightButton == ButtonState.Pressed && curmouse != oldmouse)))
                     {
                         destSelec = true;
                         destPos = new Vector(coordViseur.X, coordViseur.Y);
-                        
-                        if (Match.PlayerTurn.Money - stats.PointUnit("Plane", "Queen") >= 0)
+
+                        if (Match.PlayerTurn.Money - stats.PointUnit(test2[0], test2[1]) >= 0)
                         {
-                            map[viseurX, viseurY].unitOfCell = new Unit(data, "Plane", "Queen", map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
-                            Match.PlayerTurn.Money -= stats.PointUnit("Plane", "Queen");
+                            map[viseurX, viseurY].unitOfCell = new Unit(data, test2[0], test2[1], map, destPos.X, destPos.Y, Match.PlayerTurn, Match);
+                            Match.PlayerTurn.Money -= stats.PointUnit(test2[0], test2[1]);
                             Match.TurnbyTurn.MvtCount++;
                         }
                         else
@@ -246,6 +296,9 @@ namespace Advanced_Tactics
                         Reset();
                     }
                 }
+                /////////////////////////
+                /// ViseurState.Moving
+                ////////////////////////
                 else if (currentViseurState == ViseurState.Moving)
                 {
                     if (map[depPos.X, depPos.Y] == map[viseurX, viseurY]) spviseur = Viseurjaune;
@@ -267,11 +320,17 @@ namespace Advanced_Tactics
                         Reset();
                     }
                 }
+                /////////////////////////
+                /// ViseurState.Reset
+                ////////////////////////
                 else if (currentViseurState == ViseurState.Reset)
                 {
                     Reset();
                     currentViseurState = ViseurState.Normal;
                 }
+                /////////////////////////
+                /// ViseurState.CtrlZ
+                ////////////////////////
                 else if (currentViseurState == ViseurState.CtrlZ)
                 {
                     doMoveUnit(map[CtrlZ[0].X, CtrlZ[0].Y].unitOfCell, map[CtrlZ[1].X, CtrlZ[1].Y], ListOfUnit);
@@ -338,6 +397,8 @@ namespace Advanced_Tactics
             BlinkSprite(gameTime, blinkviseur, spriteBatch);
             spviseur.Draw(data, spriteBatch, map[viseurX, viseurY].positionPixel);
             message.Draw(spriteBatch);
+
+            foreach (Rectangle item in test) Viseurjaune.Draw(spriteBatch, item);
         }
 
         #endregion

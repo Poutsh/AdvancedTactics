@@ -51,6 +51,6 @@ namespace Advanced_Tactics
         public int BufferWidth { get { return graphics.PreferredBackBufferWidth; } set { graphics.PreferredBackBufferWidth = value; } }
 
         Debug debug;
-        Informations Informations;
+        Informations Info;
     }
 }

@@ -16,7 +16,7 @@ namespace Advanced_Tactics
     /// </summary>
     class Debug
     {
-        SpriteFont font;
+        SpriteFont font,font2;
         MouseState mouseStateCurrent;
         Data data;
 
@@ -43,6 +43,7 @@ namespace Advanced_Tactics
         public void LoadContent()
         {
             font = ctt.Load<SpriteFont>("font");
+            font2 = ctt.Load<SpriteFont>("message");
             _r.LC(ctt, "Case/rouge");
             _b.LC(ctt, "Case/bleu");
         }
@@ -138,6 +139,8 @@ namespace Advanced_Tactics
             spriteBatch.DrawString(this.font,
                     string.Format("ViseurState {0}", _viseur.currentViseurState),
                     new Vector2(10, 700), Color.Orchid);
+
+            
 
 
             ///////////

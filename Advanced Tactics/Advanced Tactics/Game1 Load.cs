@@ -44,8 +44,8 @@ namespace Advanced_Tactics
             BufferHeight = 720;
             Data = new Data("map2", BufferWidth, BufferHeight);
 
-            currentGameState = GameState.Menu;
-            //currentGameState = GameState.GameStart;
+            //currentGameState = GameState.Menu;
+            currentGameState = GameState.GameStart;
             message = new Message();
             ListToDraw = new List<Unit>();
 
@@ -100,12 +100,14 @@ namespace Advanced_Tactics
                     instance.IsLooped = true;
                     instance.Play();
 
-                    sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
                     viseur = new Viseur(Data, map.Carte, Match);
 
-                    debug = new Debug(); debug.LoadContent();
-                    Informations = new Informations(); Informations.LoadContent();
+                    Match.LoadShop();
+                    Info = new Informations(); Info.LoadContent();
+                    sppointer = new Sprite(); sppointer.LC(Game1.Ctt, "Curseur/pointer");
+                    
 
+                    debug = new Debug(); debug.LoadContent();                    
                     if (false)
                     {
                         //Unit
